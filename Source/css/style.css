@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+}
+
+footer {
+    padding: 35px 0;
+    color: #888888;
+    font-size: 12px;
+    background: #f7f7f7;
+}
+
+footer img {
+    width: 45px;
+    height: 45px;
+}
+
+footer p.copyright {
+    line-height: 30px;
+}
+
+footer .contact-fb a {
+    padding: 0 4px;
+    color: #666666;
+}
+
+footer .contact-fb a:nth-child(2) {
+    padding: 0 7px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+footer .contact-fb a:hover {
+ 	text-decoration: underline;
+    color: #000;
+}
