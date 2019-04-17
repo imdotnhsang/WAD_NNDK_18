@@ -4,6 +4,105 @@ body {
     font-family: Arial;
 }
 
+header ul.navbar-nav-custom img {
+    width: 22px;
+    height: 22px;
+}
+
+nav.navbar-custom {
+    padding: 0;
+    z-index: 3;
+    margin: 0;
+    box-shadow: 0px 3px 2px #e1e1e1;
+}
+
+/*nav.navbar-custom ul.navbar-nav-custom {
+    width: 100%;
+}*/
+
+nav div.navbar-collapse-custom ul {
+    list-style: none;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    background: #000;
+}
+
+nav .navbar-collapse-custom .blank {
+    background: #000;
+    height: 39px;
+}
+
+nav div.navbar-collapse-custom ul li {
+    position: relative;
+    float: left;
+    margin: 0;
+    border: 0;
+}
+
+nav .nav-link-custom {
+    color: #fff !important;
+}
+
+nav div.navbar-collapse-custom ul li a {
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    display: block;
+    color: #fff;
+    padding: 0.5rem 1rem !important;
+    font-size: 14px;
+}
+
+nav div.navbar-collapse-custom ul ul {
+    display: none;
+    position: absolute;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    width: 150px;
+    box-shadow: 0 7px 10px -2px #000;
+    background: #1a1a1a;
+}
+
+nav div.navbar-collapse-custom ul ul li {
+    float: none;
+}
+
+nav div.navbar-collapse-custom ul ul ul {
+    top: 0%;
+    left: 100%;
+}
+
+nav div.navbar-collapse-custom ul li:hover {
+    background: #1a1a1a;
+}
+
+nav div.navbar-collapse-custom ul li a i {
+    color: #dd3333;
+    transition: color .5s;
+}
+nav div.navbar-collapse-custom ul li:hover a i {
+    color: #fff;
+}
+
+
+
+nav div.navbar-collapse-custom ul li:hover>ul {
+    display: block;
+}
+
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
+    font-size: 12px;
+    transition: opacity .25s;
+}
+
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li:hover>a {
+    background: #1a1a1a;
+    color: #fff;
+    opacity: .8;
+}
+
 footer {
     padding: 35px 0;
     color: #888888;
@@ -32,6 +131,12 @@ footer .contact-fb a:nth-child(2) {
 }
 
 footer .contact-fb a:hover {
- 	text-decoration: underline;
+    text-decoration: underline;
     color: #000;
+}
+
+@media screen and (max-width: 1200px) {
+    .blank {
+        display: none;
+    }
 }
