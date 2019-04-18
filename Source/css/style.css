@@ -38,6 +38,7 @@ nav div.navbar-collapse-custom ul li {
     float: left;
     margin: 0;
     border: 0;
+    transition: background .5s;
 }
 
 nav .nav-link-custom {
@@ -54,7 +55,9 @@ nav div.navbar-collapse-custom ul li a {
 }
 
 nav div.navbar-collapse-custom ul ul {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    display: block;
     position: absolute;
     padding: 0;
     border: 0;
@@ -63,6 +66,7 @@ nav div.navbar-collapse-custom ul ul {
     width: 150px;
     box-shadow: 0 7px 10px -2px #000;
     background: #1a1a1a;
+    transition: visibility 0s, opacity .5s;
 }
 
 nav div.navbar-collapse-custom ul ul li {
@@ -82,14 +86,14 @@ nav div.navbar-collapse-custom ul li a i {
     color: #dd3333;
     transition: color .5s;
 }
+
 nav div.navbar-collapse-custom ul li:hover a i {
     color: #fff;
 }
 
-
-
 nav div.navbar-collapse-custom ul li:hover>ul {
-    display: block;
+   visibility: visible;
+   opacity: 1;
 }
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
@@ -122,6 +126,8 @@ footer p.copyright {
 footer .contact-fb a {
     padding: 0 4px;
     color: #666666;
+    text-decoration-color: transparent;
+    transition: text-decoration-color .5s, color .5s;
 }
 
 footer .contact-fb a:nth-child(2) {
@@ -132,6 +138,7 @@ footer .contact-fb a:nth-child(2) {
 
 footer .contact-fb a:hover {
     text-decoration: underline;
+    text-decoration-color: #000;
     color: #000;
 }
 
