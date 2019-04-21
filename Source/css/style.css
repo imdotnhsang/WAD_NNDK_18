@@ -265,7 +265,7 @@ footer .contact-fb a:hover {
         top: 46px;
         left: 0;
         background: rgba(0, 0, 0, .25);
-        height: calc(100vh - 46px);
+        height: calc(100vh - 45px);
         transform: translateX(-100%);
         transition: all .75s;
     }
