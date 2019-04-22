@@ -5,7 +5,7 @@ $('.hamburger').click(function () {
         $('.nav-link-custom').click(function () {
             $(this).parent().children('ul').slideToggle();
         });
-        $('.child-list-nav-links').click(function () {
+        $('.child-nav-links').click(function () {
             var index = $(this).val();
             var checkO = $(this).attr("checkOpen");
             if (checkO == 'false') {
@@ -26,9 +26,15 @@ $('.hamburger').click(function () {
     }
 });
 
+$('.logo').click(function(){
+   location.reload();
+});
+
+$( window ).resize(function() {
+    location.reload();
+});
 
 $(document).ready(function () {
-    $("#scroll-top").hide();
     $(function () {
         $(window).scroll(function () {
             if ($(this).scrollTop() > 100) {

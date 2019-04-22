@@ -13,9 +13,10 @@ header .navbar-custom .logo {
 header .navbar-custom .logo img {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
-header .navbar-custom .logo:hover {
+header .navbar-custom .logo img:hover {
     opacity: .8;
 }
 
@@ -257,6 +258,7 @@ footer .contact-fb a:hover {
 }
 
 #scroll-top {
+    display: none;
     position: fixed;
     right: 10px;
     bottom: 0;
@@ -337,7 +339,7 @@ footer .contact-fb a:hover {
         transform: translateX(-100%);
         transition: all .75s;
     }
-    .list-nav-links .list-child-list-nav-links {
+    .list-nav-links .list-child-nav-links {
         padding-top: 46px;
         box-shadow: 1px -1px 5px 0px #343A40;
         width: 250px;
@@ -346,7 +348,7 @@ footer .contact-fb a:hover {
         overflow-y: scroll;
         overflow-x: none;
     }
-    .list-nav-links li.child-list-nav-links {
+    .list-nav-links li.child-nav-links {
         width: 100%;
     }
     #btn-hamburger:checked~.navbar-nav-custom .list-nav-links {
