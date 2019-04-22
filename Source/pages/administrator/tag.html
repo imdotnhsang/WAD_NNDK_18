@@ -48,7 +48,7 @@
             <li class="nav-item">
               <a class="nav-link active" href="tag.html">
                 <i class="material-icons">note_add</i>
-                <span>Tag</span>
+                <span>Tags</span>
               </a>
             </li>
             <li class="nav-item">
@@ -110,35 +110,141 @@
           <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
               <span class="text-uppercase page-subtitle">Administrator</span>
-              <h3 class="page-title">Tag Management</h3>
+              <h3 class="page-title">Tags Management</h3>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-10 mx-auto">
+              <div class="card card-small mb-4">
+                <div class="card-header border-bottom pb-0">
+                    <div class="row pb-3 border-bottom">
+                      <div class="col my-auto">
+                          <h6 class="m-0">List of Tags</h6>
+                      </div>
+                      <div class="col">
+                          <div class="input-group border-bottom w-50 ml-auto">
+                              <input type="text" class="form-control" placeholder="Add New Tag" aria-label="Add new tag"
+                                aria-describedby="basic-addon2">
+                              <div class="input-group-append">
+                                <button class="btn btn-white px-2" type="button">
+                                  <i class="material-icons">add</i>
+                                </button>
+                              </div>
+                            </div>
+                      </div>
+                  </div>
+
+
+                  <table class="table mb-0 mt-3">
+                    <thead class="bg-light">
+                      <tr>
+                        <th scope="col" class="border-0 text-center">#</th>
+                        <th scope="col" class="border-0 text-center">Tag</th>
+                        <th scope="col" class="border-0 text-center"">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class=" text-center">
+                        <td>1</td>
+                        <td>C++</td>
+                        <td>
+                          <button class="btn btn-sm btn-warning mr-1">
+                            <i class="material-icons">edit</i> Edit
+                          </button>
+                          <button class="btn btn-sm btn-danger">
+                            <i class="material-icons">delete</i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr class="text-center">
+                        <td>2</td>
+                        <td>PHP</td>
+                        <td>
+                          <button class="btn btn-sm btn-warning mr-1">
+                            <i class="material-icons">edit</i> Edit
+                          </button>
+                          <button class="btn btn-sm btn-danger">
+                            <i class="material-icons">delete</i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr class="text-center">
+                        <td>3</td>
+                        <td>Java</td>
+                        <td>
+                          <button class="btn btn-sm btn-warning mr-1">
+                            <i class="material-icons">edit</i> Edit
+                          </button>
+                          <button class="btn btn-sm btn-danger">
+                            <i class="material-icons">delete</i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr class="text-center">
+                        <td>4</td>
+                        <td>Javascript</td>
+                        <td>
+                          <button class="btn btn-sm btn-warning mr-1">
+                            <i class="material-icons">edit</i> Edit
+                          </button>
+                          <button class="btn btn-sm btn-danger">
+                            <i class="material-icons">delete</i> Delete
+                          </button>
+                        </td>
+                      </tr>
+                      </tbody>
+                  </table>
+
+                  <div class="w-100 border-top">
+                    <ul class="pagination justify-content-center mt-3">
+                      <li class="page-item mr-1">
+                        <a class="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+                        </a>
+                      </li>
+                      <li class="page-item mr-1 active"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item mr-1"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item mr-1"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link" href="category.html">Category</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="tag.html">Tag</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="news.html">News</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Users</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">My profile</a>
-            </li>
-          </ul>
-          <span class="copyright ml-auto my-auto mr-2">Copyright © 2018
-            <a href="https://designrevision.com" rel="nofollow">DesignRevision</a>
-          </span>
-        </footer>
-      </main>
     </div>
+  </div>
+
+  <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href="category.html">Category</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="tag.html">Tags</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="news.html">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My profile</a>
+      </li>
+    </ul>
+    <span class="copyright ml-auto my-auto mr-2">Copyright © 2018
+      <a href="https://designrevision.com" rel="nofollow">DesignRevision</a>
+    </span>
+  </footer>
+  </main>
+  </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"

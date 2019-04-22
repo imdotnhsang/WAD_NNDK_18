@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../../css/administrator/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <style>
+    <!-- <style>
         .page-item.active .page-link {
             z-index: 1;
             color: #fff;
@@ -29,7 +29,7 @@
             line-height: 20px;
             padding: 0.5rem 0.75rem;
         }
-    </style>
+    </style> -->
 </head>
 
 <body class="h-100">
@@ -147,6 +147,7 @@
                                                 <th scope="col" class="border-0">Title</th>
                                                 <th scope="col" class="border-0">Date</th>
                                                 <th scope="col" class="border-0">Status</th>
+                                                <th scope="col" class="border-0">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -156,11 +157,11 @@
                                                 <td>Kerry</td>
                                                 <td>If We Care For Robots, Who Will Care For Us?</td>
                                                 <td>22/04/2019</td>
-                                                <td align="center">
-                                                    <select class="custom-select w-75">
-                                                        <option value="draf">Draft</option>
-                                                        <option value="publish">Publish</option>
-                                                    </select>
+                                                <td>Draft</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-accent ml-auto">
+                                                        <i class="material-icons">file_copy</i> Publish
+                                                    </button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -169,11 +170,11 @@
                                                 <td>Angela</td>
                                                 <td>If We Care For Robots, Who Will Care For Us?</td>
                                                 <td>22/04/2019</td>
-                                                <td align="center">
-                                                    <select class="custom-select w-75">
-                                                        <option value="draf">Draft</option>
-                                                        <option value="publish">Publish</option>
-                                                    </select>
+                                                <td>Draft</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-accent ml-auto">
+                                                        <i class="material-icons">file_copy</i> Publish
+                                                    </button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -182,11 +183,11 @@
                                                 <td>Nathan</td>
                                                 <td>If We Care For Robots, Who Will Care For Us?</td>
                                                 <td>22/04/2019</td>
-                                                <td align="center">
-                                                    <select class="custom-select w-75">
-                                                        <option value="draf">Draft</option>
-                                                        <option value="publish">Publish</option>
-                                                    </select>
+                                                <td>Draft</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-accent">
+                                                        <i class="material-icons">file_copy</i> Publish
+                                                    </button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -195,11 +196,11 @@
                                                 <td>Angela</td>
                                                 <td>If We Care For Robots, Who Will Care For Us?</td>
                                                 <td>22/04/2019</td>
-                                                <td align="center">
-                                                    <select class="custom-select w-75">
-                                                        <option value="draf">Draft</option>
-                                                        <option value="publish">Publish</option>
-                                                    </select>
+                                                <td>Draft</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-accent ml-auto">
+                                                        <i class="material-icons">file_copy</i> Publish
+                                                    </button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -208,11 +209,19 @@
 
                                 <div class="w-100 border-top">
                                     <ul class="pagination justify-content-center my-2">
-                                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        <li class="page-item mr-1">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item mr-1 active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item mr-1"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item mr-1"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
