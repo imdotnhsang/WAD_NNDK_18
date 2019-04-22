@@ -1,3 +1,12 @@
+
+$('.logo').click(function () {
+    location.reload();
+});
+
+$(window).resize(function () {
+    location.reload();
+});
+
 var checkHamburger = false;
 $('.hamburger').click(function () {
     if (checkHamburger == false) {
@@ -26,12 +35,33 @@ $('.hamburger').click(function () {
     }
 });
 
-$('.logo').click(function(){
-   location.reload();
+$('#btn-open-searchBox').click(function () {
+    var checkO = $(this).attr('checkOpen');
+    if (checkO == 'false') {
+        $('.search-bar').css('visibility', 'visible');
+        $('.search-bar').css('opacity', '1');
+        $('.search-bar').css('transform', 'translate(0,0)');
+        $(this).children('.line-x').fadeIn(500);
+        $(this).attr('checkOpen', 'true');
+
+    } else {
+        $('.search-bar').css('transform', 'translate(0,-50%)');
+        $('.search-bar').css('visibility', 'hidden');
+        $('.search-bar').css('opacity', '0');
+        $(this).children('.line-x').fadeOut(500);
+        $(this).attr('checkOpen', 'false');
+    }
 });
 
-$( window ).resize(function() {
-    location.reload();
+$('#btn-open-informationUser').click(function () {
+    var checkO = $(this).attr('checkOpen');
+    if (checkO == 'false') {
+        $('.information-user').fadeIn(500);
+        $(this).attr('checkOpen', 'true');
+    } else {
+        $('.information-user').fadeOut(500);
+        $(this).attr('checkOpen', 'false');
+    }
 });
 
 $(document).ready(function () {
