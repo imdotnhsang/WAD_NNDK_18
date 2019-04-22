@@ -5,7 +5,6 @@ $('.hamburger').click(function () {
         $('.nav-link-custom').click(function () {
             $(this).parent().children('ul').slideToggle();
         });
-        var checkOpenNLink = false;
         $('.child-list-nav-links').click(function () {
             var index = $(this).val();
             var checkO = $(this).attr("checkOpen");
