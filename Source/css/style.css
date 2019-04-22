@@ -109,6 +109,14 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
     padding: 0.5rem .75rem !important;
 }
 
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:link {
+    background: #23272b;
+}
+
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:visited {
+    background: #23272b;
+}
+
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:hover>a {
     background: #23272b;
     opacity: .8;
@@ -176,8 +184,6 @@ div.modal-custom {
 #btn-hamburger {
     display: none;
 }
-
-.toggle {}
 
 .toggle .line1 {
     transform: rotate(-45deg) translate(-5px, 6px);
