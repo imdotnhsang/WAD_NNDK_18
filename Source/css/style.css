@@ -5,7 +5,7 @@ body {
 }
 
 header .navbar-custom .logo {
-    background: #000;
+    background: #343A40;
     padding: 0.45rem 1rem;
     transition: background .5s;
 }
@@ -16,14 +16,14 @@ header .navbar-custom .logo img {
 }
 
 header .navbar-custom .logo:hover {
-    background: #1a1a1a;
+    opacity: .8;
 }
 
 nav.navbar-custom {
     padding: 0;
     z-index: 3;
     margin: 0;
-    box-shadow: -1px 3px 7px -2px #000;
+    box-shadow: -1px 3px 7px -2px #343A40;
 }
 
 nav div.navbar-collapse-custom ul {
@@ -31,11 +31,11 @@ nav div.navbar-collapse-custom ul {
     position: relative;
     float: left;
     cursor: pointer;
-    background: #000;
+
 }
 
 nav .navbar-collapse-custom .blank {
-    background: #000;
+    background: #343A40;
     height: 46px;
 }
 
@@ -70,8 +70,8 @@ nav div.navbar-collapse-custom ul ul {
     border-radius: 0;
     margin: 0;
     width: 150px;
-    box-shadow: 0 7px 10px -2px #000;
-    background: #1a1a1a;
+    box-shadow: 0 7px 10px -2px #343A40;
+    background: #23272b;
     transition: visibility 0s;
     padding-right: 0.5rem !important;
     padding-left: 0.5rem !important;
@@ -87,7 +87,7 @@ nav div.navbar-collapse-custom ul ul ul {
 }
 
 nav div.navbar-collapse-custom ul li:hover {
-    background: #1a1a1a;
+    background: #23272b;
 }
 
 nav div.navbar-collapse-custom ul li a i {
@@ -111,7 +111,7 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
 }
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:hover>a {
-    background: #1a1a1a;
+    background: #23272b;
     opacity: .8;
 }
 
@@ -155,15 +155,15 @@ nav div.navbar-collapse-custom .hamburger {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    z-index: 4;
+    z-index: 5;
     transform: translate(0, -50%);
     display: none;
 }
 
 nav div.navbar-collapse-custom .hamburger div {
-    border-radius: 2px;
+    border-radius: 1.5px;
     width: 25px;
-    height: 4px;
+    height: 3px;
     background: #fff;
     margin: 5px;
     transition: transform .45s;
@@ -176,10 +176,13 @@ div.modal-custom {
 
 #btn-hamburger {
     display: none;
+
 }
 
+.toggle {}
+
 .toggle .line1 {
-    transform: rotate(-45deg) translate(-6px, 7px);
+    transform: rotate(-45deg) translate(-5px, 6px);
 }
 
 .toggle .line2 {
@@ -187,7 +190,7 @@ div.modal-custom {
 }
 
 .toggle .line3 {
-    transform: rotate(45deg) translate(-6px, -7px);
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
@@ -197,6 +200,16 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
     color: #fff;
+}
+.list-nav-links-blank{
+    display: none;
+    z-index: 4;
+    height: 46px;
+    width: 250px;
+    background: #23272b;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .container {
@@ -238,7 +251,25 @@ footer .contact-fb a:hover {
     color: #000;
 }
 
+/*::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e1e1e1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {}*/
 @media screen and (max-width: 993px) {
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+.list-nav-links-blank{
+    display: block;}
     .navbar-custom {
         position: relative;
     }
@@ -260,21 +291,23 @@ footer .contact-fb a:hover {
     }
 
     .list-nav-links {
+        z-index: 4;
         position: absolute;
         width: 100%;
-        top: 46px;
+        top: 0;
         left: 0;
         background: rgba(0, 0, 0, .25);
-        height: calc(100vh - 45px);
+        height: 100vh;
         transform: translateX(-100%);
         transition: all .75s;
     }
 
     .list-nav-links .list-child-list-nav-links {
-        box-shadow: 1px -1px 5px 0px #1a1a1a;
+        padding-top: 46px;
+        box-shadow: 1px -1px 5px 0px #343A40;
         width: 250px;
-        background: #1a1a1a;
-        height: 100%;
+        background: #23272b;
+        height: calc(100vh + 1px);
         overflow-y: scroll;
         overflow-x: none;
     }
@@ -292,6 +325,7 @@ footer .contact-fb a:hover {
     }
 
     nav div.navbar-collapse-custom ul ul {
+
         position: static;
         display: none;
         box-shadow: none;
@@ -312,4 +346,12 @@ footer .contact-fb a:hover {
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
         border-top: 0px;
     }
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
+    color: #dd3333;
+}
+    nav div.navbar-collapse-custom ul {
+
+        /*    background: #e1e1e1;*/
+    }
+
 }
