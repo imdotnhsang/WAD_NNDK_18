@@ -57,10 +57,10 @@ $('#btn-open-searchBox').click(function () {
 $('#btn-open-informationUser').click(function () {
     var checkO = $(this).attr('checkOpen');
     if (checkO == 'false') {
-        $('.information-user').fadeIn(500);
+        $('.information-user').fadeIn(300);
         $(this).attr('checkOpen', 'true');
     } else {
-        $('.information-user').fadeOut(500);
+        $('.information-user').fadeOut(300);
         $(this).attr('checkOpen', 'false');
     }
 });
