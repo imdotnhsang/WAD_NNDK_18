@@ -287,7 +287,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     display: none;
     z-index: 3;
     border-radius: 5px;
-    background: rgba(41, 41, 41, .96);
+    background: rgba(52, 58, 64, .9);
     position: absolute;
     top: 58px;
     right: 0;
@@ -335,8 +335,8 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     border-width: 7px;
     border-style: solid;
     border-color: transparent;
-    border-top-color: rgba(41, 41, 41, .96);
-    border-left-color: rgba(41, 41, 41, .96);
+    border-top-color: rgba(52, 58, 64, .9);
+    border-left-color: rgba(52, 58, 64, .9);
     transform: rotate(45deg) translate(0, 0);
 }
 
@@ -407,8 +407,9 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 
 .information-user div.list-5-recent-news a:last-child .backgorund-recent-news {
     padding-top: 5px;
-    padding-bottom:0;
+    padding-bottom: 0;
 }
+
 .information-user div.list-5-recent-news a:hover {
     text-decoration: none
 }
