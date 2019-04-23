@@ -3,8 +3,7 @@ $('.logo').click(function () {
     location.reload();
 });
 
-var currentWidth=$(window).width();
-alert(currentWidth);    
+var currentWidth=$(window).width();  
 $(window).resize(function () {
     if((currentWidth<=993 & $(window).width()>993)||(currentWidth>993 & $(window).width()<=993)){
         location.reload();
