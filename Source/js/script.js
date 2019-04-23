@@ -3,8 +3,12 @@ $('.logo').click(function () {
     location.reload();
 });
 
+var currentWidth=$(window).width();
+alert(currentWidth);    
 $(window).resize(function () {
-    location.reload();
+    if((currentWidth<=993 & $(window).width()>993)||(currentWidth>993 & $(window).width()<=993)){
+        location.reload();
+    }
 });
 
 var checkHamburger = false;
