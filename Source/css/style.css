@@ -108,7 +108,7 @@ nav div.navbar-collapse-custom ul li:hover>ul {
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
     font-size: 12px;
     color: #fff;
-    padding: 0.5rem .75rem !important;
+    padding: .5rem .75rem !important;
 }
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:link {
@@ -497,5 +497,8 @@ footer .contact-fb a:hover {
     }
     nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
         border-bottom: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
+        padding: .6rem .75rem !important;
     }
 }
