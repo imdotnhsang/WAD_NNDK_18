@@ -5,41 +5,37 @@ body {
 }
 
 header .navbar-custom .logo {
-    background: #000;
-    padding: 0.5rem 1rem;
+    background: #343A40;
+    padding: 0.45rem 1rem;
     transition: background .5s;
 }
 
 header .navbar-custom .logo img {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
-header .navbar-custom .logo:hover {
-    background: #1a1a1a;
+header .navbar-custom .logo img:hover {
+    opacity: .8;
 }
 
 nav.navbar-custom {
     padding: 0;
     z-index: 3;
     margin: 0;
-    /*    box-shadow: 0px 3px 2px #e1e1e1;*/
+    box-shadow: -1px 3px 7px -2px #343A40;
 }
-
-/*nav.navbar-custom ul.navbar-nav-custom {
-    width: 100%;
-}*/
 
 nav div.navbar-collapse-custom ul {
     list-style: none;
     position: relative;
     float: left;
     cursor: pointer;
-    background: #000;
 }
 
-nav .navbar-collapse-custom .blank {
-    background: #000;
+nav .navbar-collapse-custom .blank-col {
+    background: #343A40;
     height: 46px;
 }
 
@@ -65,6 +61,7 @@ nav div.navbar-collapse-custom ul li a {
 }
 
 nav div.navbar-collapse-custom ul ul {
+    z-index: 3;
     visibility: hidden;
     opacity: 0;
     display: block;
@@ -74,9 +71,9 @@ nav div.navbar-collapse-custom ul ul {
     border-radius: 0;
     margin: 0;
     width: 150px;
-    box-shadow: 0 7px 10px -2px #000;
-    background: #1a1a1a;
-    transition: visibility 0s;
+    box-shadow: 0 7px 10px -2px #343A40;
+    background: #23272b;
+    transition: all .5s;
     padding-right: 0.5rem !important;
     padding-left: 0.5rem !important;
 }
@@ -91,15 +88,15 @@ nav div.navbar-collapse-custom ul ul ul {
 }
 
 nav div.navbar-collapse-custom ul li:hover {
-    background: #1a1a1a;
+    background: #23272b;
 }
 
-nav div.navbar-collapse-custom ul li a i {
+nav div.navbar-collapse-custom a.nav-link-custom i {
     color: #dd3333;
-    transition: color .5s;
+    transition: all .5s;
 }
 
-nav div.navbar-collapse-custom ul li:hover a>i {
+nav div.navbar-collapse-custom ul li:hover a.nav-link-custom>i {
     color: #fff;
 }
 
@@ -114,8 +111,16 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
     padding: 0.5rem .75rem !important;
 }
 
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:link {
+    background: #23272b;
+}
+
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:visited {
+    background: #23272b;
+}
+
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:hover>a {
-    background: #1a1a1a;
+    background: #23272b;
     opacity: .8;
 }
 
@@ -123,8 +128,16 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
     border-top: 1px solid #cccccc;
 }
 
+ul.dropdown-menu-custom li .fa-asterisk {
+    font-size: 12px!important;
+}
+
 nav div.navbar-collapse-custom .control-nav {
     padding-right: 15px;
+}
+
+nav div.navbar-collapse-custom .control-nav .search {
+    position: relative;
 }
 
 nav div.navbar-collapse-custom .control-nav .search i {
@@ -135,7 +148,19 @@ nav div.navbar-collapse-custom .control-nav .search i {
 }
 
 nav div.navbar-collapse-custom .control-nav .search:hover i {
-    color: #25AEE4 !important;
+    color: #d4d4d4 !important;
+}
+
+nav div.navbar-collapse-custom .control-nav .search div.line-x {
+    position: absolute;
+    display: none;
+    border-radius: 1.5px;
+    width: 25px;
+    height: 3px;
+    background: #dc3545;
+    top: 50%;
+    left: 25%;
+    transform: rotate(-45deg) translate(0%, -50%);
 }
 
 nav div.navbar-collapse-custom .control-nav .sign {
@@ -159,23 +184,18 @@ nav div.navbar-collapse-custom .hamburger {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    z-index: 4;
+    z-index: 5;
     transform: translate(0, -50%);
     display: none;
 }
 
 nav div.navbar-collapse-custom .hamburger div {
-    border-radius: 2px;
+    border-radius: 1.5px;
     width: 25px;
-    height: 4px;
+    height: 3px;
     background: #fff;
     margin: 5px;
-    transition: transform .45s;
-}
-
-div.modal-custom {
-    display: none;
-    background-color: rgba(0, 0, 0, .8);
+    transition: transform .5s;
 }
 
 #btn-hamburger {
@@ -183,7 +203,7 @@ div.modal-custom {
 }
 
 .toggle .line1 {
-    transform: rotate(-45deg) translate(-6px, 7px);
+    transform: rotate(-45deg) translate(-5px, 6px);
 }
 
 .toggle .line2 {
@@ -191,20 +211,121 @@ div.modal-custom {
 }
 
 .toggle .line3 {
-    transform: rotate(45deg) translate(-6px, -7px);
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
-    color: #dd3333;
-    transition: all 0s !important;
-}
-
-nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
     color: #fff;
 }
 
-.container {
-    height: 100vh;
+.list-nav-links .blank {
+    display: none;
+    z-index: 4;
+    height: 46px;
+    width: 250px;
+    background: #23272b;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.space-blank {
+    height: 60px;
+}
+
+.search-bar {
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    border-radius: 7px;
+    box-shadow: 0 0 7px 2px #e1e1e1;
+    transform: translate(0, -50%);
+    transition: all .5s;
+}
+
+.search-bar input {
+    font-size: 14px;
+    color: #495057;
+    width: 100%;
+    padding: 5px 15px;
+    border-right: 0;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.search-bar button {
+    font-size: 20px;
+    padding: 10px 12px;
+    border-right: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    border-left: 0;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    background: #fff;
+    cursor: pointer;
+    color: #25AEE4;
+}
+
+.search-bar button:hover {
+    opacity: .75;
+}
+
+.information-user {
+    display: none;
+    z-index: 3;
+    border-radius: 5px;
+    padding: 15px;
+    background: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 58px;
+    right: 0;
+    width: 250px;
+    transform: translate(-10px, 0);
+}
+
+.information-user div.avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.information-user img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.information-user div.information {
+    width: 160px;
+    padding-left: 10px;
+}
+
+.information-user div.information .full-name {
+    font-size: 16px;
+    color: #fff;
+}
+
+.information-user div.information .badge-custom {
+    color: #000;
+    background: #f6be13;
+}
+
+.information-user div.information::before {
+    position: absolute;
+    top: -7px;
+    right: 15px;
+    content: '';
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: rgba(0, 0, 0, .8);
+    border-left-color: rgba(0, 0, 0, .8);
+    transform: rotate(45deg) translate(0, 0);
 }
 
 footer {
@@ -242,11 +363,63 @@ footer .contact-fb a:hover {
     color: #000;
 }
 
+#scroll-top {
+    display: none;
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+    margin: 0;
+    text-decoration: none;
+    z-index: 10;
+}
+
+#scroll-top button {
+    width: 40px;
+    height: 45px;
+    cursor: pointer;
+    border: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #343A40;
+    color: #fff;
+    box-shadow: 0 0 1px #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+}
+
+#scroll-top button:hover {
+    background-color: #23272b;
+}
+
+/*::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e1e1e1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {}*/
+
 @media screen and (max-width: 993px) {
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+    .list-nav-links .blank {
+        display: block;
+    }
     .navbar-custom {
         position: relative;
     }
-
     .logo {
         position: absolute;
         top: 50%;
@@ -254,47 +427,41 @@ footer .contact-fb a:hover {
         transform: translate(-50%, -50%);
         z-index: 3;
     }
-
     .hamburger {
         display: block !important;
     }
-
-    nav div.navbar-collapse-custom ul li a i {
+    nav div.navbar-collapse-custom ul li a.nav-link-custom i {
         font-size: 20px;
     }
-
     .list-nav-links {
+        z-index: 4;
         position: absolute;
-        width: 250px;
-        top: 46px;
+        width: 100%;
+        top: 0;
         left: 0;
-        background: #1a1a1a;
-        height: calc(100vh - 46px);
+        background: rgba(0, 0, 0, .25);
+        height: 100vh;
         transform: translateX(-100%);
         transition: all .75s;
+    }
+    .list-nav-links .list-child-nav-links {
+        padding-top: 46px;
+        box-shadow: 1px -1px 5px 0px #343A40;
+        width: 250px;
+        background: #23272b;
+        height: calc(100vh + 1px);
         overflow-y: scroll;
         overflow-x: none;
     }
-
-    .list-nav-links li.child-list-nav-links {
+    .list-nav-links li.child-nav-links {
         width: 100%;
     }
-
-    .test {
-        position: absolute;
-        width: 100vw;
-        height: 100%;
-        background: red;
-    }
-
     #btn-hamburger:checked~.navbar-nav-custom .list-nav-links {
         transform: translateX(0%);
     }
-
     nav div.navbar-collapse-custom ul.navbar-nav-custom {
         justify-content: flex-end !important;
     }
-
     nav div.navbar-collapse-custom ul ul {
         position: static;
         display: none;
@@ -303,17 +470,32 @@ footer .contact-fb a:hover {
         opacity: 1;
         visibility: visible;
     }
-
     nav div.navbar-collapse-custom ul li:hover>ul {
         display: none;
-
     }
-
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
         padding-left: 1.5rem !important;
     }
-
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
         border-top: 0px;
+    }
+    nav div.navbar-collapse-custom ul ul {
+        transition: all 0s;
+    }
+    nav div.navbar-collapse-custom ul li a.nav-link-custom {
+        border-top: 1px solid #443d3d;
+        border-bottom: 0;
+    }
+    nav div.navbar-collapse-custom ul li a {
+        border-bottom: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul li:last-child a {
+        border-bottom: 0;
+    }
+    nav div.navbar-collapse-custom ul li ul {
+        border-top: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
+        border-bottom: 1px solid #443d3d;
     }
 }
