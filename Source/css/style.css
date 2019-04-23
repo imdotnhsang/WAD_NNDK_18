@@ -91,12 +91,12 @@ nav div.navbar-collapse-custom ul li:hover {
     background: #23272b;
 }
 
-nav div.navbar-collapse-custom ul li a i {
-    color: #dd3333;
-    transition: color .5s;
+nav div.navbar-collapse-custom a.nav-link-custom i {
+    color: #dd3333;   
+    transition: all .5s;
 }
 
-nav div.navbar-collapse-custom ul li:hover a>i {
+nav div.navbar-collapse-custom ul li:hover a.nav-link-custom>i {
     color: #fff;
 }
 
@@ -212,7 +212,6 @@ nav div.navbar-collapse-custom .hamburger div {
 
 nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     color: #dd3333;
-    transition: all 0s !important;
 }
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
@@ -433,7 +432,6 @@ footer .contact-fb a:hover {
     }
     nav div.navbar-collapse-custom ul li a i {
         font-size: 20px;
-        transition: all .5s;
     }
     .list-nav-links {
         z-index: 4;
@@ -489,5 +487,11 @@ footer .contact-fb a:hover {
     }
     nav div.navbar-collapse-custom ul ul {
         transition: all 0s;
+    }
+    nav div.navbar-collapse-custom ul li a {
+        border-top: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
+        border-bottom: 1px solid #443d3d;
     }
 }
