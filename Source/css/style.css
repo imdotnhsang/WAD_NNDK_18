@@ -475,6 +475,8 @@ footer .contact-fb a:hover {
     }
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
         padding-left: 1.5rem !important;
+        padding-top: .6rem!important;
+        padding-bottom: .6rem!important;
     }
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
         border-top: 0px;
@@ -499,6 +501,6 @@ footer .contact-fb a:hover {
         border-bottom: 1px solid #443d3d;
     }
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
-        padding: .6rem .75rem !important;
+        
     }
 }
