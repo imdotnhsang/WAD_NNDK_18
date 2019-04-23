@@ -92,7 +92,7 @@ nav div.navbar-collapse-custom ul li:hover {
 }
 
 nav div.navbar-collapse-custom a.nav-link-custom i {
-    color: #dd3333;   
+    color: #dd3333;
     transition: all .5s;
 }
 
@@ -126,6 +126,10 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li:hover>a {
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
     border-top: 1px solid #cccccc;
+}
+
+ul.dropdown-menu-custom li .fa-asterisk {
+    font-size: 12px!important;
 }
 
 nav div.navbar-collapse-custom .control-nav {
@@ -211,10 +215,6 @@ nav div.navbar-collapse-custom .hamburger div {
 }
 
 nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
-    color: #dd3333;
-}
-
-nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
     color: #fff;
 }
 
@@ -430,7 +430,7 @@ footer .contact-fb a:hover {
     .hamburger {
         display: block !important;
     }
-    nav div.navbar-collapse-custom ul li a i {
+    nav div.navbar-collapse-custom ul li a.nav-link-custom i {
         font-size: 20px;
     }
     .list-nav-links {
@@ -479,16 +479,20 @@ footer .contact-fb a:hover {
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
         border-top: 0px;
     }
-    nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
-        color: #dd3333;
-    }
-    nav div.navbar-collapse-custom ul li:hover a>i {
-        color: #dd3333;
-    }
     nav div.navbar-collapse-custom ul ul {
         transition: all 0s;
     }
+    nav div.navbar-collapse-custom ul li a.nav-link-custom {
+        border-top: 1px solid #443d3d;
+        border-bottom: 0;
+    }
     nav div.navbar-collapse-custom ul li a {
+        border-bottom: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul li:last-child a {
+        border-bottom: 0;
+    }
+    nav div.navbar-collapse-custom ul li ul {
         border-top: 1px solid #443d3d;
     }
     nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
