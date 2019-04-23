@@ -13,9 +13,10 @@ header .navbar-custom .logo {
 header .navbar-custom .logo img {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
-header .navbar-custom .logo:hover {
+header .navbar-custom .logo img:hover {
     opacity: .8;
 }
 
@@ -31,10 +32,9 @@ nav div.navbar-collapse-custom ul {
     position: relative;
     float: left;
     cursor: pointer;
-
 }
 
-nav .navbar-collapse-custom .blank {
+nav .navbar-collapse-custom .blank-col {
     background: #343A40;
     height: 46px;
 }
@@ -61,6 +61,7 @@ nav div.navbar-collapse-custom ul li a {
 }
 
 nav div.navbar-collapse-custom ul ul {
+    z-index: 3;
     visibility: hidden;
     opacity: 0;
     display: block;
@@ -72,7 +73,7 @@ nav div.navbar-collapse-custom ul ul {
     width: 150px;
     box-shadow: 0 7px 10px -2px #343A40;
     background: #23272b;
-    transition: visibility 0s;
+    transition: all .5s;
     padding-right: 0.5rem !important;
     padding-left: 0.5rem !important;
 }
@@ -90,12 +91,12 @@ nav div.navbar-collapse-custom ul li:hover {
     background: #23272b;
 }
 
-nav div.navbar-collapse-custom ul li a i {
+nav div.navbar-collapse-custom a.nav-link-custom i {
     color: #dd3333;
-    transition: color .5s;
+    transition: all .5s;
 }
 
-nav div.navbar-collapse-custom ul li:hover a>i {
+nav div.navbar-collapse-custom ul li:hover a.nav-link-custom>i {
     color: #fff;
 }
 
@@ -107,7 +108,15 @@ nav div.navbar-collapse-custom ul li:hover>ul {
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
     font-size: 12px;
     color: #fff;
-    padding: 0.5rem .75rem !important;
+    padding: .5rem .75rem !important;
+}
+
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:link {
+    background: #23272b;
+}
+
+nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a:visited {
+    background: #23272b;
 }
 
 nav div.navbar-collapse-custom ul.dropdown-menu-custom li:hover>a {
@@ -119,8 +128,16 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
     border-top: 1px solid #cccccc;
 }
 
+ul.dropdown-menu-custom li .fa-asterisk {
+    font-size: 12px!important;
+}
+
 nav div.navbar-collapse-custom .control-nav {
     padding-right: 15px;
+}
+
+nav div.navbar-collapse-custom .control-nav .search {
+    position: relative;
 }
 
 nav div.navbar-collapse-custom .control-nav .search i {
@@ -131,7 +148,19 @@ nav div.navbar-collapse-custom .control-nav .search i {
 }
 
 nav div.navbar-collapse-custom .control-nav .search:hover i {
-    color: #25AEE4 !important;
+    color: #d4d4d4 !important;
+}
+
+nav div.navbar-collapse-custom .control-nav .search div.line-x {
+    position: absolute;
+    display: none;
+    border-radius: 1.5px;
+    width: 25px;
+    height: 3px;
+    background: #dc3545;
+    top: 50%;
+    left: 25%;
+    transform: rotate(-45deg) translate(0%, -50%);
 }
 
 nav div.navbar-collapse-custom .control-nav .sign {
@@ -166,20 +195,12 @@ nav div.navbar-collapse-custom .hamburger div {
     height: 3px;
     background: #fff;
     margin: 5px;
-    transition: transform .45s;
-}
-
-div.modal-custom {
-    display: none;
-    background-color: rgba(0, 0, 0, .5);
+    transition: transform .5s;
 }
 
 #btn-hamburger {
     display: none;
-
 }
-
-.toggle {}
 
 .toggle .line1 {
     transform: rotate(-45deg) translate(-5px, 6px);
@@ -194,14 +215,10 @@ div.modal-custom {
 }
 
 nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
-    color: #dd3333;
-    transition: all 0s !important;
-}
-
-nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
     color: #fff;
 }
-.list-nav-links-blank{
+
+.list-nav-links .blank {
     display: none;
     z-index: 4;
     height: 46px;
@@ -212,8 +229,112 @@ nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
     left: 0;
 }
 
-.container {
-    height: 100vh;
+.space-blank {
+    height: 60px;
+}
+
+.search-bar {
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    border-radius: 7px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 0 7px 2px #e1e1e1;
+    -webkit-box-shadow: 0 0 7px 2px #e1e1e1;
+    transform: translate(0, -50%);
+    transition: all .5s;
+}
+
+.search-bar input {
+    font-size: 14px;
+    color: #495057;
+    width: 100%;
+    padding: 5px 15px;
+    background: #fff;
+    border: 0;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+}
+
+.search-bar button {
+    font-size: 20px;
+    padding: 10px 12px;
+    border: 0;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-border-top-right-radius: 7px;
+    -webkit-border-bottom-right-radius: 7px;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    background: #fff;
+    cursor: pointer;
+    color: #25AEE4;
+}
+
+.search-bar button:hover {
+    opacity: .75;
+}
+
+.information-user {
+    display: none;
+    z-index: 3;
+    border-radius: 5px;
+    padding: 15px;
+    background: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 58px;
+    right: 0;
+    width: 250px;
+    transform: translate(-10px, 0);
+}
+
+.information-user div.avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.information-user img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.information-user div.information {
+    width: 160px;
+    padding-left: 10px;
+}
+
+.information-user div.information .full-name {
+    font-size: 16px;
+    color: #fff;
+}
+
+.information-user div.information .badge-custom {
+    color: #000;
+    background: #f6be13;
+}
+
+.information-user div.information::before {
+    position: absolute;
+    top: -7px;
+    right: 15px;
+    content: '';
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: rgba(0, 0, 0, .8);
+    border-left-color: rgba(0, 0, 0, .8);
+    transform: rotate(45deg) translate(0, 0);
 }
 
 footer {
@@ -251,6 +372,39 @@ footer .contact-fb a:hover {
     color: #000;
 }
 
+#scroll-top {
+    display: none;
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+    margin: 0;
+    text-decoration: none;
+    z-index: 10;
+}
+
+#scroll-top button {
+    width: 40px;
+    height: 45px;
+    cursor: pointer;
+    border: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #343A40;
+    color: #fff;
+    box-shadow: 0 0 1px #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+}
+
+#scroll-top button:hover {
+    background-color: #23272b;
+}
+
 /*::-webkit-scrollbar {
     width: 5px;
 }
@@ -264,16 +418,17 @@ footer .contact-fb a:hover {
 }
 
 ::-webkit-scrollbar-thumb:hover {}*/
+
 @media screen and (max-width: 993px) {
     ::-webkit-scrollbar {
         width: 0px;
     }
-.list-nav-links-blank{
-    display: block;}
+    .list-nav-links .blank {
+        display: block;
+    }
     .navbar-custom {
         position: relative;
     }
-
     .logo {
         position: absolute;
         top: 50%;
@@ -281,15 +436,12 @@ footer .contact-fb a:hover {
         transform: translate(-50%, -50%);
         z-index: 3;
     }
-
     .hamburger {
         display: block !important;
     }
-
-    nav div.navbar-collapse-custom ul li a i {
+    nav div.navbar-collapse-custom ul li a.nav-link-custom i {
         font-size: 20px;
     }
-
     .list-nav-links {
         z-index: 4;
         position: absolute;
@@ -301,31 +453,29 @@ footer .contact-fb a:hover {
         transform: translateX(-100%);
         transition: all .75s;
     }
-
-    .list-nav-links .list-child-list-nav-links {
+    .list-nav-links .list-child-nav-links {
         padding-top: 46px;
         box-shadow: 1px -1px 5px 0px #343A40;
         width: 250px;
         background: #23272b;
         height: calc(100vh + 1px);
         overflow-y: scroll;
-        overflow-x: none;
+        -moz-overflow-y: scroll;
+        -webkit-overflow-y: scroll;
+        overflow-x: hidden;
+        -webkit-overflow-x: hidden;
+        -moz-overflow-x: hidden;
     }
-
-    .list-nav-links li.child-list-nav-links {
+    .list-nav-links li.child-nav-links {
         width: 100%;
     }
-
     #btn-hamburger:checked~.navbar-nav-custom .list-nav-links {
         transform: translateX(0%);
     }
-
     nav div.navbar-collapse-custom ul.navbar-nav-custom {
         justify-content: flex-end !important;
     }
-
     nav div.navbar-collapse-custom ul ul {
-
         position: static;
         display: none;
         box-shadow: none;
@@ -333,25 +483,37 @@ footer .contact-fb a:hover {
         opacity: 1;
         visibility: visible;
     }
-
     nav div.navbar-collapse-custom ul li:hover>ul {
         display: none;
-
     }
-
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
         padding-left: 1.5rem !important;
+        padding-top: .6rem!important;
+        padding-bottom: .6rem!important;
     }
-
     nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child {
         border-top: 0px;
     }
-nav div.navbar-collapse-custom ul.dropdown-menu-custom li:last-child:hover>a {
-    color: #dd3333;
-}
-    nav div.navbar-collapse-custom ul {
-
-        /*    background: #e1e1e1;*/
+    nav div.navbar-collapse-custom ul ul {
+        transition: all 0s;
     }
-
+    nav div.navbar-collapse-custom ul li a.nav-link-custom {
+        border-top: 1px solid #443d3d;
+        border-bottom: 0;
+    }
+    nav div.navbar-collapse-custom ul li a {
+        border-bottom: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul li:last-child a {
+        border-bottom: 0;
+    }
+    nav div.navbar-collapse-custom ul li ul {
+        border-top: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
+        border-bottom: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {
+        
+    }
 }
