@@ -415,13 +415,14 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .container .top-5-hot-news {
-    padding: 5px;
+    padding: 4px;
     background: linear-gradient(90deg, #f7c626 15%, #f68c2f 40%, #e5127d 85%);
 }
 
 .container .top-5-hot-news .background-hot-news{
     background: #23272b;
 }
+
 .container .top-5-hot-news .large-hot-news img {
     height: 345px;
 }
