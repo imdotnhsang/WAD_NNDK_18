@@ -34,7 +34,7 @@ nav div.navbar-collapse-custom ul {
     cursor: pointer;
 }
 
-nav .navbar-collapse-custom .blank-col {
+nav .navbar-collapse-custom .blank-col-nav {
     background: #343A40;
     height: 46px;
 }
@@ -230,7 +230,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .space-blank {
-    height: 60px;
+    height: 75px;
 }
 
 .search-bar {
@@ -411,7 +411,37 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .information-user div.list-5-recent-news a:hover {
-    text-decoration: none
+    text-decoration: none;
+}
+
+.container .top-5-hot-news {
+    padding: 5px;
+    background: linear-gradient(90deg, #f7c626 15%, #f68c2f 40%, #e5127d 85%);
+}
+.container .top-5-hot-news .large-new-news {
+    padding: 0 5px 0 0;
+}
+.container .top-5-hot-news .small-new-news {
+   background: #23272b;
+}
+.container .top-5-hot-news .large-new-news img {
+
+    width: 450px;
+    height: 345px;
+}
+.container .top-5-hot-news .small-new-news img {
+
+    width: 385px;
+    height: 215px;
+}
+.container .top-5-hot-news .item-custom{
+background: #23272b;
+}
+.container .top-5-hot-news .item-custom .title-item-custom{
+    position: absolute;
+    color: #fff;
+    top: 0;
+    left: 0;;
 }
 
 footer {

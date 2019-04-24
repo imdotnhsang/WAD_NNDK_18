@@ -82,3 +82,17 @@ $(document).ready(function () {
         });
     });
 });
+
+var owl;
+var widthItem;
+$(document).ready(function() {
+    owl = $('.owl-carousel-slide-top-5-new-news').owlCarousel({
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        nav: false,
+        dots: false,
+        items: 1,
+    });
+});
