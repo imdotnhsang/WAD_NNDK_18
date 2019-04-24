@@ -86,7 +86,7 @@ $(document).ready(function () {
 var owl;
 var widthItem;
 $(document).ready(function() {
-    owl = $('.owl-carousel-slide-top-5-new-news').owlCarousel({
+    owl = $('.owl-carousel-slide-top-5-hot-news').owlCarousel({
         loop: true,
         autoplay: true,
         autoplayTimeout: 3000,
