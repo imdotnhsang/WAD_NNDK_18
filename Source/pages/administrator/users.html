@@ -124,8 +124,7 @@
                         </div>
                         <div class="col">
                             <div class="input-group border-bottom w-50 ml-auto">
-                                <select class="custom-select" id="">
-                                    <option value="-1" selected>Choose user type</option>
+                                <select class="custom-select" id="js-user-type-select">
                                     <option value="subscriber">Subscriber</option>
                                     <option value="writer">Writer</option>
                                     <option value="editor">Editor</option>
@@ -135,82 +134,142 @@
                     </div>
 
                     <div class="card-body p-0 pb-0 text-center">
-                        <table class="table mb-0">
+                        <table class="table mb-0" id="js-subscriber-table">
                             <thead class="bg-light">
                                 <tr>
                                     <th scope="col" class="border-0">#</th>
-                                    <th scope="col" class="border-0">Writer</th>
-                                    <th scope="col" class="border-0">Editor</th>
-                                    <th scope="col" class="border-0">Title</th>
-                                    <th scope="col" class="border-0">Date</th>
-                                    <th scope="col" class="border-0">Status</th>
-                                    <th scope="col" class="border-0">Actions</th>
+                                    <th scope="col" class="border-0">Fullname</th>
+                                    <th scope="col" class="border-0">Email</th>
+                                    <th scope="col" class="border-0">Birthday</th>
+                                    <th scope="col" class="border-0">Registration Date</th>
+                                    <th scope="col" class="border-0">Expiration date</th>
+                                    <th scope="col" class="border-0">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Ali</td>
-                                    <td>Kerry</td>
-                                    <td>If We Care For Robots, Who Will Care For Us?</td>
+                                    <td>Subscriber 1</td>
+                                    <td>subscriber1@gmail.com</td>
+                                    <td>01/01/1998</td>
+                                    <td>01/04/2019</td>
                                     <td>22/04/2019</td>
-                                    <td>Draft</td>
                                     <td>
                                         <button class="btn btn-md btn-accent ml-auto">
-                                            <i class="material-icons">file_copy</i> Publish
-                                        </button>
-                                        <button class="btn btn-md btn-danger ml-auto">
-                                            <i class="material-icons">cancel</i> Deny
+                                            <i class="material-icons">file_copy</i> Renew
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td>Clark</td>
-                                    <td>Angela</td>
-                                    <td>If We Care For Robots, Who Will Care For Us?</td>
+                                    <td>Subscriber 2</td>
+                                    <td>subscriber2@gmail.com</td>
+                                    <td>01/01/1998</td>
+                                    <td>01/04/2019</td>
                                     <td>22/04/2019</td>
-                                    <td>Draft</td>
                                     <td>
                                         <button class="btn btn-md btn-accent ml-auto">
-                                            <i class="material-icons">file_copy</i> Publish
-                                        </button>
-                                        <button class="btn btn-md btn-danger ml-auto">
-                                            <i class="material-icons">cancel</i> Deny
+                                            <i class="material-icons">file_copy</i> Renew
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td>Jerry</td>
-                                    <td>Nathan</td>
-                                    <td>If We Care For Robots, Who Will Care For Us?</td>
+                                    <td>Subscriber 3</td>
+                                    <td>subscriber3@gmail.com</td>
+                                    <td>01/01/1998</td>
+                                    <td>01/04/2019</td>
                                     <td>22/04/2019</td>
-                                    <td>Publish</td>
-                                    <td>
-                                        <!-- <button class="btn btn-sm btn-accent">
-                                        <i class="material-icons">file_copy</i> Publish
-                                    </button> -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Colt</td>
-                                    <td>Angela</td>
-                                    <td>If We Care For Robots, Who Will Care For Us?</td>
-                                    <td>22/04/2019</td>
-                                    <td>Draft</td>
                                     <td>
                                         <button class="btn btn-md btn-accent ml-auto">
-                                            <i class="material-icons">file_copy</i> Publish
-                                        </button>
-                                        <button class="btn btn-md btn-danger ml-auto">
-                                            <i class="material-icons">cancel</i> Deny
+                                            <i class="material-icons">file_copy</i> Renew
                                         </button>
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>    
+                        </table>   
+                        
+                        <table class="table mb-0" id="js-writer-table" style="display: none;">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th scope="col" class="border-0">#</th>
+                                    <th scope="col" class="border-0">Fullname</th>
+                                    <th scope="col" class="border-0">Email</th>
+                                    <th scope="col" class="border-0">Pseudonym</th>
+                                    <th scope="col" class="border-0">Birthday</th>
+                                    <th scope="col" class="border-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Writer 1</td>
+                                    <td>writer1@gmail.com</td>
+                                    <td>Pseudonym 1</td>
+                                    <td>01/01/1998</td>
+                                    <td>
+                                        <button class="btn btn-md btn-accent ml-auto">
+                                            <i class="material-icons">file_copy</i> Renew
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Writer 2</td>
+                                    <td>writer2@gmail.com</td>
+                                    <td>Pseudonym 2</td>
+                                    <td>01/01/1998</td>
+                                    <td>
+                                        <button class="btn btn-md btn-accent ml-auto">
+                                            <i class="material-icons">file_copy</i> Renew
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Writer 3</td>
+                                    <td>writer3@gmail.com</td>
+                                    <td>Pseudonym 3</td>
+                                    <td>01/01/1998</td>
+                                    <td>
+                                        <button class="btn btn-md btn-accent ml-auto">
+                                            <i class="material-icons">file_copy</i> Renew
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>  
+
+                        <table class="table mb-0" id="js-editor-table" style="display: none;">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th scope="col" class="border-0">#</th>
+                                    <th scope="col" class="border-0">Fullname</th>
+                                    <th scope="col" class="border-0">Email</th>
+                                    <th scope="col" class="border-0">Birthday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Editor 1</td>
+                                    <td>editor1@gmail.com</td>
+                                    <td>01/01/1998</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Editor 2</td>
+                                    <td>editor2@gmail.com</td>
+                                    <td>01/01/1998</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Editor 3</td>
+                                    <td>editor3@gmail.com</td>
+                                    <td>01/01/1998</td>
+                                </tr>
+                            </tbody>
+                        </table>  
                     </div>
 
                     <div class="border-top">
@@ -275,6 +334,7 @@
   <script src="../../js/administrator/extras.1.1.0.min.js"></script>
   <script src="../../js/administrator/shards-dashboards.1.1.0.min.js"></script>
   <script src="../../js/administrator/app/app-blog-overview.1.1.0.js"></script>
+  <script src="../../js/administrator/administrator.js"></script>
 </body>
 
 </html>
