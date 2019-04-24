@@ -9,14 +9,15 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../css/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet" href="../css/styles/extras.1.1.0.min.css">
+
+     <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
+
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css"> 
-    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../css/shards-dashboards.1.1.0.min.css">
-    <link rel="stylesheet" href="../css/extras.1.1.0.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
   </head>
   <body class="h-100">
-      
+   
     <div class="color-switcher-toggle animated pulse infinite">
       <i class="material-icons">settings</i>
     </div>
@@ -37,7 +38,6 @@
               </a>
             </nav>
           </div>
-          
           <div class="nav-wrapper">
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -83,11 +83,9 @@
               <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
                 <div class="input-group input-group-seamless ml-3">
                   <div class="input-group-prepend">
-                    <div class="input-group-text">
-                     
-                    </div>
+                    
                   </div>
-                  <input class="navbar-search form-control" type="text" placeholder="Xin chào Hổ Phong !" readonly="true"> </div>
+                  <input class="navbar-search form-control" type="text" placeholder="Xin chào Hổ Phong !"readonly="true" > </div>
               </form>
               <ul class="navbar-nav border-left flex-row ">
                 <li class="nav-item border-right dropdown notifications">
@@ -127,8 +125,8 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar" src="../img/avatar/2.jpg" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Hổ Phong</span>
+                    <img class="user-avatar" src="../img/images/avatars/2.jpg" alt="User Avatar">
+                    <span class="d-none d-md-inline-block">Sierra Brooks</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-small">
                     <a class="dropdown-item" href="user-profile-lite.html">
@@ -143,11 +141,7 @@
                   </div>
                 </li>
               </ul>
-              <nav class="nav">
-                <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
-                  <i class="material-icons">&#xE5D2;</i>
-                </a>
-              </nav>
+              
             </nav>
           </div>
           <!-- / .main-navbar -->
@@ -155,95 +149,139 @@
             <!-- Page Header -->
             <div class="page-header row no-gutters py-4">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <span class="text-uppercase page-subtitle">Blog Posts</span>
-                <h3 class="page-title">Add New Post</h3>
+                <span class="text-uppercase page-subtitle">Components</span>
+                <h3 class="page-title">Blog Posts</h3>
               </div>
             </div>
             <!-- End Page Header -->
             <div class="row">
-              <div class="col-lg-9 col-md-12">
-                <!-- Add New Post Form -->
-                <div class="card card-small mb-3">
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/1.jpeg');">
+                    <a href="#" class="card-post__category badge badge-pill badge-dark">Business</a>
+                    
+                  </div>
                   <div class="card-body">
-                    <form class="add-new-post">
-                      <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title">
-                      <div class="comsume_content">
-                        <textarea class="form-control form-control-lg mb-3" rows="3" cols="106" placeholder="Summary of your article here"></textarea>
-                      </div>
-                      <div class="post_editor_content">
-                        <textarea name="textarea_content" rows="30" cols=106></textarea>
-                      </div>
-                    </form>
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">Conduct at an replied removal an amongst</a>
+                    </h5>
+                    <p class="card-text d-inline-block mb-3">However venture pursuit he am mr cordial. Forming musical am hearing studied be luckily. But in for determine what would see...</p>
+                    <span class="text-muted">28 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
                   </div>
                 </div>
-                <!-- / Add New Post Form -->
               </div>
-              <div class="col-lg-3 col-md-12">
-                <!-- Post Overview -->
-                <div class='card card-small mb-3'>
-                  <div class="card-header border-bottom">
-                    <h6 class="m-0">Tags</h6>
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/2.jpeg');">
+                    <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
+                    
                   </div>
-                  <div class='card-body p-0'>
-                    <ul class="list-group list-group-flush">
-                      
-                       <li class="list-group-item d-flex px-3">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Add tag">
-                          <div class="input-group-append">
-                            <button class="btn btn-white px-2" type="button">
-                              <i class="material-icons">add</i>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      
-                    </ul>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">Off tears are day blind smile alone had ready</a>
+                    </h5>
+                    <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...</p>
+                    <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
                   </div>
                 </div>
-                <!-- / Post Overview -->
-                <!-- Post Overview -->
-                <div class='card card-small mb-3'>
-                  <div class="card-header border-bottom">
-                    <h6 class="m-0">Categories</h6>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/3.jpeg');">
+                    <a href="#" class="card-post__category badge badge-pill badge-primary">Technology</a>
+                    
                   </div>
-                  <div class='card-body p-0'>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item px-3 pb-2">
-                        <div class="custom-control custom-checkbox mb-1">
-                          <input type="checkbox" class="custom-control-input" id="category1" checked>
-                          <label class="custom-control-label" for="category1">Uncategorized</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-1">
-                          <input type="checkbox" class="custom-control-input" id="category2" checked>
-                          <label class="custom-control-label" for="category2">Design</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-1">
-                          <input type="checkbox" class="custom-control-input" id="category3">
-                          <label class="custom-control-label" for="category3">Development</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-1">
-                          <input type="checkbox" class="custom-control-input" id="category4">
-                          <label class="custom-control-label" for="category4">Writing</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-1">
-                          <input type="checkbox" class="custom-control-input" id="category5">
-                          <label class="custom-control-label" for="category5">Books</label>
-                        </div>
-                      </li>
-                     <li class="list-group-item d-flex px-3">
-                        <button class="btn btn-sm btn-outline-accent">
-                          <i class="material-icons">save</i> Save Draft</button>
-                        <button class="btn btn-sm btn-accent ml-auto">
-                          <i class="material-icons">file_copy</i> Publish</button>
-                      </li> 
-                    </ul>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">Difficult in delivered extensive at direction</a>
+                    </h5>
+                    <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...</p>
+                    <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
                   </div>
                 </div>
-                <!-- / Post Overview -->
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/4.jpeg');">
+                    <a href="#" class="card-post__category badge badge-pill badge-warning">Technology</a>
+                    
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">It so numerous if he may outlived disposal</a>
+                    </h5>
+                    <p class="card-text d-inline-block mb-3">How but sons mrs lady when. Her especially are unpleasant out alteration continuing unreserved ready road market resolution...</p>
+                    <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post h-100">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/7.jpeg');"></div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">Extremity so attending objection as engrossed</a>
+                    </h5>
+                    <p class="card-text">Morning prudent removal an letters by. On could my in order never it. Or excited certain sixteen it to parties colonel not seeing...</p>
+                  </div>
+                  <div class="card-footer text-muted border-top py-3">
+                     <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post h-100">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/8.jpeg');"></div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">Bed sincerity yet therefore forfeited his </a>
+                    </h5>
+                    <p class="card-text">Pursuit chamber as elderly amongst on. Distant however warrant farther to of. My justice wishing prudent waiting in be...</p>
+                  </div>
+                  <div class="card-footer text-muted border-top py-3">
+                     <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post h-100">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/9.jpeg');"></div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">Object remark lively all did feebly excuse our</a>
+                    </h5>
+                    <p class="card-text">Speaking throwing breeding betrayed children my to. Me marianne no he horrible produced ye. Sufficient unpleasing and...</p>
+                  </div>
+                  <div class="card-footer text-muted border-top py-3">
+                     <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post h-100">
+                  <div class="card-post__image" style="background-image: url('../img/images/content-management/10.jpeg');"></div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="text-fiord-blue" href="#">His followed carriage proposal entrance</a>
+                    </h5>
+                    <p class="card-text">For county now sister engage had season better had waited. Occasional mrs interested far expression directly as regard...</p>
+                  </div>
+                  <div class="card-footer text-muted border-top py-3">
+                     <span class="text-muted">29 February 2019</span>
+                    <button class="btn btn-sm btn-accent ml-auto">Edit</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+           
           <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
             <ul class="nav">
               <li class="nav-item">
@@ -270,12 +308,7 @@
       </div>
     </div>
     
-    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-    <script >
-      CKEDITOR.replace('textarea_content');
-      CKEDITOR.config.height = "500"
-          
-    </script>
+     
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -285,7 +318,5 @@
 
     <script src="../js/scripts/extras.1.1.0.min.js"></script>
     <script src="../js/scripts/shards-dashboards.1.1.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.min.js"></script>
-    <script src="../js/scripts/app/app-blog-new-post.1.1.0.js"></script>
   </body>
 </html>

@@ -287,7 +287,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     display: none;
     z-index: 3;
     border-radius: 5px;
-    background: rgba(41, 41, 41, .96);
+    background: rgba(52, 58, 64, .9);
     position: absolute;
     top: 58px;
     right: 0;
@@ -296,7 +296,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .control-information-user {
-    padding: 15px 15px 9px 15px;
+    padding: 15px;
 }
 
 .information-user div.avatar-user {
@@ -335,18 +335,17 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     border-width: 7px;
     border-style: solid;
     border-color: transparent;
-    border-top-color: rgba(41, 41, 41, .96);
-    border-left-color: rgba(41, 41, 41, .96);
+    border-top-color: rgba(52, 58, 64, .9);
+    border-left-color: rgba(52, 58, 64, .9);
     transform: rotate(45deg) translate(0, 0);
 }
 
 .information-user div.control {
     margin-left: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
 
 .information-user div.control a {
-    font-size: 15px;
+    font-size: 14px;
     color: #fff;
     font-weight: 600;
     width: 100%;
@@ -359,7 +358,6 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 
 .information-user div.control a:nth-child(2) {
     padding-top: 5px;
-    padding-bottom: 10px;
 }
 
 .information-user div.control a:hover {
@@ -367,9 +365,13 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     text-decoration: none;
 }
 
-
-.information-user div.control a#log-out:hover{
+.information-user div.control a#log-out:hover {
     color: #dc3545;
+}
+
+.information-user div.top-5-recent-news {
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, .1);
 }
 
 .information-user div.top-5-recent-news .title {
@@ -393,19 +395,25 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     text-overflow: ellipsis;
 }
 
-
 .information-user div.top-5-recent-news .recent-news img {
     width: 90px;
     height: 60px;
 }
-.information-user div.list-5-recent-news a .backgorund-recent-news{
+
+.information-user div.list-5-recent-news a .backgorund-recent-news {
     padding-top: 5px;
     padding-bottom: 6px;
 }
-.information-user div.list-5-recent-news a:hover{
-text-decoration: none
 
+.information-user div.list-5-recent-news a:last-child .backgorund-recent-news {
+    padding-top: 5px;
+    padding-bottom: 0;
 }
+
+.information-user div.list-5-recent-news a:hover {
+    text-decoration: none
+}
+
 footer {
     padding: 35px 0;
     color: #888888;
@@ -582,5 +590,4 @@ footer .contact-fb a:hover {
     nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
         border-bottom: 1px solid #443d3d;
     }
-    nav div.navbar-collapse-custom ul.dropdown-menu-custom li>a {}
 }
