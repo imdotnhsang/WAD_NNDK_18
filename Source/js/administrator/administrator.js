@@ -17,3 +17,8 @@ $('#js-user-type-select').change(function () {
             break;
     }
 })
+
+function editHandle() {
+    console.log(this);
+    
+}
