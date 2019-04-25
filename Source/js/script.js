@@ -94,5 +94,6 @@ $(document).ready(function() {
         nav: false,
         dots: false,
         items: 1,
+        margin:10,
     });
 });
