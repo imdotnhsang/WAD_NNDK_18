@@ -238,6 +238,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     visibility: hidden;
     opacity: 0;
     border-radius: 7px;
+    background: #fff;
     border: 1px solid #e1e1e1;
     box-shadow: 0 0 7px 2px #e1e1e1;
     -webkit-box-shadow: 0 0 7px 2px #e1e1e1;
@@ -611,5 +612,11 @@ footer .contact-fb a:hover {
     }
     nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
         border-bottom: 1px solid #443d3d;
+    }
+    nav div.navbar-collapse-custom ul li a {
+        background: #dd3545;
+    }
+    nav div.navbar-collapse-custom a.nav-link-custom i {
+        color: #fff;
     }
 }
