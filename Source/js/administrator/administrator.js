@@ -45,13 +45,12 @@ const emptySubcategoryHTML = `
 
 const createElement = str => {
     var div = document.createElement('div');
-    div.innerHTML = str;
-
+    div.innerHTML = str;    
+    
     return div.lastElementChild;
-}
 
-// categories
-
+};
+// Categories
 $(document).on('click', ".js-edit-input", function () {
     let inputTag = $(this).parent().parent().children('input');
 
@@ -104,9 +103,46 @@ $(document).on('click', '.js-add-subcategory', function () {
         // Notice: must be enter valid subcategory name
 
     }
-})
+});
 
-// users
+// Tags
+const TAGS_PER_PAGE = 5;
+const tagsMockData = [ 'C++', 'PHP', 'Java', 'Javascript', 'ReactJS', 'NodeJS', 'Angular', 'HTML', 'CSS', 'Jquery', 'Bootstrap'];
+let tagPageNumber = 1;
+
+const updateTagsTable = pageNumber => {
+    const tagsTbody = $('.js-tags-table').children('tbody');
+
+    const start = (pageNumber - 1) * TAGS_PER_PAGE;
+    const end = Math.min(pageNumber * TAGS_PER_PAGE, tagsMockData.length);
+
+    tagsTbody.html('');
+    for (let i = start; i < end; i++) {
+        tagsTbody.html(
+            tagsTbody.html() + 
+            `
+                <tr class="text-center">
+                    <td>${i + 1}</td>
+                    <td>${tagsMockData[i]}</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning mr-1">
+                            <i class="material-icons">edit</i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="material-icons">delete</i> Delete
+                        </button>
+                    </td>
+                </tr>
+            `
+        ); 
+    };
+}
+
+$(document).ready(function() {
+    updateTagsTable(tagPageNumber);
+});
+
+// Users
 $('#js-user-type-select').change(function () {
     let valSelected = $(this).val();
 
@@ -128,6 +164,3 @@ $('#js-user-type-select').change(function () {
             break;
     }
 });
-
-
-
