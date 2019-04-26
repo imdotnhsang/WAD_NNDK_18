@@ -45,8 +45,8 @@ const emptySubcategoryHTML = `
 
 const createElement = str => {
     var div = document.createElement('div');
-    div.innerHTML = str;    
-    
+    div.innerHTML = str;
+
     return div.lastElementChild;
 
 };
@@ -107,7 +107,7 @@ $(document).on('click', '.js-add-subcategory', function () {
 
 // Tags
 const TAGS_PER_PAGE = 5;
-const tagsMockData = [ 'C++', 'PHP', 'Java', 'Javascript', 'ReactJS', 'NodeJS', 'Angular', 'HTML', 'CSS', 'Jquery', 'Bootstrap'];
+const tagsMockData = ['C++', 'PHP', 'Java', 'Javascript', 'ReactJS', 'NodeJS', 'Angular', 'HTML', 'CSS', 'Jquery', 'Bootstrap'];
 let tagPageNumber = 1;
 
 const updateTagsTable = pageNumber => {
@@ -119,7 +119,7 @@ const updateTagsTable = pageNumber => {
     tagsTbody.html('');
     for (let i = start; i < end; i++) {
         tagsTbody.html(
-            tagsTbody.html() + 
+            tagsTbody.html() +
             `
                 <tr class="text-center">
                     <td>${i + 1}</td>
@@ -134,11 +134,29 @@ const updateTagsTable = pageNumber => {
                     </td>
                 </tr>
             `
-        ); 
+        );
     };
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
+    updateTagsTable(tagPageNumber);
+});
+
+$(document).on('click', 'li.page-item', function () {
+    const value = $(this).children('a').html().trim();
+    
+    switch (value) {
+        case '\253':
+            tagPageNumber = Math.max(1, tagPageNumber - 1);
+            break;
+        case '\273':
+            tagPageNumber = Math.min(Math.floor(tagsMockData.length / TAGS_PER_PAGE) + 1, tagPageNumber + 1);
+            break;
+        default:
+            break;
+    }
+    
+    document.getElementById('js-tags-page-number').innerHTML = tagPageNumber;
     updateTagsTable(tagPageNumber);
 });
 
