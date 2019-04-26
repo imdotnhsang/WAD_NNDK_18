@@ -1,4 +1,45 @@
-$('.js-edit-input').click(function() {
+// global variables
+const emptyCategoryHTML = `
+    <li class="list-item col-5 p-3 border mx-auto mb-3">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" style="font-size: 13pt;" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-white js-edit-input" type="button">
+                <i class="far fa-edit"></i>
+                </button>
+                <button class="btn btn-white js-delete-input" type="button">
+                <i class="far fa-trash-alt"></i> </button>
+            </div>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="input-group">
+                <input type="text" class="form-control" placeholder="Add new subcategory" aria-label="Add new category"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-white js-add-subcategory" type="button">
+                    <i class="material-icons">add</i>
+                    </button>
+                </div>
+                </div>
+            </li>       
+        </ul>
+    </li>
+`;
+
+createElement = str => {
+    // var frag = document.createDocumentFragment();
+
+    var div = document.createElement('div');
+    div.innerHTML = str;
+
+    return div.lastElementChild;
+}
+
+// categories
+
+$(document).on('click', ".js-edit-input", function () {
     let inputTag = $(this).parent().parent().children('input');
 
     if (inputTag.attr('disabled')) {
@@ -12,15 +53,37 @@ $('.js-edit-input').click(function() {
     }
 });
 
-$('.js-delete-input').click(function() {
+$(document).on('click', ".js-delete-input", function () {
     let liTag = $(this).parent().parent().parent();
     liTag.remove();
 });
 
+$(document).on('click', '.js-add-category', function () {
+    let inputElmAddCategory = $(this).parent().parent().children('input');
+    const valInput = inputElmAddCategory.val().trim();
+    inputElmAddCategory.val('');
 
-$('#js-user-type-select').change(function() {
+    if (valInput.length) {
+        let categories = document.getElementById('js-categories-ul');
+
+        let newCategory = createElement(emptyCategoryHTML);
+        newCategory.getElementsByClassName('form-control')[0].value = valInput;
+
+        categories.appendChild(newCategory);
+    } else {
+        // Notice: must be enter valid category name
+    }
+})
+
+$('.js-add-subcategory').on('click', function () {
+
+
+})
+
+// users
+$('#js-user-type-select').change(function () {
     let valSelected = $(this).val();
-    
+
     switch (valSelected) {
         case "subscriber":
             $('#js-writer-table').removeAttr("style").hide();
