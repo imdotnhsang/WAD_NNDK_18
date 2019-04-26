@@ -28,9 +28,22 @@ const emptyCategoryHTML = `
     </li>
 `;
 
-createElement = str => {
-    // var frag = document.createDocumentFragment();
+const emptySubcategoryHTML = `
+    <li class="list-group-item">
+        <div class="input-group">
+            <input type="text" class="form-control" value="Photography" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-white js-edit-input" type="button">
+                <i class="far fa-edit"></i>
+                </button>
+                <button class="btn btn-white js-delete-input" type="button">
+                <i class="far fa-trash-alt"></i> </button>
+            </div>
+        </div>
+    </li>
+`;
 
+const createElement = str => {
     var div = document.createElement('div');
     div.innerHTML = str;
 
@@ -75,9 +88,22 @@ $(document).on('click', '.js-add-category', function () {
     }
 })
 
-$('.js-add-subcategory').on('click', function () {
+$(document).on('click', '.js-add-subcategory', function () {
+    let inputElmAddSubcategory = $(this).parent().parent().children('input');
+    const valInput = inputElmAddSubcategory.val().trim();
+    inputElmAddSubcategory.val('');
 
+    if (valInput.length) {
+        let subcategories = $(this).parent().parent().parent();
 
+        let newSubcategory = createElement(emptySubcategoryHTML);
+        newSubcategory.getElementsByClassName('form-control')[0].value = valInput;
+
+        subcategories.before(newSubcategory);
+    } else {
+        // Notice: must be enter valid subcategory name
+
+    }
 })
 
 // users
