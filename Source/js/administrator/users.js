@@ -1,5 +1,7 @@
 $('#js-user-type-select').change(function () {
-    switch ($(this).val()) {
+    let valSelected = $(this).val();
+
+    switch (valSelected) {
         case "subscriber":
             $('#js-writer-table').removeAttr("style").hide();
             $('#js-editor-table').removeAttr("style").hide();
@@ -16,9 +18,4 @@ $('#js-user-type-select').change(function () {
             $('#js-editor-table').show();
             break;
     }
-})
-
-function editHandle() {
-    console.log(this);
-    
-}
+});

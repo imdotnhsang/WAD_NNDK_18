@@ -5,3 +5,33 @@
 .m-auto {
 	font-size: 20px;
 }
+ .btnDenied{
+ 	background-color:  #ff0000;
+ 	border-color: #ff0000;
+ }
+
+ .btnApproved {
+ 	background-color:  #33cc33;
+ 	border-color: #33cc33;
+ }
+
+ .btnControl {
+ 	width: 80px;
+ 	margin: 5px;
+ }
+
+ .main-content{
+ 	display: inline-block;
+ }
+
+ .main {
+ 	padding: 5px 50px 5px 50px;
+ }
+
+ .input-group{
+ 	 border-style: groove;
+ 	 border-width: 0px 0px 2px 0px;
+ 	 border-color: #f7ffff;
+ }
+
+ 
