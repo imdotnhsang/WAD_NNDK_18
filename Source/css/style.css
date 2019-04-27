@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial;
+    font-family: 'Roboto', sans-serif;
 }
 
 header .navbar-custom .logo {
@@ -92,7 +92,7 @@ nav div.navbar-collapse-custom ul li:hover {
 }
 
 nav div.navbar-collapse-custom a.nav-link-custom i {
-    color: #dd3333;
+    color: #e5127d;
     transition: all .5s;
 }
 
@@ -422,7 +422,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .container .top-5-hot-news .background-hot-news{
-    background: #23272b;
+    background: #192433;
 }
 
 .container .top-5-hot-news .large-hot-news img {
@@ -433,8 +433,28 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     height: 215px;
 }
 
+.container .top-5-hot-news .small-hot-news .description-hot-news {
+    padding: 0 15px;
+}
+
+.container .top-5-hot-news .description-hot-news{
+    font-family: 'Roboto Condensed', sans-serif;
+    padding-top: 15px!important;
+    padding-bottom: 15px!important;
+   
+}
 .container .top-5-hot-news .title-hot-news{
     color: #fff;
+    font-weight: 700;
+}
+
+.container .top-5-hot-news .large-hot-news .title-hot-news{
+    font-size: 27px;
+}
+
+
+.container .top-5-hot-news .small-hot-news .title-hot-news{
+    font-size: 22px;
 }
 
 footer {
@@ -613,10 +633,7 @@ footer .contact-fb a:hover {
     nav div.navbar-collapse-custom ul.navbar-nav-custom li.child-nav-links:last-child {
         border-bottom: 1px solid #443d3d;
     }
-    nav div.navbar-collapse-custom ul li a {
-        background: #dd3545;
-    }
     nav div.navbar-collapse-custom a.nav-link-custom i {
-        color: #fff;
+        color: #e5127d;
     }
 }

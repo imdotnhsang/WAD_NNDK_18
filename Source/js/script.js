@@ -19,11 +19,11 @@ $('.hamburger').click(function () {
             var index = $(this).parent().val();
             var checkO = $(this).parent().attr("checkOpen");
             if (checkO == 'false') {
-                // $('.navbar-nav-custom li:nth-child(' + index + ') a.nav-link-custom i').css('color', '#fff');
+                $('.navbar-nav-custom li:nth-child(' + index + ') a.nav-link-custom i').css('color', '#fff');
                 $('.navbar-nav-custom li:nth-child(' + index + ') a.nav-link-custom i').css('transform', 'rotate(-180deg)');
                 $(this).parent().attr("checkOpen", "true");
             } else {
-                // $('.navbar-nav-custom li:nth-child(' + index + ') a.nav-link-custom i').css('color', '#dd3333');
+                $('.navbar-nav-custom li:nth-child(' + index + ') a.nav-link-custom i').css('color', '#e5127d');
                 $('.navbar-nav-custom li:nth-child(' + index + ') a.nav-link-custom i').css('transform', 'rotate(0deg)');
                 $(this).parent().attr("checkOpen", "false");
             }
