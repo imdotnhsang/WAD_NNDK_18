@@ -435,26 +435,38 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .container .top-5-hot-news .description-hot-news .title-hot-news {
+    transition: color .3s;
     color: #fff;
     font-weight: 700;
 }
 
-.container .top-5-hot-news .description-hot-news .author .date-posted{
+.container .top-5-hot-news .description-hot-news .title-hot-news:hover {
+    color: #e5127d;
+    text-decoration: none;
+}
+
+.container .top-5-hot-news .description-hot-news .author .date-posted {
     color: #ababab;
 }
 
 .container .top-5-hot-news .description-hot-news .author a {
     font-weight: 700;
+    transition: opacity .3s;
     color: #e5127d;
+}
+
+.container .top-5-hot-news .description-hot-news .author a:hover {
+    opacity: .7;
+    text-decoration: none;
 }
 
 .container .top-5-hot-news>div:last-child .description-hot-news {
     text-align: right;
 }
-.container .top-5-hot-news>div:last-child .description-hot-news .author{
+
+.container .top-5-hot-news>div:last-child .description-hot-news .author {
     justify-content: flex-end;
 }
-
 
 footer {
     padding: 35px 0;
@@ -523,6 +535,7 @@ footer .contact-fb a:hover {
 #scroll-top button:hover {
     background-color: #23272b;
 }
+
 @media screen and (max-width: 575px) {
     .container .top-5-hot-news .large-hot-news .title-hot-news {
         font-size: 16px;
@@ -550,10 +563,11 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 7px 7px 9px;
     }
-    .container .top-5-hot-news .description-hot-news .author .date-posted{
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 13px;
     }
 }
+
 @media screen and (min-width: 576px) {
     .container .top-5-hot-news .large-hot-news .title-hot-news {
         font-size: 17px;
@@ -830,7 +844,7 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 32px 32px 35px;
     }
-    .container .top-5-hot-news .description-hot-news .author .date-posted{
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 18px;
     }
 }
