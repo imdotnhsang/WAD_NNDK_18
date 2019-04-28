@@ -538,7 +538,7 @@ footer .contact-fb a:hover {
 
 @media screen and (max-width: 575px) {
     .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1;
     }
     .container .top-5-hot-news .small-hot-news .title-hot-news {
@@ -549,22 +549,22 @@ footer .contact-fb a:hover {
         line-height: 1;
     }
     .container .top-5-hot-news .description-hot-news .author a {
-        font-size: 13px;
+        font-size: 12px;
     }
     .container .top-5-hot-news .large-hot-news img {
-        height: 175px;
+        height: 210px;
     }
     .container .top-5-hot-news .small-hot-news img {
         height: 150px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 7px 7px 9px;
+        padding: 7px 7px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 7px 7px 9px;
     }
     .container .top-5-hot-news .description-hot-news .author .date-posted {
-        font-size: 13px;
+        font-size: 12px;
     }
 }
 
@@ -584,7 +584,7 @@ footer .contact-fb a:hover {
         font-size: 13px;
     }
     .container .top-5-hot-news .large-hot-news img {
-        height: 200px;
+        height: 226px;
     }
     .container .top-5-hot-news .small-hot-news img {
         height: 120px;
@@ -594,6 +594,9 @@ footer .contact-fb a:hover {
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 12px 12px 15px;
+    }
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
+        font-size: 13px;
     }
 }
 
@@ -611,16 +614,19 @@ footer .contact-fb a:hover {
         font-size: 13px;
     }
     .container .top-5-hot-news .large-hot-news img {
-        height: 220px;
+        height: 250px;
     }
     .container .top-5-hot-news .small-hot-news img {
-        height: 154px;
+        height: 162px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 7px 7px;
+        padding: 10px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 15px 15px 18px;
+    }
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
+        font-size: 13px;
     }
 }
 
@@ -644,13 +650,16 @@ footer .contact-fb a:hover {
         height: 300px;
     }
     .container .top-5-hot-news .small-hot-news img {
-        height: 200px;
+        height: 194px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 15px 15px;
+        padding: 15px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 32px 32px 25px;
+    }
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
+        font-size: 16px;
     }
 }
 
@@ -766,26 +775,29 @@ footer .contact-fb a:hover {
         line-height: 1.1;
     }
     .container .top-5-hot-news .small-hot-news .title-hot-news {
-        font-size: 17px;
+        font-size: 15px;
         line-height: 1.2;
     }
     .container .top-5-hot-news .description-hot-news .author a {
         font-size: 14px;
     }
     .container .top-5-hot-news .large-hot-news img {
-        height: 251px;
+        height: 252px;
     }
     .container .top-5-hot-news .small-hot-news img {
-        height: 143px;
+        height: 156px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 10px 10px;
+        padding: 10px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
-        padding: 22px 22px 24px;
+        padding: 20px 20px 22px;
     }
     .owl-item {
         margin-right: 9px!important;
+    }
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
+        font-size: 14px;
     }
 }
 
@@ -809,13 +821,16 @@ footer .contact-fb a:hover {
         height: 215px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 14px 14px;
+        padding: 14px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 32px 32px 35px;
     }
     .owl-item {
         margin-right: 10px!important;
+    }
+    .container .top-5-hot-news .description-hot-news .author .date-posted {
+        font-size: 16px;
     }
 }
 
@@ -839,7 +854,7 @@ footer .contact-fb a:hover {
         height: 215px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 15px 15px;
+        padding: 15px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 32px 32px 35px;
