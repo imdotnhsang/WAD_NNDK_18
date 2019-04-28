@@ -85,7 +85,7 @@ $(document).ready(function () {
 
 var owl;
 var widthItem;
-$(document).ready(function() {
+$(document).ready(function () {
     owl = $('.owl-carousel-slide-top-5-hot-news').owlCarousel({
         loop: true,
         autoplay: true,
@@ -94,6 +94,6 @@ $(document).ready(function() {
         nav: false,
         dots: false,
         items: 1,
-        margin:10,
+        margin: 10,
     });
 });
