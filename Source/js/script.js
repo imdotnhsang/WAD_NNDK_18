@@ -94,6 +94,14 @@ $(document).ready(function () {
         nav: false,
         dots: false,
         items: 1,
-        margin: 10,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                margin: 8
+            },
+            576:{
+                margin: 10
+            }
+        }
     });
 });
