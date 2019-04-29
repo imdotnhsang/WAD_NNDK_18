@@ -476,7 +476,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     height: 5px;
 }
 
-.container .content-top-10-lastest_most-read {
+.container .content-top-10-lastest_most-read_category {
     overflow: hidden;
 }
 
@@ -714,11 +714,11 @@ footer .contact-fb a:hover {
 @media screen and (max-width: 767px) {
     .container .top-10-lastest-news .list-top-10-lastest-news {
         border-left: 2px solid #393092;
-        height: calc(100% - 85px);
+        height: calc(100% - 150px);
     }
     .container .top-10-most-read-news .list-top-10-most-read-news {
         border-right: 2px solid #393092;
-        height: calc(100% - 100px);
+        height: calc(100% - 150px);
     }
     .container .top-10-lastest-news .lastest-news .description-lastest-news {
         border-top: 0;
@@ -728,10 +728,10 @@ footer .contact-fb a:hover {
     }
     .container .top-10-lastest-news .title-top-10-lastest-news {
         padding-left: 0;
-        padding-bottom:5px;
+        padding-bottom: 5px;
     }
     .container .top-10-most-read-news .title-top-10-most-read-news {
-        padding-bottom:5px;
+        padding-bottom: 5px;
     }
 }
 
@@ -767,7 +767,7 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 13px;
     }
-    .top-10-lastest_most-read {
+    .top-10-lastest_most-read_category {
         padding: 0 10px;
     }
     .container .top-10-lastest-news .lastest-news .author a {
@@ -859,7 +859,7 @@ footer .contact-fb a:hover {
         border-right: 2px solid #393092;
         height: calc(100% - 215px);
     }
-    .top-10-lastest_most-read {
+    .top-10-lastest_most-read_category {
         padding: 0 10px;
     }
     .container .top-10-lastest-news .lastest-news .author a {
@@ -987,7 +987,7 @@ footer .contact-fb a:hover {
     .container .blank-row-container {
         height: 15px;
     }
-    .top-10-lastest_most-read {
+    .top-10-lastest_most-read_category {
         padding: 0 10px;
     }
     /* .container .top-10-lastest-news .list-top-10-lastest-news {
@@ -1048,7 +1048,7 @@ footer .contact-fb a:hover {
         border-right: 2px solid #393092;
         height: calc(100% - 215px);
     }
-    .top-10-lastest_most-read {
+    .top-10-lastest_most-read_category {
         padding: 0;
     }
     .container .top-10-lastest-news .title-top-10-lastest-news {
