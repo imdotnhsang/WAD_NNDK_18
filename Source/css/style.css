@@ -24,7 +24,7 @@ nav.navbar-custom {
     padding: 0;
     z-index: 3;
     margin: 0;
-    box-shadow: -1px 3px 7px -2px #343A40;
+    /* box-shadow: -1px 3px 7px -2px #343A40; */
 }
 
 nav div.navbar-collapse-custom ul {
@@ -235,7 +235,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .space-blank {
-    height: 70px;
+    height: 80px;
 }
 
 .search-bar {
@@ -262,10 +262,6 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     border-bottom-left-radius: 7px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    -webkit-border-top-left-radius: 7px;
-    -webkit-border-bottom-left-radius: 7px;
-    -webkit-border-top-right-radius: 0;
-    -webkit-border-bottom-right-radius: 0;
 }
 
 .search-bar button {
@@ -276,10 +272,6 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     border-bottom-right-radius: 7px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    -webkit-border-top-right-radius: 7px;
-    -webkit-border-bottom-right-radius: 7px;
-    -webkit-border-top-left-radius: 0;
-    -webkit-border-bottom-left-radius: 0;
     background: #fff;
     cursor: pointer;
     color: #25AEE4;
@@ -468,6 +460,114 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     justify-content: flex-end;
 }
 
+.container .top-5-hot-news .large-hot-news img {
+    transition: opacity .5s;
+}
+
+.container .top-5-hot-news .large-hot-news img:hover {
+    opacity: .8;
+}
+
+.container .top-5-hot-news .small-hot-news img:hover {
+    opacity: .8;
+}
+
+.container .blank-row-container {
+    height: 5px;
+}
+
+.container .content-top-10-lastest_most-read {
+    overflow: hidden;
+}
+
+.container .top-10-lastest-news .title-top-10-lastest-news {
+    color: #e5127d;
+    position: relative;
+    padding: 7px 10px 7px 20px;
+    border-bottom: 2px solid #393092;
+}
+
+.container .top-10-most-read-news .title-top-10-most-read-news {
+    text-align: center;
+    color: #e5127d;
+    position: relative;
+    padding: 7px 15px 7px 10px;
+    border-bottom: 2px solid #393092;
+}
+
+.container .top-10-most-read-news .title-top-10-most-read-news::before {
+    background-color: #393092;
+    bottom: 8px;
+    content: "";
+    height: 2px;
+    left: -18px;
+    position: absolute;
+    transform: rotate(-120deg);
+    width: 25px;
+}
+
+.container .top-10-lastest-news .title-top-10-lastest-news::after {
+    background-color: #393092;
+    bottom: 8px;
+    content: "";
+    height: 2px;
+    right: -18px;
+    position: absolute;
+    transform: rotate(120deg);
+    width: 25px;
+}
+
+.container .top-10-lastest-news .lastest-news .img-lastest-news {
+    padding-right: 0;
+}
+
+.container .top-10-lastest-news .lastest-news {
+    padding-right: 24px!important;
+}
+
+.container .top-10-lastest-news .lastest-news .description-lastest-news {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-top: 1px solid #c1c1c1;
+    line-height: 1.3;
+}
+
+.container .top-10-most-read-news .most-read-news .description-most-read-news {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    line-height: 1.3;
+}
+
+.container .top-10-lastest-news .lastest-news .title-lastest-news, .container .top-10-most-read-news .most-read-news .title-most-read-news {
+    color: #424242;
+    transition: color .3s;
+    line-height: 1.2;
+}
+
+.container .top-10-lastest-news .lastest-news .title-lastest-news:hover, .container .top-10-most-read-news .most-read-news .title-most-read-news:hover {
+    text-decoration: none;
+    color: #b60e63;
+}
+
+.container .top-10-lastest-news .lastest-news .author a, .container .top-10-most-read-news .most-read-news .author a {
+    font-size: 14px;
+    color: #e5127d;
+    padding-right: 10px;
+    border-right: 1px solid #6a6a6a;
+    font-weight: 500;
+}
+
+.container .top-10-lastest-news .lastest-news .author a:hover, .container .top-10-most-read-news .most-read-news .author a:hover {
+    text-decoration: none;
+    color: #b60e63;
+}
+
+.container .top-10-lastest-news .lastest-news .author .date-posted, .container .top-10-most-read-news .most-read-news .author .date-posted {
+    color: #6a6a6a;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 footer {
     padding: 35px 0;
     color: #888888;
@@ -506,7 +606,7 @@ footer .contact-fb a:hover {
 #scroll-top {
     display: none;
     position: fixed;
-    right: 10px;
+    right: 5px;
     bottom: 0;
     margin: 0;
     text-decoration: none;
@@ -520,7 +620,7 @@ footer .contact-fb a:hover {
     border: 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color: #343A40;
+    background-color: #e5127d;
     color: #fff;
     box-shadow: 0 0 1px #333;
     display: flex;
@@ -533,17 +633,21 @@ footer .contact-fb a:hover {
 }
 
 #scroll-top button:hover {
-    background-color: #23272b;
+    background-color: #ffc107;
 }
 
 @media screen and (max-width: 575px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 15px;
-        line-height: 1;
+    .container .top-5-hot-news .large-hot-news {
+        line-height: 1.2;
     }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
+    .container .top-5-hot-news .small-hot-news {
+        line-height: 1.2;
+    }
+    .container .top-5-hot-news .large-hot-news a.title-hot-news {
+        font-size: 15px;
+    }
+    .container .top-5-hot-news .small-hot-news a.title-hot-news {
         font-size: 14px;
-        line-height: 1.1;
     }
     .container .top-5-hot-news .description-hot-news .author {
         line-height: 1;
@@ -552,16 +656,16 @@ footer .contact-fb a:hover {
         font-size: 12px;
     }
     .container .top-5-hot-news .large-hot-news img {
-        height: 210px;
+        height: 200px;
     }
     .container .top-5-hot-news .small-hot-news img {
         height: 150px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 7px 7px;
+        padding: 10px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
-        padding: 7px 7px 9px;
+        padding: 10px 10px 12px;
     }
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 12px;
@@ -569,16 +673,20 @@ footer .contact-fb a:hover {
 }
 
 @media screen and (min-width: 576px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 17px;
+    .container .top-5-hot-news .large-hot-news {
         line-height: 1;
     }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
-        font-size: 14px;
+    .container .top-5-hot-news .small-hot-news {
         line-height: 1.1;
     }
+    .container .top-5-hot-news .large-hot-news a.title-hot-news {
+        font-size: 20px;
+    }
+    .container .top-5-hot-news .small-hot-news a.title-hot-news {
+        font-size: 14px;
+    }
     .container .top-5-hot-news .description-hot-news .author {
-        line-height: 1;
+        line-height: 1.3;
     }
     .container .top-5-hot-news .description-hot-news .author a {
         font-size: 13px;
@@ -587,10 +695,10 @@ footer .contact-fb a:hover {
         height: 226px;
     }
     .container .top-5-hot-news .small-hot-news img {
-        height: 120px;
+        height: 137px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 7px 7px;
+        padding: 7px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 12px 12px 15px;
@@ -598,17 +706,48 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 13px;
     }
+    .owl-item {
+        margin-right: 8px!important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(100% - 85px);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 100px);
+    }
+    .container .top-10-lastest-news .lastest-news .description-lastest-news {
+        border-top: 0;
+    }
+    .container .top-10-most-read-news .title-top-10-most-read-news {
+        left: 63px;
+    }
+    .container .top-10-lastest-news .title-top-10-lastest-news {
+        padding-left: 0;
+        padding-bottom:5px;
+    }
+    .container .top-10-most-read-news .title-top-10-most-read-news {
+        padding-bottom:5px;
+    }
 }
 
 @media screen and (min-width: 768px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 17px;
-        letter-spacing: 0.008em;
-        line-height: 1;
+    .container .top-5-hot-news .large-hot-news {
+        line-height: 1.2;
     }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
+    .container .top-5-hot-news .small-hot-news {
+        line-height: 1.3;
+    }
+    .container .top-5-hot-news .large-hot-news a.title-hot-news {
+        font-size: 22px;
+        letter-spacing: 0.008em;
+    }
+    .container .top-5-hot-news .small-hot-news a.title-hot-news {
         font-size: 14px;
-        line-height: 1.1;
     }
     .container .top-5-hot-news .description-hot-news .author a {
         font-size: 13px;
@@ -617,10 +756,10 @@ footer .contact-fb a:hover {
         height: 250px;
     }
     .container .top-5-hot-news .small-hot-news img {
-        height: 162px;
+        height: 160px;
     }
     .container .top-5-hot-news .small-hot-news .description-hot-news {
-        padding: 10px;
+        padding: 7px;
     }
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 15px 15px 18px;
@@ -628,17 +767,59 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 13px;
     }
+    .top-10-lastest_most-read {
+        padding: 0 10px;
+    }
+    .container .top-10-lastest-news .lastest-news .author a {
+        font-size: 14px;
+    }
+    .container .top-10-lastest-news .lastest-news .author .date-posted {
+        font-size: 14px;
+    }
+    .container .top-10-lastest-news .lastest-news .title-lastest-news {
+        font-size: 16px;
+    }
+    .container .top-10-most-read-news .most-read-news .author a {
+        font-size: 14px;
+    }
+    .container .top-10-most-read-news .most-read-news .author .date-posted {
+        font-size: 14px;
+    }
+    .container .top-10-most-read-news .most-read-news .title-most-read-news {
+        font-size: 17px;
+    }
+    .container .top-10-lastest-news .lastest-news .description-lastest-news {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    .container .top-10-lastest-news .title-top-10-lastest-news {
+        font-size: 19px;
+    }
+    .container .top-10-most-read-news .title-top-10-most-read-news {
+        font-size: 19px;
+    }
+    .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(42% - 275px);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 215px);
+    }
 }
 
 @media screen and (min-width: 992px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 24px;
-        letter-spacing: 0.008em;
+    .container .top-5-hot-news .large-hot-news {
         line-height: 1.1;
     }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
-        font-size: 18px;
+    .container .top-5-hot-news .small-hot-news {
         line-height: 1.2;
+    }
+    .container .top-5-hot-news .large-hot-news a.title-hot-news {
+        font-size: 26px;
+    }
+    .container .top-5-hot-news .small-hot-news a.title-hot-news {
+        font-size: 18px;
     }
     .container .top-5-hot-news .description-hot-news .author {
         line-height: 1.5;
@@ -660,6 +841,48 @@ footer .contact-fb a:hover {
     }
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 16px;
+    }
+    .owl-item {
+        margin-right: 8px!important;
+    }
+    .container .top-10-lastest-news .lastest-news .title-lastest-news {
+        font-size: 20px;
+    }
+    .container .top-10-most-read-news .most-read-news .title-most-read-news {
+        font-size: 20px;
+    }
+    .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(45%);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 215px);
+    }
+    .top-10-lastest_most-read {
+        padding: 0 10px;
+    }
+    .container .top-10-lastest-news .lastest-news .author a {
+        font-size: 16px;
+    }
+    .container .top-10-lastest-news .lastest-news .author .date-posted {
+        font-size: 16px;
+    }
+    .container .top-10-most-read-news .most-read-news .author a {
+        font-size: 16px;
+    }
+    .container .top-10-most-read-news .most-read-news .author .date-posted {
+        font-size: 16px;
+    }
+    .container .top-10-lastest-news .lastest-news .description-lastest-news {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+    .container .top-10-lastest-news .title-top-10-lastest-news {
+        font-size: 22px;
+    }
+    .container .top-10-most-read-news .title-top-10-most-read-news {
+        font-size: 22px;
     }
 }
 
@@ -704,11 +927,6 @@ footer .contact-fb a:hover {
         background: #23272b;
         height: calc(100vh + 1px);
         overflow-y: scroll;
-        -moz-overflow-y: scroll;
-        -webkit-overflow-y: scroll;
-        overflow-x: hidden;
-        -webkit-overflow-x: hidden;
-        -moz-overflow-x: hidden;
     }
     .list-nav-links li.child-nav-links {
         width: 100%;
@@ -760,23 +978,40 @@ footer .contact-fb a:hover {
     nav div.navbar-collapse-custom a.nav-link-custom i {
         color: #e5127d;
     }
-}
-
-@media screen and (max-width: 1000px) {
-    .owl-item {
-        margin-right: 8px!important;
+    .space-blank {
+        height: 45px;
     }
+    .information-user div.top-5-recent-news {
+        display: none;
+    }
+    .container .blank-row-container {
+        height: 15px;
+    }
+    .top-10-lastest_most-read {
+        padding: 0 10px;
+    }
+    /* .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(42%);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 215px);
+    } */
 }
 
 @media screen and (min-width: 1200px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 21px;
-        letter-spacing: 0.008em;
+    .container .top-5-hot-news .large-hot-news {
         line-height: 1.1;
     }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
-        font-size: 15px;
+    .container .top-5-hot-news .small-hot-news {
         line-height: 1.2;
+    }
+    .container .top-5-hot-news .large-hot-news a.title-hot-news {
+        font-size: 22px;
+    }
+    .container .top-5-hot-news .small-hot-news a.title-hot-news {
+        font-size: 15px;
     }
     .container .top-5-hot-news .description-hot-news .author a {
         font-size: 14px;
@@ -799,17 +1034,63 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 14px;
     }
+    .container .top-10-lastest-news .lastest-news .title-lastest-news {
+        font-size: 18px;
+    }
+    .container .top-10-most-read-news .most-read-news .title-most-read-news {
+        font-size: 18px;
+    }
+    .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(40%);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 215px);
+    }
+    .top-10-lastest_most-read {
+        padding: 0;
+    }
+    .container .top-10-lastest-news .title-top-10-lastest-news {
+        font-size: 19px;
+    }
+    .container .top-10-most-read-news .title-top-10-most-read-news {
+        font-size: 19px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .container .top-10-lastest-news .lastest-news .title-lastest-news, .container .top-10-most-read-news .most-read-news .title-most-read-news {
+        font-size: 20px;
+    }
+    .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(43% - 85px);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 215px);
+    }
+    .container .top-10-lastest-news .title-top-10-lastest-news {
+        font-size: 22px;
+    }
+    .container .top-10-most-read-news .title-top-10-most-read-news {
+        font-size: 22px;
+    }
 }
 
 @media screen and (min-width: 1600px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 28px;
-        letter-spacing: 0.008em;
+    .container .top-5-hot-news .large-hot-news {
         line-height: 1.2;
     }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
-        font-size: 20px;
+    .container .top-5-hot-news .small-hot-news {
         line-height: 1.3;
+    }
+    .container .top-5-hot-news .large-hot-news a.title-hot-news {
+        font-size: 28px;
+    }
+    .container .top-5-hot-news .small-hot-news a.title-hot-news {
+        font-size: 22px;
     }
     .container .top-5-hot-news .description-hot-news .author a {
         font-size: 16px;
@@ -826,24 +1107,20 @@ footer .contact-fb a:hover {
     .container .top-5-hot-news .large-hot-news .description-hot-news {
         padding: 32px 32px 35px;
     }
-    .owl-item {
-        margin-right: 10px!important;
-    }
     .container .top-5-hot-news .description-hot-news .author .date-posted {
         font-size: 16px;
+    }
+    .container .top-10-lastest-news .list-top-10-lastest-news {
+        border-left: 2px solid #393092;
+        height: calc(47%);
+    }
+    .container .top-10-most-read-news .list-top-10-most-read-news {
+        border-right: 2px solid #393092;
+        height: calc(100% - 200px);
     }
 }
 
 @media screen and (min-width: 1800px) {
-    .container .top-5-hot-news .large-hot-news .title-hot-news {
-        font-size: 28px;
-        letter-spacing: 0.008em;
-        line-height: 1.2;
-    }
-    .container .top-5-hot-news .small-hot-news .title-hot-news {
-        font-size: 22px;
-        line-height: 1.3;
-    }
     .container .top-5-hot-news .description-hot-news .author a {
         font-size: 18px;
     }
