@@ -714,7 +714,7 @@ footer .contact-fb a:hover {
 @media screen and (max-width: 767px) {
     .container .top-10-lastest-news .list-top-10-lastest-news {
         border-left: 2px solid #393092;
-        height: calc(100% - 150px);
+        height: calc(100% - 175px);
     }
     .container .top-10-most-read-news .list-top-10-most-read-news {
         border-right: 2px solid #393092;
