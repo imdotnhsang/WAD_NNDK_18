@@ -554,7 +554,6 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 
 .container .top-10-lastest-news .lastest-news .author a, .container .top-10-most-read-news .most-read-news .author a {
     color: #e5127d;
-    padding-right: 5px;
     font-weight: 500;
 }
 
@@ -617,7 +616,6 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 .container .top-12-categories-news .categories-news .author a {
     font-size: 16px;
     color: #e5127d;
-    padding-right: 5px;
     font-weight: 500;
 }
 
@@ -744,7 +742,7 @@ footer .contact-fb a:hover {
     }
     .container .top-12-categories-news .categories-news .title-categories::before {
         background-color: #e5127d;
-        top: 8px;
+        top: 8p x;
         content: "";
         height: 21px;
         width: 6px;
