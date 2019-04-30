@@ -489,6 +489,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     position: relative;
     padding: 7px 10px 7px 20px;
     border-bottom: 2px solid #393092;
+    text-align: center;
 }
 
 .container .top-10-most-read-news .title-top-10-most-read-news {
