@@ -1,4 +1,5 @@
 .container-detail .breadcrumb-custom {
+    font-family: 'Roboto Condensed', sans-serif;
     background: #fff;
 }
 
@@ -15,6 +16,7 @@
 
 .container-detail .breadcrumb-custom .breadcrumb-item-custom {
     border-top: 2px solid #e2127d;
+    padding-top: 6px;
     padding-right: 15px;
     padding-left: 25px;
     position: relative;
@@ -33,7 +35,7 @@
 
 .container-detail .breadcrumb-custom .breadcrumb-item-custom:before {
     background-color: #e2127d;
-    top: 9.5px;
+    top: 10.5px;
     content: "";
     height: 2px;
     left: calc(100% - 8px);
@@ -44,7 +46,7 @@
 
 .container-detail .breadcrumb-custom .active:before {
     background-color: #393092!important;
-    top: 9.5px;
+    top: 10.5px;
     content: "";
     height: 2px;
     left: calc(100% - 8px);
@@ -91,52 +93,58 @@
 }
 
 .container-detail .share-detail-news div:first-child i {
-    padding: 9px 10px 9px 0;
+    padding: 15px 10px 27px 0;
 }
 
 .container-detail .share-detail-news i {
-    padding: 9px 10px;
+    padding: 15px 10px 27px 10px;
     font-size: 1.3em;
+    transition: opacity .3s;
 }
 
 .container-detail .share-detail-news .facebook i {
     color: #325A97;
 }
-.container-detail .share-detail-news .facebook i:hover,.container-detail .share-detail-news .twitter i:hover,.container-detail .share-detail-news .print i:hover {
-   opacity: .8;
-   cursor: pointer;
+
+.container-detail .share-detail-news .facebook i:hover, .container-detail .share-detail-news .twitter i:hover, .container-detail .share-detail-news .print i:hover {
+    opacity: .8;
 }
+
 .container-detail .share-detail-news .twitter i {
     color: #00ACED;
 }
+
 .container-detail .share-detail-news .print i {
     color: #7D7D7D;
 }
 
-.container-detail .content-detail .picture-detail-news .author-img{
+.container-detail .content-detail .picture-detail-news .author-img {
     color: #626262;
     padding: 8px 0;
     border-bottom: 1px solid #e7e7e8;
 }
-.container-detail .content-detail .picture-detail-news .author-img p{
-   font-size: 14px;
+
+.container-detail .content-detail .picture-detail-news .author-img p {
+    font-size: 14px;
 }
 
-.container-detail .content-detail .content-detail-news p{
+.container-detail .content-detail p {
     font-family: Helvetica, sans-serif;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 18px;
     color: #424242;
- }
- .container-detail .content-detail .content-detail-news a{
+}
+
+.container-detail .content-detail a {
     font-size: 18px;
     color: #e2127d;
     transition: color .3s;
- }
- .container-detail .content-detail .content-detail-news a:hover{
- 
+}
+
+.container-detail .content-detail a:hover {
     color: #b60e63;
- }
+}
+
 .container-detail .top-6-most-read-news .most-read-news .img-most-read-news {
     overflow: hidden;
 }
@@ -202,6 +210,111 @@
     border-right: 2px solid #393092;
 }
 
+.container-detail .content-detail .list-tags {
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.container-detail .content-detail .list-tags span {
+    padding: 7px 12px;
+    font-weight: 400!important;
+    background: #ebebeb;
+    color: #555;
+    transition: all .75s;
+}
+
+.container-detail .content-detail .list-tags span:hover {
+    cursor: pointer;
+    background: #555;
+    color: #fff;
+}
+
+.container-detail .content-detail .list-tags span {
+    font-size: 15px;
+}
+
+.container-detail .content-detail .next-up-in-category .title-next-up-in-category a {
+    padding: 9px 0;
+    font-size: 25px;
+    font-weight: 600;
+    position: relative;
+}
+
+.container-detail .content-detail .next-up-in-category .title-next-up-in-category a::before {
+    background: transparent;
+    border-right: 2px solid;
+    border-top: 2px solid;
+    content: "";
+    left: 7px;
+    bottom: 8px;
+    right: -16px;
+    position: absolute;
+    top: 0;
+    transform: skewX(25deg);
+    z-index: 0;
+    height: 38px;
+}
+
+.container-detail .content-detail .next-up-in-category .name-next-up-news:first-child {
+    padding-top: 0px!important;
+}
+
+.container-detail .content-detail .next-up-in-category .name-next-up-news {
+    padding: 2.5px 0;
+}
+
+.container-detail .content-detail .next-up-in-category .name-next-up-news a {
+    font-weight: 600;
+    color: #e2127d;
+    transition: all .4s;
+}
+
+.container-detail .content-detail .next-up-in-category .name-next-up-news a:hover {
+    color: #b60e63;
+    text-decoration: none;
+}
+
+.container-detail .content-detail .list-comment .comment .avatar img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 7px #e1e1e1;
+}
+
+.container-detail .content-detail .list-comment .comment .content-comment {
+    background: #eff1f3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #1d2129;
+}
+
+.container-detail .content-detail .list-comment .comment .content-comment .author-comment {
+    color: #365898;
+    font-weight: 600;
+}
+
+.container-detail .content-detail .list-comment .comment .content-comment p.content-comment-detail {
+    font-size: 14px;
+}
+
+.container-detail .content-detail .list-comment .comment .content-comment .title-posted-cmt {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.container-detail .content-detail .list-comment .comment .content-comment .title-posted-cmt .date-commented {
+    color: #e2127d;
+}
+
+.container-detail .content-detail .list-comment .new-comment textarea {
+    overflow: hidden;
+    border-radius: 15px;
+    padding: 15px 15px!important;
+    outline: 0;
+}
+
 @media screen and (max-width: 993px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
         font-size: 15px;
@@ -214,7 +327,11 @@
     }
 }
 
-@media screen and (max-width: 767px) {}
+@media screen and (max-width: 767px) {
+    .container-detail .content-detail .next-up-in-category .name-next-up-news a {
+        font-size: 16px;
+    }
+}
 
 @media screen and (max-width: 575px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
@@ -252,9 +369,11 @@
     }
 }
 
-@media screen and (min-width: 1200px) {}
-
-@media screen and (min-width: 1366px) {}
+@media screen and (min-width: 768px) {
+    .container-detail .content-detail .next-up-in-category .name-next-up-news a {
+        font-size: 18px;
+    }
+}
 
 @media screen and (min-width: 1600px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
@@ -267,5 +386,3 @@
         font-size: 15px;
     }
 }
-
-@media screen and (min-width: 1800px) {}

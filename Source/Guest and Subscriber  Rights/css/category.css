@@ -115,9 +115,17 @@
 
 .container-category .list-news .news .description-news .list-tags span {
     font-weight: 400!important;
-    background: #6a6a6a;
+    background: #ebebeb;
+    color: #555;
+    transition: all .75s;
+}
+.container-category .list-news .news .description-news .list-tags span:hover {
+    cursor: pointer;
+    font-weight: 400!important;
+    background: #555;
     color: #fff;
 }
+
 
 .container-category .pagination-custom a {
     border: 1px solid #e9ecef;

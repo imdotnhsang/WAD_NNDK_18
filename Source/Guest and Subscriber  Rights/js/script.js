@@ -80,7 +80,8 @@ $(document).ready(function () {
             $('body,html').animate({
                 scrollTop: 0
             }, 500);
-            $('#scroll-top button').css('background-color','#e5127d');
+            if($(window).width()<993){
+            $('#scroll-top button').css('background-color','#e5127d');}
         });
     });
 });
