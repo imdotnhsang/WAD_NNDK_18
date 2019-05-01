@@ -8,6 +8,11 @@
  .btnDenied{
  	background-color:  #ff0000;
  	border-color: #ff0000;
+
+ }
+
+ .btnDenied button:hover {
+ 	background-color: yellow;
  }
 
  .btnApproved {
@@ -16,12 +21,16 @@
  }
 
  .btnControl {
- 	width: 80px;
+ 	width:70px;
  	margin: 5px;
  }
 
  .main-content{
  	display: inline-block;
+ }
+
+ .btnControlPost {
+ 	display: flex;
  }
 
  .main {

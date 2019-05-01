@@ -9,13 +9,20 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../css/styles/shards-dashboards.1.1.0.min.css">
     <link rel="stylesheet" href="../css/styles/extras.1.1.0.min.css">
 
      <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
 
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   </head>
+
   <body class="h-100">
    
     <div class="color-switcher-toggle animated pulse infinite">
@@ -156,7 +163,7 @@
             </div>
             <!-- End Page Header -->
             <div class="row">
-              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4 post">
                 <div class="card card-small card-post card-post--1">
                   <div class="card-post__image" style="background-image: url('../img/images/content-management/8.jpeg');">
                     <a href="#" class="card-post__category badge badge-pill badge-dark">Business</a>
@@ -168,7 +175,41 @@
                     </h5>
                     <p class="card-text d-inline-block mb-3">However venture pursuit he am mr cordial. Forming musical am hearing studied be luckily. But in for determine what would see ...</p>
                     <span class="text-muted">28 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal1">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade " id="myModal1">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Căn lề không chính xác
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -184,7 +225,39 @@
                     </h5>
                     <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking...</p>
                     <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal2">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal2">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Lỗi hình ảnh!
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -200,7 +273,39 @@
                     </h5>
                     <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...</p>
                     <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal3">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal3">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Căn lề chưa chính xác
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -217,7 +322,39 @@
                     </h5>
                     <p class="card-text d-inline-block mb-3">How but sons mrs lady when. Her especially are unpleasant out alteration continuing unreserved ready road market resolution...</p>
                     <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal4">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal4">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Căn lề chưa chính xác
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -232,7 +369,39 @@
                   </div>
                   <div class="card-footer text-muted border-top py-3">
                      <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal5">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal5">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Hình ảnh bị lỗi!
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -247,7 +416,39 @@
                   </div>
                   <div class="card-footer text-muted border-top py-3">
                      <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal6">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal6">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Căn lề chưa chính xác
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -262,7 +463,39 @@
                   </div>
                   <div class="card-footer text-muted border-top py-3">
                      <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal7">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal7">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Lỗi chính tả quá nhiều!
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -277,7 +510,39 @@
                   </div>
                   <div class="card-footer text-muted border-top py-3">
                      <span class="text-muted">29 February 2019</span>
-                    <button class="btn btn-sm btn-accent ml-auto btnDenied">Denied</button>
+                    <div class="btnControlPost">
+                      <button class="btn btn-sm btn-accent ml-auto btnControl btnEdit">Edit</button>
+                      <div class="container">
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal" data-target="#myModal8">
+                        Denied
+                      </button>
+                      <!-- The Modal -->
+                      <div class="modal fade" id="myModal8">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                          
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Denied!!!</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              Lỗi font!
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
