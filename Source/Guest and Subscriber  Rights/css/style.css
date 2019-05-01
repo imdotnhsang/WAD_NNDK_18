@@ -816,9 +816,7 @@ footer .contact-fb a:hover {
 }
 
 @media screen and (max-width: 767px) {
-    .container-home .top-10-lastest-news .lastest-news .description-lastest-news {
-        border-top: 0;
-    }
+
     .container-home .top-10-most-read-news .title-top-10-most-read-news {
         left: 63px;
     }
