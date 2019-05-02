@@ -364,12 +364,8 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .information-user div.control a:hover {
-    color: #25AEE4;
-    text-decoration: none;
-}
 
-.information-user div.control a#log-out:hover {
-    color: #dc3545;
+    text-decoration: none;
 }
 
 .information-user div.top-5-recent-news {

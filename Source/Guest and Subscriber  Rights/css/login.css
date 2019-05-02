@@ -1,0 +1,86 @@
+.container-sign .title-page-sign {
+    color: #424242;
+    font-weight: 700;
+}
+
+.container-sign .sign-up_sign-in .nav-tabs {
+    transform: translate(0, 2px);
+}
+
+.container-sign .sign-up_sign-in .nav-items a {
+    font-weight: 400;
+    font-size: 20px;
+    color: #e2127d;
+    transition: color .3s;
+}
+
+.container-sign .sign-up_sign-in .nav-items a:hover {
+    color: #b60e63;
+}
+
+.container-sign .tab-content .sign-social {
+    list-style: none;
+}
+
+.container-sign .tab-content .sign-social li {
+    padding: 2px;
+}
+
+.container-sign .tab-content .sign-social li i {
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.5em;
+    opacity: .8;
+    transition: opacity .3s;
+}
+
+.container-sign .tab-content .sign-social li i:hover {
+    opacity: 1;
+}
+
+.container-sign .tab-content .sign-social li:first-child i {
+    background: #325A97;
+    padding: 20px 25px;
+}
+
+.container-sign .tab-content .sign-social li:last-child i {
+    background: #dd4b39;
+    padding: 20px 16px;
+}
+
+.container-sign .tab-content .btn-custom {
+    background: #e2127d;
+    color: #fff;
+    transition: background .2s;
+}
+
+.container-sign .tab-content .btn-custom:hover {
+    background: #b60e63;
+}
+
+.container-sign .tab-content .forgot a {
+    font-size: 13px;
+    color: #e2127d;
+}
+
+.container-sign .tab-content .forgot a:first-child {
+    border-right: 1px solid #ccc;
+    padding: 3px 7px 3px 0;
+}
+
+.container-sign .tab-content .forgot a:last-child {
+    padding: 3px 0 3px 7px;
+}
+
+@media screen and (min-width: 576px) {
+    .container-sign .title-page-sign p {
+        font-family: 'Titan One', cursive;
+        font-size: 48px;
+    }
+}
+@media screen and (max-width: 575px) {
+    .container-sign .title-page-sign p {
+        font-family: 'Titan One', cursive;
+        font-size: 40px;
+    }
+}
