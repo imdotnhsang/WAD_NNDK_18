@@ -7,14 +7,14 @@
     transform: translate(0, 2px);
 }
 
-.container-sign .sign-up_sign-in .nav-items a {
+.container-sign .sign-up_sign-in .nav-item a {
     font-weight: 400;
     font-size: 20px;
     color: #e2127d;
     transition: color .3s;
 }
 
-.container-sign .sign-up_sign-in .nav-items a:hover {
+.container-sign .sign-up_sign-in .nav-item a:hover {
     color: #b60e63;
 }
 
