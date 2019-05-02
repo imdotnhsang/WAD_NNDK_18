@@ -107,6 +107,7 @@
 }
 
 .container-detail .share-detail-news .facebook i:hover, .container-detail .share-detail-news .twitter i:hover, .container-detail .share-detail-news .print i:hover {
+    cursor: pointer;
     opacity: .8;
 }
 
