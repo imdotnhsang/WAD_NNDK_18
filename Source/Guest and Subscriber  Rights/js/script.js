@@ -80,8 +80,9 @@ $(document).ready(function () {
             $('body,html').animate({
                 scrollTop: 0
             }, 500);
-            if($(window).width()<993){
-            $('#scroll-top button').css('background-color','#e5127d');}
+            if ($(window).width() < 993) {
+                $('#scroll-top button').css('background-color', '#e5127d');
+            }
         });
     });
 });
@@ -97,14 +98,30 @@ $(document).ready(function () {
         nav: false,
         dots: false,
         items: 1,
-        responsiveClass:true,
-        responsive:{
-            0:{
+        responsiveClass: true,
+        responsive: {
+            0: {
                 margin: 8
             },
-            576:{
+            576: {
                 margin: 10
             }
         }
     });
+});
+
+$(document).ready(function () {
+    $("#birthday-input").datepicker({});
+});
+
+
+$("#pic-avatar").change(function () {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profile-change').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
 });
