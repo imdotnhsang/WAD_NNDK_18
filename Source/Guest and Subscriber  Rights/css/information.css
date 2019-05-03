@@ -263,7 +263,7 @@ border-bottom: 1px solid #efeff0;
 @media screen and (min-width: 768px) {
     .container-information ul#clothing-nav li:last-child {
         border-top: 1px solid #443d3d;
-        height: 576px;
+        height: 455px;
     }
     .container-information ul#clothing-nav li a.active {
         background: #212529;
