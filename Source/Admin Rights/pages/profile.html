@@ -15,6 +15,40 @@
   <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../css/shards-dashboards.1.1.0.min.css">
   <link rel="stylesheet" href="../css/extras.1.1.0.min.css">
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <style>
+    .img-avatar .btn-change-avatar {
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      transform: translate(125%, 25%);
+      background: #efeff0;
+      border-radius: 50%;
+      padding: 7px 10px;
+      color: #424242;
+      border: 4px solid #fff;
+      transition: background .3s;
+    }
+  
+    .img-avatar .btn-change-avatar:hover {
+      background: #e1e1e1;
+    }
+  
+    .img-avatar img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  
+    .img-avatar {
+      position: relative;
+    }
+  
+  
+    .img-avatar #pic-avatar {
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="h-100">
@@ -119,45 +153,70 @@
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom pb-0">
                             <div class="row pb-3 border-bottom">
-                                <div class="mb-3 mx-auto">
-                                    <img class="rounded-circle" src="../img/icons/logo.png" alt="User Avatar" width="110">
-                                </div>
+                              <div class="img-avatar d-flex m-auto">
+                                <img src="../img/icons/logo.png" alt="" width="110" height="110">
+                                <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
+                                <input type="file" id="pic-avatar" name="pic" accept="image/*">
+                              </div>
                             </div>
 
                             <div class="card-body my-2">
                                 <form class="w-75 m-auto">
-                                    <div class="form-group">
-                                        <label for="fullname">Fullname</label>
-                                        <input type="text" class="form-control" id="fullname" placeholder="Enter your fullname"
-                                            value="Dang Vinh Phat">
+                                  <div class="form-group">
+                                    <label for="fullname">Fullname</label>
+                                    <input type="text" class="form-control" id="fullname" placeholder="Enter your fullname" value="Dang Vinh Phat">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter your email"
+                                      value="1612486@student.hcmus.edu.vn">
+                                  </div>
+                                
+                                  <div class="form-group">
+                                    <label for="birthday">Birthday</label>
+                                
+                                    <div class="d-flex">
+                                      <input id="js-birthday-input" type="text" class="input-sm form-control" name="birthday"
+                                        placeholder="Enter your birthday">
+                                      <span class="input-group-append">
+                                        <span class="input-group-text">
+                                          <i class="far fa-calendar-alt"></i> </span>
+                                      </span>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" class="form-control" id="email" placeholder="Enter your email"
-                                            value="1612486@student.hcmus.edu.vn">
+                                  </div>
+                                
+                                  <div class="border">
+                                    <div class="d-flex ml-2 p-2">
+                                      <i class="fas fa-key my-auto"></i>
+                                      <span class="my-auto ml-3">Change password</span>
+                                      <button id="js-button-change-password" class="btn btn-white ml-auto" type="button">
+                                        <i class="far fa-edit"></i>
+                                      </button>
                                     </div>
-                            
-                                    <div class="form-group">
-                                      <label for="birthday">Birthday</label>
+                                
+                                    <div id="js-form-change-password" style="display: none;">
+                                        <div class="border-bottom mt-2"></div>
+                                        <div class="form-group w-75 mx-auto my-4">
+                                            <div class="form-group d-flex">
+                                                <label class="w-25" for="currentPassword">Current</label>
+                                                <input type="password" class="input-sm form-control" name="currentPassword">
+                                            </div>
                                     
-                                      <div class="d-flex">
-                                        <input id="js-birthday-input" type="text" class="input-sm form-control" name="birthday"
-                                          placeholder="Enter your birthday">
-                                        <span class="input-group-append">
-                                          <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i> </span>
-                                        </span>
-                                      </div>
+                                            <div class="form-group d-flex">
+                                                <label class="w-25" for="newPassword">New</label>
+                                                <input type="password" class="input-sm form-control" name="newPassword">
+                                    
+                                            </div>
+                                    
+                                            <div class="form-group d-flex m-0">
+                                                <label class="w-25" for="retypePassword">Retype new</label>
+                                                <input type="password" class="input-sm form-control" name="retypePassword">
+                                            </div>
+                                        </div>
                                     </div>
-                            
-                                    <div class="form-group">
-                                      <label for="password">Password</label>
-                                      <input type="password" class="form-control" id="password" value="123456789" disabled>
-                                    </div>
-
-                                    <div class="m-auto">
-                                      <button type="submit" class="btn btn-accent">Update Account</button>
-                                    </div>
+                                  </div>
+                                
+                                  <button type="submit" class="btn btn-accent mt-3">Update Account</button>
                                 </form>
                             </div>
                         </div>
