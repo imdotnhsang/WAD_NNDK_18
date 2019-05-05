@@ -1,0 +1,307 @@
+.container-information ul#clothing-nav {
+    border: 0;
+    background: #212529;
+}
+
+.container-information ul#clothing-nav li {
+    border-top: 1px solid #443d3d;
+}
+
+.container-information ul#clothing-nav li a {
+    font-size: 16px;
+    border: 0;
+    color: #f8f8f8;
+    font-weight: 400;
+    border-bottom: 0;
+    border-radius: 0;
+}
+
+.container-information ul#clothing-nav li a i {
+    font-size: 20px;
+    padding-right: 12px;
+}
+
+.container-information ul#clothing-nav li:nth-child(3) a i {
+    font-size: 20px;
+    padding-right: 9px;
+}
+
+.container-information .tab-content {
+    background: #f8f8f8;
+}
+
+.container-information ul#clothing-nav img {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+}
+
+.container-information .title-tab {
+    color: #e5127d;
+    font-weight: 500;
+    border-bottom: 1px solid #efeff0;
+}
+
+.container-information .title-tab p {
+    font-size: 26px;
+    padding: 5px 10px;
+}
+
+.container-information .profile, .container-information .status-account {
+    background: #fff;
+    border-radius: 5px;
+}
+
+.container-information .profile .title-profile {
+    color: #e5127d;
+    font-weight: 500;
+}
+
+.container-information .profile .title-profile {
+    font-size: 18px;
+}
+
+.container-information .profile label {
+    color: #919496;
+    font-size: 16px;
+}
+
+.container-information .profile .content-profile p {
+    color: #222326;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+.container-information .profile .btn-edit-profile, .container-information .status-account .btn-subscribe-premium {
+    background: #000;
+    color: #fff;
+    padding: 7px 20px!important;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: opacity .3s;
+}
+
+.container-information .profile .btn-edit-profile:hover, .container-information .status-account .btn-subscribe-premium:hover {
+    opacity: .8;
+}
+
+.container-information .status-account .title-stt-account {
+    color: #1dbe54;
+    font-weight: 600;
+}
+
+.container-information .status-account .title-stt-account p {
+    font-size: 18px;
+}
+
+.container-information .status-account .title-stt-account i {
+    color: #fff;
+    background: #1dbe54;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.container-information .status-account .content-stt-account p {
+    font-size: 14px;
+    border-top: 1px solid #efeff0;
+    border-bottom: 1px solid #efeff0;
+}
+
+.container-information .content-receipts {
+    border-radius: 5px;
+    background: #fff;
+}
+
+.container-information table.list-receipts {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+}
+
+.container-information table.list-receipts tbody tr:last-child {
+    border-bottom: 1px solid #efeff0;
+}
+
+.container-information #edit_profile label {
+    padding-bottom: 3px;
+    color: #919496;
+    font-size: 16px;
+}
+
+.container-information #edit_profile {
+    background: #fff;
+    border-radius: 5px;
+}
+
+.container-information #edit_profile input {
+    color: #222326;
+    outline: 0!important;
+    font-size: 14px;
+}
+.container-information #edit_profile .btns-done-edit{
+    padding-top: 15px;
+    border-top: 1px solid #efeff0;
+}
+.container-information #edit_profile .btns-done-edit button {
+    font-weight: 500;
+    border-radius: 35px;
+    font-size: 12px;
+}
+
+.container-information #edit_profile .btns-done-edit .btn-cancel {
+    background: transparent;
+}
+
+.container-information #edit_profile .img-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.container-information #edit_profile .img-avatar {
+    position: relative;
+}
+
+.container-information #edit_profile .img-avatar #pic-avatar {
+    display: none;
+}
+
+.container-information #edit_profile .img-avatar .btn-change-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translate(125%, 25%);
+    background: #efeff0;
+    border-radius: 50%;
+    padding: 7px 10px;
+    color: #424242;
+    border: 4px solid #fff;
+    transition: background .3s;
+}
+
+.container-information #edit_profile .img-avatar .btn-change-avatar:hover {
+    background: #e1e1e1;
+}
+.container-information #edit_profile .select-birthday {
+    position: relative;
+}
+.container-information #edit_profile .select-birthday input#birthday-input {
+   border-radius: 5px;
+}
+
+.container-information #edit_profile .select-birthday span {
+position: absolute;
+right: 3px;
+top: 50%;
+transform: translate(-50%,-50%);
+}
+
+@media screen and (max-width: 767px) {
+    .container-information .blank-row {
+        padding: 7px;
+    }
+    .container-information ul#clothing-nav li:last-child {
+        border-top: 1px solid #443d3d;
+        height: 0px;
+    }
+    .container-information ul#clothing-nav li a {
+        display: flex;
+        justify-content: center;
+        padding-right: 0!important;
+        padding-left: 0!important;
+    }
+    .container-information ul#clothing-nav li a.active {
+        background: #212529;
+        border-top: 5px solid #e5127d;
+        border-left: 0;
+    }
+    .container-information ul#clothing-nav li a {
+        border-top: 5px solid transparent;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .container-information ul#clothing-nav li a span {
+        display: none;
+    }
+    .container-information td {
+        font-size: 14px;
+        word-break: break-all;
+    }
+    .container-information th {
+        color: #c1c3c6;
+        font-weight: 500;
+        font-size: 13px;
+    }
+    .container-information td, .container-information th {
+        text-align: left;
+        padding: 16px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .container-information td {
+        font-size: 14px;
+        word-break: break-all;
+    }
+    .container-information th {
+        color: #c1c3c6;
+        font-weight: 500;
+        font-size: 13px;
+    }
+    .container-information td, .container-information th {
+        text-align: left;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 371px) {
+    .container-information td {
+        font-size: 11px;
+        word-break: break-all;
+    }
+    .container-information th {
+        color: #c1c3c6;
+        font-weight: 500;
+        font-size: 12px;
+    }
+    .container-information td, .container-information th {
+        text-align: left;
+        padding: 8px;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .container-information td {
+        font-size: 16px;
+        word-break: break-all;
+    }
+    .container-information th {
+        color: #c1c3c6;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .container-information td, .container-information th {
+        text-align: left;
+        padding: 16px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container-information ul#clothing-nav li:last-child {
+        border-top: 1px solid #443d3d;
+        height: 576px;
+    }
+    .container-information ul#clothing-nav li a.active {
+        background: #212529;
+        border-left: 5px solid #e5127d;
+    }
+    .container-information .blank-row {
+        padding: 0px;
+    }
+    .container-information ul#clothing-nav li a {
+        border-left: 5px solid transparent;
+    }
+}
