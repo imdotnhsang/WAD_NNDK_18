@@ -1,0 +1,19 @@
+{
+  "name": "the-big-wind",
+  "version": "1.0.0",
+  "description": "TH16-News",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "VinhPhat, HoangSang, HoPhong",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}
