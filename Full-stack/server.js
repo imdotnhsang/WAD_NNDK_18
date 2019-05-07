@@ -15,4 +15,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api/testing', require('./routes/api/testing'));
+
 app.listen(PORT, _ => console.log(`Server running on port ${PORT}.`));
