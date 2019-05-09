@@ -39,4 +39,15 @@ router.get('/administrator/categories', function (req, res, next) {
   );
 });
 
+router.get('/administrator/tags', function (req, res, next) {
+  res.render(
+    'pages/administrator',
+    {
+      title: 'Tags',
+      layout: 'layouts/tags',
+      srcScript: '/javascripts/tags.js'
+    }
+  );
+});
+
 module.exports = router;
