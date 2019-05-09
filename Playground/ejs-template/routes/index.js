@@ -12,7 +12,7 @@ router.get('/administrator/profile', function (req, res, next) {
     {
       title: 'Profile',
       layout: 'layouts/profile',
-      srcScript: '/javascripts/profile.js'
+      srcScript: '/javascripts/administrator/profile.js'
     }
   );
 });
@@ -23,7 +23,7 @@ router.get('/administrator/news', function (req, res, next) {
     {
       title: 'News',
       layout: 'layouts/news',
-      srcScript: '/javascripts/news.js'
+      srcScript: '/javascripts/administrator/news.js'
     }
   );
 });
@@ -34,7 +34,7 @@ router.get('/administrator/categories', function (req, res, next) {
     {
       title: 'Categories',
       layout: 'layouts/categories',
-      srcScript: '/javascripts/categories.js'
+      srcScript: '/javascripts/administrator/categories.js'
     }
   );
 });
@@ -45,7 +45,7 @@ router.get('/administrator/tags', function (req, res, next) {
     {
       title: 'Tags',
       layout: 'layouts/tags',
-      srcScript: '/javascripts/tags.js'
+      srcScript: '/javascripts/administrator/tags.js'
     }
   );
 });
@@ -56,7 +56,7 @@ router.get('/administrator/users', function (req, res, next) {
     {
       title: 'Users',
       layout: 'layouts/users',
-      srcScript: '/javascripts/users.js'
+      srcScript: '/javascripts/administrator/users.js'
     }
   );
 });
