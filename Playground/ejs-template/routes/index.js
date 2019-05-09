@@ -17,4 +17,15 @@ router.get('/administrator/profile', function (req, res, next) {
   );
 });
 
+router.get('/administrator/news', function (req, res, next) {
+  res.render(
+    'pages/administrator',
+    {
+      title: 'News',
+      layout: 'layouts/news',
+      srcScript: '/javascripts/news.js'
+    }
+  );
+});
+
 module.exports = router;
