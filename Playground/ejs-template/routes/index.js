@@ -28,4 +28,15 @@ router.get('/administrator/news', function (req, res, next) {
   );
 });
 
+router.get('/administrator/categories', function (req, res, next) {
+  res.render(
+    'pages/administrator',
+    {
+      title: 'Categories',
+      layout: 'layouts/categories',
+      srcScript: '/javascripts/categories.js'
+    }
+  );
+});
+
 module.exports = router;
