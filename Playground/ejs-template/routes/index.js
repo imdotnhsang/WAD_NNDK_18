@@ -50,4 +50,15 @@ router.get('/administrator/tags', function (req, res, next) {
   );
 });
 
+router.get('/administrator/users', function (req, res, next) {
+  res.render(
+    'pages/administrator',
+    {
+      title: 'Users',
+      layout: 'layouts/users',
+      srcScript: '/javascripts/users.js'
+    }
+  );
+});
+
 module.exports = router;
