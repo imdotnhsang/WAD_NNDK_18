@@ -16,31 +16,31 @@
 <div class="nav-wrapper">
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link" href="categories">
+            <a class="nav-link <%- title === 'Categories' ? 'active' : '' %>" href="categories">
                 <i class="material-icons">vertical_split</i>
                 <span>Categories</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tags">
+            <a class="nav-link <%- title === 'Tags' ? 'active' : '' %>" href="tags">
                 <i class="material-icons">note_add</i>
                 <span>Tags</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="news">
+            <a class="nav-link <%- title === 'News' ? 'active' : '' %>" href="news">
                 <i class="material-icons">edit</i>
                 <span>News</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="users">
+            <a class="nav-link <%- title === 'Users' ? 'active' : '' %>" href="users">
                 <i class="material-icons">view_module</i>
                 <span>Users</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="profile">
+            <a class="nav-link <%- title === 'Profile' ? 'active' : '' %>" href="profile">
                 <i class="material-icons">person</i>
                 <span>Profile</span>
             </a>
