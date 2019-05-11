@@ -130,7 +130,7 @@
     font-size: 16px;
 }
 
-.container-information #edit_profile {
+.container-information #edit_profile form {
     background: #fff;
     border-radius: 5px;
 }
