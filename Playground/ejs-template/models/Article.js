@@ -14,7 +14,7 @@ const ArticleSchema = mongoose.Schema({
     status: { type: String, required: true }, // publish, edit, admin
     reasonDenied: { type: String, default: '' },
     createdAt: { type: Date, required: false },
-    categoryId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    categoryId: { type: mongoose.Schema.Types.ObjectId, required: true }, //subcate
     writerId: { type: mongoose.Schema.Types.ObjectId, required: true },
 });
 
