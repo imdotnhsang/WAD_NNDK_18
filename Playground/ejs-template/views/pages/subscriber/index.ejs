@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+    <header class="header fixed-top">
+        <% include partials/header %>
+    </header>
+    <div class="space-blank"></div>
+    <div class="container-home col-12 m-0 p-0 row">
+        <%- include(layout) %>
+    </div>
+    <br>
+    <footer class="footer text-center">
+        <% include partials/footer %>
+    </footer>
+    <%- include('partials/scripts') %>
+</body>
+
+</html>

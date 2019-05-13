@@ -61,4 +61,15 @@ router.get('/administrator/users', function (req, res, next) {
   );
 });
 
+router.get('/subscriber/home', function (req, res, next) {
+  res.render(
+    'pages/subscriber',
+    {
+      title: 'Home',
+      layout: 'layouts/home',
+      srcScript: '/javascripts/guest-subscriber/script.js'
+    }
+  );
+});
+
 module.exports = router;
