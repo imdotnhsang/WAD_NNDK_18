@@ -63,7 +63,6 @@ router.get('/administrator/users', function (req, res, next) {
   );
 });
 
-
 router.get('/writer/add-new-post', function (req, res, next) {
   res.render(
     'pages/writer',
@@ -74,7 +73,8 @@ router.get('/writer/add-new-post', function (req, res, next) {
     }
   );
 });
-// subscriber
+
+// SUBSCRIBER
 router.get('/subscriber/home', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -88,19 +88,6 @@ router.get('/subscriber/home', function (req, res, next) {
   );
 });
 
-
-router.get('/writer/approved-post', function (req, res, next) {
-  res.render(
-    'pages/writer',
-    {
-      title: 'Approved Post',
-      layout: 'layouts/approvedpost',
-      srcScript: ''
-    }
-  );
-});
-
-
 router.get('/subscriber/detail', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -109,19 +96,6 @@ router.get('/subscriber/detail', function (req, res, next) {
       layout: 'layouts/detail',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/detail.css'
-    }
-  );
-});
-
-
-
-router.get('/writer/denied-post', function (req, res, next) {
-  res.render(
-    'pages/writer',
-    {
-      title: 'Denied Post',
-      layout: 'layouts/deniedpost',
-      srcScript: ''
     }
   );
 });
@@ -139,17 +113,6 @@ router.get('/subscriber/category', function (req, res, next) {
   );
 });
 
-router.get('/writer/published-post', function (req, res, next) {
-  res.render(
-    'pages/writer',
-    {
-      title: 'Published Post',
-      layout: 'layouts/publishedpost',
-      srcScript: ''
-    }
-  );
-});
-
 router.get('/subscriber/hashtag', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -159,17 +122,6 @@ router.get('/subscriber/hashtag', function (req, res, next) {
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/hashtag.css'
 
-    }
-  );
-});
-
-
-router.get('/writer/unapproved-post', function (req, res, next) {
-  res.render(
-    'pages/writer',
-    {
-      title: 'Unapproved Post',
-      layout: 'layouts/unapprovedpost',
     }
   );
 });
@@ -187,7 +139,6 @@ router.get('/subscriber/information', function (req, res, next) {
   );
 });
 
-
 router.get('/subscriber/search', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -200,7 +151,7 @@ router.get('/subscriber/search', function (req, res, next) {
   );
 });
 
-//guest 
+//GUEST
 router.get('/guest/home', function (req, res, next) {
   res.render(
     'pages/guest',
@@ -297,5 +248,47 @@ router.get('/sign/signup', function (req, res, next) {
   );
 });
 
+//WRITER
+router.get('/writer/approved-post', function (req, res, next) {
+  res.render(
+    'pages/writer',
+    {
+      title: 'Approved Post',
+      layout: 'layouts/approvedpost',
+      srcScript: ''
+    }
+  );
+});
+
+router.get('/writer/denied-post', function (req, res, next) {
+  res.render(
+    'pages/writer',
+    {
+      title: 'Denied Post',
+      layout: 'layouts/deniedpost',
+      srcScript: ''
+    }
+  );
+});
+router.get('/writer/published-post', function (req, res, next) {
+  res.render(
+    'pages/writer',
+    {
+      title: 'Published Post',
+      layout: 'layouts/publishedpost',
+      srcScript: ''
+    }
+  );
+});
+
+router.get('/writer/unapproved-post', function (req, res, next) {
+  res.render(
+    'pages/writer',
+    {
+      title: 'Unapproved Post',
+      layout: 'layouts/unapprovedpost',
+    }
+  );
+});
 
 module.exports = router;
