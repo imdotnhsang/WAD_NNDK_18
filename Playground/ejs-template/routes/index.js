@@ -224,24 +224,86 @@ router.get('/guest/search', function (req, res, next) {
   );
 });
 
-router.get('/sign/signin', function (req, res, next) {
+//USER
+router.get('/user/home', function (req, res, next) {
   res.render(
-    'pages/sign',
+    'pages/user',
     {
-      title: 'Sign In',
-      layout: 'layouts/signin',
+      title: 'Home',
+      layout: 'layouts/home',
       srcScript: '/javascripts/guest-subscriber/script.js',
-      hrefCss: '/stylesheets/guest-subscriber/login.css'
+      hrefCss: ''
     }
   );
 });
 
-router.get('/sign/signup', function (req, res, next) {
+router.get('/user/detail', function (req, res, next) {
   res.render(
-    'pages/sign',
+    'pages/user',
     {
-      title: 'Sign Up',
-      layout: 'layouts/signup',
+      title: 'Detail',
+      layout: 'layouts/detail',
+      srcScript: '/javascripts/guest-subscriber/script.js',
+      hrefCss: '/stylesheets/guest-subscriber/detail.css'
+    }
+  );
+});
+
+router.get('/user/category', function (req, res, next) {
+  res.render(
+    'pages/user',
+    {
+      title: 'Category',
+      layout: 'layouts/category',
+      srcScript: '/javascripts/guest-subscriber/script.js',
+      hrefCss: '/stylesheets/guest-subscriber/category.css'
+    }
+  );
+});
+
+router.get('/user/hashtag', function (req, res, next) {
+  res.render(
+    'pages/user',
+    {
+      title: 'Hashtag',
+      layout: 'layouts/hashtag',
+      srcScript: '/javascripts/guest-subscriber/script.js',
+      hrefCss: '/stylesheets/guest-subscriber/hashtag.css'
+    }
+  );
+});
+
+router.get('/user/information', function (req, res, next) {
+  res.render(
+    'pages/user',
+    {
+      title: 'Information',
+      layout: 'layouts/information',
+      srcScript: '/javascripts/guest-subscriber/script.js',
+      hrefCss: '/stylesheets/guest-subscriber/information.css'
+    }
+  );
+});
+
+router.get('/user/search', function (req, res, next) {
+  res.render(
+    'pages/user',
+    {
+      title: 'Search',
+      layout: 'layouts/search',
+      srcScript: '/javascripts/guest-subscriber/script.js',
+      hrefCss: '/stylesheets/guest-subscriber/search.css'
+    }
+  );
+});
+
+//AUTH
+router.get('/auth', function (req, res, next) {
+  res.render(
+    'pages/auth',
+    {
+      title: 'Sign In',
+      layout: 'layouts/auth',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/login.css'
     }
