@@ -63,7 +63,7 @@ router.get('/administrator/users', function (req, res, next) {
   );
 });
 
-<<<<<<< HEAD
+
 router.get('/writer/add-new-post', function (req, res, next) {
   res.render(
     'pages/writer',
@@ -71,7 +71,9 @@ router.get('/writer/add-new-post', function (req, res, next) {
       title: 'Add new post',
       layout: 'layouts/addnewpost',
       srcScript: '/javascripts/writer/addnewpost.js'
-=======
+    }
+  );
+});
 // subscriber
 router.get('/subscriber/home', function (req, res, next) {
   res.render(
@@ -81,12 +83,12 @@ router.get('/subscriber/home', function (req, res, next) {
       layout: 'layouts/home',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: ''
->>>>>>> 9c098fc51c686d1d7b667432d219fda57f15b3c1
+
     }
   );
 });
 
-<<<<<<< HEAD
+
 router.get('/writer/approved-post', function (req, res, next) {
   res.render(
     'pages/writer',
@@ -94,7 +96,11 @@ router.get('/writer/approved-post', function (req, res, next) {
       title: 'Approved Post',
       layout: 'layouts/approvedpost',
       srcScript: ''
-=======
+    }
+  );
+});
+
+
 router.get('/subscriber/detail', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -103,12 +109,12 @@ router.get('/subscriber/detail', function (req, res, next) {
       layout: 'layouts/detail',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/detail.css'
->>>>>>> 9c098fc51c686d1d7b667432d219fda57f15b3c1
     }
   );
 });
 
-<<<<<<< HEAD
+
+
 router.get('/writer/denied-post', function (req, res, next) {
   res.render(
     'pages/writer',
@@ -116,7 +122,10 @@ router.get('/writer/denied-post', function (req, res, next) {
       title: 'Denied Post',
       layout: 'layouts/deniedpost',
       srcScript: ''
-=======
+    }
+  );
+});
+
 router.get('/subscriber/category', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -125,12 +134,11 @@ router.get('/subscriber/category', function (req, res, next) {
       layout: 'layouts/category',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/category.css'
->>>>>>> 9c098fc51c686d1d7b667432d219fda57f15b3c1
+
     }
   );
 });
 
-<<<<<<< HEAD
 router.get('/writer/published-post', function (req, res, next) {
   res.render(
     'pages/writer',
@@ -138,7 +146,10 @@ router.get('/writer/published-post', function (req, res, next) {
       title: 'Published Post',
       layout: 'layouts/publishedpost',
       srcScript: ''
-=======
+    }
+  );
+});
+
 router.get('/subscriber/hashtag', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -147,20 +158,22 @@ router.get('/subscriber/hashtag', function (req, res, next) {
       layout: 'layouts/hashtag',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/hashtag.css'
->>>>>>> 9c098fc51c686d1d7b667432d219fda57f15b3c1
+
     }
   );
 });
 
-<<<<<<< HEAD
+
 router.get('/writer/unapproved-post', function (req, res, next) {
   res.render(
     'pages/writer',
     {
       title: 'Unapproved Post',
       layout: 'layouts/unapprovedpost',
-      srcScript: ''
-=======
+    }
+  );
+});
+
 router.get('/subscriber/information', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -169,13 +182,12 @@ router.get('/subscriber/information', function (req, res, next) {
       layout: 'layouts/information',
       srcScript: '/javascripts/guest-subscriber/script.js',
       hrefCss: '/stylesheets/guest-subscriber/information.css'
->>>>>>> 9c098fc51c686d1d7b667432d219fda57f15b3c1
+
     }
   );
 });
 
-<<<<<<< HEAD
-=======
+
 router.get('/subscriber/search', function (req, res, next) {
   res.render(
     'pages/subscriber',
@@ -284,6 +296,6 @@ router.get('/sign/signup', function (req, res, next) {
     }
   );
 });
->>>>>>> 9c098fc51c686d1d7b667432d219fda57f15b3c1
+
 
 module.exports = router;
