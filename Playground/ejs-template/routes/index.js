@@ -237,7 +237,7 @@ router.get('/guest/category', function (req, res, next) {
   );
 });
 
-router.get('/subscriber/hashtag', function (req, res, next) {
+router.get('/guest/hashtag', function (req, res, next) {
   res.render(
     'pages/guest',
     {
