@@ -325,9 +325,13 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     color: #fff;
 }
 
-.information-user div.status-user .badge-custom {
+.information-user div.status-user .badge-custom-premium {
     color: #000;
     background: #f6be13;
+}
+.information-user div.status-user .badge-custom-free {
+    color: #fff;
+    background: #28a745;
 }
 
 .information-user div.status-user::before {
