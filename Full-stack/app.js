@@ -3,10 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const app = express();
-
+// mongoose
 const mongoose = require('mongoose');
-
 const { MONGO_URI } = process.env;
 
 mongoose
@@ -14,7 +12,17 @@ mongoose
     .then(_ => console.log("Connected to MongoDB."))
     .catch(err => console.log("Connect to MongoDB with Error Message: ", err.errmsg));
 
+// models
+const modelsPath = path.join(__dirname, "./models");
+const fs = require('fs');
+
+fs.readdirSync(modelsPath).map(file => {
+    require('./models/' + file);
+});
+
 // view engine setup
+const app = express();
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -31,8 +39,8 @@ const api = require('./routes/api')
 app.use('/', views);
 app.use('/api', api);
 
-app.use(function (req, res, next) {
-    res.redirect('/home');
-});
+// app.use(function (req, res, next) { // link not found
+//     res.redirect('/home');
+// });
 
 module.exports = app;

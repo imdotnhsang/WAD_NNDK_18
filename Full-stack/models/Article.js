@@ -27,7 +27,7 @@ const ArticleSchema = mongoose.Schema({
         required: true
     },
     views: {
-        type: Int32Array,
+        type: Number,
         default: 0
     },
     comments: {
