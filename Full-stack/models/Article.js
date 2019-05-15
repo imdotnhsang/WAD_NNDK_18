@@ -7,7 +7,7 @@ const ArticleSchema = mongoose.Schema({
         required: true
     },
     tags: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
         required: false
     },
     coverImage: {
