@@ -73,7 +73,7 @@ router.post('/register', (req, res, _) => {
 
             switch (userType) {
                 case 'subscriber':
-                    newUser.expiredAt = Date.now();
+                    newUser.expiredAt = new Date().getTime();
                     break;
                 case 'editor':
                     break;

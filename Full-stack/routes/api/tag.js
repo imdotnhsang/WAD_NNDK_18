@@ -1,8 +1,8 @@
 const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+const router = express.Router();
 const Tag = mongoose.model('Tag');
 
 router.get('/get-all', (_, res) => {
@@ -12,7 +12,7 @@ router.get('/get-all', (_, res) => {
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
 
-router.post('/add-new-tag', (req, res) => {
+router.post('/create', (req, res) => {
     let errors = {};
 
     let title = _.get(req.body, 'title');
