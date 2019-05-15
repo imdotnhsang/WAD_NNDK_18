@@ -8,6 +8,10 @@ const TagSchema = mongoose.Schema({
     slug: {
         type: String,
         required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 });
 
