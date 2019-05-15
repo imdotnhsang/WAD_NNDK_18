@@ -7,8 +7,7 @@ const Tag = mongoose.model('Tag');
 
 router.get('/get-all', (_, res) => {
     Tag
-        .find()
-        //.find({ isActive: true })
+        .find({ isActive: true })
         .then(tagList => res.json(tagList))
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
