@@ -31,4 +31,8 @@ const api = require('./routes/api')
 app.use('/', views);
 app.use('/api', api);
 
+app.use(function (req, res, next) {
+    res.redirect('/home');
+});
+
 module.exports = app;
