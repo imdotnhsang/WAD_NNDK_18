@@ -14,7 +14,7 @@ mongoose
         console.log("Connect to MongoDB with Error Message: ", err.errmsg)
     );
 
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 //var usersRouter = require('./routes/users');
 
 var app = express();
@@ -29,9 +29,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-//app.use('/users', usersRouter);
-app.use('/api/user', require('./routes/api/user'));
+
+// routes
+const pages = require('./routes/pages');
+app.use('/', pages);
+
+const api = require('./routes/api')
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
