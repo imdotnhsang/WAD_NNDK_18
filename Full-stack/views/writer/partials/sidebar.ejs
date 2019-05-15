@@ -1,0 +1,51 @@
+<div class="main-navbar">
+    <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+        <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+            <div class="d-table m-auto">
+                <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;"
+                    src="/images/icons/logo.png" alt="Shards Dashboard">
+                <span class="d-none d-md-inline ml-1">Dashboard</span>
+            </div>
+        </a>
+        <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+            <i class="material-icons">&#xE5C4;</i>
+        </a>
+    </nav>
+</div>
+
+<div class="nav-wrapper">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link <%- title === 'Add new post' ? 'active' : '' %>" href="add-new-post">
+                <i class="material-icons">note_add</i>
+                <span>Add New Post</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%- title === 'Approved Post' ? 'active' : '' %>" href="approved-post">
+                <i class="material-icons">flag</i>
+                <span>Approved</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%- title === 'Published Post' ? 'active' : '' %>" href="published-post">
+                <i class="material-icons">vertical_split</i>
+                <span>Published</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link <%- title === 'Denied Post' ? 'active' : '' %>" href="denied-post">
+                <i class="material-icons">view_module</i>
+                <span>Denied</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%- title === 'Unapproved Post' ? 'active' : '' %>" href="unapproved-post">
+                <i class="material-icons">table_chart</i>
+                <span>Unapproved</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
