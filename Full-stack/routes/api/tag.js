@@ -8,7 +8,7 @@ const Tag = mongoose.model('Tag');
 router.get('/get-all', (_, res) => {
     Tag
         .find({ isActive: true })
-        .then(tagList => res.json(tagList))
+        .then(tagList => res.json({ message: 'Tags successfully got!', tagList }))
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
 
@@ -42,7 +42,7 @@ router.post('/create', (req, res) => {
 
             return newTag
                 .save()
-                .then(result => res.json(result))
+                .then(result => res.json({ message: 'Tag successfully created!', result }))
         })
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
@@ -68,7 +68,7 @@ router.post('/delete', (req, res) => {
 
             return result
                 .save()
-                .then(newResult => res.json(newResult))
+                .then(newResult => res.json({ message: 'Tag successfully deleted!', newResult }))
         })
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
@@ -97,7 +97,7 @@ router.post('/update', (req, res) => {
 
             return result
                 .save()
-                .then(newResult => res.json(newResult))
+                .then(newResult => res.json({ message: 'Tag successfully updated!', newResult }))
         })
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
