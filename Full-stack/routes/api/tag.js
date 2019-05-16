@@ -59,8 +59,6 @@ router.post('/delete', (req, res) => {
     Tag
         .findOne({ _id: id, isActive: true })
         .then(result => {
-            console.log(result);
-
             if (_.isEmpty(result)) {
                 errors.id = 'Id not found.';
                 return res.status(404).json(errors);
@@ -102,6 +100,6 @@ router.post('/update', (req, res) => {
                 .then(newResult => res.json(newResult))
         })
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
-})
+});
 
 module.exports = router;

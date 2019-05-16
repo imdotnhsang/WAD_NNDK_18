@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "server": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "test": "mocha || true"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -16,5 +17,11 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.5.8",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.1.4",
+    "request": "^2.88.0"
   }
 }
