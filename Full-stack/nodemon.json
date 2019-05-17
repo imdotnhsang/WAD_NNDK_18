@@ -1,8 +1,0 @@
-{
-    "env": {
-        "secretOrKey": "thebigwind",
-        "PORT": "5000",
-        "MONGO_URI": "mongodb://admin123:admin123@ds151876.mlab.com:51876/the-big-wind",
-        "baseUrl": "http://localhost:5000"
-    }
-}

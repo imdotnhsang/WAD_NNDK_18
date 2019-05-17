@@ -1,16 +1,26 @@
-const express = require('express');
+// buit-in nodejs
 const path = require('path');
+
+// 3rd packages
+const express = require('express');
+const app = express();
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
+const config = require('config');
 
 // mongoose
-const mongoose = require('mongoose');
-const { MONGO_URI } = process.env;
+const MONGO_URI = process.env.MONGO_URI || config.MONGO_URI;
 
-mongoose
+app.on("serverStarted", () => {
+    mongoose
     .connect(MONGO_URI, { useNewUrlParser: true })
-    .then(_ => console.log("Connected to MongoDB."))
+    .then(() => {
+        console.log("Connected to MongoDB.");
+        app.emit('mongoStarted');
+    })
     .catch(err => console.log("Connect to MongoDB with Error Message: ", err.errmsg));
+})
 
 // models
 const modelsPath = path.join(__dirname, "./models");
@@ -21,12 +31,21 @@ fs.readdirSync(modelsPath).map(file => {
 });
 
 // view engine setup
-const app = express();
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+const NODE_ENV = process.env.NODE_ENV || config.NODE_ENV;
+switch (NODE_ENV) {
+    case 'dev':
+        app.use(logger('dev'));
+        break;
+    // case 'test':
+    //     app.use(logger('short'));
+    //     break;
+    default:
+        break;
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -52,7 +71,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.error = req.app.get('env') === 'dev' ? err : {};
 
     // render the error page
     res.status(err.status || 500);

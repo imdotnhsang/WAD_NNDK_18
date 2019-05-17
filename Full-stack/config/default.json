@@ -1,0 +1,4 @@
+{
+    "MONGO_URI": "mongodb://admin123:admin123@ds151876.mlab.com:51876/the-big-wind",
+    "PORT": 5000
+}

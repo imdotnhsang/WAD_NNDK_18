@@ -15,7 +15,7 @@ router.get('/get-all', (_, res) => {
 router.post('/create', (req, res) => {
     let errors = {};
 
-    let { title } = req.body;
+    let { title } = req.body;    
     let slug = _.trim(title).replace(/ /g, '-').toLowerCase();
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
