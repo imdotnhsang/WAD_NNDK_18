@@ -8,15 +8,17 @@ const Tag = mongoose.model('Tag');
 router.get('/get-all', (_, res) => {
     Tag
         .find({ isActive: true })
-        .then(tagList => res.json({ message: 'Tags successfully got!', tagList }))
+        .then(tagList => res.json(tagList))
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
 
 router.post('/create', (req, res) => {
     let errors = {};
 
-    let { title } = req.body;    
-    let slug = _.trim(title).replace(/ /g, '-').toLowerCase();
+    let { title } = req.body; 
+
+    title = _.trim(title); 
+    let slug = title.replace(/ /g, '-').toLowerCase();
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.tag = 'Tag does not exist.'
@@ -42,7 +44,7 @@ router.post('/create', (req, res) => {
 
             return newTag
                 .save()
-                .then(result => res.json({ message: 'Tag successfully created!', result }))
+                .then(result => res.json(result))
         })
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });
@@ -56,6 +58,7 @@ router.post('/delete', (req, res) => {
         return res.status(400).json(errors);
     }
 
+    
     Tag
         .findOne({ _id: id, isActive: true })
         .then(result => {
@@ -68,22 +71,27 @@ router.post('/delete', (req, res) => {
 
             return result
                 .save()
-                .then(newResult => res.json({ message: 'Tag successfully deleted!', newResult }))
+                .then(newResult => res.json(newResult))
         })
-        .catch(err => res.status(400).json({ ...errors, ...err.errors }));
+        .catch(err => {
+            console.log(err);
+            res.status(400).json({ ...errors, ...err.errors });
+        });
 });
 
 router.post('/update', (req, res) => {
     let errors = {};
 
     let { title, id } = req.body;
-    let slug = _.trim(title).replace(/ /g, '-').toLowerCase();
+
+    title = _.trim(title);
+    let slug = title.replace(/ /g, '-').toLowerCase();
 
     if (_.isEmpty(title) || _.isEmpty(slug) || _.isEmpty(id)) {
         errors.tag = 'Tag does not exist.'
         return res.status(400).json(errors);
-    }
-
+    }    
+    
     Tag
         .findOne({ _id: id, isActive: true })
         .then(result => {
@@ -92,14 +100,31 @@ router.post('/update', (req, res) => {
                 return res.status(404).json(errors);
             }
 
-            result.title = title;
-            result.slug = slug;
+            return Tag
+                .findOne({
+                    $and: [
+                        { $or: [{ title }, { slug }] },
+                        { isActive: true }
+                    ]
+                })
+                .then(hasTag => {
+                    if (hasTag) {
+                        errors.title = 'Tag already exist.';
+                        return res.status(400).json(errors);
+                    }
 
-            return result
-                .save()
-                .then(newResult => res.json({ message: 'Tag successfully updated!', newResult }))
+                    result.title = title;
+                    result.slug = slug;
+
+                    return result
+                        .save()
+                        .then(newResult => res.json(newResult))
+                })
         })
-        .catch(err => res.status(400).json({ ...errors, ...err.errors }));
+        .catch(err => {
+            console.log(err);
+            res.status(400).json({ ...errors, ...err.errors });
+        });
 });
 
 module.exports = router;

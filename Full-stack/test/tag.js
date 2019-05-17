@@ -15,19 +15,18 @@ const Tag = mongoose.model('Tag');
 chai.should();
 
 describe("\n\n=============== API TAG ===============\n", () => {
+    var tagTesting = {};
+
     before(done => {
         app.on("mongoStarted", () => {
             mongoose.connection.db.dropDatabase();
 
             const payload = { title: 'Apple watch' };
 
-            request.post({ url: `${baseUrl}/create`, form: payload }, (err, res, body) => {                
-                // console.log("\n==== Data testing ====");
-                // console.log(JSON.parse(body));
-                // console.log("======================\n\n");
+            request.post({ url: `${baseUrl}/create`, form: payload }, (err, res, body) => {
+                tagTesting = JSON.parse(body);
+                console.log("Init testing data: ", tagTesting);
 
-                console.log("Init testing data: ", JSON.parse(body));
-                
                 done();
             });
         });
@@ -39,7 +38,7 @@ describe("\n\n=============== API TAG ===============\n", () => {
             request.get(`${baseUrl}/get-all`, (err, res, body) => {
                 res.statusCode.should.have.equal(200);
 
-                const { tagList } = JSON.parse(body);
+                const tagList = JSON.parse(body);
 
                 tagList.should.be.a('array');
                 tagList.map(tag => tag.should.have.property('isActive').equal(true));
@@ -85,6 +84,135 @@ describe("\n\n=============== API TAG ===============\n", () => {
 
             request.post({ url: `${baseUrl}/create`, form: payload }, (err, res, body) => {
                 res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('Create must be success', (done) => {
+            const payload = { title: '  Create new tag ' };
+
+            request.post({ url: `${baseUrl}/create`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(200);
+
+                const tagCreated = JSON.parse(body);
+                tagCreated.isActive.should.have.equal(true);
+                tagCreated.title.should.have.equal(payload.title.trim());
+
+                done();
+            });
+        })
+    });
+
+    // ROUTE: POST /update
+    describe('\n*** ROUTE: /update', () => {
+        it('Title.trim() !== null', (done) => {
+            const payload = { title: '           ' };
+
+            request.post({ url: `${baseUrl}/update`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('Title !== undefined', (done) => {
+            const payload = {};
+            request.post({ url: `${baseUrl}/update`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('Id must be existed', (done) => {
+            const payload = { id: '5cde3ef62a87a174e6a80b26' };
+
+            request.post({ url: `${baseUrl}/update`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('Id must be existed', (done) => {
+            const payload = { id: '5cde3ef62a87a174e6a80b26' };
+
+            request.post({ url: `${baseUrl}/update`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('New title must be unique', (done) => {
+            const payload = { id: tagTesting._id, title: '  Apple watch  ' };
+
+            request.post({ url: `${baseUrl}/update`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('New slug must be unique', (done) => {
+            const payload = { id: tagTesting._id, title: '  apple Watch  ' };
+
+            request.post({ url: `${baseUrl}/update`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('Update must be success', (done) => {
+            const payload = { id: tagTesting._id, title: '  update apple Watch ' };
+
+            request.post({ url: `${baseUrl}/create`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(200);
+
+                const tagUpdated = JSON.parse(body);
+                
+                tagUpdated.isActive.should.have.equal(true);
+                tagUpdated.title.should.have.equal(payload.title.trim());
+
+                done();
+            });
+        })
+    });
+
+    // ROUTE: POST /delete
+    describe('\n*** ROUTE: /delete', () => {
+        it('Id !== undefined', done => {
+            const payload = {};
+
+            request.post({ url: `${baseUrl}/delete`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(400);
+
+                done();
+            });
+        });
+
+        it('Id must be existed', done => {
+            const payload = { id: '5cde3ef62a87a174e6a80b26' };
+
+            request.post({ url: `${baseUrl}/delete`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(404);
+
+                done();
+            });
+        });
+
+        it('Delete must be success', done => {
+            const payload = { id: tagTesting._id };
+
+            request.post({ url: `${baseUrl}/delete`, form: payload }, (err, res, body) => {
+                res.statusCode.should.have.equal(200);
+
+                const tagDeleted = JSON.parse(body);
+
+                tagDeleted.title.should.have.equal(tagTesting.title);
+                tagDeleted.isActive.should.have.equal(false);
 
                 done();
             });
