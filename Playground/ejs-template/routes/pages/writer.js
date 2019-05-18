@@ -50,6 +50,7 @@ router.get('/unapproved-post', function (req, res, next) {
         {
             title: 'Unapproved Post',
             layout: 'layouts/unapprovedpost',
+            srcScript: ''
         }
     );
 });
