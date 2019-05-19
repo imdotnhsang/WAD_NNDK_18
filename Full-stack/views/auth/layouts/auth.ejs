@@ -25,20 +25,21 @@
                     </ul>
                     <form class="pt-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="InputEmail" placeholder="Email">
+                            <input type="text" class="form-control" id="signin__username"
+                                placeholder="Email or Username">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="signin__password" placeholder="Password">
                         </div>
                         <div class="row m-0 justify-content-between align-items-center">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="check-remember">
-                                <label class="custom-control-label" for="check-remember">Remember me</label>
+                                <input type="checkbox" class="custom-control-input" id="signin__remember">
+                                <label class="custom-control-label" for="signin__remember">Remember me</label>
                             </div>
-                            <button type="submit" class="btn btn-custom">LOG IN</button>
+                            <button type="submit" id="signin__btn" class="btn btn-custom">LOG IN</button>
                         </div>
                     </form>
-                    <div class="forgot"><a href="">Forgot your username?</a><a href="">Forgot your password?</a>
+                    <div class="forgot"><a href="">Forgotten password?</a>
                     </div>
                 </div>
                 <div id="signup" class="tab-pane fade">
@@ -48,26 +49,48 @@
                     </ul>
                     <form class="pt-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="InputFullname" placeholder="Fullname">
-
+                            <input type="text" class="form-control" id="signup__fullname" placeholder="Full name">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                            <input type="text" class="form-control" id="signup__username" placeholder="Username">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="ReInputPassword"
+                            <input type="email" class="form-control" id="signup__email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="signup__password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="signup__pwdRepeat"
                                 placeholder="Retype password">
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="InputEmail" placeholder="Email">
-                        </div>
                         <div class="row m-0 justify-content-end align-items-center">
-                            <button type="submit" class="btn btn-custom">SIGN UP</button>
+                            <button type="submit" id="signup__btn" class="btn btn-custom">SIGN UP</button>
                         </div>
                     </form>
                 </div>
             </div>
+            <div class="modal fade sign-up_sign-in__modal" id="sign-up_sign-in__modal" tabindex="-1" role="dialog"
+                aria-labelledby="sign-up_sign-in__modalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                            <h4 class="modal-title modal-title-custom" id="sign-up_sign-in__modalLabel">Warning</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
+                            Are you sure username and password were true?<br>I think you should check that again 😉😉😉
+                        </div>
+                        <div class="modal-footer modal-footer-custom p-2">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
     <div class="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-0 p-0 m-0 blank-col-nav">
     </div>

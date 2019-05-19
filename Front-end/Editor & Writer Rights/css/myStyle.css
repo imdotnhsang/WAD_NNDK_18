@@ -51,4 +51,13 @@
  	margin-bottom: 3px;
  }
 
- 
+ .footer {
+ 	position:absolute;
+ 	bottom:0;
+ 	width:100%;
+
+ }
+
+ .main-content {
+ 	position: relative;
+ }

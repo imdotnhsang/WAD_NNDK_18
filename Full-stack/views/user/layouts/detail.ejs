@@ -6,7 +6,7 @@
             <li class="breadcrumb-item breadcrumb-item-custom"><a class="p-0" href="category">Tech</a></li>
             <li class="breadcrumb-item breadcrumb-item-custom active">Apple</li>
         </ul>
-        <div class="pl-2 pr-2 pl-xl-0 pr-xl-0">
+        <div class="pl-2 pr-2 pl-xl-0 pr-xl-0" id="newsDet__pdf">
             <div class="title-detail-news">
                 <h2>Apple Pay is coming to New York City’s MTA transit system this summer</h2>
             </div>
@@ -21,6 +21,11 @@
             <div class="share-detail-news row m-0 pl-2 p-xl-0">
                 <div class="facebook"><i class="fa fa-facebook"></i></div>
                 <div class="twitter"><i class="fa fa-twitter"></i></div>
+                <% if(isLogin){ %>
+                <% if(isPremium){ %>
+                <div class="print" id="detail__print"><i class="fa fa-floppy-o"></i></div>
+                <% } %>
+                <% } %>
             </div>
             <div class="row m-0">
                 <div class="content-detail col-lg-9 p-0 pr-lg-5">
@@ -200,8 +205,8 @@
                         <div class="new-comment pt-2 pr-sm-3 pr-lg-4 pl-3 pr-3">
                             <form class="row justify-content-end">
                                 <textarea class="pl-2 pr-2 w-100 mt-3" name="content-new-comment"
-                                    id="content-new-comment" rows="3" placeholder="Write a comment..."></textarea>
-                                <div class="btn btn-success mt-2"><i class="fa fa-paper-plane-o"></i> Comment</div>
+                                    id="comment__content" rows="3" placeholder="Write a comment..."></textarea>
+                                <div class="btn btn-success mt-2" id="comment__btn"><i class="fa fa-paper-plane-o"></i> Comment</div>
                             </form>
                         </div>
                     </div>
@@ -222,8 +227,7 @@
                                     Spotify,
                                     and the podcast wars to come
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category">Tech</a>&nbsp;&nbsp;
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
                                     <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
                             </div>
                         </div>
@@ -235,8 +239,7 @@
                                     Spotify,
                                     and the podcast wars to come
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category">Tech</a>&nbsp;&nbsp;
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
                                     <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
                             </div>
                         </div>
@@ -248,8 +251,7 @@
                                     Spotify,
                                     and the podcast wars to come
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category">Tech</a>&nbsp;&nbsp;
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
                                     <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
                             </div>
                         </div>
@@ -261,8 +263,7 @@
                                     Spotify,
                                     and the podcast wars to come
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category">Tech</a>&nbsp;&nbsp;
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
                                     <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
                             </div>
                         </div>
@@ -274,8 +275,7 @@
                                     Spotify,
                                     and the podcast wars to come
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category">Tech</a>&nbsp;&nbsp;
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
                                     <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
                             </div>
                         </div>
@@ -287,8 +287,7 @@
                                     Spotify,
                                     and the podcast wars to come
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category">Tech</a>&nbsp;&nbsp;
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
                                     <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
                             </div>
                         </div>
@@ -298,4 +297,23 @@
         </div>
     </div>
     <div class="col-xl-2 col-0 p-0 m-0 blank-col-container"></div>
+</div>
+<div class="modal fade comment__modal" id="comment__modal" tabindex="-1" role="dialog"
+    aria-labelledby="comment__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="comment__modalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
+                    If you want to comment ✌<br>I don't think you should fill it before 😉😉😉
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

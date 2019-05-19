@@ -8,7 +8,9 @@ router.get('/home', function (req, res, next) {
             title: 'Home',
             layout: 'layouts/home',
             srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: ''
+            hrefCss: '',
+            isLogin: true,
+            isPremium: true
         }
     );
 });
@@ -20,7 +22,9 @@ router.get('/detail', function (req, res, next) {
             title: 'Detail',
             layout: 'layouts/detail',
             srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/detail.css'
+            hrefCss: '/stylesheets/guest-subscriber/detail.css',
+            isLogin: true,
+            isPremium: true
         }
     );
 });
@@ -32,7 +36,9 @@ router.get('/category', function (req, res, next) {
             title: 'Category',
             layout: 'layouts/category',
             srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/category.css'
+            hrefCss: '/stylesheets/guest-subscriber/category.css',
+            isLogin: true,
+            isPremium: true
         }
     );
 });
@@ -44,7 +50,9 @@ router.get('/hashtag', function (req, res, next) {
             title: 'Hashtag',
             layout: 'layouts/hashtag',
             srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/hashtag.css'
+            hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
+            isLogin: true,
+            isPremium: true
         }
     );
 });
@@ -56,7 +64,9 @@ router.get('/information', function (req, res, next) {
             title: 'Information',
             layout: 'layouts/information',
             srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/information.css'
+            hrefCss: '/stylesheets/guest-subscriber/information.css',
+            isLogin: true,
+            isPremium: true
         }
     );
 });
@@ -68,7 +78,9 @@ router.get('/search', function (req, res, next) {
             title: 'Search',
             layout: 'layouts/search',
             srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/search.css'
+            hrefCss: '/stylesheets/guest-subscriber/search.css',
+            isLogin: true,
+            isPremium: true
         }
     );
 });
