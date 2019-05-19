@@ -255,6 +255,32 @@ $('#searchBar__btn').click(function (e) {
     }
 });
 
+//check validate search page
+//check validate search bar
+$('#searchPage__btn').click(function (e) {
+    e.preventDefault();
+    var keySearch;
+    if ($('#searchPage__content').val().trim().length > 0) {
+        keySearch = $('#searchPage__content').val();
+        console.log(keySearch);
+        document.getElementById('searchBar__content').value = '';
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#search__modal');
+        $('.search__modal button').click(function () {
+            $('#searchPage__btn').removeAttr('data-toggle');
+            $('#searchPage__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".search__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#searchPage__btn').removeAttr('data-toggle');
+                $('#searchPage__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
 //move tab edit profile
 $('#btn_updateInfTab').click(function () {
     $('#home').removeClass('show');
