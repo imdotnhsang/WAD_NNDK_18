@@ -126,7 +126,6 @@ $("#pic-avatar").change(function () {
     }
 });
 
-//check validate auth
 function checkSpaceInString(sSen) {
     var patt = /\s/g;
     if (sSen.match(patt)) {
@@ -165,6 +164,7 @@ function validatePassword(sPassword) {
     }
 }
 
+//check validate auth
 $('#signin__btn').click(function (e) {
     e.preventDefault();
     var user, pwd, checkRemember;
@@ -175,7 +175,7 @@ $('#signin__btn').click(function (e) {
         console.log(user, pwd, checkRemember);
     } else {
         $('#signin__btn').attr('data-toggle', 'modal');
-        $('#signin__btn').attr('data-target', '#flipFlop');
+        $('#signin__btn').attr('data-target', '#sign-up_sign-in__modal');
         $('.sign-up_sign-in__modal button').click(function () {
             $('#signin__btn').removeAttr('data-toggle');
             $('#signin__btn').removeAttr('data-target');
@@ -198,7 +198,7 @@ $('#signup__btn').click(function (e) {
         console.log(fname, user, email, pwd);
     } else {
         $('#signup__btn').attr('data-toggle', 'modal');
-        $('#signup__btn').attr('data-target', '#flipFlop');
+        $('#signup__btn').attr('data-target', '#sign-up_sign-in__modal');
         $('.sign-up_sign-in__modal button').click(function () {
             $('#signup__btn').removeAttr('data-toggle');
             $('#signup__btn').removeAttr('data-target');
@@ -206,9 +206,76 @@ $('#signup__btn').click(function (e) {
     }
 });
 
+//check validate search bar
+$('#searchBar__btn').click(function (e) {
+    e.preventDefault();
+    var keySearch;
+    if ($('#searchBar__content').val().trim().length > 0) {
+        keySearch = $('#searchBar__content').val();
+        console.log(keySearch);
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#search__modal');
+        $('.search__modal button').click(function () {
+            $('#searchBar__btn').removeAttr('data-toggle');
+            $('#searchBar__btn').removeAttr('data-target');
+        });
+    }
+});
+
+//move tab edit profile
+$('#btn_updateInfTab').click(function () {
+    $('#home').removeClass('show');
+    $('#home').removeClass('active');
+    $('#home-tab').removeClass('active');
+    $('#edit_profile').addClass('show');
+    $('#edit_profile').addClass('active');
+    $('#edit_profile-tab').addClass('active');
+
+});
+
+//check validate information update
+$('#updateInf__btn').click(function (e) {
+    e.preventDefault();
+    var fname, gender, dob, email;
+    fname = $('#updateInf__fullname').val();
+    gender = $('#updateInf__gender').val();
+    dob = $('#updateInf__bod').val();
+    email = $('#updateInf__email').val();
+    console.log(fname, gender, dob, email);
+});
+
+$('#updateInf__btnCancel').click(function (e) {
+    document.getElementById('updateInf__fullname').value = 'Leo Nguyen';
+    document.getElementById('updateInf__gender').value = 1;
+    document.getElementById('updateInf__bod').value = '8/16/98';
+    document.getElementById('updateInf__email').value = '1612556@student.hcmus.edu.vn';
+})
+
+//check validate change password
+$('#updatePwd__btn').click(function (e) {
+    e.preventDefault();
+    var pwd, pwdNew, pwdNewRe;
+    if (($('#updatePwd__pwdNew').val() == $('#updatePwd__pwdNewRe').val()) && validatePassword($('#updatePwd__pwdNew').val())) {
+        pwdNew = $('#updatePwd__pwdNew').val();
+        console.log(pwdNew)
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#changePwd__modal');
+        $('.changePwd__modal button').click(function () {
+            $('#updatePwd__btn').removeAttr('data-toggle');
+            $('#updatePwd__btn').removeAttr('data-target');
+        });
+    }
+});
+
+$('#updatePwd__btnCancel').click(function (e) {
+    document.getElementById('updatePwd__pwdOld').value = '';
+    document.getElementById('updatePwd__pwdNew').value = '';
+    document.getElementById('updatePwd__pwdNewRe').value = '';
+})
+
 //transfer news to pdf
-
-
 $('#detail__print').click(function () {
- 
+
 });
