@@ -6,5 +6,6 @@ router.use('/administrator', require('./administrator'));
 router.use('/auth', require('./auth'));
 router.use('/writer', require('./writer'));
 router.use('/editor', require('./editor'));
+router.use('/utils', require('./utils'));
 
 module.exports = router;

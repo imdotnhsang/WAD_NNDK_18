@@ -384,10 +384,25 @@ $('#comment__btn').click(function (e) {
 //check code when forgetting password
 $('#forgotPwd__btn').click(function (e) {
     e.preventDefault();
-    var contentComment;
+    var contentCode;
     if ($('#forgotPwd__code').val().trim().length > 0) {
-        contentComment = $('#forgotPwd__code').val();
-        console.log(contentComment);
+        contentCode = $('#forgotPwd__code').val();
+        console.log(contentCode);
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#forgotPwd-success__modal');
+        $('.forgotPwd-success__modal button').click(function () {
+            $('#forgotPwd__btn').removeAttr('data-toggle');
+            $('#forgotPwd__btn').removeAttr('data-target');
+            window.location = '/auth';
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".forgotPwd-success__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#forgotPwd__btn').removeAttr('data-toggle');
+                $('#forgotPwd__btn').removeAttr('data-target');
+            }
+            window.location = '/auth';
+        });
     } else {
         $(this).attr('data-toggle', 'modal');
         $(this).attr('data-target', '#forgotPwd__modal');
@@ -403,8 +418,31 @@ $('#forgotPwd__btn').click(function (e) {
             }
         });
     }
-
 });
+
+// $('#emailForgotPwd__btn').click(function (e) {
+//     e.preventDefault();
+//     var contentEmail;
+//     if (validateEmail($('#emailForgotPwd__input').val())) {
+//         contentEmail = $('#emailForgotPwd__input').val();
+//         console.log(contentEmail);
+//         window.location = '/resetpassword';
+//     } else {
+//         $(this).attr('data-toggle', 'modal');
+//         $(this).attr('data-target', '#emailForgotPwd__modal');
+//         $('.emailForgotPwd__modal button').click(function () {
+//             $('#emailForgotPwd__btn').removeAttr('data-toggle');
+//             $('#emailForgotPwd__btn').removeAttr('data-target');
+//         });
+//         $(document).mouseup(function (e) {
+//             var container = $(".forgotPwd__modal");
+//             if (!container.is(e.target) && container.has(e.target).length === 0) {
+//                 $('#emailForgotPwd__btn').removeAttr('data-toggle');
+//                 $('#emailForgotPwd__btn').removeAttr('data-target');
+//             }
+//         });
+//     }
+// });
 
 //transfer news to pdf
 $('#detail__print').click(function () {

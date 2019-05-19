@@ -1,0 +1,75 @@
+<div class="container-sign row m-0">
+    <div class="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-0 p-0 m-0 blank-col-nav">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 p-0 m-0 pt-2 pr-2 pl-2 p-lg-0">
+        <div class="title-page-sign">
+            <p class="text-uppercase text-center">the big wind</p>
+        </div>
+        <form class="forgotPwd" id="forgotPwd">
+            <div class="content p-3">
+                <div class="title font-weight-bold">Enter Security Code</div>
+                <div class="warning pt-2">Please check your phone for a text message with your code. Your code is
+                    6 characters in length.</div>
+                <span class="notice row m-0"><strong>We send your code to: </strong>&nbsp;<p class="email m-0" id="emailForgotPwd__text"><%= emailResetPwd %></p></span>
+                <div class="reset_pwd pt-3">
+                    <input type="text" class="form-control" id="forgotPwd__code" placeholder="Enter code"
+                        name="code_Check">
+                </div>
+            </div>
+            <div class="control pl-3 pr-3 pb-2 row m-0 justify-content-between">
+                <div class="error_noCode d-flex align-items-center">
+                    <a href="">Didn't get a code</a>
+                </div>
+                <div class="btns-done-reset row m-0 justify-content-end align-items-center">
+                    <div class="pr-2">
+                        <a href="/auth">
+                            <button type="button" class="btn btn-cancel" id="forgotPwd__btnCancel">Cancel</button></a>
+                    </div>
+                    <div class="pl-2">
+                        <button type="submit" class="btn btn-success" id="forgotPwd__btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-0 p-0 m-0 blank-col-nav">
+    </div>
+</div>
+<div class="modal fade forgotPwd__modal" id="forgotPwd__modal" tabindex="-1" role="dialog"
+    aria-labelledby="forgotPwd__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="forgotPwd__modalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
+                Are you sure code was true?<br>I think you should check that again 😉😉😉
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade forgotPwd-success__modal" id="forgotPwd-success__modal" tabindex="-1" role="dialog"
+    aria-labelledby="forgotPwd-success__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="forgotPwd-success__modalLabel">Congratulations</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
+                You changed password successfully 😉😉😉
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OKAY</button>
+            </div>
+        </div>
+    </div>
+</div>
