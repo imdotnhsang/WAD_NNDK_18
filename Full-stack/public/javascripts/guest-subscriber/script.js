@@ -275,6 +275,23 @@ $('#updatePwd__btnCancel').click(function (e) {
     document.getElementById('updatePwd__pwdNewRe').value = '';
 })
 
+//check comment
+$('#comment__btn').click(function (e) {
+    var contentComment;
+    if ($('#comment__content').val().trim().length > 0) {
+        contentComment=$('#comment__content').val();
+        console.log(contentComment);
+    }else{
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#comment__modal');
+        $('.changePwd__modal button').click(function () {
+            $('#comment__btn').removeAttr('data-toggle');
+            $('#comment__btn').removeAttr('data-target');
+        });
+    }
+
+});
+
 //transfer news to pdf
 $('#detail__print').click(function () {
 
