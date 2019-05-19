@@ -7,7 +7,6 @@ router.get('/', function (req, res, next) {
     {
       title: 'Loading...',
       layout: 'layouts/utils',
-      srcScript: '/javascripts/guest-subscriber/utils.js',
       hrefCss: '/stylesheets/guest-subscriber/utils.css'
     }
   );
