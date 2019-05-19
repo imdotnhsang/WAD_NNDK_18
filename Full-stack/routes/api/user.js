@@ -1,62 +1,66 @@
 const express = require('express');
 const router = express.Router();
+const _ = require('lodash');
+
+// sendmail
+const rootUrl = require('config').rootUrl;
+const { sendActivationEmail, sendForgotPasswordEmail} = require('../../utils/sendMail');
 
 const { User } = require('../../models/User');
 
-router.post('/login', (req, res, _) => {
+router.post('/login', (req, res) => {
     const errors = {};
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
 
     User
-        .findOne({ username })
+        .findOne({
+            $and: [
+                { $or: [{ username }, { email }] },
+                { isActive: true }
+            ]
+        })
         .then(user => {
             if (!user) {
-                errors.username = 'Username not found.';
-                return res.status(400).json(errors);
+                errors.message = 'Username or email not found.';
+                return res.status(404).json(errors);
             }
 
+            if (user.confirmed === false) {
+                errors.confirmed = 'Account must be active.'
+            }
             if (user.validPassword(password)) {
-                const payload = {
-                    id: user.id,
-                    username: user.username,
-                    email: user.email,
-                    birthday: user.birthday,
-                    fullname: user.fullname
-                };
+                const payload = _.pick(user, ['id', 'username', 'email', 'birthday', 'fullname'])
 
                 switch (user.userType) {
                     case 'subscriber':
                         payload.expiredAt = user.expiredAt;
                         break;
                     case 'writer':
+                        payload.pseudonym = user.pseudonym;
                         break;
                     case 'editor':
                         payload.categoriesManagement = user.categoriesManagement;
-                        break;
-                    case 'admin':
-
                         break;
                     default:
                         break;
                 }
 
                 return res.json(payload);
-            } else {
-                errors.password = "Password incorrect.";
-                return res.status(400).json(errors);
             }
+
+            errors.password = "Password incorrect.";
+            return res.status(400).json(errors);
         })
+        .catch(err => res.status(400).json(err));
 });
 
-router.post('/register', (req, res, _) => {
+router.post('/register', (req, res) => {
     const errors = {};
-    const { username, fullname, email, password, userType } = req.body;
+    const { username, fullname, email, password, userType, pseudonym } = req.body;
 
     User
         .findOne({ $or: [{ username }, { email }] })
         .then(user => {
-            console.log(user);
-
             if (user) {
                 if (user.username === username) {
                     errors.username = 'Username already exist.'
@@ -66,7 +70,7 @@ router.post('/register', (req, res, _) => {
                     errors.email = 'Email already exist.'
                 }
 
-                return res.status(400).json(errors)
+                return res.status(400).json(errors);
             }
 
             const newUser = new User({ username, fullname, email, userType });
@@ -76,24 +80,81 @@ router.post('/register', (req, res, _) => {
                     newUser.expiredAt = new Date().getTime();
                     break;
                 case 'editor':
+                    newUser.categoriesManagement = [];
+                    break;
+                case 'writer':
+                    if (_.isEmpty(pseudonym)) {
+                        errors.pseudonym = 'Pseudonym is required.'
+                        return res.status(400).json(errors);
+                    }
+
+                    newUser.pseudonym = pseudonym;
+                    break;
+                case 'administrator':
+                    newUser.isActive = true;
                     break;
                 default:
                     errors.userType = 'Usertype does not exist.'
-                    return res.status(400).json(errors)
+                    return res.status(400).json(errors);
             }
 
             newUser.password = newUser.encryptPassword(password);
 
-            newUser
+            return newUser
                 .save()
-                .then(user => res.json(user))
-                .catch(err => res.status(400).json(err))
+                .then(userCreated => {
+                    const authUrl = `${rootUrl}/api/user/confirm/${userCreated._id}`;
+
+                    sendActivationEmail(userCreated.email, authUrl);
+                    return res.json(userCreated);
+                });
         })
-        .catch(err => res.status(400).json(err))
+        .catch(err => res.status(400).json(err));
 });
 
-router.get('/current', (req, res, _) => {
+router.get('/activation/:userId', (req, res) => {
+    const errors = {};
+    const userId = req.params.userId;
 
+    User
+        .findOne({ _id: userId, isActive: true })
+        .then(user => {
+            if (!user) {
+                errors.message = 'Your token invaild.'
+                return res.status(400).json(errors);
+            }
+
+            if (user.confirmed) {
+                errors.message = 'Account already confirmed.'
+                return res.status(400).json(errors);
+            }
+
+            user.confirmed = true;
+
+            return user
+                .save()
+                .then(userUpdated => res.json(userUpdated));
+        })
+        .catch(err => res.status(400).json(err));
+});
+
+router.post('/forgot-password', (req, res) => {
+    const errors = {};
+    const { email } = req.body;
+
+    User
+        .findOne({ email, isActive: true })
+        .then(user => {
+            if (!user) {
+                errors.email = 'Email does not exits.';
+                return res.status(404).json(errors);
+            }
+
+            const authCode = 1000 + new Date().getTime() % 9000;
+
+            sendForgotPasswordEmail(user.email, authCode);
+        })
+        .catch(err => res.status(400).json(err));
 });
 
 module.exports = router;

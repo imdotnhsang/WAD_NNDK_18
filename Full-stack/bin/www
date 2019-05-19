@@ -90,7 +90,6 @@ function onListening() {
   debug('Listening on ' + bind);
   
   console.log(`Server running on port: ${port}`);
-  app.emit('serverStarted');
 }
 
 module.exports = server;
