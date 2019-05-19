@@ -24,7 +24,7 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     birthday: {
-        type: Date,
+        type: Number,
         required: false
     },
     userType: { // subscriber, writer, editor, administrator
@@ -32,7 +32,7 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     createdAt: {
-        type: Date,
+        type: Number,
         default: new Date().getTime()
     },
     isActive: {
@@ -48,7 +48,7 @@ const UserSchema = mongoose.Schema({
         required: false
     },
     expiredAt: { // subscriber
-        type: Date,
+        type: Number,
         required: false
     },
     categoriesManagement: { // editor
@@ -61,7 +61,7 @@ const UserSchema = mongoose.Schema({
             required: true
         },
         expiredAt: {
-            type: String,
+            type: Number,
             required: true
         }
     }

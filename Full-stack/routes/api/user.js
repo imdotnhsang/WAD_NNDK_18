@@ -87,7 +87,7 @@ router.post('/register', (req, res) => {
                 .then(userCreated => {
                     const payload = pickUser(userCreated, userCreated.userType);
                     console.log(payload);
-                    
+
                     sendOTPCode(userCreated.email, userCreated.OTP.code, 'activation');
 
                     return res.json(payload);
@@ -120,7 +120,34 @@ router.post('/register', (req, res) => {
 //                 .then(userUpdated => res.json(userUpdated));
 //         })
 //         .catch(err => res.status(400).json(err));
-// });
+// })
+
+router.post('/validate-otp', (req, res) => {
+    const errors = {};
+    const { email, OTPCode } = req.body;
+
+    const currentTime = new Date().getTime();
+    User
+        .findOne({
+            $and: [
+                { email },
+                { "OTP.code": OTPCode },
+                { "OTP.expiredAt": { $gt: currentTime } }
+            ]
+        })
+        .then(user => {
+            console.log('user: ', user);
+
+            if (!user) {
+                errors.message = "Your OTP Code invalid."
+                return res.status(400).json(errors);
+            }
+
+            return res.json({ message: 'Success!.' })
+        })
+        .catch(err => res.status(400).json(err));
+
+});
 
 router.post('/forgot-password', (req, res) => {
     const errors = {};
