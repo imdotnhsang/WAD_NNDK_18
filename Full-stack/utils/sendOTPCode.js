@@ -32,18 +32,17 @@ const sendOTPCode = (email, OTPCode, typeEmail) => {
     const mailOptions = {
         from: autoUser,
         to: email,
-        subject, 
+        subject,
         html
     };
 
-    transporter
-        .sendMail(mailOptions, (err, info) => {
-            if (err) {
-                console.log('err: ', err);
-            } else {
-                console.log('info: ', info);
-            }
-        });
-} 
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.log('err: ', err);
+        } else {
+            console.log('info: ', info);
+        }
+    });
+}
 
 module.exports = sendOTPCode

@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-const rootUrl = require('config').rootUrl;
-const sendOTPCode =  require('../../utils/sendOTPCode');
+const sendOTPCode = require('../../utils/sendOTPCode');
+const createOTP = require('../../utils/createOTP');
+const pickUser = require('../../utils/pickUser');
 
 const { User } = require('../../models/User');
 
@@ -28,22 +29,7 @@ router.post('/login', (req, res) => {
                 errors.confirmed = 'Account must be active.'
             }
             if (user.validPassword(password)) {
-                const payload = _.pick(user, ['id', 'username', 'email', 'birthday', 'fullname'])
-
-                switch (user.userType) {
-                    case 'subscriber':
-                        payload.expiredAt = user.expiredAt;
-                        break;
-                    case 'writer':
-                        payload.pseudonym = user.pseudonym;
-                        break;
-                    case 'editor':
-                        payload.categoriesManagement = user.categoriesManagement;
-                        break;
-                    default:
-                        break;
-                }
-
+                const payload = pickUser(user, user.userType);
                 return res.json(payload);
             }
 
@@ -72,8 +58,7 @@ router.post('/register', (req, res) => {
                 return res.status(400).json(errors);
             }
 
-            const OTPCode = 100000 + new Date().getTime() % 900000;
-            const OTP = { code: OTPCode }
+            const OTP = createOTP();
             const newUser = new User({ username, fullname, email, userType, OTP });
 
             switch (userType) {
@@ -92,7 +77,6 @@ router.post('/register', (req, res) => {
                     newUser.pseudonym = pseudonym;
                     break;
                 case 'administrator':
-                    newUser.isActive = true;
                     break;
                 default:
                     errors.userType = 'Usertype does not exist.'
@@ -104,9 +88,13 @@ router.post('/register', (req, res) => {
             return newUser
                 .save()
                 .then(userCreated => {
-                    sendOTPCode(userCreated.email, OTPCode, 'activation');
-                    return res.json(userCreated);
-                });
+                    const payload = pickUser(userCreated, userCreated.userType);
+                    console.log(payload);
+                    
+                    sendOTPCode(userCreated.email, userCreated.OTP.code, 'activation');
+
+                    return res.json(payload);
+                })
         })
         .catch(err => res.status(400).json(err));
 });
@@ -149,7 +137,7 @@ router.post('/forgot-password', (req, res) => {
                 return res.status(404).json(errors);
             }
 
-            sendOTPCode(userCreated.email, 'forgotten');
+            sendOTPCode(user.email, 'forgotten');
         })
         .catch(err => res.status(400).json(err));
 });
