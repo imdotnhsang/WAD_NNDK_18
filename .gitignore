@@ -1,3 +1,5 @@
 /.vscode
 /Full-stack/node_modules
+/Full-stack/.vscode
 /Playground/ejs-template/node_modules
+/Playground/ejs-template/.vscode

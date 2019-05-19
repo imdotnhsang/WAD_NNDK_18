@@ -12,15 +12,13 @@ const config = require('config');
 // mongoose
 const MONGO_URI = process.env.MONGO_URI || config.MONGO_URI;
 
-app.on("serverStarted", () => {
-    mongoose
+mongoose
     .connect(MONGO_URI, { useNewUrlParser: true })
     .then(() => {
         console.log("Connected to MongoDB.");
         app.emit('mongoStarted');
     })
     .catch(err => console.log("Connect to MongoDB with Error Message: ", err.errmsg));
-})
 
 // models
 const modelsPath = path.join(__dirname, "./models");
