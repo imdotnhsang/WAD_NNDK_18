@@ -54,6 +54,16 @@ const UserSchema = mongoose.Schema({
     categoriesManagement: { // editor
         type: [mongoose.Schema.Types.ObjectId],
         required: false
+    },
+    OTP: {
+        code: {
+            type: String,
+            required: true
+        },
+        expiredAt: {
+            type: String,
+            default: new Date().getTime() + 60000 * 5 // expire after 5m
+        }
     }
 });
 

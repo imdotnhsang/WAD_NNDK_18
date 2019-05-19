@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-// sendmail
 const rootUrl = require('config').rootUrl;
-const { sendActivationEmail, sendForgotPasswordEmail} = require('../../utils/sendMail');
+const sendOTPCode =  require('../../utils/sendOTPCode');
 
 const { User } = require('../../models/User');
 
@@ -73,7 +72,9 @@ router.post('/register', (req, res) => {
                 return res.status(400).json(errors);
             }
 
-            const newUser = new User({ username, fullname, email, userType });
+            const OTPCode = 100000 + new Date().getTime() % 900000;
+            const OTP = { code: OTPCode }
+            const newUser = new User({ username, fullname, email, userType, OTP });
 
             switch (userType) {
                 case 'subscriber':
@@ -103,40 +104,38 @@ router.post('/register', (req, res) => {
             return newUser
                 .save()
                 .then(userCreated => {
-                    const authUrl = `${rootUrl}/api/user/confirm/${userCreated._id}`;
-
-                    sendActivationEmail(userCreated.email, authUrl);
+                    sendOTPCode(userCreated.email, OTPCode, 'activation');
                     return res.json(userCreated);
                 });
         })
         .catch(err => res.status(400).json(err));
 });
 
-router.get('/activation/:userId', (req, res) => {
-    const errors = {};
-    const userId = req.params.userId;
+// router.get('/activation/:userId', (req, res) => {
+//     const errors = {};
+//     const userId = req.params.userId;
 
-    User
-        .findOne({ _id: userId, isActive: true })
-        .then(user => {
-            if (!user) {
-                errors.message = 'Your token invaild.'
-                return res.status(400).json(errors);
-            }
+//     User
+//         .findOne({ _id: userId, isActive: true })
+//         .then(user => {
+//             if (!user) {
+//                 errors.message = 'Your token invaild.'
+//                 return res.status(400).json(errors);
+//             }
 
-            if (user.confirmed) {
-                errors.message = 'Account already confirmed.'
-                return res.status(400).json(errors);
-            }
+//             if (user.confirmed) {
+//                 errors.message = 'Account already confirmed.'
+//                 return res.status(400).json(errors);
+//             }
 
-            user.confirmed = true;
+//             user.confirmed = true;
 
-            return user
-                .save()
-                .then(userUpdated => res.json(userUpdated));
-        })
-        .catch(err => res.status(400).json(err));
-});
+//             return user
+//                 .save()
+//                 .then(userUpdated => res.json(userUpdated));
+//         })
+//         .catch(err => res.status(400).json(err));
+// });
 
 router.post('/forgot-password', (req, res) => {
     const errors = {};
@@ -150,9 +149,7 @@ router.post('/forgot-password', (req, res) => {
                 return res.status(404).json(errors);
             }
 
-            const authCode = 1000 + new Date().getTime() % 9000;
-
-            sendForgotPasswordEmail(user.email, authCode);
+            sendOTPCode(userCreated.email, 'forgotten');
         })
         .catch(err => res.status(400).json(err));
 });
