@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-const sendOTPCode = require('../../utils/sendOTPCode');
-const createOTP = require('../../utils/createOTP');
-const pickUser = require('../../utils/pickUser');
-
+const { sendOTPCode, createOTP, pickUser } = require('../../utils');
 const { User } = require('../../models/User');
 
 router.post('/login', (req, res) => {
