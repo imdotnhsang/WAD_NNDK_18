@@ -46,8 +46,7 @@ router.get('/forgotten-password', (req, res) => {
       title: 'Forgotten Password',
       layout: 'layouts/forgottenPassword',
       srcScript: '/javascripts/guest-subscriber/script.js',
-      hrefCss: '/stylesheets/guest-subscriber/login.css',
-      emailUser: ''
+      hrefCss: '/stylesheets/guest-subscriber/login.css'
     }
   );
 });
