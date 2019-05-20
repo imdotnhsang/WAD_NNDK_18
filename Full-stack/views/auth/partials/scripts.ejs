@@ -3,28 +3,3 @@
 <script src="/assets/owlcarousel/owl.carousel.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/javascripts/guest-subscriber/script.js" type="text/javascript"></script>
-<script>
-    $('#emailForgotPwd__btn').click(function (e) {
-        e.preventDefault();
-        var contentEmail;
-        if (validateEmail($('#emailForgotPwd__input').val())) {
-            contentEmail = $('#emailForgotPwd__input').val();
-            console.log(contentEmail);
-            window.location = '/resetpassword';
-        } else {
-            $(this).attr('data-toggle', 'modal');
-            $(this).attr('data-target', '#emailForgotPwd__modal');
-            $('.emailForgotPwd__modal button').click(function () {
-                $('#emailForgotPwd__btn').removeAttr('data-toggle');
-                $('#emailForgotPwd__btn').removeAttr('data-target');
-            });
-            $(document).mouseup(function (e) {
-                var container = $(".forgotPwd__modal");
-                if (!container.is(e.target) && container.has(e.target).length === 0) {
-                    $('#emailForgotPwd__btn').removeAttr('data-toggle');
-                    $('#emailForgotPwd__btn').removeAttr('data-target');
-                }
-            });
-        }
-    });
-</script>

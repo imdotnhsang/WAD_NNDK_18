@@ -70,37 +70,42 @@
 .sign-up_sign-in__modal .modal-body-custom, .sign-up_sign-in__modal .modal-footer-custom {
     font-size: 16px;
 }
-.container-sign #forgotPwd{
+
+.container-sign #forgotPwd,.container-sign #emailForgotPwd{
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-.container-sign #forgotPwd .content .title{
+
+.container-sign #forgotPwd .content .title,.container-sign #emailForgotPwd .content .title{
     padding-bottom: 5px;
     font-size: 17px;
     border-bottom: 1px solid #ccc;
 }
-.container-sign #forgotPwd .content .warning,.container-sign #forgotPwd .content .notice{
+.container-sign #forgotPwd .content .warning,.container-sign #forgotPwd .content .notice,.container-sign #emailForgotPwd .content .warning,.container-sign #emailForgotPwd .content .notice{
     font-size: 13px;
 }
 
-.container-sign #forgotPwd .control{
+.container-sign #forgotPwd .control,.container-sign #emailForgotPwd .control{
     border-top: 1px solid #ccc;
     padding-top: 9px;
 
 }
-.container-sign #forgotPwd .error_noCode a{
+.container-sign #forgotPwd .error_noCode a,.container-sign #emailForgotPwd .error_noCode a{
 font-size: 13px;
 color: #e2127d;
 }
 
-.container-sign #forgotPwd .btns-done-reset button {
+.container-sign #forgotPwd .btns-done-reset button,.container-sign #emailForgotPwd .btns-done-reset button {
     font-weight: 500;
     border-radius: 35px;
     font-size: 13px;
 }
 
-.container-sign #forgotPwd .btns-done-reset .btn-cancel {
+.container-sign #forgotPwd .btns-done-reset .btn-cancel,.container-sign #emailForgotPwd .btns-done-reset .btn-cancel {
     background: transparent;
+}
+.container-sign .forgotPwd{
+    display: none;
 }
 
 @media screen and (min-width: 576px) {
