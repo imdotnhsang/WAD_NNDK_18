@@ -13,32 +13,6 @@ router.get('/', function (req, res, next) {
   );
 });
 
-// router.get('/resetpassword', function (req, res, next) {
-//   res.render(
-//     'auth',
-//     {
-//       title: 'Reset Password',
-//       layout: 'layouts/resetpwd',
-//       srcScript: '/javascripts/guest-subscriber/script.js',
-//       hrefCss: '/stylesheets/guest-subscriber/login.css',
-//       emailResetPwd:'1612556@gmail.com'
-//     }
-//   );
-// });
-
-// router.get('/forgottenpassword', function (req, res, next) {
-//   res.render(
-//     'auth',
-//     {
-//       title: 'Forgotten Password',
-//       layout: 'layouts/forgottenpwd',
-//       srcScript: '/javascripts/guest-subscriber/script.js',
-//       hrefCss: '/stylesheets/guest-subscriber/login.css',
-//       emailResetPwd:'1612556@gmail.com'
-//     }
-//   );
-// });
-
 router.get('/forgotten-password', (req, res) => {
   res.render(
     'auth',
