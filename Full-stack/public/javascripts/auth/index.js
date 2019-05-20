@@ -121,7 +121,7 @@ $('#signin__btn').click(function (e) {
                             // window.location = "/";
                             if ($('#signin__remember').prop("checked") === true) {
                                 // save localStorage
-
+                                
                             } else {
                                 // save sessionStorage
 
