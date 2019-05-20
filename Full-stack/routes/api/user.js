@@ -96,32 +96,6 @@ router.post('/register', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
-// router.get('/activation/:userId', (req, res) => {
-//     const errors = {};
-//     const userId = req.params.userId;
-
-//     User
-//         .findOne({ _id: userId, isActive: true })
-//         .then(user => {
-//             if (!user) {
-//                 errors.message = 'Your token invaild.'
-//                 return res.status(400).json(errors);
-//             }
-
-//             if (user.confirmed) {
-//                 errors.message = 'Account already confirmed.'
-//                 return res.status(400).json(errors);
-//             }
-
-//             user.confirmed = true;
-
-//             return user
-//                 .save()
-//                 .then(userUpdated => res.json(userUpdated));
-//         })
-//         .catch(err => res.status(400).json(err));
-// })
-
 router.post('/validate-otp', (req, res) => {
     const errors = {};
     const { email, OTPCode } = req.body;
@@ -149,7 +123,7 @@ router.post('/validate-otp', (req, res) => {
 
 });
 
-router.post('/forgot-password', (req, res) => {
+router.post('/forgotten-password', (req, res) => {
     const errors = {};
     const { email } = req.body;
 
