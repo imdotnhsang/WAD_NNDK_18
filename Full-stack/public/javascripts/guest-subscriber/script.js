@@ -204,7 +204,7 @@ $('#signin__btn').click(function (e) {
     e.preventDefault();
 
     let errors = { usernameOrEmail: '', password: '' };
-    let usernameOrEmail = $('#signin__usernameOrEmail').val(),
+    let usernameOrEmail = $('#signin__usernameOrEmail').val().trim(),
         password = $('#signin__password').val();
 
     if (!validateEmail(usernameOrEmail) && !validateUsername(usernameOrEmail)) {
@@ -235,11 +235,11 @@ $('#signup__btn').click(function (e) {
     e.preventDefault();
     let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
 
-    let username = $('#signup__username').val(),
+    let username = $('#signup__username').val().trim(),
         password = $('#signup__password').val(),
         retypePassword = $('#signup__pwdRepeat').val(),
-        email = $('#signup__email').val(),
-        fullname = $('#signup__fullname').val();
+        email = $('#signup__email').val().trim(),
+        fullname = $('#signup__fullname').val().trim();
         
     if (fullname.length < 6) {
         errors.fullname = 'Fullname must contain at least 6 characters.'
@@ -278,6 +278,16 @@ $('#signup__btn').click(function (e) {
     }
 
 });
+
+$('#login-tab').click(function(){
+    let errors = { usernameOrEmail: '', password: '' };
+    updateSignInErrors(errors)
+})
+
+$('#signup-tab').click(function(){
+    let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+    updateSignUpErrors(errors);
+})
 
 // $('#signin__btn').click(function (e) {
 //     e.preventDefault();
@@ -397,7 +407,6 @@ $('#btn_updateInfTab').click(function () {
     $('#edit_profile-tab').addClass('active');
 
 });
-
 //check validate information update
 $('#updateInf__btn').click(function (e) {
     e.preventDefault();
