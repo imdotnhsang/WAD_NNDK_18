@@ -227,7 +227,7 @@ $('#signin__btn').click(function (e) {
     if (isInvalid) {
         updateSignInErrors(errors)
     } else {
-        console.log('Validate success!');
+        fetch()
     }
 });
 
@@ -272,9 +272,8 @@ $('#signup__btn').click(function (e) {
     const isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword;
     if (isInvalid) {
         updateSignUpErrors(errors);
-
     } else {
-        console.log('Validate success!');
+        
     }
 
 });
