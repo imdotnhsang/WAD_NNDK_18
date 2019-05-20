@@ -25,6 +25,18 @@ router.get('/forgotten-password', (req, res) => {
   );
 });
 
+router.get('/activation', (req, res) => {
+  res.render(
+    'auth',
+    {
+      title: 'Activation',
+      layout: 'layouts/activation',
+      srcScript: '/javascripts/auth/index.js',
+      hrefCss: '/stylesheets/guest-subscriber/login.css'
+    }
+  );
+});
+
 // router.get('/', function (req, res, next) {
 //   res.redirect('/auth');
 // });
