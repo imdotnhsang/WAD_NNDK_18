@@ -1,3 +1,4 @@
+const { getData, postData } = require('../utils');
 //navbar logo
 $('.logo').click(function () {
     location.reload();
@@ -177,8 +178,8 @@ function validatePassword(sPassword) {
 //check validate auth
 const validateIsEmpty = (data, keys) => {
     let errors = {};
-    
-    for (const key of keys) {                
+
+    for (const key of keys) {
         if (data[key] === undefined || data[key].length === 0) {
             errors[key] = key.charAt(0).toUpperCase() + key.slice(1) + " field is required.";
         }
@@ -192,7 +193,7 @@ const updateSignInErrors = (errors) => {
     $('#signin__password-errmsg').text(errors.password);
 }
 
-const updateSignUpErrors = (errors) => {    
+const updateSignUpErrors = (errors) => {
     $('#signup__fullname-errmsg').text(errors.fullname);
     $('#signup__username-errmsg').text(errors.username);
     $('#signup__email-errmsg').text(errors.email);
@@ -211,7 +212,7 @@ $('#signin__btn').click(function (e) {
         errors.usernameOrEmail = 'Invalid username or email.'
     }
 
-    if(!validatePassword(password)) {
+    if (!validatePassword(password)) {
         errors.password = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
     }
 
@@ -227,7 +228,13 @@ $('#signin__btn').click(function (e) {
     if (isInvalid) {
         updateSignInErrors(errors)
     } else {
-        fetch()
+        postData(`${window.location.origin}/api/user/login`, { usernameOrEmail, password })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => [
+                console.log(err)
+            ])
     }
 });
 
@@ -240,7 +247,7 @@ $('#signup__btn').click(function (e) {
         retypePassword = $('#signup__pwdRepeat').val(),
         email = $('#signup__email').val().trim(),
         fullname = $('#signup__fullname').val().trim();
-        
+
     if (fullname.length < 6) {
         errors.fullname = 'Fullname must contain at least 6 characters.'
     }
@@ -273,17 +280,17 @@ $('#signup__btn').click(function (e) {
     if (isInvalid) {
         updateSignUpErrors(errors);
     } else {
-        
+
     }
 
 });
 
-$('#login-tab').click(function(){
+$('#login-tab').click(function () {
     let errors = { usernameOrEmail: '', password: '' };
     updateSignInErrors(errors)
 })
 
-$('#signup-tab').click(function(){
+$('#signup-tab').click(function () {
     let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
     updateSignUpErrors(errors);
 })
@@ -518,7 +525,7 @@ $('#forgotPwd__btn').click(function (e) {
             }
             window.location = '/auth';
         });
-        emailUser="";
+        emailUser = "";
     } else {
         $(this).attr('data-toggle', 'modal');
         $(this).attr('data-target', '#forgotPwd__modal');
@@ -543,7 +550,7 @@ $('#emailForgotPwd__btn').click(function (e) {
         contentEmail = $('#emailForgotPwd__input').val();
         emailUser = contentEmail;
         $('.forgotPwd').fadeIn(500);
-        $('.emailForgotPwd').css('display','none');
+        $('.emailForgotPwd').css('display', 'none');
         $('#emailForgotPwd__text').text(emailUser);
     } else {
         $(this).attr('data-toggle', 'modal');
