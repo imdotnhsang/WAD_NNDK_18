@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
       title: 'Sign In',
       layout: 'layouts/auth',
       srcScript: '/javascripts/auth/index.js',
-      hrefCss: '/stylesheets/guest-subscriber/login.css'
+      hrefCss: '/stylesheets/guest-subscriber/auth.css'
     }
   );
 });
@@ -20,7 +20,7 @@ router.get('/forgotten-password', (req, res) => {
       title: 'Forgotten Password',
       layout: 'layouts/forgottenPassword',
       srcScript: '/javascripts/auth/index.js',
-      hrefCss: '/stylesheets/guest-subscriber/login.css'
+      hrefCss: '/stylesheets/guest-subscriber/auth.css'
     }
   );
 });
@@ -32,7 +32,7 @@ router.get('/activation', (req, res) => {
       title: 'Activation',
       layout: 'layouts/activation',
       srcScript: '/javascripts/auth/index.js',
-      hrefCss: '/stylesheets/guest-subscriber/login.css'
+      hrefCss: '/stylesheets/guest-subscriber/auth.css'
     }
   );
 });
