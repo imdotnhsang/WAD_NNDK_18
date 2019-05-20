@@ -1,6 +1,6 @@
 const getData = (url) => {
     return fetch(url)
-        .then(response => response.json());
+        .then(response => response);
 }
 
 const postData = (url, data) => {
@@ -9,5 +9,5 @@ const postData = (url, data) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
-        .then(response => response.json())
+        .then(response => response)
 }

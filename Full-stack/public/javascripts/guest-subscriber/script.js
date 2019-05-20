@@ -136,65 +136,6 @@ $("#pic-avatar").change(function () {
     }
 });
 
-//check validate auth
-
-// $('#signin__btn').click(function (e) {
-//     e.preventDefault();
-//     var user, pwd, checkRemember;
-//     if (validatePassword($('#signin__password').val()) == true && validateUsername($('#signin__username').val()) == true) {
-//         user = $('#signin__username').val();
-//         pwd = $('#signin__password').val();
-//         checkRemember = $('#signin__remember:checked').length;
-//         console.log(user, pwd, checkRemember);
-//     } else {
-//         $('#signin__btn').attr('data-toggle', 'modal');
-//         $('#signin__btn').attr('data-target', '#sign-up_sign-in__modal');
-//         $('.sign-up_sign-in__modal button').click(function () {
-//             $('#signin__btn').removeAttr('data-toggle');
-//             $('#signin__btn').removeAttr('data-target');
-//         });
-//         $(document).mouseup(function (e) {
-//             var container = $(".sign-up_sign-in__modal");
-//             if (!container.is(e.target) && container.has(e.target).length === 0) {
-//                 $('#signin__btn').removeAttr('data-toggle');
-//                 $('#signin__btn').removeAttr('data-target');
-//             }
-//         });
-//     }
-// });
-
-
-// $('#signup__btn').click(function (e) {
-//     e.preventDefault();
-//     var user, pwd, email, fname;
-
-//     if (validatePassword($('#signup__password').val()) == true
-//         && validateUsername($('#signup__username').val()) == true
-//         && validateEmail($('#signup__email').val()) == true
-//         && ($('#signup__password').val() == $('#signup__pwdRepeat').val())
-//         && $('#signup__fullname').val().length > 0) {
-//         user = $('#signup__username').val();
-//         pwd = $('#signup__password').val();
-//         email = $('#signup__email').val();
-//         fname = $('#signup__fullname').val();
-//         console.log(fname, user, email, pwd);
-//     } else {
-//         $('#signup__btn').attr('data-toggle', 'modal');
-//         $('#signup__btn').attr('data-target', '#sign-up_sign-in__modal');
-//         $('.sign-up_sign-in__modal button').click(function () {
-//             $('#signup__btn').removeAttr('data-toggle');
-//             $('#signup__btn').removeAttr('data-target');
-//         });
-//         $(document).mouseup(function (e) {
-//             var container = $(".sign-up_sign-in__modal");
-//             if (!container.is(e.target) && container.has(e.target).length === 0) {
-//                 $('#signup__btn').removeAttr('data-toggle');
-//                 $('#signup__btn').removeAttr('data-target');
-//             }
-//         });
-//     }
-// });
-
 //check validate search bar
 $('#searchBar__btn').click(function (e) {
     e.preventDefault();
@@ -340,73 +281,6 @@ $('#comment__btn').click(function (e) {
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 $('#comment__btn').removeAttr('data-toggle');
                 $('#comment__btn').removeAttr('data-target');
-            }
-        });
-    }
-});
-
-//check code when forgetting password
-var emailReset;
-$('#forgotPwd__btn').click(function (e) {
-    e.preventDefault();
-    var contentCode;
-    if ($('#forgotPwd__code').val().trim().length > 0) {
-        contentCode = $('#forgotPwd__code').val();
-        console.log(contentCode);
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#forgotPwd-success__modal');
-        $('.forgotPwd-success__modal button').click(function () {
-            $('#forgotPwd__btn').removeAttr('data-toggle');
-            $('#forgotPwd__btn').removeAttr('data-target');
-            window.location = '/auth';
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".forgotPwd-success__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#forgotPwd__btn').removeAttr('data-toggle');
-                $('#forgotPwd__btn').removeAttr('data-target');
-            }
-            window.location = '/auth';
-        });
-        emailUser = "";
-    } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#forgotPwd__modal');
-        $('.forgotPwd__modal button').click(function () {
-            $('#forgotPwd__btn').removeAttr('data-toggle');
-            $('#forgotPwd__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".forgotPwd__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#forgotPwd__btn').removeAttr('data-toggle');
-                $('#forgotPwd__btn').removeAttr('data-target');
-            }
-        });
-    }
-});
-
-$('#emailForgotPwd__btn').click(function (e) {
-    e.preventDefault();
-    var contentEmail;
-    if (validateEmail($('#emailForgotPwd__input').val())) {
-        contentEmail = $('#emailForgotPwd__input').val();
-        emailUser = contentEmail;
-        $('.forgotPwd').fadeIn(500);
-        $('.emailForgotPwd').css('display', 'none');
-        $('#emailForgotPwd__text').text(emailUser);
-    } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#emailForgotPwd__modal');
-        $('.emailForgotPwd__modal button').click(function () {
-            $('#emailForgotPwd__btn').removeAttr('data-toggle');
-            $('#emailForgotPwd__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".forgotPwd__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#emailForgotPwd__btn').removeAttr('data-toggle');
-                $('#emailForgotPwd__btn').removeAttr('data-target');
             }
         });
     }

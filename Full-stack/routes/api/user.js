@@ -18,21 +18,21 @@ router.post('/login', (req, res) => {
         })
         .then(user => {            
             if (!user) {
-                errors.message = 'Username or email not found.';
+                errors.usernameOrEmail = 'Username or email not found.';
                 return res.status(404).json(errors);
+            }
+            if (!user.validPassword(password)) {
+                errors.password = "Password incorrect.";
+                return res.status(400).json(errors);
             }
 
             if (user.confirmed === false) {
                 errors.confirmed = 'Account must be confirmed email.'
                 return res.status(400).json(errors);
             }
-            if (user.validPassword(password)) {
-                const payload = pickUser(user, user.userType);
-                return res.json(payload);
-            }
-
-            errors.password = "Password incorrect.";
-            return res.status(400).json(errors);
+            
+            const payload = pickUser(user, user.userType);
+            return res.json(payload);
         })
         .catch(err => res.status(400).json(err));
 });

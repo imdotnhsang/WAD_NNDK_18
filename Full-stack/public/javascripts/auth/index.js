@@ -1,3 +1,4 @@
+// auth
 function checkSpaceInString(sSen) {
     var patt = /\s/g;
     if (sSen.match(patt)) {
@@ -106,14 +107,59 @@ $('#signin__btn').click(function (e) {
     if (isInvalid) {
         updateSignInErrors(errors)
     } else {
-        postData(`${window.location.origin}/api/user/login`, { usernameOrEmail, password })
-            .then(data => {
-                console.log(data);
-                clearSignInErrors();
+        clearSignInErrors();
+
+        const payload = { usernameOrEmail, password };
+//        console.log(payload);
+        
+        postData(`${window.location.origin}/api/user/login`, payload)
+            .then(res => {                       
+                if (res.status === 200) {
+                    res.json()
+                        .then(data => {
+                            console.log('Login success: ', data);
+                            // window.location = "/";
+                            if ($('#signin__remember').prop("checked") === true) {
+                                // save localStorage
+
+                            } else {
+                                // save sessionStorage
+
+                            }
+                        })
+                } else {
+                    res.json()
+                        .then(err => {
+                            let errors = { usernameOrEmail: '', password: '' };
+
+                            if (err.confirmed) {                                
+                                $(this).attr('data-toggle', 'modal');
+                                $(this).attr('data-target', '#auth-errors__modal');
+                                $('#auth-errors__modal').modal('show');
+                                $('#auth-errors__modalContent').text(err.confirmed);
+
+                                $('.auth-errors__modal button').click(function () {
+                                    $('#signin__btn').removeAttr('data-toggle');
+                                    $('#signin__btn').removeAttr('data-target');
+                                });
+
+                                $(document).mouseup(function (e) {
+                                    var container = $(".auth-errors__modal");
+
+                                    if (!container.is(e.target) && container.has(e.target).length === 0) {
+                                        $('#signin__btn').removeAttr('data-toggle');
+                                        $('#signin__btn').removeAttr('data-target');
+                                    }
+                                });
+                            } else {
+                                updateSignInErrors({ ...errors, ...err });
+                            }
+                        })
+                }
             })
-            .catch(err => [
-                console.log(err)
-            ]);
+            .catch(err => {
+                console.log(err);
+            });
     }
 });
 
@@ -159,7 +205,74 @@ $('#signup__btn').click(function (e) {
     if (isInvalid) {
         updateSignUpErrors(errors);
     } else {
-
+        
     }
 
+});
+
+// forgotten-password
+var emailReset;
+$('#forgotPwd__btn').click(function (e) {
+    e.preventDefault();
+    var contentCode;
+    if ($('#forgotPwd__code').val().trim().length > 0) {
+        contentCode = $('#forgotPwd__code').val();
+        console.log(contentCode);
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#forgotPwd-success__modal');
+        $('.forgotPwd-success__modal button').click(function () {
+            $('#forgotPwd__btn').removeAttr('data-toggle');
+            $('#forgotPwd__btn').removeAttr('data-target');
+            window.location = '/auth';
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".forgotPwd-success__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#forgotPwd__btn').removeAttr('data-toggle');
+                $('#forgotPwd__btn').removeAttr('data-target');
+            }
+            window.location = '/auth';
+        });
+        emailUser = "";
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#forgotPwd__modal');
+        $('.forgotPwd__modal button').click(function () {
+            $('#forgotPwd__btn').removeAttr('data-toggle');
+            $('#forgotPwd__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".forgotPwd__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#forgotPwd__btn').removeAttr('data-toggle');
+                $('#forgotPwd__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+$('#emailForgotPwd__btn').click(function (e) {
+    e.preventDefault();
+    var contentEmail;
+    if (validateEmail($('#emailForgotPwd__input').val())) {
+        contentEmail = $('#emailForgotPwd__input').val();
+        emailUser = contentEmail;
+        $('.forgotPwd').fadeIn(500);
+        $('.emailForgotPwd').css('display', 'none');
+        $('#emailForgotPwd__text').text(emailUser);
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#emailForgotPwd__modal');
+        $('.emailForgotPwd__modal button').click(function () {
+            $('#emailForgotPwd__btn').removeAttr('data-toggle');
+            $('#emailForgotPwd__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".forgotPwd__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#emailForgotPwd__btn').removeAttr('data-toggle');
+                $('#emailForgotPwd__btn').removeAttr('data-target');
+            }
+        });
+    }
 });
