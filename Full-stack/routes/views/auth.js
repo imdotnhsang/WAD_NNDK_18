@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
     {
       title: 'Sign In',
       layout: 'layouts/auth',
-      srcScript: '/javascripts/guest-subscriber/script.js',
+      srcScript: '/javascripts/auth/index.js',
       hrefCss: '/stylesheets/guest-subscriber/login.css'
     }
   );
@@ -19,7 +19,7 @@ router.get('/forgotten-password', (req, res) => {
     {
       title: 'Forgotten Password',
       layout: 'layouts/forgottenPassword',
-      srcScript: '/javascripts/guest-subscriber/script.js',
+      srcScript: '/javascripts/auth/index.js',
       hrefCss: '/stylesheets/guest-subscriber/login.css'
     }
   );
