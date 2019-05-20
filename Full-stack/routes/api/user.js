@@ -7,23 +7,24 @@ const { User } = require('../../models/User');
 
 router.post('/login', (req, res) => {
     const errors = {};
-    const { username, email, password } = req.body;
+    const { usernameOrEmail, password } = req.body;
 
     User
         .findOne({
             $and: [
-                { $or: [{ username }, { email }] },
+                { $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] },
                 { isActive: true }
             ]
         })
-        .then(user => {
+        .then(user => {            
             if (!user) {
                 errors.message = 'Username or email not found.';
                 return res.status(404).json(errors);
             }
 
             if (user.confirmed === false) {
-                errors.confirmed = 'Account must be active.'
+                errors.confirmed = 'Account must be confirmed email.'
+                return res.status(400).json(errors);
             }
             if (user.validPassword(password)) {
                 const payload = pickUser(user, user.userType);

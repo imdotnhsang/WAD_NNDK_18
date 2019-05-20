@@ -1,4 +1,3 @@
-const { getData, postData } = require('../utils');
 //navbar logo
 $('.logo').click(function () {
     location.reload();
@@ -201,6 +200,24 @@ const updateSignUpErrors = (errors) => {
     $('#signup__pwdRepeat-errmsg').text(errors.retypePassword);
 }
 
+const clearSignInErrors = () => {
+    let errors = { usernameOrEmail: '', password: '' };
+    updateSignInErrors(errors);
+}
+
+const clearSignUpErrors = () => {
+    let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+    updateSignUpErrors(errors);
+}
+
+$('#login-tab').click(function () {
+    clearSignInErrors();
+})
+
+$('#signup-tab').click(function () {
+    clearSignUpErrors();
+})
+
 $('#signin__btn').click(function (e) {
     e.preventDefault();
 
@@ -231,6 +248,7 @@ $('#signin__btn').click(function (e) {
         postData(`${window.location.origin}/api/user/login`, { usernameOrEmail, password })
             .then(data => {
                 console.log(data);
+                clearSignInErrors();
             })
             .catch(err => [
                 console.log(err)
@@ -284,17 +302,6 @@ $('#signup__btn').click(function (e) {
     }
 
 });
-
-$('#login-tab').click(function () {
-    let errors = { usernameOrEmail: '', password: '' };
-    updateSignInErrors(errors)
-})
-
-$('#signup-tab').click(function () {
-    let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
-    updateSignUpErrors(errors);
-})
-
 // $('#signin__btn').click(function (e) {
 //     e.preventDefault();
 //     var user, pwd, checkRemember;
