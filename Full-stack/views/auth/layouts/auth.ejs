@@ -25,11 +25,12 @@
                     </ul>
                     <form class="pt-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="signin__username"
-                                placeholder="Email or Username">
+                            <input type="text" class="form-control" id="signin__usernameOrEmail" placeholder="Username or Email">
+                            <span class="field-validation-error" id="signin__usernameOrEmail-errmsg"></span>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="signin__password" placeholder="Password">
+                            <span class="field-validation-error" id="signin__password-errmsg"></span>
                         </div>
                         <div class="row m-0 justify-content-between align-items-center">
                             <div class="custom-control custom-checkbox">
@@ -50,22 +51,26 @@
                     <form class="pt-3">
                         <div class="form-group">
                             <input type="text" class="form-control" id="signup__fullname" placeholder="Full name">
+                            <span class="field-validation-error" id="signup__fullname-errmsg"></span>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="signup__username" placeholder="Username">
+                            <span class="field-validation-error" id="signup__username-errmsg"></span>
                         </div>
                         <div class="form-group">
                             <input type="email" class="form-control" id="signup__email" placeholder="Email">
+                            <span class="field-validation-error" id="signup__email-errmsg"></span>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="signup__password" placeholder="Password">
+                            <span class="field-validation-error" id="signup__password-errmsg"></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="signup__pwdRepeat"
-                                placeholder="Retype password">
+                            <input type="password" class="form-control" id="signup__pwdRepeat" placeholder="Retype password">
+                            <span class="field-validation-error" id="signup__pwdRepeat-errmsg"></span>
                         </div>
                         <div class="row m-0 justify-content-end align-items-center">
-                            <button type="submit" id="signup__btn" class="btn btn-custom">SIGN UP</button>
+                            <button type="button" id="signup__btn" class="btn btn-custom">SIGN UP</button>
                         </div>
                     </form>
                 </div>

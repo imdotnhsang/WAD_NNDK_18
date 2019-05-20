@@ -175,60 +175,166 @@ function validatePassword(sPassword) {
 }
 
 //check validate auth
+const validateIsEmpty = (data, keys) => {
+    let errors = {};
+    
+    for (const key of keys) {                
+        if (data[key] === undefined || data[key].length === 0) {
+            errors[key] = key.charAt(0).toUpperCase() + key.slice(1) + " field is required.";
+        }
+    }
+
+    return errors;
+};
+
+const updateSignInErrors = (errors) => {
+    $('#signin__usernameOrEmail-errmsg').text(errors.usernameOrEmail);
+    $('#signin__password-errmsg').text(errors.password);
+}
+
+const updateSignUpErrors = (errors) => {    
+    $('#signup__fullname-errmsg').text(errors.fullname);
+    $('#signup__username-errmsg').text(errors.username);
+    $('#signup__email-errmsg').text(errors.email);
+    $('#signup__password-errmsg').text(errors.password);
+    $('#signup__pwdRepeat-errmsg').text(errors.retypePassword);
+}
+
 $('#signin__btn').click(function (e) {
     e.preventDefault();
-    var user, pwd, checkRemember;
-    if (validatePassword($('#signin__password').val()) == true && validateUsername($('#signin__username').val()) == true) {
-        user = $('#signin__username').val();
-        pwd = $('#signin__password').val();
-        checkRemember = $('#signin__remember:checked').length;
-        console.log(user, pwd, checkRemember);
+
+    let errors = { usernameOrEmail: '', password: '' };
+    let usernameOrEmail = $('#signin__usernameOrEmail').val(),
+        password = $('#signin__password').val();
+
+    if (!validateEmail(usernameOrEmail) && !validateUsername(usernameOrEmail)) {
+        errors.usernameOrEmail = 'Invalid username or email.'
+    }
+
+    if(!validatePassword(password)) {
+        errors.password = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+
+    if (usernameOrEmail === undefined || usernameOrEmail.length === 0) {
+        errors.usernameOrEmail = 'Username or Email field is required.'
+    }
+
+    if (password === undefined || password.length === 0) {
+        errors.password = 'Password field is required.'
+    }
+
+    const isInvalid = errors.usernameOrEmail || errors.password;
+    if (isInvalid) {
+        updateSignInErrors(errors)
     } else {
-        $('#signin__btn').attr('data-toggle', 'modal');
-        $('#signin__btn').attr('data-target', '#sign-up_sign-in__modal');
-        $('.sign-up_sign-in__modal button').click(function () {
-            $('#signin__btn').removeAttr('data-toggle');
-            $('#signin__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".sign-up_sign-in__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#signin__btn').removeAttr('data-toggle');
-                $('#signin__btn').removeAttr('data-target');
-            }
-        });
+        console.log('Validate success!');
     }
 });
 
 $('#signup__btn').click(function (e) {
     e.preventDefault();
-    var user, pwd, email, fname;
-    if (validatePassword($('#signup__password').val()) == true
-        && validateUsername($('#signup__username').val()) == true
-        && validateEmail($('#signup__email').val()) == true
-        && ($('#signup__password').val() == $('#signup__pwdRepeat').val())
-        && $('#signup__fullname').val().length > 0) {
-        user = $('#signup__username').val();
-        pwd = $('#signup__password').val();
-        email = $('#signup__email').val();
-        fname = $('#signup__fullname').val();
-        console.log(fname, user, email, pwd);
-    } else {
-        $('#signup__btn').attr('data-toggle', 'modal');
-        $('#signup__btn').attr('data-target', '#sign-up_sign-in__modal');
-        $('.sign-up_sign-in__modal button').click(function () {
-            $('#signup__btn').removeAttr('data-toggle');
-            $('#signup__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".sign-up_sign-in__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#signup__btn').removeAttr('data-toggle');
-                $('#signup__btn').removeAttr('data-target');
-            }
-        });
+    let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+
+    let username = $('#signup__username').val(),
+        password = $('#signup__password').val(),
+        retypePassword = $('#signup__pwdRepeat').val(),
+        email = $('#signup__email').val(),
+        fullname = $('#signup__fullname').val();
+        
+    if (fullname.length < 6) {
+        errors.fullname = 'Fullname must contain at least 6 characters.'
     }
+
+    if (!validateUsername(username)) {
+        errors.username = 'Username must contain at least 4 characters and cannot contain spaces.';
+    }
+
+    if (!validateEmail(email)) {
+        errors.email = 'Email must be vaild.'
+    }
+
+    if (!validatePassword(password)) {
+        errors.password = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+
+    if (retypePassword !== password) {
+        errors.retypePassword = 'Retype password must be correct.'
+    }
+
+    errors = {
+        ...errors,
+        ...validateIsEmpty(
+            { fullname, username, email, password },
+            ['fullname', 'username', 'email', 'password']
+        )
+    };
+
+    const isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword;
+    if (isInvalid) {
+        updateSignUpErrors(errors);
+
+    } else {
+        console.log('Validate success!');
+    }
+
 });
+
+// $('#signin__btn').click(function (e) {
+//     e.preventDefault();
+//     var user, pwd, checkRemember;
+//     if (validatePassword($('#signin__password').val()) == true && validateUsername($('#signin__username').val()) == true) {
+//         user = $('#signin__username').val();
+//         pwd = $('#signin__password').val();
+//         checkRemember = $('#signin__remember:checked').length;
+//         console.log(user, pwd, checkRemember);
+//     } else {
+//         $('#signin__btn').attr('data-toggle', 'modal');
+//         $('#signin__btn').attr('data-target', '#sign-up_sign-in__modal');
+//         $('.sign-up_sign-in__modal button').click(function () {
+//             $('#signin__btn').removeAttr('data-toggle');
+//             $('#signin__btn').removeAttr('data-target');
+//         });
+//         $(document).mouseup(function (e) {
+//             var container = $(".sign-up_sign-in__modal");
+//             if (!container.is(e.target) && container.has(e.target).length === 0) {
+//                 $('#signin__btn').removeAttr('data-toggle');
+//                 $('#signin__btn').removeAttr('data-target');
+//             }
+//         });
+//     }
+// });
+
+
+// $('#signup__btn').click(function (e) {
+//     e.preventDefault();
+//     var user, pwd, email, fname;
+
+//     if (validatePassword($('#signup__password').val()) == true
+//         && validateUsername($('#signup__username').val()) == true
+//         && validateEmail($('#signup__email').val()) == true
+//         && ($('#signup__password').val() == $('#signup__pwdRepeat').val())
+//         && $('#signup__fullname').val().length > 0) {
+//         user = $('#signup__username').val();
+//         pwd = $('#signup__password').val();
+//         email = $('#signup__email').val();
+//         fname = $('#signup__fullname').val();
+//         console.log(fname, user, email, pwd);
+//     } else {
+//         $('#signup__btn').attr('data-toggle', 'modal');
+//         $('#signup__btn').attr('data-target', '#sign-up_sign-in__modal');
+//         $('.sign-up_sign-in__modal button').click(function () {
+//             $('#signup__btn').removeAttr('data-toggle');
+//             $('#signup__btn').removeAttr('data-target');
+//         });
+//         $(document).mouseup(function (e) {
+//             var container = $(".sign-up_sign-in__modal");
+//             if (!container.is(e.target) && container.has(e.target).length === 0) {
+//                 $('#signup__btn').removeAttr('data-toggle');
+//                 $('#signup__btn').removeAttr('data-target');
+//             }
+//         });
+//     }
+// });
 
 //check validate search bar
 $('#searchBar__btn').click(function (e) {
