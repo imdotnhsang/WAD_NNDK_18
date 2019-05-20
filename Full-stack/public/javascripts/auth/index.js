@@ -276,3 +276,69 @@ $('#emailForgotPwd__btn').click(function (e) {
         });
     }
 });
+
+// activation
+$('#emailActivation__btn').click(function (e) {
+    e.preventDefault();
+    var contentEmail;
+    if (validateEmail($('#emailActivation__input').val())) {
+        contentEmail = $('#emailActivation__input').val();
+        emailUser = contentEmail;
+        $('.codeActivation').fadeIn(500);
+        $('.emailActivation').css('display', 'none');
+        $('#emailActivation__text').text(emailUser);
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#emailActivation__modal');
+        $('.emailActivation__modal button').click(function () {
+            $('#emailActivation__btn').removeAttr('data-toggle');
+            $('#emailActivation__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".codeActivation__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#emailActivation__btn').removeAttr('data-toggle');
+                $('#emailActivation__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+$('#codeActivation__btn').click(function (e) {
+    e.preventDefault();
+    var contentCode;
+    if ($('#codeActivation__input').val().trim().length > 0) {
+        contentCode = $('#codeActivation__input').val();
+        console.log(contentCode);
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#codeActivation-success__modal');
+        $('.codeActivation-success__modal button').click(function () {
+            $('#codeActivation__btn').removeAttr('data-toggle');
+            $('#codeActivation__btn').removeAttr('data-target');
+            //window.location = '/auth';
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".codeActivation-success__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#codeActivation__btn').removeAttr('data-toggle');
+                $('#codeActivation__btn').removeAttr('data-target');
+            }
+            //window.location = '/auth';
+        });
+        emailUser = "";
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#codeActivation__modal');
+        $('.codeActivation__modal button').click(function () {
+            $('#codeActivation__btn').removeAttr('data-toggle');
+            $('#codeActivation__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".codeActivation__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#codeActivation__btn').removeAttr('data-toggle');
+                $('#codeActivation__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
