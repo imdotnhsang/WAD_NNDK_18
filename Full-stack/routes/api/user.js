@@ -97,28 +97,76 @@ router.post('/register', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
-router.post('/validate-otp', (req, res) => {
+router.post('/send-OTP', (req, res) => {
     const errors = {};
-    const { email, OTPCode } = req.body;
+    const { email, actionType } = req.body;
 
-    const currentTime = new Date().getTime();
-    User
-        .findOne({
-            $and: [
-                { email },
-                { "OTP.code": OTPCode },
-                { "OTP.expiredAt": { $gt: currentTime } }
-            ]
-        })
+    User.findOne({ email })
         .then(user => {
-            console.log('user: ', user);
-
             if (!user) {
-                errors.message = "Your OTP Code invalid."
+                errors.email = 'Email does not exist.'
                 return res.status(400).json(errors);
             }
 
-            return res.json({ message: 'Success!.' })
+            const OTP = createOTP();
+            user.OTP = OTP;
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+
+                    sendOTPCode(userUpdated.email, userUpdated.OTP.code, actionType);
+                    return res.json(payload);
+                })
+        })
+        .catch(err => res.status(400).json(err))
+});
+
+router.post('/validate-OTP', (req, res) => {
+    const errors = {};
+    const { email, OTPCode, actionType } = req.body;
+
+    User.findOne({ email })
+        .then(user => {
+            if (!user) {
+                errors.email = 'Email does not exist.'
+                return res.status(400).json(errors);
+            }
+
+            const OTP = user.OTP;
+            console.log(OTP);
+            
+            if (OTP.code !== OTPCode) {
+                errors.OTPcode = 'OTP code is invalid.'
+                return res.status(400).json(errors);
+            }
+
+            const currentTime = new Date().getTime();
+            if (OTP.expiredAt < currentTime) {
+                errors.expiredAt = 'OTP code has expired.'
+                return res.status(400).json(errors);
+            }
+
+            switch (actionType) {
+                case 'activation':
+                    if (user.confirmed) {
+                        errors.confirmed = 'Account already activation.'
+                        return res.status(400).json(errors);
+                    }
+
+                    user.confirmed = true;
+
+                    return user.save()
+                        .then(userUpdated => {
+                            const payload = pickUser(userUpdated, userUpdated.userType);
+                            return res.json(payload);
+                        })
+
+                case 'forgotten-password':
+                    break;
+                default:
+                    break;
+            }
         })
         .catch(err => res.status(400).json(err));
 

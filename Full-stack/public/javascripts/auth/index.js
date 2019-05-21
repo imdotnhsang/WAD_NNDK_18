@@ -72,6 +72,48 @@ const clearSignUpErrors = () => {
     updateSignUpErrors(errors);
 }
 
+const showAuthErrorsModal = (curElm, errMsg) => {
+    curElm.attr('data-toggle', 'modal');
+    curElm.attr('data-target', '#auth-errors__modal');
+    $('#auth-errors__modal').modal('show');
+    $('#auth-errors__modalContent').html(errMsg);
+
+    $('.auth-errors__modal button').click(function () {
+        curElm.removeAttr('data-toggle');
+        curElm.removeAttr('data-target');
+    });
+
+    $(document).mouseup(function (e) {
+        var container = $(".auth-errors__modal");
+
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            curElm.removeAttr('data-toggle');
+            curElm.removeAttr('data-target');
+        }
+    });
+}
+
+const showAuthSuccessModal = (curElm, successMsg) => {
+    curElm.attr('data-toggle', 'modal');
+    curElm.attr('data-target', '#auth-success__modal');
+    $('#auth-errors__modal').modal('show');
+    $('#auth-errors__modalContent').html(successMsg);
+
+    $('.auth-success__modal button').click(function () {
+        curElm.removeAttr('data-toggle');
+        curElm.removeAttr('data-target');
+    });
+
+    $(document).mouseup(function (e) {
+        var container = $(".auth-success__modal");
+
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            curElm.removeAttr('data-toggle');
+            curElm.removeAttr('data-target');
+        }
+    });
+}
+
 $('#login-tab').click(function () {
     clearSignInErrors();
 })
@@ -133,24 +175,12 @@ $('#signin__btn').click(function (e) {
                             let errors = { usernameOrEmail: '', password: '' };
 
                             if (err.confirmed) {                                
-                                $(this).attr('data-toggle', 'modal');
-                                $(this).attr('data-target', '#auth-errors__modal');
-                                $('#auth-errors__modal').modal('show');
-                                $('#auth-errors__modalContent').text(err.confirmed);
-
-                                $('.auth-errors__modal button').click(function () {
-                                    $('#signin__btn').removeAttr('data-toggle');
-                                    $('#signin__btn').removeAttr('data-target');
-                                });
-
-                                $(document).mouseup(function (e) {
-                                    var container = $(".auth-errors__modal");
-
-                                    if (!container.is(e.target) && container.has(e.target).length === 0) {
-                                        $('#signin__btn').removeAttr('data-toggle');
-                                        $('#signin__btn').removeAttr('data-target');
-                                    }
-                                });
+                                showAuthErrorsModal($(this), 
+                                    `
+                                        <p>${err.confirmed}</p>
+                                        <a href="/auth/activation">Click here to activation</a>
+                                    `
+                                );
                             } else {
                                 updateSignInErrors({ ...errors, ...err });
                             }
@@ -278,54 +308,74 @@ $('#emailForgotPwd__btn').click(function (e) {
 });
 
 // activation
+
 $('#emailActivation__btn').click(function (e) {
     e.preventDefault();
-    var contentEmail;
-    if (validateEmail($('#emailActivation__input').val())) {
-        contentEmail = $('#emailActivation__input').val();
-        emailUser = contentEmail;
-        $('.codeActivation').fadeIn(500);
-        $('.emailActivation').css('display', 'none');
-        $('#emailActivation__text').text(emailUser);
+    var emailUser = $('#emailActivation__input').val().trim();
+
+    if (validateEmail(emailUser)) {
+        postData(
+            `${window.location.origin}/api/user/send-OTP`,
+            { email: emailUser, actionType: 'activation' }
+        )
+            .then(res => {
+                console.log('response: ', res);
+
+                if (res.status === 200) {
+                    $('.codeActivation').fadeIn(500);
+                    $('.emailActivation').css('display', 'none');
+                    $('#emailActivation__text').text(emailUser);
+                } else {
+                    res.json().then(err => showAuthErrorsModal($(this), err.email))
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                showAuthErrorsModal($(this), 'Fail to send OTP.');
+            })
     } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#emailActivation__modal');
-        $('.emailActivation__modal button').click(function () {
-            $('#emailActivation__btn').removeAttr('data-toggle');
-            $('#emailActivation__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".codeActivation__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#emailActivation__btn').removeAttr('data-toggle');
-                $('#emailActivation__btn').removeAttr('data-target');
-            }
-        });
+        showAuthErrorsModal($(this), 'Your email is invalid.');
     }
 });
 
 $('#codeActivation__btn').click(function (e) {
     e.preventDefault();
-    var contentCode;
-    if ($('#codeActivation__input').val().trim().length > 0) {
-        contentCode = $('#codeActivation__input').val();
-        console.log(contentCode);
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#codeActivation-success__modal');
-        $('.codeActivation-success__modal button').click(function () {
-            $('#codeActivation__btn').removeAttr('data-toggle');
-            $('#codeActivation__btn').removeAttr('data-target');
-            //window.location = '/auth';
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".codeActivation-success__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#codeActivation__btn').removeAttr('data-toggle');
-                $('#codeActivation__btn').removeAttr('data-target');
-            }
-            //window.location = '/auth';
-        });
-        emailUser = "";
+
+    let OTPCode = $('#codeActivation__input').val().trim(),
+        emailUser = $('#emailActivation__text').text(),
+        actionType = 'activation';
+
+    if (OTPCode.length > 0) {
+        const payload = { OTPCode, email: emailUser, actionType };
+
+        postData(`${window.location.origin}/api/user/validate-OTP`, payload)
+            .then(res => {
+                if (res.status === 200) {
+                    res.json()
+                        .then(data => {
+                            console.log('Activation success: ', data);
+                            showAuthSuccessModal(
+                                $(this),
+                                `
+                                    <p>Activation successfully!</p>
+                                    <a href="/">Click here to go Home Page</a>
+                                ` 
+                            )
+                        })
+                } else {
+                    res.json()
+                        .then(err => {
+                            console.log('Activation fail: ', err);
+
+                            const errMsg = err.confirmed || err.email || err.OTPcode || err.expiredAt;
+                            showAuthSuccessModal($(this), errMsg);
+                        })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+            
     } else {
         $(this).attr('data-toggle', 'modal');
         $(this).attr('data-target', '#codeActivation__modal');
