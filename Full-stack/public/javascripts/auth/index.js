@@ -52,7 +52,7 @@ const validateIsEmpty = (data, keys) => {
 const updateSignInErrors = (errors) => {
     $('#signin__usernameOrEmail-errmsg').text(errors.usernameOrEmail);
     $('#signin__password-errmsg').text(errors.password);
-}
+};
 
 const updateSignUpErrors = (errors) => {
     $('#signup__fullname-errmsg').text(errors.fullname);
@@ -60,17 +60,17 @@ const updateSignUpErrors = (errors) => {
     $('#signup__email-errmsg').text(errors.email);
     $('#signup__password-errmsg').text(errors.password);
     $('#signup__pwdRepeat-errmsg').text(errors.retypePassword);
-}
+};
 
 const clearSignInErrors = () => {
     let errors = { usernameOrEmail: '', password: '' };
     updateSignInErrors(errors);
-}
+};
 
 const clearSignUpErrors = () => {
     let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
     updateSignUpErrors(errors);
-}
+};
 
 const showAuthErrorsModal = (curElm, errMsg) => {
     curElm.attr('data-toggle', 'modal');
@@ -91,7 +91,7 @@ const showAuthErrorsModal = (curElm, errMsg) => {
             curElm.removeAttr('data-target');
         }
     });
-}
+};
 
 const showAuthSuccessModal = (curElm, successMsg) => {
     curElm.attr('data-toggle', 'modal');
@@ -112,7 +112,15 @@ const showAuthSuccessModal = (curElm, successMsg) => {
             curElm.removeAttr('data-target');
         }
     });
-}
+};
+
+const saveJWToken = (isRembember) => {
+    if (isRembember) {
+
+    } else {
+
+    }
+};
 
 $('#login-tab').click(function () {
     clearSignInErrors();
@@ -152,33 +160,34 @@ $('#signin__btn').click(function (e) {
         clearSignInErrors();
 
         const payload = { usernameOrEmail, password };
-//        console.log(payload);
-        
+
         postData(`${window.location.origin}/api/user/login`, payload)
-            .then(res => {                       
+            .then(res => {
                 if (res.status === 200) {
                     res.json()
                         .then(data => {
                             console.log('Login success: ', data);
-                            // window.location = "/";
-                            if ($('#signin__remember').prop("checked") === true) {
-                                // save localStorage
-                                
-                            } else {
-                                // save sessionStorage
+                            const isRembember = ($('#signin__remember').prop("checked") === true)
+                            saveJWToken(isRembember);
 
-                            }
+                            showAuthSuccessModal(
+                                $(this),
+                                `
+                                    <p>Login successfully!</p>
+                                    <a href="/">Click here to go Home Page</a>
+                                `
+                            );
                         })
                 } else {
                     res.json()
                         .then(err => {
                             let errors = { usernameOrEmail: '', password: '' };
 
-                            if (err.confirmed) {                                
-                                showAuthErrorsModal($(this), 
+                            if (err.confirmed) {
+                                showAuthErrorsModal($(this),
                                     `
                                         <p>${err.confirmed}</p>
-                                        <a href="/auth/activation">Click here to activation</a>
+                                        <a href="/auth/activation">Click here to Activation.</a>
                                     `
                                 );
                             } else {
@@ -189,6 +198,7 @@ $('#signin__btn').click(function (e) {
             })
             .catch(err => {
                 console.log(err);
+                showAuthErrorsModal($(this), 'Login has failed.');
             });
     }
 });
@@ -235,9 +245,38 @@ $('#signup__btn').click(function (e) {
     if (isInvalid) {
         updateSignUpErrors(errors);
     } else {
-        
-    }
+        const payload = { fullname, username, email, password, userType: 'subscriber' };
 
+        postData(`${window.location.origin}/api/user/register`, payload)
+            .then(res => {
+                clearSignUpErrors();
+
+                if (res.status === 200) {
+                    res.json()
+                        .then(data => {
+                            console.log(data);
+
+                            showAuthSuccessModal(
+                                $(this),
+                                `
+                                    <p>Register successfully!</p>
+                                    <a href="/auth">Click here to Login</a>
+                                `
+                            );
+                        })
+                } else {
+                    res.json()
+                        .then(err => {
+                            let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+                            updateSignUpErrors({ ...errors, ...err });
+                        })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                showAuthErrorsModal($(this), 'Register has failed.');
+            });
+    }
 });
 
 // forgotten-password
@@ -319,8 +358,6 @@ $('#emailActivation__btn').click(function (e) {
             { email: emailUser, actionType: 'activation' }
         )
             .then(res => {
-                console.log('response: ', res);
-
                 if (res.status === 200) {
                     $('.codeActivation').fadeIn(500);
                     $('.emailActivation').css('display', 'none');
@@ -358,9 +395,9 @@ $('#codeActivation__btn').click(function (e) {
                                 $(this),
                                 `
                                     <p>Activation successfully!</p>
-                                    <a href="/">Click here to go Home Page</a>
-                                ` 
-                            )
+                                    <a href="/auth">Click here to Login.</a>
+                                `
+                            );
                         })
                 } else {
                     res.json()
@@ -368,27 +405,16 @@ $('#codeActivation__btn').click(function (e) {
                             console.log('Activation fail: ', err);
 
                             const errMsg = err.confirmed || err.email || err.OTPcode || err.expiredAt;
-                            showAuthSuccessModal($(this), errMsg);
+                            showAuthErrorsModal($(this), errMsg);
                         })
                 }
             })
             .catch(err => {
                 console.log(err);
+                showAuthErrorsModal($(this), 'Fail to activation account.');
             });
-            
+
     } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#codeActivation__modal');
-        $('.codeActivation__modal button').click(function () {
-            $('#codeActivation__btn').removeAttr('data-toggle');
-            $('#codeActivation__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".codeActivation__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#codeActivation__btn').removeAttr('data-toggle');
-                $('#codeActivation__btn').removeAttr('data-target');
-            }
-        });
+        showAuthErrorsModal($(this), 'OTP code is invalid.')
     }
 });
