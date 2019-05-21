@@ -173,7 +173,7 @@ $('#signin__btn').click(function (e) {
                             showAuthSuccessModal(
                                 $(this),
                                 `
-                                    <p>Login successfully!</p>
+                                    <p class="m-0">Login successfully!</p>
                                     <a href="/">Click here to go Home Page</a>
                                 `
                             );
@@ -186,7 +186,7 @@ $('#signin__btn').click(function (e) {
                             if (err.confirmed) {
                                 showAuthErrorsModal($(this),
                                     `
-                                        <p>${err.confirmed}</p>
+                                        <p class="m-0">${err.confirmed}</p>
                                         <a href="/auth/activation">Click here to Activation.</a>
                                     `
                                 );
@@ -259,7 +259,7 @@ $('#signup__btn').click(function (e) {
                             showAuthSuccessModal(
                                 $(this),
                                 `
-                                    <p>Register successfully!</p>
+                                    <p class="m-0">Register successfully!</p>
                                     <a href="/auth">Click here to Login</a>
                                 `
                             );
@@ -394,7 +394,7 @@ $('#codeActivation__btn').click(function (e) {
                             showAuthSuccessModal(
                                 $(this),
                                 `
-                                    <p>Activation successfully!</p>
+                                    <p class="m-0">Activation successfully!</p>
                                     <a href="/auth">Click here to Login.</a>
                                 `
                             );
