@@ -25,20 +25,23 @@
                     </ul>
                     <form class="pt-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="InputEmail" placeholder="Email">
+                            <input type="text" class="form-control" id="signin__usernameOrEmail"
+                                placeholder="Username or Email">
+                            <span class="field-validation-error" id="signin__usernameOrEmail-errmsg"></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="signin__password" placeholder="Password">
+                            <span class="field-validation-error" id="signin__password-errmsg"></span>
                         </div>
                         <div class="row m-0 justify-content-between align-items-center">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="check-remember">
-                                <label class="custom-control-label" for="check-remember">Remember me</label>
+                                <input type="checkbox" class="custom-control-input" id="signin__remember">
+                                <label class="custom-control-label" for="signin__remember">Remember me</label>
                             </div>
-                            <button type="submit" class="btn btn-custom">LOG IN</button>
+                            <button type="submit" id="signin__btn" class="btn btn-custom">LOG IN</button>
                         </div>
                     </form>
-                    <div class="forgot"><a href="">Forgot your username?</a><a href="">Forgot your password?</a>
+                    <div class="forgot"><a href="/auth/forgotten-password">Forgotten password?</a>
                     </div>
                 </div>
                 <div id="signup" class="tab-pane fade">
@@ -48,21 +51,28 @@
                     </ul>
                     <form class="pt-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="InputFullname" placeholder="Fullname">
-
+                            <input type="text" class="form-control" id="signup__fullname" placeholder="Full name">
+                            <span class="field-validation-error" id="signup__fullname-errmsg"></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                            <input type="text" class="form-control" id="signup__username" placeholder="Username">
+                            <span class="field-validation-error" id="signup__username-errmsg"></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="ReInputPassword"
+                            <input type="email" class="form-control" id="signup__email" placeholder="Email">
+                            <span class="field-validation-error" id="signup__email-errmsg"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="signup__password" placeholder="Password">
+                            <span class="field-validation-error" id="signup__password-errmsg"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="signup__pwdRepeat"
                                 placeholder="Retype password">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="InputEmail" placeholder="Email">
+                            <span class="field-validation-error" id="signup__pwdRepeat-errmsg"></span>
                         </div>
                         <div class="row m-0 justify-content-end align-items-center">
-                            <button type="submit" class="btn btn-custom">SIGN UP</button>
+                            <button type="submit" id="signup__btn" class="btn btn-custom">SIGN UP</button>
                         </div>
                     </form>
                 </div>

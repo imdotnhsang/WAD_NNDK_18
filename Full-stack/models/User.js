@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// Desc:
+// required: fullname, username, email, userType, password
+// default: isActive, createAt
+// other: birthday, pseudonym, expiredAt, categoriesManagement
+
 const UserSchema = mongoose.Schema({
     fullname: {
         type: String,
@@ -19,7 +24,7 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     birthday: {
-        type: Date,
+        type: Number,
         required: false
     },
     userType: { // subscriber, writer, editor, administrator
@@ -27,10 +32,14 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     createdAt: {
-        type: Date,
+        type: Number,
         default: new Date().getTime()
     },
     isActive: {
+        type: Boolean,
+        default: true
+    },
+    confirmed: {
         type: Boolean,
         default: false
     },
@@ -39,13 +48,23 @@ const UserSchema = mongoose.Schema({
         required: false
     },
     expiredAt: { // subscriber
-        type: Date,
+        type: Number,
         required: false
     },
     categoriesManagement: { // editor
         type: [mongoose.Schema.Types.ObjectId],
         required: false
     },
+    OTP: {
+        code: {
+            type: String,
+            required: true
+        },
+        expiredAt: {
+            type: Number,
+            required: true
+        }
+    }
 });
 
 UserSchema.methods.encryptPassword = (password) => {

@@ -9,8 +9,8 @@
             <div class="line2"></div>
             <div class="line3"></div>
          </label>
-         <div class="logo d-flex align-items-center m-0"> <a href="home"><img class=""
-                  src="/images/icons/logo.png" alt=""></a></div>
+         <div class="logo d-flex align-items-center m-0"> <a href="home"><img class="" src="/images/icons/logo.png"
+                  alt=""></a></div>
          <ul class="w-100 navbar-nav-custom p-0 m-0 d-flex justify-content-lg-between">
             <div class="list-nav-links">
                <div class="blank">
@@ -39,8 +39,8 @@
                               href="category">Microsoft</a>
                         </li>
                         <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center"
-                              href="category"><i class="fa fa-asterisk"></i>&nbsp;&nbsp;All Techs</a>
+                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
+                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Techs</a>
                         </li>
                      </ul>
                   </li>
@@ -66,8 +66,8 @@
                               href="category">Accessories</a>
                         </li>
                         <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center"
-                              href="category"><i class="fa fa-asterisk"></i>&nbsp;&nbsp;All Reviews</a>
+                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
+                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Reviews</a>
                         </li>
                      </ul>
                   </li>
@@ -89,8 +89,8 @@
                               href="category">Environment</a>
                         </li>
                         <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center"
-                              href="category"><i class="fa fa-asterisk"></i>&nbsp;&nbsp;All Sciences</a>
+                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
+                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Sciences</a>
                         </li>
                      </ul>
                   </li>
@@ -116,8 +116,8 @@
                               href="category">Photography</a>
                         </li>
                         <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center"
-                              href="category"><i class="fa fa-asterisk"></i>&nbsp;&nbsp;All Creators</a>
+                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
+                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Creators</a>
                         </li>
                      </ul>
                   </li>
@@ -132,21 +132,30 @@
                   <div class="line-x"></div>
                   <i class="fa fa-search"></i>
                </div>
-               <div class="sign" id="btn-open-informationUser" checkOpen="false"> <a href="/auth" target="_blank"><img class=""
-                     src="/images/icons/auth.png" alt=""></a></div>
+
+               <% if(isLogin){ %>
+               <div class="sign" id="btn-open-informationUser" checkOpen="false"><img class=""
+                     src="/images/avatars/0.jpg" alt=""></div>
+               <% }else{ %>
+               <div class="sign" id="btn-open-informationUser" checkOpen="false"> <a href="/auth" target="_blank"><img
+                        class="" src="/images/icons/auth.png" alt=""></a></div>
+               <% } %>
+
             </div>
          </ul>
-         <!-- <div class="information-user">
+
+         <% if(isLogin){ %>
+         <% if(isPremium){ %>
+         <div class="information-user">
             <div class="control-information-user m-0 row">
                <div class="avatar-user"><img src="/images/avatars/0.jpg" alt=""></div>
                <div class="status-user">
                   <p class="full-name font-weight-bold m-0">Leo Nguyen</p>
-                  <span class="badge badge-custom-free">Free</span>
+                  <span class="badge badge-custom-premium">Premium</span>
                </div>
-
                <div class="control w-100 row">
                   <a href="information">Account</a>
-                  <a href="/auth/signin" target="_blank" id="log-out">Log Out</a>
+                  <a href="/auth" id="log-out">Log Out</a>
                </div>
                <div class="top-5-recent-news">
                   <div class="title text-uppercase">top 5 recently news</div>
@@ -204,13 +213,86 @@
                </div>
             </div>
             <div class="top-5-product-seen"></div>
-         </div> -->
+         </div>
+         <% }else{ %>
+         <div class="information-user">
+            <div class="control-information-user m-0 row">
+               <div class="avatar-user"><img src="/images/avatars/0.jpg" alt=""></div>
+               <div class="status-user">
+                  <p class="full-name font-weight-bold m-0">Leo Nguyen</p>
+                  <span class="badge badge-custom-free">Free</span>
+               </div>
+
+               <div class="control w-100 row">
+                  <a href="information">Account</a>
+                  <a href="/auth" id="log-out">Log Out</a>
+               </div>
+               <div class="top-5-recent-news">
+                  <div class="title text-uppercase">top 5 recently news</div>
+                  <div class="list-5-recent-news">
+                     <a href="detail" class="recent-news">
+                        <div class="d-flex m-0 backgorund-recent-news">
+                           <div class="avatar-news"><img src="/images/products/recent1.jpg" alt="">
+                           </div>
+                           <div class="title-news">
+                              <p class="m-0">Apple’s latest iPad Pros are cheaper than ever at Amazon
+                                 and Best Buy</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a href="detail" class="recent-news">
+                        <div class="d-flex m-0 backgorund-recent-news">
+                           <div class="avatar-news"><img src="/images/products/recent2.jpg" alt="">
+                           </div>
+                           <div class="title-news">
+                              <p class="m-0">Microsoft unveils disc-less Xbox One S All-Digital
+                                 Edition for $249</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a href="detail" class="recent-news">
+                        <div class="d-flex m-0 backgorund-recent-news">
+                           <div class="avatar-news"><img src="/images/products/recent3.jpg" alt="">
+                           </div>
+                           <div class="title-news">
+                              <p class="m-0">Apple adds extra step to App Store subscriptions to
+                                 prevent scams and accidental purchases</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a href="detail" class="recent-news">
+                        <div class="d-flex m-0 backgorund-recent-news">
+                           <div class="avatar-news"><img src="/images/products/recent4.jpg" alt="">
+                           </div>
+                           <div class="title-news">
+                              <p class="m-0">Fujifilm X-T30 review: a little wonder of a camera</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a href="detail" class="recent-news">
+                        <div class="d-flex m-0 backgorund-recent-news">
+                           <div class="avatar-news"><img src="/images/products/recent5.jpg" alt="">
+                           </div>
+                           <div class="title-news">
+                              <p class="m-0">Kinetic sculptures and sound circuits: building
+                                 solar-powered art at Pioneer Works</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <div class="top-5-product-seen"></div>
+         </div>
+         <% } %>
+         <% } %>
+
       </div>
       <div class="col-xl-2 col-0 p-0 m-0 blank-col-nav"></div>
    </div>
 </nav>
 <br>
 <form class="search-bar w-75 d-flex m-auto">
-   <input type="text" placeholder="Search" class="">
-   <button type="submit" class="fa fa-search"></button>
+   <input type="text" id="searchBar__content" placeholder="Search" class="">
+   <button type="submit" id="searchBar__btn" class="fa fa-search"></button>
 </form>

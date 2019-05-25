@@ -1,8 +1,9 @@
-
+//navbar logo
 $('.logo').click(function () {
     location.reload();
 });
 
+//check change of display
 var currentWidth = $(window).width();
 $(window).resize(function () {
     if ((currentWidth <= 993 & $(window).width() > 993) || (currentWidth > 993 & $(window).width() <= 993)) {
@@ -10,6 +11,7 @@ $(window).resize(function () {
     }
 });
 
+//menu responsive
 var checkHamburger = false;
 $('.hamburger').click(function () {
     if (checkHamburger == false) {
@@ -36,6 +38,7 @@ $('.hamburger').click(function () {
     }
 });
 
+//open or close search box
 $('#btn-open-searchBox').click(function () {
     var checkO = $(this).attr('checkOpen');
     if (checkO == 'false') {
@@ -52,8 +55,19 @@ $('#btn-open-searchBox').click(function () {
         $(this).children('.line-x').fadeOut(500);
         $(this).attr('checkOpen', 'false');
     }
+    // $(document).mouseup(function (e) {
+    //     var container = $(".search-bar");
+    //     if (!container.is(e.target) && container.has(e.target).length === 0) {
+    //         $('.search-bar').css('transform', 'translate(0,-50%)');
+    //         $('.search-bar').css('visibility', 'hidden');
+    //         $('.search-bar').css('opacity', '0');
+    //         $('#btn-open-searchBox').children('.line-x').fadeOut(500);
+    //         $('#btn-open-searchBox').attr('checkOpen', 'false');
+    //     }
+    // });
 });
 
+//open or close information box
 $('#btn-open-informationUser').click(function () {
     var checkO = $(this).attr('checkOpen');
     if (checkO == 'false') {
@@ -65,28 +79,28 @@ $('#btn-open-informationUser').click(function () {
     }
 });
 
-$(document).ready(function () {
-    $(function () {
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 100) {
-                $('#scroll-top').fadeIn(500);
+//control help page to scroll to top
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('#scroll-top').fadeIn(500);
 
-            } else {
-                $('#scroll-top').fadeOut(500);
-            }
-        });
+        } else {
+            $('#scroll-top').fadeOut(500);
+        }
+    });
 
-        $('#scroll-top button').click(function () {
-            $('body,html').animate({
-                scrollTop: 0
-            }, 500);
-            if ($(window).width() < 993) {
-                $('#scroll-top button').css('background-color', '#e5127d');
-            }
-        });
+    $('#scroll-top button').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 500);
+        if ($(window).width() < 993) {
+            $('#scroll-top button').css('background-color', '#e5127d');
+        }
     });
 });
 
+//slideshow of top hot news
 var owl;
 var widthItem;
 $(document).ready(function () {
@@ -110,10 +124,7 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $("#birthday-input").datepicker({});
-});
-
+//change avatar
 $("#pic-avatar").change(function () {
     if (this.files && this.files[0]) {
         var reader = new FileReader();
@@ -123,4 +134,181 @@ $("#pic-avatar").change(function () {
         }
         reader.readAsDataURL(this.files[0]);
     }
+});
+
+//check validate search bar
+$('#searchBar__btn').click(function (e) {
+    e.preventDefault();
+    var keySearch;
+    if ($('#searchBar__content').val().trim().length > 0) {
+        keySearch = $('#searchBar__content').val();
+        console.log(keySearch);
+        document.getElementById('searchBar__content').value = '';
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#search__modal');
+        $('.search__modal button').click(function () {
+            $('#searchBar__btn').removeAttr('data-toggle');
+            $('#searchBar__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".search__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#searchBar__btn').removeAttr('data-toggle');
+                $('#searchBar__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+//check validate search page
+$('#searchPage__btn').click(function (e) {
+    e.preventDefault();
+    var keySearch;
+    if ($('#searchPage__content').val().trim().length > 0) {
+        keySearch = $('#searchPage__content').val();
+        console.log(keySearch);
+        document.getElementById('searchBar__content').value = '';
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#search__modal');
+        $('.search__modal button').click(function () {
+            $('#searchPage__btn').removeAttr('data-toggle');
+            $('#searchPage__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".search__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#searchPage__btn').removeAttr('data-toggle');
+                $('#searchPage__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+//move tab edit profile
+$('#btn_updateInfTab').click(function () {
+    $('#home').removeClass('show');
+    $('#home').removeClass('active');
+    $('#home-tab').removeClass('active');
+    $('#edit_profile').addClass('show');
+    $('#edit_profile').addClass('active');
+    $('#edit_profile-tab').addClass('active');
+
+});
+
+//check validate information update
+$('#updateInf__btn').click(function (e) {
+    e.preventDefault();
+    var fname, gender, dob, email;
+    if ($('#updateInf__fullname').val().trim().length > 0 && $('#updateInf__gender').val() != 0 && $('#updateInf__bod').val().trim().length > 0 && validateEmail($('#updateInf__email').val())) {
+        fname = $('#updateInf__fullname').val();
+        gender = $('#updateInf__gender').val();
+        dob = $('#updateInf__bod').val();
+        email = $('#updateInf__email').val();
+        console.log(fname, gender, dob, email);
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#changeInf__modal');
+        $('.changeInf__modal button').click(function () {
+            $('#updateInf__btn').removeAttr('data-toggle');
+            $('#updateInf__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".changeInf__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#updateInf__btn').removeAttr('data-toggle');
+                $('#updateInf__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+$('#updateInf__btnCancel').click(function (e) {
+    document.getElementById('updateInf__fullname').value = 'Leo Nguyen';
+    document.getElementById('updateInf__gender').value = 1;
+    document.getElementById('updateInf__bod').value = '8/16/98';
+    document.getElementById('updateInf__email').value = '1612556@student.hcmus.edu.vn';
+})
+
+//check validate change password
+$('#updatePwd__btn').click(function (e) {
+    e.preventDefault();
+    var pwd, pwdNew, pwdNewRe;
+    if (($('#updatePwd__pwdNew').val() == $('#updatePwd__pwdNewRe').val()) && validatePassword($('#updatePwd__pwdNew').val()) && validatePassword($('#updatePwd__pwdOld').val())) {
+        pwdNew = $('#updatePwd__pwdNew').val();
+        console.log(pwdNew)
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#changePwd__modal');
+        $('.changePwd__modal button').click(function () {
+            $('#updatePwd__btn').removeAttr('data-toggle');
+            $('#updatePwd__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".changePwd__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#updatePwd__btn').removeAttr('data-toggle');
+                $('#updatePwd__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+$('#updatePwd__btnCancel').click(function (e) {
+    document.getElementById('updatePwd__pwdOld').value = '';
+    document.getElementById('updatePwd__pwdNew').value = '';
+    document.getElementById('updatePwd__pwdNewRe').value = '';
+})
+
+//check comment
+$('#comment__btn').click(function (e) {
+    e.preventDefault();
+    var contentComment;
+    if ($('#comment__content').val().trim().length > 0) {
+        contentComment = $('#comment__content').val();
+        console.log(contentComment);
+        document.getElementById('comment__content').value = '';
+    } else {
+        $(this).attr('data-toggle', 'modal');
+        $(this).attr('data-target', '#comment__modal');
+        $('.comment__modal button').click(function () {
+            $('#comment__btn').removeAttr('data-toggle');
+            $('#comment__btn').removeAttr('data-target');
+        });
+        $(document).mouseup(function (e) {
+            var container = $(".changePwd__modal");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#comment__btn').removeAttr('data-toggle');
+                $('#comment__btn').removeAttr('data-target');
+            }
+        });
+    }
+});
+
+//transfer news to pdf
+$('#detail__print').click(function () {
+    var pdf = new jsPDF('p', 'pt', 'letter');
+    source = $('#newsDet__pdf')[0];
+    specialElementHandlers = {
+        '#bypassme': function (element, renderer) {
+            return true
+        }
+    }
+    margins = {
+        top: 50,
+        left: 60,
+        width: 545
+    };
+    pdf.fromHTML(
+        source
+        , margins.left
+        , margins.top
+        , {
+            'width': margins.width
+        },
+        function (dispose) {
+            pdf.save('newsTBW.pdf');
+        }
+    )
 });

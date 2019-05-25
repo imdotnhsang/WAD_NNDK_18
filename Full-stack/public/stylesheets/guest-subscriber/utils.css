@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #e1e1e1;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.loader span {
+    width: 8px;
+    height: 60px;
+    margin: 0 1px;
+    animation: loading 1s ease-in-out infinite;
+    border-radius: 3px;
+}
+
+.loader span:first-child {
+    background: #0097e6;
+    animation-delay: -700ms;
+}
+
+.loader span:nth-child(2) {
+    background: #8c7ae6;
+    animation-delay: -600ms;
+}
+
+.loader span:nth-child(3) {
+    background: #e1b12c;
+    animation-delay: -500ms;
+}
+
+.loader span:nth-child(4) {
+    background: #44bd32;
+    animation-delay: -400ms;
+}
+
+.loader span:nth-child(5) {
+    background: #c23616;
+    animation-delay: -300ms;
+}
+
+.loader span:nth-child(6) {
+    background: #718093;
+    animation-delay: -200ms;
+}
+
+.loader span:last-child {
+    background: #273c75;
+    animation-delay: -100ms;
+}
+
+@keyframes loading{
+    0%,60%,100%{
+        transform: scaleY(0.05)
+    }
+    35%{
+        transform: scale(1)
+    }
+}
