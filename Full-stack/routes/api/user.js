@@ -16,7 +16,7 @@ router.post('/login', (req, res) => {
                 { isActive: true }
             ]
         })
-        .then(user => {            
+        .then(user => {
             if (!user) {
                 errors.usernameOrEmail = 'Username or email not found.';
                 return res.status(404).json(errors);
@@ -30,7 +30,7 @@ router.post('/login', (req, res) => {
                 errors.confirmed = 'Account must be confirmed email.'
                 return res.status(400).json(errors);
             }
-            
+
             const payload = pickUser(user, user.userType);
             return res.json(payload);
         })
@@ -135,7 +135,7 @@ router.post('/validate-OTP', (req, res) => {
 
             const OTP = user.OTP;
             console.log(OTP);
-            
+
             if (OTP.code !== OTPCode) {
                 errors.OTPcode = 'OTP code is invalid.'
                 return res.status(400).json(errors);
@@ -162,10 +162,12 @@ router.post('/validate-OTP', (req, res) => {
                             return res.json(payload);
                         })
 
-                case 'forgotten-password':
-                    break;
+                case 'forgottenPassword':
+                    const payload = pickUser(user, user.userType);
+                    return res.json(payload);
                 default:
-                    break;
+                    errors.actionType = 'Action type is invalid.'
+                    return res.status(400).json(errors);
             }
         })
         .catch(err => res.status(400).json(err));
