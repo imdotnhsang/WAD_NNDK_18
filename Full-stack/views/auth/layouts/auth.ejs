@@ -5,78 +5,141 @@
         <div class="title-page-sign">
             <p class="text-uppercase text-center">the big wind</p>
         </div>
-        <div class="sign-up_sign-in">
-            <ul class="nav nav-tabs d-flex justify-content-center" id="myTabSign" role="tablist">
-                <li class="nav-item">
-                    <a href="#login" class="nav-link active text-uppercase" id="login-tab" data-toggle="tab" role="tab"
-                        aria-controls="login" aria-selected="true">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#signup" class="nav-link text-uppercase" id="signup-tab" data-toggle="tab" role="tab"
-                        aria-controls="signup" aria-selected="true">Sign Up</a>
-                </li>
-            </ul>
-            <br>
-            <div class="tab-content">
-                <div id="login" class="tab-pane fade show active">
-                    <ul class="sign-social list-style-none row m-0 p-0 justify-content-center d-flex">
-                        <li><a href="#"><i class="fa fa-facebook"></i> </a> </li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i> </a> </li>
-                    </ul>
-                    <form class="pt-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="signin__usernameOrEmail"
-                                placeholder="Username or Email">
-                            <span class="field-validation-error" id="signin__usernameOrEmail-errmsg"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="signin__password" placeholder="Password">
-                            <span class="field-validation-error" id="signin__password-errmsg"></span>
-                        </div>
-                        <div class="row m-0 justify-content-between align-items-center">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="signin__remember">
-                                <label class="custom-control-label" for="signin__remember">Remember me</label>
-                            </div>
-                            <button type="submit" id="signin__btn" class="btn btn-custom">LOG IN</button>
-                        </div>
-                    </form>
-                    <div class="forgot"><a href="/auth/forgotten-password">Forgotten password?</a>
-                    </div>
-                </div>
-                <div id="signup" class="tab-pane fade">
-                    <ul class="sign-social list-style-none row m-0 p-0 justify-content-center d-flex">
-                        <li><a href="#"><i class="fa fa-facebook"></i> </a> </li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i> </a> </li>
-                    </ul>
-                    <form class="pt-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="signup__fullname" placeholder="Full name">
-                            <span class="field-validation-error" id="signup__fullname-errmsg"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="signup__username" placeholder="Username">
-                            <span class="field-validation-error" id="signup__username-errmsg"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="signup__email" placeholder="Email">
-                            <span class="field-validation-error" id="signup__email-errmsg"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="signup__password" placeholder="Password">
-                            <span class="field-validation-error" id="signup__password-errmsg"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="signup__pwdRepeat"
-                                placeholder="Retype password">
-                            <span class="field-validation-error" id="signup__pwdRepeat-errmsg"></span>
-                        </div>
-                        <div class="row m-0 justify-content-end align-items-center">
-                            <button type="submit" id="signup__btn" class="btn btn-custom">SIGN UP</button>
-                        </div>
-                    </form>
+        <!-- <form class="emailForgotPwd" id="emailForgotPwd">
+            <div class="content p-3">
+                <div class="title font-weight-bold">Find Your Account</div>
+                <div class="warning pt-2">Please enter your email address to search for your account.</div>
+                <div class="reset_pwd pt-3">
+                    <input type="text" class="form-control" id="emailForgotPwd__input" placeholder="Email address"
+                        name="code_Check">
                 </div>
             </div>
+            <div class="control pl-3 pr-3 pb-2 row m-0 justify-content-end">
+                <div class="btns-done-reset row m-0 justify-content-end align-items-center">
+                    <div class="pr-2">
+                        <a href="/auth">
+                            <button type="button" class="btn btn-cancel"
+                                id="emailForgotPwd__btnCancel">Cancel</button></a>
+                    </div>
+                    <div class="pl-2">
+                        <button type="submit" class="btn btn-success" id="emailForgotPwd__btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form class="forgotPwd" id="forgotPwd">
+            <div class="content p-3">
+                <div class="title font-weight-bold">Enter Security Code</div>
+                <div class="warning pt-2">Please check your email for a text message with your code. Your code is
+                    6 characters in length.</div>
+                <span class="notice row m-0"><strong>We send your code to: </strong>&nbsp;<p class="email m-0"
+                        id="emailForgotPwd__text"></p></span>
+                <div class="reset_pwd pt-3">
+                    <input type="text" class="form-control" id="forgotPwd__code" placeholder="Enter code"
+                        name="code_Check">
+                </div>
+            </div>
+            <div class="control pl-3 pr-3 pb-2 row m-0 justify-content-between">
+                <div class="error_noCode d-flex align-items-center">
+                    <a href="">Didn't get a code</a>
+                </div>
+                <div class="btns-done-reset row m-0 justify-content-end align-items-center">
+                    <div class="pr-2">
+                        <a href="/auth">
+                            <button type="button" class="btn btn-cancel" id="forgotPwd__btnCancel">Cancel</button></a>
+                    </div>
+                    <div class="pl-2">
+                        <button type="submit" class="btn btn-success" id="forgotPwd__btn">Continue</button>
+                    </div>
+                </div>
+<<<<<<< HEAD
+            </form>
+            <form class="resetPwd" id="resetPwd">
+                <div class="content p-3">
+                    <div class="title font-weight-bold">Choose a new password</div>
+                    <div class="warning pt-2">A strong password is a combination of letters and punctuation marks. It must be at least 8 characters long.</div>
+                    <div class="reset_pwd pt-3">
+                        <input type="text" class="form-control mb-2" id="resetPwd__code" placeholder="Enter new password"
+                            name="new_pwd">
+                            <input type="text" class="form-control" id="ReResetPwd__code" placeholder="Retype new password"
+                            name="re_new_pwd">
+                    </div>
+                </div>
+                <div class="control pl-3 pr-3 pb-2 row m-0 justify-content-end">
+                    <div class="btns-done-reset row m-0 justify-content-end align-items-center">
+                        <div class="pr-2">
+                            <a href="/auth">
+                                <button type="button" class="btn btn-cancel" id="resetPwd__btnCancel">Cancel</button></a>
+                        </div>
+                        <div class="pl-2">
+                            <button type="submit" class="btn btn-success" id="resetPwd__btn">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
+    <div class="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-0 p-0 m-0 blank-col-nav">
+    </div>
+</div>
+<div class="modal fade emailForgotPwd__modal" id="emailForgotPwd__modal" tabindex="-1" role="dialog"
+    aria-labelledby="emailForgotPwd__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="emailForgotPwd__modalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
+                Are you sure email was true?<br>I think you should check that again 😉😉😉
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade forgotPwd-success__modal" id="forgotPwd-success__modal" tabindex="-1" role="dialog"
+    aria-labelledby="forgotPwd-success__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="forgotPwd-success__modalLabel">Congratulations</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+=======
+>>>>>>> 8de4f25625e35880bfc009b8d53330a875ef28c9
+            </div>
+        </form> -->
+
+        <div role="tabpanel" class="tab-pane fade" id="change_password" aria-labelledby="hats-tab">
+            <div class="title-tab">
+                <p class="m-0">Change Password</p>
+            </div>
+            <br>
+            <form class="p-4">
+                <div class="form-group">
+                    <label for='#update__pwdOld' class="m-0 pb-1">Password</label>
+                    <input type="password" class="form-control" id="updatePwd__pwdOld" placeholder="Old password">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="updatePwd__pwdNew" placeholder="New password">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="updatePwd__pwdNewRe"
+                        placeholder="Retype new password">
+                </div>
+                <div class="row m-0 btns-done-edit justify-content-end align-items-center">
+                    <div class="pr-2">
+                        <button type="button" class="btn btn-cancel" id="updatePwd__btnCancel">CANCEL</button>
+                    </div>
+                    <div class="pl-2">
+                        <button type="submit" class="btn btn-success" id="updatePwd__btn">SAVE PASSWORD</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-0 p-0 m-0 blank-col-nav">
