@@ -16,7 +16,7 @@
             <div class="description-detail-news row m-0">
                 <div class="author">By <a href="#"><%= articleDetail.writerName %></a></div>
                 <div class="nickname"><a href="#">@<%= articleDetail.writerId %></a></div>
-                <div class="date-posted"> <i class="fa fa-clock-o"></i> </div>
+                <div class="date-posted" id="publishDate_mainNews"> <i class="fa fa-clock-o"></i> </div>
             </div>
             <div class="share-detail-news row m-0 pl-2 p-xl-0">
                 <div class="facebook"><i class="fa fa-facebook"></i></div>
@@ -105,9 +105,10 @@
                         <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>&nbsp;
                         <a href="hashtag"> <span class="badge badge-pill">#New York</span></a>&nbsp;
                     </div>
+
                     <div class="list-comment">
-                        <div class="list-comment-old">
-                            <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
+                        <div class="list-comment-old" id="list-comment-old">
+                            <!-- <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
                                 <div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class=""
                                         src="/images/avatars/0.jpg" alt=""></div>
                                 <div class="content-comment col-8 col-sm-10 m-0">
@@ -190,7 +191,7 @@
                                     <p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span
                                             class="date-commented">29th April, 2019</span></p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="new-comment pt-2 pr-sm-3 pr-lg-4 pl-3 pr-3">
                             <form class="row justify-content-end">
@@ -214,72 +215,60 @@
                             <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
                                         src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold">Apple, Luminary,
-                                    Spotify,
-                                    and the podcast wars to come
+                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[0].title %>
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[0].categoryName %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0" id="news_mostRead_1"><i class="fa fa-clock-o"></i> </p></span>
                             </div>
                         </div>
                         <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
                             <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
                                         src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold">Apple, Luminary,
-                                    Spotify,
-                                    and the podcast wars to come
+                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[1].title %>
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[1].categoryName %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0" id="news_mostRead_2"><i class="fa fa-clock-o"></i> </p></span>
                             </div>
                         </div>
                         <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
                             <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
                                         src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold">Apple, Luminary,
-                                    Spotify,
-                                    and the podcast wars to come
+                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[2].title %>
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[2].categoryName %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0" id="news_mostRead_3"><i class="fa fa-clock-o"></i> </p></span>
                             </div>
                         </div>
                         <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
                             <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
                                         src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold">Apple, Luminary,
-                                    Spotify,
-                                    and the podcast wars to come
+                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[3].title %>
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[3].categoryName %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0" id="news_mostRead_4"><i class="fa fa-clock-o"></i> </p></span>
                             </div>
                         </div>
                         <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
                             <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
                                         src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold">Apple, Luminary,
-                                    Spotify,
-                                    and the podcast wars to come
+                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[4].title %>
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[4].categoryName %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0" id="news_mostRead_5"><i class="fa fa-clock-o"></i> </p></span>
                             </div>
                         </div>
                         <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
                             <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
                                         src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold">Apple, Luminary,
-                                    Spotify,
-                                    and the podcast wars to come
+                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[5].title %>
                                 </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category">Tech</a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p></span>
+                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[5].categoryName %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0" id="news_mostRead_6"><i class="fa fa-clock-o"></i> </p></span>
                             </div>
                         </div>
                     </div>

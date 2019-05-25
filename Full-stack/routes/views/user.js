@@ -23,12 +23,12 @@ router.get('/detail', function (req, res, next) {
     const articleDetail = {
         title: 'Apple Pay is coming to New York City’s MTA transit system this summer',
         tags: ['Apple Pay', 'Apple 2019', 'New York'],
-        comments: [{ username: 'leonguyen', content: 'The specital affects are amazing', createdAt: 1558802053334, avatar: '' },
+        comments: [{ username: 'leonguyen', content: 'The specital affects are amazing.', createdAt: 1558802053334, avatar: '' },
         { username: 'ooahtaag', content: 'Given these phones are essentially the same specs as the brand spanking new Google Pixel 3a and 3a XL, you can save around $300 if you’re willing to take a calculated risk on a refurbished phone.', createdAt: 1558802053334, avatar: '' },
         { username: 'cognhcib', content: 'I can not believie it. What a beautiful thing!', createdAt: 1558802053334, avatar: '' },
-        { username: 'vinhphat207', content: 'Oh my god! Are you kidding me? That is interstring the topic. I glad you like it.', createdAt: 1529773200000, avatar: '' },
-        { username: 'hophong', content: 'It is the smartest, the best and It is very pretty.', createdAt: 1529773200000, avatar: '' }],
-        publishDate: 1529773200000,
+        { username: 'vinhphat207', content: 'Oh my god! Are you kidding me? That is interstring the topic. I glad you like it.', createdAt:  1558802053334, avatar: '' },
+        { username: 'hophong', content: 'It is the smartest, the best and It is very pretty.', createdAt: 1558802053334, avatar: '' }],
+        publishDate:  1558802053334,
         content: "",
         abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)',
         isPremmium: true,
@@ -47,11 +47,11 @@ router.get('/detail', function (req, res, next) {
 
     const sixArticlesMostRead = {
         articleMostRead: [{ title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-        { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1529773200000, coverImage: '' },
+        { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' },
         { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-        { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Samsung', publishDate: 1529773200000, coverImage: '' },
+        { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Samsung', publishDate: 1558810668776, coverImage: '' },
         { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
-        { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1529773200000, coverImage: '' }]
+        { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }]
     };
 
     res.render(

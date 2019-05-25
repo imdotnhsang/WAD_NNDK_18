@@ -287,14 +287,14 @@ $('#comment__btn').click(function (e) {
 });
 
 // format date from ms
-function formatDate(msDate) {
+function formatDateTypeFull(msDate) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const typeDays = ['st', 'nd', 'rd', 'th'];
     // var msDate = '<%= articleDetail.publishDate %>';
     var customDate = { month: '', day: '', year: '' };
 
     // customDate.day = new Date(Number(msDate)).getDate();
-    customDate.month = months[new Date(Number(msDate)).getMonth() - 1];
+    customDate.month = months[new Date(Number(msDate)).getMonth()];
 
     var supDay = new Date(Number(msDate)).getDate() % 10;
     switch (supDay) {
@@ -314,7 +314,11 @@ function formatDate(msDate) {
     return (customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
     // $('.date-posted').append(customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
 }
+function formatDateTypeAbstract(msDate) {
+    var temp = new Date(Number(msDate));
+    return (temp.getDate() + '/' + (temp.getMonth()+1) + '/' + (temp.getFullYear()));
 
+}
 //transfer news to pdf
 $('#detail__print').click(function () {
     var pdf = new jsPDF('p', 'pt', 'letter');
