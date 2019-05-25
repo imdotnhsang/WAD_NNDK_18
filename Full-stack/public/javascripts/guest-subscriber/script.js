@@ -286,6 +286,35 @@ $('#comment__btn').click(function (e) {
     }
 });
 
+// format date from ms
+function formatDate(msDate) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const typeDays = ['st', 'nd', 'rd', 'th'];
+    // var msDate = '<%= articleDetail.publishDate %>';
+    var customDate = { month: '', day: '', year: '' };
+
+    // customDate.day = new Date(Number(msDate)).getDate();
+    customDate.month = months[new Date(Number(msDate)).getMonth() - 1];
+
+    var supDay = new Date(Number(msDate)).getDate() % 10;
+    switch (supDay) {
+        case 1:
+            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[0] + '</sup>';
+            break;
+        case 2:
+            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[1] + '</sup>';
+        case 3:
+            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[2] + '</sup>';
+        default:
+            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[3] + '</sup>';
+    }
+
+    customDate.year = new Date(Number(msDate)).getFullYear();
+
+    return (customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
+    // $('.date-posted').append(customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
+}
+
 //transfer news to pdf
 $('#detail__print').click(function () {
     var pdf = new jsPDF('p', 'pt', 'letter');
