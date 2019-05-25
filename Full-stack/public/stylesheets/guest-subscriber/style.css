@@ -294,7 +294,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
     position: absolute;
     top: 58px;
     right: 0;
-    width: 250px;
+    width: 300px;
     transform: translate(-10px, 0);
     box-shadow: 0 0 7px 2px #535c68;
 }
@@ -317,7 +317,7 @@ nav div.navbar-collapse-custom ul ul.dropdown-menu-custom li:last-child>a {
 }
 
 .information-user div.status-user {
-    width: 160px;
+    width: 215px;
     padding-left: 10px;
 }
 

@@ -21,8 +21,8 @@
             <div class="share-detail-news row m-0 pl-2 p-xl-0">
                 <div class="facebook"><i class="fa fa-facebook"></i></div>
                 <div class="twitter"><i class="fa fa-twitter"></i></div>
-                <% if(isLogin){ %>
-                <% if(isPremium){ %>
+                <% if(account){ %>
+                <% if(account.userType=="subscriber"){ %>
                 <div class="print" id="detail__print"><i class="fa fa-floppy-o"></i></div>
                 <% } %>
                 <% } %>

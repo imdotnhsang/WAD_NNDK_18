@@ -2,6 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/home', function (req, res, next) {
+    const account = {
+        email: 'hoangsang160898@gmail.com',
+        fullname: "Nguyen Hoang Sang",
+        userType: "subscriber",
+        username: 'hoangsang160898',
+        _id: "5ce2c8e719cb8c333e38dcd6"
+    }
+
+    // const account = null;
     res.render(
         'user',
         {
@@ -9,13 +18,19 @@ router.get('/home', function (req, res, next) {
             layout: 'layouts/home',
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '',
-            isLogin: true,
-            isPremium: true
+            account
         }
     );
 });
 
 router.get('/detail', function (req, res, next) {
+    const account = {
+        email: 'hoangsang160898@gmail.com',
+        fullname: "Nguyen Hoang Sang",
+        userType: "subscriber",
+        username: 'hoangsang160898',
+        _id: "5ce2c8e719cb8c333e38dcd6"
+    }
     res.render(
         'user',
         {
@@ -23,13 +38,19 @@ router.get('/detail', function (req, res, next) {
             layout: 'layouts/detail',
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '/stylesheets/guest-subscriber/detail.css',
-            isLogin: true,
-            isPremium: true
+            account
         }
     );
 });
 
 router.get('/category', function (req, res, next) {
+    const account = {
+        email: 'hoangsang160898@gmail.com',
+        fullname: "Nguyen Hoang Sang",
+        userType: "subscriber",
+        username: 'hoangsang160898',
+        _id: "5ce2c8e719cb8c333e38dcd6"
+    }
     res.render(
         'user',
         {
@@ -37,13 +58,19 @@ router.get('/category', function (req, res, next) {
             layout: 'layouts/category',
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '/stylesheets/guest-subscriber/category.css',
-            isLogin: true,
-            isPremium: true
+            account
         }
     );
 });
 
 router.get('/hashtag', function (req, res, next) {
+    const account = {
+        email: 'hoangsang160898@gmail.com',
+        fullname: "Nguyen Hoang Sang",
+        userType: "subscriber",
+        username: 'hoangsang160898',
+        _id: "5ce2c8e719cb8c333e38dcd6"
+    }
     res.render(
         'user',
         {
@@ -51,13 +78,19 @@ router.get('/hashtag', function (req, res, next) {
             layout: 'layouts/hashtag',
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
-            isLogin: true,
-            isPremium: true
+            account
         }
     );
 });
 
 router.get('/information', function (req, res, next) {
+    const account = {
+        email: 'hoangsang160898@gmail.com',
+        fullname: "Nguyen Hoang Sang",
+        userType: "subscriber",
+        username: 'hoangsang160898',
+        _id: "5ce2c8e719cb8c333e38dcd6"
+    }
     res.render(
         'user',
         {
@@ -65,13 +98,19 @@ router.get('/information', function (req, res, next) {
             layout: 'layouts/information',
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '/stylesheets/guest-subscriber/information.css',
-            isLogin: true,
-            isPremium: true
+            account
         }
     );
 });
 
 router.get('/search', function (req, res, next) {
+    const account = {
+        email: 'hoangsang160898@gmail.com',
+        fullname: "Nguyen Hoang Sang",
+        userType: "subscriber",
+        username: 'hoangsang160898',
+        _id: "5ce2c8e719cb8c333e38dcd6"
+    }
     res.render(
         'user',
         {
@@ -79,13 +118,12 @@ router.get('/search', function (req, res, next) {
             layout: 'layouts/search',
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '/stylesheets/guest-subscriber/search.css',
-            isLogin: true,
-            isPremium: true
+            account
         }
     );
 });
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.redirect('/home');
 });
 
