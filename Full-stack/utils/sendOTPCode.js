@@ -21,8 +21,8 @@ const sendOTPCode = (email, OTPCode, typeEmail) => {
             subject = "The Big Wind activation account email";
             html = `${OTPCode} is your The Big Wind account activation code.`
             break;
-        case 'fogotten':
-            subject = "The Big Wind forgotten account email";
+        case 'forgottenPassword':
+            subject = "The Big Wind forgotten password email";
             html = `${OTPCode} is your The Big Wind forgotten password code.`
             break;
         default:

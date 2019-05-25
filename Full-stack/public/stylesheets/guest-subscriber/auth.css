@@ -72,24 +72,24 @@
 }
 
 .container-sign #forgotPwd,.container-sign #emailForgotPwd,
-.container-sign #codeActivation, .container-sign #emailActivation {
+.container-sign #codeActivation, .container-sign #emailActivation,.container-sign #resetPwd {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .container-sign #forgotPwd .content .title, .container-sign #emailForgotPwd .content .title,
-.container-sign #codeActivation .content .title, .container-sign #emailActivation .content .title {
+.container-sign #codeActivation .content .title, .container-sign #emailActivation .content .title,.container-sign #resetPwd .content .title {
     padding-bottom: 5px;
     font-size: 17px;
     border-bottom: 1px solid #ccc;
 }
 .container-sign #forgotPwd .content .warning, .container-sign #forgotPwd .content .notice,.container-sign #emailForgotPwd .content .warning,.container-sign #emailForgotPwd .content .notice,
-.container-sign #codeActivation .content .warning, .container-sign #codeActivation .content .notice,.container-sign #emailActivation .content .warning,.container-sign #emailActivation .content .notice {
+.container-sign #codeActivation .content .warning, .container-sign #codeActivation .content .notice,.container-sign #emailActivation .content .warning,.container-sign #emailActivation .content .notice,.container-sign #resetPwd .content .warning {
     font-size: 13px;
 }
 
 .container-sign #forgotPwd .control,.container-sign #emailForgotPwd .control, 
-.container-sign #codeActivation .control,.container-sign #emailActivation .control {
+.container-sign #codeActivation .control,.container-sign #emailActivation .control,.container-sign #resetPwd .control {
     border-top: 1px solid #ccc;
     padding-top: 9px;
 
@@ -101,7 +101,7 @@ color: #e2127d;
 }
 
 .container-sign #forgotPwd .btns-done-reset button,.container-sign #emailForgotPwd .btns-done-reset button,
-.container-sign #codeActivation .btns-done-reset button,.container-sign #emailActivation .btns-done-reset button {
+.container-sign #codeActivation .btns-done-reset button,.container-sign #emailActivation .btns-done-reset button,.container-sign #resetPwd .btns-done-reset button {
     font-weight: 500;
     border-radius: 35px;
     font-size: 13px;
@@ -112,7 +112,9 @@ color: #e2127d;
     background: transparent;
 }
 .container-sign .forgotPwd,
-.container-sign .codeActivation {
+.container-sign .codeActivation
+/* ,.container-sign .resetPwd*/
+    {
     display: none;
 }
 

@@ -127,7 +127,30 @@ $('#login-tab').click(function () {
 })
 
 $('#signup-tab').click(function () {
-    clearSignUpErrors();
+    clearSignUpErrors();    e.preventDefault();
+    var emailUser = $('#emailActivation__input').val().trim();
+
+    if (validateEmail(emailUser)) {
+        postData(
+            `${window.location.origin}/api/user/send-OTP`,
+            { email: emailUser, actionType: 'activation' }
+        )
+            .then(res => {
+                if (res.status === 200) {
+                    $('.codeActivation').fadeIn(500);
+                    $('.emailActivation').css('display', 'none');
+                    $('#emailActivation__text').text(emailUser);
+                } else {
+                    res.json().then(err => showAuthErrorsModal($(this), err.email))
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                showAuthErrorsModal($(this), 'Fail to send OTP.');
+            })
+    } else {
+        showAuthErrorsModal($(this), 'Your email is invalid.');
+    }
 })
 
 $('#signin__btn').click(function (e) {
@@ -279,75 +302,7 @@ $('#signup__btn').click(function (e) {
     }
 });
 
-// forgotten-password
-var emailReset;
-$('#forgotPwd__btn').click(function (e) {
-    e.preventDefault();
-    var contentCode;
-    if ($('#forgotPwd__code').val().trim().length > 0) {
-        contentCode = $('#forgotPwd__code').val();
-        console.log(contentCode);
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#forgotPwd-success__modal');
-        $('.forgotPwd-success__modal button').click(function () {
-            $('#forgotPwd__btn').removeAttr('data-toggle');
-            $('#forgotPwd__btn').removeAttr('data-target');
-            window.location = '/auth';
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".forgotPwd-success__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#forgotPwd__btn').removeAttr('data-toggle');
-                $('#forgotPwd__btn').removeAttr('data-target');
-            }
-            window.location = '/auth';
-        });
-        emailUser = "";
-    } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#forgotPwd__modal');
-        $('.forgotPwd__modal button').click(function () {
-            $('#forgotPwd__btn').removeAttr('data-toggle');
-            $('#forgotPwd__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".forgotPwd__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#forgotPwd__btn').removeAttr('data-toggle');
-                $('#forgotPwd__btn').removeAttr('data-target');
-            }
-        });
-    }
-});
-
-$('#emailForgotPwd__btn').click(function (e) {
-    e.preventDefault();
-    var contentEmail;
-    if (validateEmail($('#emailForgotPwd__input').val())) {
-        contentEmail = $('#emailForgotPwd__input').val();
-        emailUser = contentEmail;
-        $('.forgotPwd').fadeIn(500);
-        $('.emailForgotPwd').css('display', 'none');
-        $('#emailForgotPwd__text').text(emailUser);
-    } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#emailForgotPwd__modal');
-        $('.emailForgotPwd__modal button').click(function () {
-            $('#emailForgotPwd__btn').removeAttr('data-toggle');
-            $('#emailForgotPwd__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".forgotPwd__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#emailForgotPwd__btn').removeAttr('data-toggle');
-                $('#emailForgotPwd__btn').removeAttr('data-target');
-            }
-        });
-    }
-});
-
 // activation
-
 $('#emailActivation__btn').click(function (e) {
     e.preventDefault();
     var emailUser = $('#emailActivation__input').val().trim();
@@ -406,14 +361,78 @@ $('#codeActivation__btn').click(function (e) {
 
                             const errMsg = err.confirmed || err.email || err.OTPcode || err.expiredAt;
                             showAuthErrorsModal($(this), errMsg);
-                        })
+                        });
                 }
             })
             .catch(err => {
                 console.log(err);
                 showAuthErrorsModal($(this), 'Fail to activation account.');
             });
+    } else {
+        showAuthErrorsModal($(this), 'OTP code is invalid.')
+    }
+});
 
+// forgotten-password
+$('#emailForgotPwd__btn').click(function (e) {
+    e.preventDefault();
+
+    let emailUser = $('#emailForgotPwd__input').val().trim();
+
+    if (validateEmail(emailUser)) {
+        postData(
+            `${window.location.origin}/api/user/send-OTP`,
+            { email: emailUser, actionType: 'forgottenPassword' }
+        )
+            .then(res => {
+                if (res.status === 200) {
+                    $('.forgotPwd').fadeIn(500);
+                    $('.emailForgotPwd').css('display', 'none');
+                    $('#emailForgotPwd__text').text(emailUser);
+                } else {
+                    res.json().then(err => showAuthErrorsModal($(this), err.email))
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                showAuthErrorsModal($(this), 'Fail to send OTP.');
+            });
+    } else {
+        showAuthErrorsModal($(this), 'Your email is invalid.');
+    }
+});
+
+$('#forgotPwd__btn').click(function (e) {
+    e.preventDefault();
+    
+    let OTPCode = $('#forgotPwd__code').val().trim(),
+        emailUser = $('#emailForgotPwd__text').text(),
+        actionType = 'forgottenPassword';
+    
+    if (OTPCode.length > 0) {
+        const payload = { OTPCode, email: emailUser, actionType };
+
+        postData(`${window.location.origin}/api/user/validate-OTP`, payload)
+            .then(res => {
+                if (res.status === 200) {
+                    res.json()
+                        .then(user => {
+                            console.log('User: ', user);
+                        })
+                } else {
+                    res.json()
+                        .then(err => {
+                            console.log('Recovery password fail: ', err);
+
+                            const errMsg = err.email || err.OTPcode || err.expiredAt;
+                            showAuthErrorsModal($(this), errMsg);
+                        })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                showAuthErrorsModal($(this), 'Fail to recovery passsword.');
+            });
     } else {
         showAuthErrorsModal($(this), 'OTP code is invalid.')
     }

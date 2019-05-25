@@ -9,6 +9,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('config');
 
+const session = require('express-session');
+const passport = require('passport');
+
 // mongoose
 const MONGO_URI = process.env.MONGO_URI || config.MONGO_URI;
 
@@ -33,17 +36,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 const NODE_ENV = process.env.NODE_ENV || config.NODE_ENV;
-switch (NODE_ENV) {
-    case 'dev':
-        app.use(logger('dev'));
-        break;
-    // case 'test':
-    //     app.use(logger('short'));
-    //     break;
-    default:
-        break;
-}
+console.log('NODE_ENV', NODE_ENV);
 
+if (NODE_ENV === 'dev') {
+    app.use(logger('dev'));
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
