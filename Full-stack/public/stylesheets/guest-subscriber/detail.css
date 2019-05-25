@@ -317,6 +317,11 @@
     font-size: 14px;
 }
 
+.container-detail .warning-sign{
+    background: #efeff0;
+    border-radius: 7px;
+}
+
 @media screen and (max-width: 993px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
         font-size: 15px;
