@@ -2,15 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/home', function (req, res, next) {
-    const account = {
-        email: 'hoangsang160898@gmail.com',
-        fullname: "Nguyen Hoang Sang",
-        userType: "subscriber",
-        username: 'hoangsang160898',
-        _id: "5ce2c8e719cb8c333e38dcd6"
-    }
+    // const account = {
+    //     email: 'hoangsang160898@gmail.com',
+    //     fullname: "Nguyen Hoang Sang",
+    //     userType: "subscriber",
+    //     username: 'hoangsang160898',
+    //     _id: "5ce2c8e719cb8c333e38dcd6"
+    // }
 
-    // const account = null;
+    const account = req.user;
+    
     res.render(
         'user',
         {

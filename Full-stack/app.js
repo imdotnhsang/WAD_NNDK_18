@@ -31,6 +31,8 @@ fs.readdirSync(modelsPath).map(file => {
     require('./models/' + file);
 });
 
+require('./config/passport');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -45,6 +47,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: config.secret,
+    resave: false,
+    saveUninitialized: false,
+}));
+
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 const views = require('./routes/views');

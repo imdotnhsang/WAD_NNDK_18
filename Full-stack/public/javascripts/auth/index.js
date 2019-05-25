@@ -114,14 +114,6 @@ const showAuthSuccessModal = (curElm, successMsg) => {
     });
 };
 
-const saveJWToken = (isRembember) => {
-    if (isRembember) {
-
-    } else {
-
-    }
-};
-
 $('#login-tab').click(function () {
     clearSignInErrors();
 })
@@ -178,45 +170,28 @@ $('#signin__btn').click(function (e) {
 
     const isInvalid = errors.usernameOrEmail || errors.password;
     if (isInvalid) {
-        updateSignInErrors(errors)
+        updateSignInErrors(errors);
     } else {
         clearSignInErrors();
 
-        const payload = { usernameOrEmail, password };
+        const isRemember = ($('#signin__remember').prop("checked") === true)
+        const payload = { usernameOrEmail, password, isRemember };
 
         postData(`${window.location.origin}/api/user/login`, payload)
-            .then(res => {
-                if (res.status === 200) {
-                    res.json()
-                        .then(data => {
-                            console.log('Login success: ', data);
-                            const isRembember = ($('#signin__remember').prop("checked") === true)
-                            saveJWToken(isRembember);
-
-                            showAuthSuccessModal(
-                                $(this),
-                                `
-                                    <p class="m-0">Login successfully!</p>
-                                    <a href="/">Click here to go Home Page</a>
-                                `
-                            );
-                        })
-                } else {
+            .then(res => {                
+                if (res.status != 200) {
                     res.json()
                         .then(err => {
                             let errors = { usernameOrEmail: '', password: '' };
 
                             if (err.confirmed) {
-                                showAuthErrorsModal($(this),
-                                    `
-                                        <p class="m-0">${err.confirmed}</p>
-                                        <a href="/auth/activation">Click here to Activation.</a>
-                                    `
-                                );
+                                window.location = '/auth/activation'
                             } else {
                                 updateSignInErrors({ ...errors, ...err });
                             }
                         })
+                } else {
+                    window.location = '/home';
                 }
             })
             .catch(err => {
@@ -275,24 +250,13 @@ $('#signup__btn').click(function (e) {
                 clearSignUpErrors();
 
                 if (res.status === 200) {
-                    res.json()
-                        .then(data => {
-                            console.log(data);
-
-                            showAuthSuccessModal(
-                                $(this),
-                                `
-                                    <p class="m-0">Register successfully!</p>
-                                    <a href="/auth">Click here to Login</a>
-                                `
-                            );
-                        })
+                    window.location = '/auth/activation';
                 } else {
                     res.json()
                         .then(err => {
                             let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
                             updateSignUpErrors({ ...errors, ...err });
-                        })
+                        });
                 }
             })
             .catch(err => {
@@ -343,17 +307,7 @@ $('#codeActivation__btn').click(function (e) {
         postData(`${window.location.origin}/api/user/validate-OTP`, payload)
             .then(res => {
                 if (res.status === 200) {
-                    res.json()
-                        .then(data => {
-                            console.log('Activation success: ', data);
-                            showAuthSuccessModal(
-                                $(this),
-                                `
-                                    <p class="m-0">Activation successfully!</p>
-                                    <a href="/auth">Click here to Login.</a>
-                                `
-                            );
-                        })
+                    window.location = '/auth';
                 } else {
                     res.json()
                         .then(err => {

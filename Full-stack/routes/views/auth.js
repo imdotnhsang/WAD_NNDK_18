@@ -2,15 +2,21 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-  res.render(
-    'auth',
-    {
-      title: 'Sign In',
-      layout: 'layouts/auth',
-      srcScript: '/javascripts/auth/index.js',
-      hrefCss: '/stylesheets/guest-subscriber/auth.css'
-    }
-  );
+  console.log(req.user);
+  
+  if (req.user) {
+    res.redirect('/home')
+  } else {
+    res.render(
+      'auth',
+      {
+        title: 'Sign In',
+        layout: 'layouts/auth',
+        srcScript: '/javascripts/auth/index.js',
+        hrefCss: '/stylesheets/guest-subscriber/auth.css'
+      }
+    );
+  }
 });
 
 router.get('/forgotten-password', (req, res) => {
@@ -37,8 +43,9 @@ router.get('/activation', (req, res) => {
   );
 });
 
-// router.get('/', function (req, res, next) {
-//   res.redirect('/auth');
-// });
+router.get('/logout', function (req, res, next) {
+  req.logOut();
+  res.redirect('/auth');
+});
 
 module.exports = router;

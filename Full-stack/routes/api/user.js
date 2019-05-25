@@ -1,40 +1,68 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
+const passport = require('passport');
 
 const { sendOTPCode, createOTP, pickUser } = require('../../utils');
 const { User } = require('../../models/User');
 
+// router.post('/login', (req, res) => {
+//     const errors = {};
+//     const { usernameOrEmail, password } = req.body;
+
+//     User
+//         .findOne({
+//             $and: [
+//                 { $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] },
+//                 { isActive: true }
+//             ]
+//         })
+//         .then(user => {
+//             if (!user) {
+//                 errors.usernameOrEmail = 'Username or email not found.';
+//                 return res.status(404).json(errors);
+//             }
+//             if (!user.validPassword(password)) {
+//                 errors.password = "Password incorrect.";
+//                 return res.status(400).json(errors);
+//             }
+
+//             if (user.confirmed === false) {
+//                 errors.confirmed = 'Account must be confirmed email.'
+//                 return res.status(400).json(errors);
+//             }
+
+//             const payload = pickUser(user, user.userType);
+//             return res.json(payload);
+//         })
+//         .catch(err => res.status(400).json(err));
+// });
+
 router.post('/login', (req, res) => {
-    const errors = {};
-    const { usernameOrEmail, password } = req.body;
+    passport.authenticate('local.login', (err, user) => {
+        const { isRemember } = req.body;
 
-    User
-        .findOne({
-            $and: [
-                { $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] },
-                { isActive: true }
-            ]
-        })
-        .then(user => {
-            if (!user) {
-                errors.usernameOrEmail = 'Username or email not found.';
-                return res.status(404).json(errors);
-            }
-            if (!user.validPassword(password)) {
-                errors.password = "Password incorrect.";
-                return res.status(400).json(errors);
+        console.log('isRemember', isRemember);
+        
+        if (err) {
+            return res.status(400).json(err);
+        }
+        
+        req.logIn(user, function(err) {            
+            if (err) { 
+                return res.status(400).json(err);
             }
 
-            if (user.confirmed === false) {
-                errors.confirmed = 'Account must be confirmed email.'
-                return res.status(400).json(errors);
+            if(isRemember) {
+                req.session.cookie.maxAge = 30*24*60*60*1000; // 30 days
             }
-
-            const payload = pickUser(user, user.userType);
-            return res.json(payload);
-        })
-        .catch(err => res.status(400).json(err));
+            else {
+                req.session.cookie.maxAge = 24*60*60*1000; // 1 day
+            }
+    
+            return res.json(user);
+        });
+    })(req, res);
 });
 
 router.post('/register', (req, res) => {
