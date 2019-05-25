@@ -111,8 +111,7 @@ color: #e2127d;
 .container-sign #codeActivation .btns-done-reset .btn-cancel,.container-sign #emailActivation .btns-done-reset .btn-cancel {
     background: transparent;
 }
-.container-sign .forgotPwd,
-.container-sign .codeActivation {
+.container-sign .forgotPwd{
     display: none;
 }
 

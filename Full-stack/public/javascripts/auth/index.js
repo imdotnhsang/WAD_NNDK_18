@@ -119,7 +119,7 @@ $('#login-tab').click(function () {
 })
 
 $('#signup-tab').click(function () {
-    clearSignUpErrors();    e.preventDefault();
+    clearSignUpErrors(); 
     var emailUser = $('#emailActivation__input').val().trim();
 
     if (validateEmail(emailUser)) {
@@ -178,7 +178,7 @@ $('#signin__btn').click(function (e) {
         const payload = { usernameOrEmail, password, isRemember };
 
         postData(`${window.location.origin}/api/user/login`, payload)
-            .then(res => {                
+            .then(res => {
                 if (res.status != 200) {
                     res.json()
                         .then(err => {
@@ -211,8 +211,8 @@ $('#signup__btn').click(function (e) {
         email = $('#signup__email').val().trim(),
         fullname = $('#signup__fullname').val().trim();
 
-    if (fullname.length < 6) {
-        errors.fullname = 'Fullname must contain at least 6 characters.'
+    if (fullname.length < 6 && fullname.length <= 23) {
+        errors.fullname = 'Fullname must be between 6 and 23 characters long.'
     }
 
     if (!validateUsername(username)) {
@@ -250,6 +250,7 @@ $('#signup__btn').click(function (e) {
                 clearSignUpErrors();
 
                 if (res.status === 200) {
+                    emailActive = $('#signup__email').val();
                     window.location = '/auth/activation';
                 } else {
                     res.json()
@@ -265,6 +266,7 @@ $('#signup__btn').click(function (e) {
             });
     }
 });
+
 
 // activation
 $('#emailActivation__btn').click(function (e) {
@@ -368,7 +370,7 @@ $('#forgotPwd__btn').click(function (e) {
         actionType = 'forgottenPassword'
 
     if (OTPCode.length !== 6) {
-        errors.OTPcode = 'OTP code is invalid.' 
+        errors.OTPcode = 'OTP code is invalid.'
     }
 
     if (!validatePassword(newPasssword)) {
@@ -400,7 +402,7 @@ $('#forgotPwd__btn').click(function (e) {
                 }
             })
     }
-    
+
     // if (OTPCode.length > 0) {
     //     const payload = { OTPCode, email: emailUser, actionType };
 
