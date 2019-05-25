@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const { CommentSchema } = require('./Comment')
 
 const ArticleSchema = mongoose.Schema({
-    title: {
+    title: { //*
         type: String,
         required: true
     },
-    tags: {
+    tags: { //*
         type: [mongoose.Schema.Types.ObjectId],
         required: false
     },
@@ -14,27 +14,27 @@ const ArticleSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    publishDate: {
+    publishDate: { //*
         type: Date,
         required: false
     },
-    content: {
+    content: { //*
         type: String,
         required: true
     },
-    abstract: {
+    abstract: { //*
         type: String,
         required: true
     },
-    views: {
+    views: { 
         type: Number,
         default: 0
     },
-    comments: {
+    comments: { //*
         type: [CommentSchema],
         required: false
     },
-    isPremium: {
+    isPremium: { //*
         type: Boolean,
         default: false
     },
@@ -54,7 +54,7 @@ const ArticleSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     }, //subcate
-    writerId: {
+    writerId: { //*
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
