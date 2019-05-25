@@ -358,36 +358,73 @@ $('#emailForgotPwd__btn').click(function (e) {
 
 $('#forgotPwd__btn').click(function (e) {
     e.preventDefault();
-    
+    const errors = {};
+    let errMsg;
+
     let OTPCode = $('#forgotPwd__code').val().trim(),
         emailUser = $('#emailForgotPwd__text').text(),
-        actionType = 'forgottenPassword';
-    
-    if (OTPCode.length > 0) {
-        const payload = { OTPCode, email: emailUser, actionType };
+        newPasssword = $('#forgotPwd__newPassword').val(),
+        retypeNewPasssword = $('#forgotPwd__retypeNewPassword').val(),
+        actionType = 'forgottenPassword'
+
+    if (OTPCode.length !== 6) {
+        errors.OTPcode = 'OTP code is invalid.' 
+    }
+
+    if (!validatePassword(newPasssword)) {
+        errors.newPasssword = 'New password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+
+    if (retypeNewPasssword !== newPasssword) {
+        errors.retypeNewPasssword = 'Retype new password must be correct.'
+    }
+
+    const isInvalid = Object.keys(errors).length;
+
+    if (isInvalid) {
+        errMsg = errors.OTPcode || errors.newPasssword || errors.retypeNewPasssword;
+        showAuthErrorsModal($(this), errMsg)
+    } else {
+        const payload = { OTPCode, email: emailUser, actionType, password: newPasssword };
 
         postData(`${window.location.origin}/api/user/validate-OTP`, payload)
             .then(res => {
                 if (res.status === 200) {
-                    res.json()
-                        .then(user => {
-                            console.log('User: ', user);
-                        })
+                    window.location = '/auth';
                 } else {
                     res.json()
                         .then(err => {
-                            console.log('Recovery password fail: ', err);
-
-                            const errMsg = err.email || err.OTPcode || err.expiredAt;
+                            errMsg = err.email || err.OTPcode || err.expiredAt || 'Recovery password fail.';
                             showAuthErrorsModal($(this), errMsg);
-                        })
+                        });
                 }
             })
-            .catch(err => {
-                console.log(err);
-                showAuthErrorsModal($(this), 'Fail to recovery passsword.');
-            });
-    } else {
-        showAuthErrorsModal($(this), 'OTP code is invalid.')
     }
+    
+    // if (OTPCode.length > 0) {
+    //     const payload = { OTPCode, email: emailUser, actionType };
+
+    //     postData(`${window.location.origin}/api/user/validate-OTP`, payload)
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 $('.resetPwd').fadeIn(500);
+    //                 $('.forgotPwd').css('display', 'none');
+    //                 $('#emailForgotPwd__text').text(emailUser);
+    //             } else {
+    //                 res.json()
+    //                     .then(err => {
+    //                         console.log('Recovery password fail: ', err);
+
+    //                         const errMsg = err.email || err.OTPcode || err.expiredAt;
+    //                         showAuthErrorsModal($(this), errMsg);
+    //                     })
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             showAuthErrorsModal($(this), 'Fail to recovery passsword.');
+    //         });
+    // } else {
+    //     showAuthErrorsModal($(this), 'OTP code is invalid.')
+    // }
 });

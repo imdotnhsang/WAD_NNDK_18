@@ -6,60 +6,28 @@ const passport = require('passport');
 const { sendOTPCode, createOTP, pickUser } = require('../../utils');
 const { User } = require('../../models/User');
 
-// router.post('/login', (req, res) => {
-//     const errors = {};
-//     const { usernameOrEmail, password } = req.body;
-
-//     User
-//         .findOne({
-//             $and: [
-//                 { $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] },
-//                 { isActive: true }
-//             ]
-//         })
-//         .then(user => {
-//             if (!user) {
-//                 errors.usernameOrEmail = 'Username or email not found.';
-//                 return res.status(404).json(errors);
-//             }
-//             if (!user.validPassword(password)) {
-//                 errors.password = "Password incorrect.";
-//                 return res.status(400).json(errors);
-//             }
-
-//             if (user.confirmed === false) {
-//                 errors.confirmed = 'Account must be confirmed email.'
-//                 return res.status(400).json(errors);
-//             }
-
-//             const payload = pickUser(user, user.userType);
-//             return res.json(payload);
-//         })
-//         .catch(err => res.status(400).json(err));
-// });
-
 router.post('/login', (req, res) => {
     passport.authenticate('local.login', (err, user) => {
         const { isRemember } = req.body;
 
         console.log('isRemember', isRemember);
-        
+
         if (err) {
             return res.status(400).json(err);
         }
-        
-        req.logIn(user, function(err) {            
-            if (err) { 
+
+        req.logIn(user, function (err) {
+            if (err) {
                 return res.status(400).json(err);
             }
 
-            if(isRemember) {
-                req.session.cookie.maxAge = 30*24*60*60*1000; // 30 days
+            if (isRemember) {
+                req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
             }
             else {
-                req.session.cookie.maxAge = 24*60*60*1000; // 1 day
+                req.session.cookie.maxAge = 24 * 60 * 60 * 1000; // 1 day
             }
-    
+
             return res.json(user);
         });
     })(req, res);
@@ -152,7 +120,7 @@ router.post('/send-OTP', (req, res) => {
 
 router.post('/validate-OTP', (req, res) => {
     const errors = {};
-    const { email, OTPCode, actionType } = req.body;
+    const { email, OTPCode, actionType, password } = req.body;
 
     User.findOne({ email })
         .then(user => {
@@ -162,8 +130,6 @@ router.post('/validate-OTP', (req, res) => {
             }
 
             const OTP = user.OTP;
-            console.log(OTP);
-
             if (OTP.code !== OTPCode) {
                 errors.OTPcode = 'OTP code is invalid.'
                 return res.status(400).json(errors);
@@ -191,8 +157,17 @@ router.post('/validate-OTP', (req, res) => {
                         })
 
                 case 'forgottenPassword':
-                    const payload = pickUser(user, user.userType);
-                    return res.json(payload);
+                    console.log('password: ', password);
+                    
+                    user.password = user.encryptPassword(password);
+                    
+                    return user.save()
+                        .then(userUpdated => {
+                            console.log(userUpdated);
+                            
+                            const payload = pickUser(userUpdated, userUpdated.userType);
+                            return res.json(payload);
+                        })
                 default:
                     errors.actionType = 'Action type is invalid.'
                     return res.status(400).json(errors);
@@ -202,9 +177,26 @@ router.post('/validate-OTP', (req, res) => {
 
 });
 
-router.post('/forgotten-password', (req, res) => {
+// router.post('/forgotten-password', (req, res) => {
+//     const errors = {};
+//     const { email } = req.body;
+
+//     User
+//         .findOne({ email, isActive: true })
+//         .then(user => {
+//             if (!user) {
+//                 errors.email = 'Email does not exits.';
+//                 return res.status(404).json(errors);
+//             }
+
+//             sendOTPCode(user.email, 'forgotten');
+//         })
+//         .catch(err => res.status(400).json(err));
+// });
+
+router.post('/recovery-password', (req, res) => {
     const errors = {};
-    const { email } = req.body;
+    const { newPassword, email } = req.body;
 
     User
         .findOne({ email, isActive: true })
@@ -214,9 +206,18 @@ router.post('/forgotten-password', (req, res) => {
                 return res.status(404).json(errors);
             }
 
-            sendOTPCode(user.email, 'forgotten');
+            user.password = newUser.encryptPassword(newPassword);
+
+            return user.save()
+            .then(userUpdated => {
+                const payload = pickUser(userUpdated, userUpdated.userType);
+                return res.json(payload);
+            })
+
         })
-        .catch(err => res.status(400).json(err));
-});
+        .catch(err => {
+            res.status(400).json(err);
+        })
+})
 
 module.exports = router;
