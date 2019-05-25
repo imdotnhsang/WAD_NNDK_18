@@ -162,7 +162,6 @@ $('#searchBar__btn').click(function (e) {
 });
 
 //check validate search page
-//check validate search bar
 $('#searchPage__btn').click(function (e) {
     e.preventDefault();
     var keySearch;
@@ -197,6 +196,7 @@ $('#btn_updateInfTab').click(function () {
     $('#edit_profile-tab').addClass('active');
 
 });
+
 //check validate information update
 $('#updateInf__btn').click(function (e) {
     e.preventDefault();
