@@ -4,7 +4,7 @@
     <div class="main-container-detail col-xl-8 col-12 m-0 p-0">
         <ul class="breadcrumb breadcrumb-custom p-0">
             <li class="breadcrumb-item breadcrumb-item-custom"><a class="p-0" href="category">Tech</a></li>
-            <li class="breadcrumb-item breadcrumb-item-custom active">Apple</li>
+            <li class="breadcrumb-item breadcrumb-item-custom active"><%= articleDetail.categoryName %></li>
         </ul>
         <div class="pl-2 pr-2 pl-xl-0 pr-xl-0" id="newsDet__pdf">
             <div class="title-detail-news">
@@ -16,113 +16,61 @@
             <div class="description-detail-news row m-0">
                 <div class="author">By <a href="#"><%= articleDetail.writerName %></a></div>
                 <div class="nickname"><a href="#">@<%= articleDetail.writerId %></a></div>
-                <div class="date-posted" id="publishDate_mainNews"> <i class="fa fa-clock-o"></i> </div>
+                <div class="date-posted"> <i class="fa fa-clock-o"></i> <span id="date-posted-main"><%- articleDetail.publishDate %></span></div>
             </div>
-            <div class="share-detail-news row m-0 pl-2 p-xl-0">
-                <div class="facebook"><i class="fa fa-facebook"></i></div>
-                <div class="twitter"><i class="fa fa-twitter"></i></div>
-                <% if(account){ %>
-                <% if(account.userType=="subscriber"){ %>
-                <div class="print" id="detail__print"><i class="fa fa-floppy-o"></i></div>
-                <% } %>
-                <% } %>
-            </div>
-            <div class="row m-0">
-                <div class="content-detail col-lg-9 p-0 pr-lg-5">
-                    <div class="main-content-detail">
-                        <div class="picture-detail-news pl-4 pr-4 pb-4 pt-lg-0 pr-lg-0 pl-lg-0">
-                            <div class="img-detail-news"><img class="w-100" src="/images/products/listnews.jpg" alt="">
-                            </div>
-                            <div class="author-img">
-                                <p class="m-0">Photo by Amelia Holowaty Krales / The Verge</p>
-                            </div>
-                        </div>
-                        <div class="part1">
-                            <p><a href="">It’s been nearly two years</a> since we wrote that New York City would finally
-                                be upgrading its transit system to take “tap-to-pay” contactless payments, but Apple’s
-                                Tim Cook says it’s finally coming true — on the company’s <a href="">Q2 earnings call
-                                    today</a>, the
-                                CEO told investors that Apple Pay will begin rolling out to New York City’s MTA transit
-                                system starting in “early summer” of this year, letting you tap a phone or watch to pay
-                                instantly.</p>
-                            </a>
-                        </div>
-                        <div class="part2">
-                            <p>But it probably won’t just be Apple Pay, because a few quick web searches show that NYC
-                                has actually already announced a specific date for a contactless payment system that
-                                should support other phone-based wallets (perhaps rival Android Pay?) and even
-                                contactless credit cards.</p>
-                        </div>
-                        <div class="part3">
-                            <p><a href="">It’s called OMNY</a> (you know, like “omni” spelled with NY for New York), and
-                                it’s scheduled to launch May 31st — though admittedly only on Staten Island buses and
-                                the 4 5 6 subway lines between Grand Central-42 Street and Atlantic Av-Barclays Ctr to
-                                start. The full system won’t roll out till 2020, and it won’t let you use any passes or
-                                discounted fares until then, according to the MTA’s website. Existing swipe-based
-                                MetroCards should still work in the meanwhile, though.</p>
-                        </div>
-                        <div class="picture-detail-news pl-4 pr-4 pb-4 pt-lg-0 pr-lg-0 pl-lg-0">
-                            <div class="img-detail-news"><img class="w-100" src="/images/products/listnews.jpg" alt="">
-                            </div>
-                            <div class="author-img">
-                                <p class="m-0">Photo by Amelia Holowaty Krales / The Verge</p>
-                            </div>
-                        </div>
-                        <div class="part4">
-                            <p><a href="">Gothamist reported</a> that New Yorkers started spotted the new contactless
-                                readers rolling out at the initial wave of supported stations earlier this month, but
-                                they don’t appear to be activated quite yet. CBS NY also got a brief demo of a
-                                disembodied system, which you can <a href="">see right here.</a></p>
-                        </div>
-                    </div>
+        </div>
+        <div class="share-detail-news row m-0 pl-2 p-xl-0">
+            <div class="facebook"><i class="fa fa-facebook"></i></div>
+            <div class="twitter"><i class="fa fa-twitter"></i></div>
+            <% if(account){ %>
+            <% if(account.userType=="subscriber"){ %>
+            <div class="print" id="detail__print"><i class="fa fa-floppy-o"></i></div>
+            <% } %>
+            <% } %>
+        </div>
+        <div class="row m-0">
+            <div class="content-detail col-lg-9 p-0 pr-lg-5">
+                <div class="main-content-detail" id="main-content-detail">
+                    <%- articleDetail.content %>
+                </div>
 
-                    <div class="next-up-in-category pt-3 pb-4">
-                        <div class="title-next-up-in-category">
-                            <a class="text-uppercase">Next Up In <span class="category-current"><%= articleDetail.categoryName %></span> </a>
-                        </div>
-                        <div class="list-next-up-in-category row m-0 pt-2">
-                            <div class="name-next-up-news">
-                                <a href="detail"><%= fiveArticlesNextUp.articleNextUp[0].title %></a>
-                            </div>
-                            <div class="name-next-up-news">
-                                <a href="detail"><%= fiveArticlesNextUp.articleNextUp[1].title %></a>
-                            </div>
-                            <div class="name-next-up-news">
-                                <a href="detail"><%= fiveArticlesNextUp.articleNextUp[2].title %></a>
-                            </div>
-                            <div class="name-next-up-news">
-                                <a href="detail"><%= fiveArticlesNextUp.articleNextUp[3].title %></a>
-                            </div>
-                            <div class="name-next-up-news">
-                                <a href="detail"><%= fiveArticlesNextUp.articleNextUp[4].title %></a>                                </a>
-                            </div>
-                        </div>
+                <div class="next-up-in-category pt-3 pb-4">
+                    <div class="title-next-up-in-category">
+                        <a class="text-uppercase">Next Up In <span
+                                class="category-current"><%= articleDetail.categoryName %></span> </a>
                     </div>
-
-                    <div class="list-tags">
-                        <a href="hashtag">
-                            <span class="badge badge-pill">#Apple Pay</span></a>&nbsp;
-                        <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>&nbsp;
-                        <a href="hashtag"> <span class="badge badge-pill">#New York</span></a>&nbsp;
+                    <div class="list-next-up-in-category row m-0 pt-2">
+                        <% fiveArticlesNextUp.articleNextUp.forEach(function(eachArticleNextUp){ %>
+                        <div class="name-next-up-news">
+                            <a href="detail"><%= eachArticleNextUp.title %></a>
+                        </div>
+                        <% }) %>
                     </div>
+                </div>
 
-                    <div class="list-comment">
-                        <div class="list-comment-old" id="list-comment-old">
-                            <!-- <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
-                                <div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class=""
-                                        src="/images/avatars/0.jpg" alt=""></div>
-                                <div class="content-comment col-8 col-sm-10 m-0">
-                                    <p class="m-0 content-comment-detail"><span class="author-comment">Leo
-                                            Sang</span> Lorem ipsum dolor
-                                        sit amet consectetur adipisicing elit. Ratione
-                                        modi maiores quisab recusand voluptatem, ducimus tempora delectus saepe
-                                        doloribus debitis
-                                        similique. In quidem, quibusdam culpa optio odio dolore earum.</p>
-                                    <p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span
-                                            class="date-commented">29th April, 2019</span></p>
-                                </div>
+                <div class="list-tags">
+                    <% articleDetail.tags.forEach(function(eachTag){ %>
+                    <a href="hashtag">
+                        <span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
+                    <% }) %>
+                </div>
+
+                <div class="list-comment">
+                    <div class="list-comment-old" id="list-comment-old">
+                        <% articleDetail.comments.forEach(function(eachComment){ %>
+                        <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
+                            <div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class=""
+                                    src="/images/avatars/0.jpg" alt=""></div>
+                            <div class="content-comment col-8 col-sm-10 m-0">
+                                <p class="m-0 content-comment-detail"><span
+                                        class="author-comment"><%= eachComment.username %></span>
+                                    <%= eachComment.content %></p>
+                                <p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span
+                                        class="date-commented" id="date-commented"><%= eachComment.createdAt %></span></p>
                             </div>
-                            <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
+                        </div>
+                        <% }) %>
+                        <!-- <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
                                 <div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class=""
                                         src="/images/avatars/0.jpg" alt=""></div>
                                 <div class="content-comment col-8 col-sm-10 m-0">
@@ -192,91 +140,47 @@
                                             class="date-commented">29th April, 2019</span></p>
                                 </div>
                             </div> -->
-                        </div>
-                        <div class="new-comment pt-2 pr-sm-3 pr-lg-4 pl-3 pr-3">
-                            <form class="row justify-content-end">
-                                <textarea class="pl-2 pr-2 w-100 mt-3" name="content-new-comment" id="comment__content"
-                                    rows="3" placeholder="Write a comment..."></textarea>
-                                <div class="btn btn-success mt-2" id="comment__btn"><i class="fa fa-paper-plane-o"></i>
-                                    Comment</div>
-                            </form>
-                        </div>
+                    </div>
+                    <div class="new-comment pt-2 pr-sm-3 pr-lg-4 pl-3 pr-3">
+                        <form class="row justify-content-end">
+                            <textarea class="pl-2 pr-2 w-100 mt-3" name="content-new-comment" id="comment__content"
+                                rows="3" placeholder="Write a comment..."></textarea>
+                            <div class="btn btn-success mt-2" id="comment__btn"><i class="fa fa-paper-plane-o"></i>
+                                Comment</div>
+                        </form>
                     </div>
                 </div>
-                <div class="top-6-most-read-news pt-3 pl-0 pr-0 pb-0 p-lg-0 col-lg-3">
-                    <div class="row p-0 m-0">
-                        <div class="col-2 col-sm-1 col-lg-0"></div>
-                        <div class="title-top-6-most-read-news col-10 col-sm-11 col-lg-12">
-                            <p class="m-0 text-uppercase font-weight-bold">top 6 most read</p>
+            </div>
+            <div class="top-6-most-read-news pt-3 pl-0 pr-0 pb-0 p-lg-0 col-lg-3">
+                <div class="row p-0 m-0">
+                    <div class="col-2 col-sm-1 col-lg-0"></div>
+                    <div class="title-top-6-most-read-news col-10 col-sm-11 col-lg-12">
+                        <p class="m-0 text-uppercase font-weight-bold">top 6 most read</p>
+                    </div>
+                </div>
+                <div class="list-top-6-most-read-news pl-2 p-lg-0 row m-0">
+                    <% sixArticlesMostRead.articleMostRead.forEach(function(eachArticleMR){ %>
+                    <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
+                        <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
+                                    src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
+                        <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
+                            <a href="detail"
+                                class="title-most-read-news m-0 font-weight-bold"><%= eachArticleMR.title %>
+                            </a>
+                            <span class="author m-0 p-0 pt-1 row"><a class=""
+                                    href="category"><%= eachArticleMR.categoryName %></a>&nbsp;&nbsp;
+                                <p class="date-posted m-0" id="news_mostRead_1"><i class="fa fa-clock-o"></i>
+                                    <span id="date-posted"><%= eachArticleMR.publishDate %></span></p>
+                            </span>
                         </div>
                     </div>
-                    <div class="list-top-6-most-read-news pl-2 p-lg-0 row m-0">
-                        <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                            <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
-                            <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[0].title %>
-                                </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[0].categoryName %></a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0" id="news_mostRead_1"><i class="fa fa-clock-o"></i> </p></span>
-                            </div>
-                        </div>
-                        <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                            <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
-                            <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[1].title %>
-                                </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[1].categoryName %></a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0" id="news_mostRead_2"><i class="fa fa-clock-o"></i> </p></span>
-                            </div>
-                        </div>
-                        <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                            <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
-                            <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[2].title %>
-                                </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[2].categoryName %></a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0" id="news_mostRead_3"><i class="fa fa-clock-o"></i> </p></span>
-                            </div>
-                        </div>
-                        <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                            <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
-                            <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[3].title %>
-                                </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[3].categoryName %></a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0" id="news_mostRead_4"><i class="fa fa-clock-o"></i> </p></span>
-                            </div>
-                        </div>
-                        <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                            <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
-                            <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[4].title %>
-                                </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[4].categoryName %></a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0" id="news_mostRead_5"><i class="fa fa-clock-o"></i> </p></span>
-                            </div>
-                        </div>
-                        <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                            <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
-                            <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail" class="title-most-read-news m-0 font-weight-bold"><%= sixArticlesMostRead.articleMostRead[5].title %>
-                                </a>
-                                <span class="author m-0 p-0 pt-1 row"><a class="" href="category"><%= sixArticlesMostRead.articleMostRead[5].categoryName %></a>&nbsp;&nbsp;
-                                    <p class="date-posted m-0" id="news_mostRead_6"><i class="fa fa-clock-o"></i> </p></span>
-                            </div>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-2 col-0 p-0 m-0 blank-col-container"></div>
+</div>
+<div class="col-xl-2 col-0 p-0 m-0 blank-col-container"></div>
 </div>
 <div class="modal fade comment__modal" id="comment__modal" tabindex="-1" role="dialog"
     aria-labelledby="comment__modalLabel" aria-hidden="true">

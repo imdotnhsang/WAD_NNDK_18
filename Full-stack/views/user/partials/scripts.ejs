@@ -9,29 +9,19 @@
     $(document).ready(function () {
         $("#update__bod").datepicker({});
     });
-</script>
 
-<% if(isDetailPage){ %>
-<script>
-    $('#publishDate_mainNews').append(formatDateTypeFull('<%= articleDetail.publishDate %>'));
-    $('#news_mostRead_1').append(formatDateTypeAbstract('<%= sixArticlesMostRead.articleMostRead[0].publishDate %>'));
-    $('#news_mostRead_2').append(formatDateTypeAbstract('<%= sixArticlesMostRead.articleMostRead[1].publishDate %>'));
-    $('#news_mostRead_3').append(formatDateTypeAbstract('<%= sixArticlesMostRead.articleMostRead[2].publishDate %>'));
-    $('#news_mostRead_4').append(formatDateTypeAbstract('<%= sixArticlesMostRead.articleMostRead[3].publishDate %>'));
-    $('#news_mostRead_5').append(formatDateTypeAbstract('<%= sixArticlesMostRead.articleMostRead[4].publishDate %>'));
-    $('#news_mostRead_6').append(formatDateTypeAbstract('<%= sixArticlesMostRead.articleMostRead[5].publishDate %>'));
+    $('#date-posted-main').html(formatDateTypeFull($('#date-posted-main').html()));
 
-    function loadOldComment(username, content, date) {
-        var header_comment = '<div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center"><div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class="" src="/images/avatars/0.jpg" alt=""></div><div class="content-comment col-8 col-sm-10 m-0">'
-        var p_content_comment = '<p class="m-0 content-comment-detail"><span class="author-comment">' + username + '</span> '+content+ '</p>';
-        var p_datePosted_comment ='<p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span class="date-commented">' + formatDateTypeFull(date) +'</span></p>';
-        var footer_comment ='</div>'
-        return header_comment + p_content_comment + p_datePosted_comment + footer_comment
+    var formatDateComments = document.querySelectorAll('#date-commented');
+    for (i = 0; i < formatDateComments.length; i++) {
+        formatDateComments[i].innerHTML = formatDateTypeFull(formatDateComments[i].innerHTML);
     }
-    $('#list-comment-old').append(loadOldComment('<%= articleDetail.comments[0].username %>','<%= articleDetail.comments[0].content %>','<%= articleDetail.comments[0].createdAt %>'));
 
+    var formatDateArticlesMini = document.querySelectorAll('#date-posted');
+    for (j = 0; j < formatDateArticlesMini.length; j++) {
+        formatDateArticlesMini[j].innerHTML = formatDateTypeFull(formatDateArticlesMini[j].innerHTML);
+    }
 </script>
-<% } %>
 
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
 
