@@ -21,253 +21,38 @@
         </div>
         <div class="results-for-search pt-1 pl-3 pr-3">
             <div class="list-results-search m-0">
+                <% for(j=0;j<10;j++){ %>
                 <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
+                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img class="w-100"
+                                src="/images/products/listnews.jpg" alt=""></a></div>
                     <div
                         class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
+                        <a href="detail" class="title-result-search m-0 font-weight-bold"><%= resultArticlesSearch.result[j].title %>
                         </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
+                        <span class="author m-0 pt-1 pt-sm-1 row "><a class="" href="category"><%= resultArticlesSearch.result[j].categoryName %></a>&nbsp;&nbsp;
+                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span id="date-posted"><%= resultArticlesSearch.result[j].publishDate %></span></p>&nbsp;&nbsp;
                         </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
+                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">H<%= resultArticlesSearch.result[j].abstract %></p>
                         <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
+                                <% resultArticlesSearch.result[j].tags.forEach(function(eachTag){ %>
+                                    <a href="hashtag"><span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
+                                   <% }) %>
                         </div>
                     </div>
                 </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img
-                                class="w-100" src="/images/products/listnews.jpg" alt=""></a></div>
-                    <div
-                        class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold">Apple Pay is coming
-                            to New
-                            York City’s
-                            MTA transit system this summer
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category">Apple</a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> 4/29/2019</p>&nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">Hello OMNY (you know, like “omni” spelled
-                            with NY for New
-                            York)</p>
-                        <div class="list-tags">
-                            <a href="hashtag"><span class="badge badge-pill">#Apple
-                                    Pay</span></a>&nbsp;
-                            <a href="hashtag"><span class="badge badge-pill">#Apple 2019</span></a>
-                        </div>
-                    </div>
-                </div>
+                <% } %>
                 <div class="count-results row m-0 pt-3 pb-3 pb-lg-4">
                     <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center">
-                        <p class="m-0">Page <span class="page-current">1</span> of <span class="count-pages">999</span>
+                        <p class="m-0">Page <span class="page-current">1</span> of <span class="count-pages"><%= Math.round(resultArticlesSearch.result.length/10 + 0.4) %></span>
                         </p>
                     </div>
-                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase">next</div>
+                    <% if(Math.round(resultArticlesSearch.result.length/10 + 0.4)>1){ %>
+                        <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase">next</div>
+                        <% } else {%>
+                        <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase disabled">next</div>
+                        <% } %>
                 </div>
+
             </div>
         </div>
     </div>

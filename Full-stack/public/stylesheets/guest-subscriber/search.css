@@ -146,6 +146,12 @@
     font-size: 14px;
 }
 
+.container-search .list-results-search .count-results div.disabled:hover {
+    cursor: default;
+    background: #e5127d;
+    opacity: .65;
+}
+
 @media screen and (max-width: 993px) {
     .container-search .title-search p {
         font-size: 28px;
