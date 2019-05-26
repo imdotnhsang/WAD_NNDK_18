@@ -26,14 +26,18 @@
                         <a href="detail"
                             class="title-result-hashtag m-0 font-weight-bold"><%= resultArticlesHashtag.result[j].title %>
                         </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class="" href="category"><%= resultArticlesHashtag.result[j].categoryName %></a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span id="date-posted"><%= resultArticlesHashtag.result[j].publishDate %></span></p>&nbsp;&nbsp;
+                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
+                                href="category"><%= resultArticlesHashtag.result[j].categoryName %></a>&nbsp;&nbsp;
+                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
+                                    id="date-posted"><%= resultArticlesHashtag.result[j].publishDate %></span></p>
+                            &nbsp;&nbsp;
                         </span>
-                        <p class="abstract-result-hashtag pt-0 pt-sm-1 m-0"><%= resultArticlesHashtag.result[j].abstract %></p>
+                        <p class="abstract-result-hashtag pt-0 pt-sm-1 m-0">
+                            <%= resultArticlesHashtag.result[j].abstract %></p>
                         <div class="list-tags">
-                               <% resultArticlesHashtag.result[j].tags.forEach(function(eachTag){ %>
-                                <a href="hashtag"><span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
-                               <% }) %>
+                            <% resultArticlesHashtag.result[j].tags.forEach(function(eachTag){ %>
+                            <a href="hashtag"><span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
+                            <% }) %>
                         </div>
                     </div>
                 </div>

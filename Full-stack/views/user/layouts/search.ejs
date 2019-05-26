@@ -27,30 +27,36 @@
                                 src="/images/products/listnews.jpg" alt=""></a></div>
                     <div
                         class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-search m-0 font-weight-bold"><%= resultArticlesSearch.result[j].title %>
+                        <a href="detail"
+                            class="title-result-search m-0 font-weight-bold"><%= resultArticlesSearch.result[j].title %>
                         </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class="" href="category"><%= resultArticlesSearch.result[j].categoryName %></a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span id="date-posted"><%= resultArticlesSearch.result[j].publishDate %></span></p>&nbsp;&nbsp;
+                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
+                                href="category"><%= resultArticlesSearch.result[j].categoryName %></a>&nbsp;&nbsp;
+                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
+                                    id="date-posted"><%= resultArticlesSearch.result[j].publishDate %></span></p>
+                            &nbsp;&nbsp;
                         </span>
-                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">H<%= resultArticlesSearch.result[j].abstract %></p>
+                        <p class="abstract-result-search pt-0 pt-sm-1 m-0">
+                            H<%= resultArticlesSearch.result[j].abstract %></p>
                         <div class="list-tags">
-                                <% resultArticlesSearch.result[j].tags.forEach(function(eachTag){ %>
-                                    <a href="hashtag"><span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
-                                   <% }) %>
+                            <% resultArticlesSearch.result[j].tags.forEach(function(eachTag){ %>
+                            <a href="hashtag"><span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
+                            <% }) %>
                         </div>
                     </div>
                 </div>
                 <% } %>
                 <div class="count-results row m-0 pt-3 pb-3 pb-lg-4">
                     <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center">
-                        <p class="m-0">Page <span class="page-current">1</span> of <span class="count-pages"><%= Math.round(resultArticlesSearch.result.length/10 + 0.4) %></span>
+                        <p class="m-0">Page <span class="page-current">1</span> of <span
+                                class="count-pages"><%= Math.round(resultArticlesSearch.result.length/10 + 0.4) %></span>
                         </p>
                     </div>
                     <% if(Math.round(resultArticlesSearch.result.length/10 + 0.4)>1){ %>
-                        <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase">next</div>
-                        <% } else {%>
-                        <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase disabled">next</div>
-                        <% } %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase">next</div>
+                    <% } else {%>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase disabled">next</div>
+                    <% } %>
                 </div>
 
             </div>
