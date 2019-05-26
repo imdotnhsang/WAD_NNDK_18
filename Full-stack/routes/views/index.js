@@ -8,4 +8,8 @@ router.use('/writer', require('./writer'));
 router.use('/editor', require('./editor'));
 router.use('/utils', require('./utils'));
 
+router.get('/', function (req, res, next) {
+    res.redirect('/home');
+});
+
 module.exports = router;

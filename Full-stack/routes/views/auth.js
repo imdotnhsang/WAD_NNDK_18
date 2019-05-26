@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res, next) {
-  console.log(req.user);
-  
+router.get('/', function (req, res, next) {  
   if (req.user) {
     res.redirect('/home')
   } else {
@@ -12,7 +10,7 @@ router.get('/', function (req, res, next) {
       {
         title: 'Sign In',
         layout: 'layouts/user',
-        srcScript: '/javascripts/auth/index.js',
+        srcScript: '/javascripts/auth/user.js',
         hrefCss: '/stylesheets/guest-subscriber/auth.css'
       }
     );
@@ -25,7 +23,7 @@ router.get('/forgotten-password', (req, res) => {
     {
       title: 'Forgotten Password',
       layout: 'layouts/forgottenPassword',
-      srcScript: '/javascripts/auth/index.js',
+      srcScript: '/javascripts/auth/user.js',
       hrefCss: '/stylesheets/guest-subscriber/auth.css'
     }
   );

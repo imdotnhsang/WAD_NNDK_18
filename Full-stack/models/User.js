@@ -27,6 +27,10 @@ const UserSchema = mongoose.Schema({
         type: Number,
         required: false
     },
+    gender: { // 1: Male, 2: Female
+        type: Boolean,
+        required: false
+    },
     userType: { // subscriber, writer, editor, administrator
         type: String,
         required: true

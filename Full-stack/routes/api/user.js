@@ -13,6 +13,8 @@ router.post('/login', (req, res) => {
         console.log('isRemember', isRemember);
 
         if (err) {
+            console.log(err);
+            
             return res.status(400).json(err);
         }
 
@@ -25,7 +27,7 @@ router.post('/login', (req, res) => {
                 req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
             }
             else {
-                req.session.cookie.maxAge = 24 * 60 * 60 * 1000; // 1 day
+                req.session.cookie.expires = false;
             }
 
             return res.json(user);
@@ -176,23 +178,6 @@ router.post('/validate-OTP', (req, res) => {
         .catch(err => res.status(400).json(err));
 
 });
-
-// router.post('/forgotten-password', (req, res) => {
-//     const errors = {};
-//     const { email } = req.body;
-
-//     User
-//         .findOne({ email, isActive: true })
-//         .then(user => {
-//             if (!user) {
-//                 errors.email = 'Email does not exits.';
-//                 return res.status(404).json(errors);
-//             }
-
-//             sendOTPCode(user.email, 'forgotten');
-//         })
-//         .catch(err => res.status(400).json(err));
-// });
 
 router.post('/recovery-password', (req, res) => {
     const errors = {};
