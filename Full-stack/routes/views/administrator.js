@@ -1,6 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/', (req, res) => {
+    res.render(
+        'administrator',
+        {
+            
+        }
+    )
+});
+
 router.get('/profile', function (req, res, next) {
     res.render(
         'administrator',

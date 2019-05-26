@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
       'auth',
       {
         title: 'Sign In',
-        layout: 'layouts/auth',
+        layout: 'layouts/user',
         srcScript: '/javascripts/auth/index.js',
         hrefCss: '/stylesheets/guest-subscriber/auth.css'
       }
@@ -31,17 +31,17 @@ router.get('/forgotten-password', (req, res) => {
   );
 });
 
-router.get('/activation', (req, res) => {
-  res.render(
-    'auth',
-    {
-      title: 'Activation',
-      layout: 'layouts/activation',
-      srcScript: '/javascripts/auth/index.js',
-      hrefCss: '/stylesheets/guest-subscriber/auth.css'
-    }
-  );
-});
+// router.get('/activation', (req, res) => {
+//   res.render(
+//     'auth',
+//     {
+//       title: 'Activation',
+//       layout: 'layouts/activation',
+//       srcScript: '/javascripts/auth/index.js',
+//       hrefCss: '/stylesheets/guest-subscriber/auth.css'
+//     }
+//   );
+// });
 
 router.get('/logout', function (req, res, next) {
   req.logOut();

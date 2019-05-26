@@ -120,29 +120,6 @@ $('#login-tab').click(function () {
 
 $('#signup-tab').click(function () {
     clearSignUpErrors(); 
-    var emailUser = $('#emailActivation__input').val().trim();
-
-    if (validateEmail(emailUser)) {
-        postData(
-            `${window.location.origin}/api/user/send-OTP`,
-            { email: emailUser, actionType: 'activation' }
-        )
-            .then(res => {
-                if (res.status === 200) {
-                    $('.codeActivation').fadeIn(500);
-                    $('.emailActivation').css('display', 'none');
-                    $('#emailActivation__text').text(emailUser);
-                } else {
-                    res.json().then(err => showAuthErrorsModal($(this), err.email))
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                showAuthErrorsModal($(this), 'Fail to send OTP.');
-            })
-    } else {
-        showAuthErrorsModal($(this), 'Your email is invalid.');
-    }
 })
 
 $('#signin__btn').click(function (e) {
@@ -185,7 +162,8 @@ $('#signin__btn').click(function (e) {
                             let errors = { usernameOrEmail: '', password: '' };
 
                             if (err.confirmed) {
-                                window.location = '/auth/activation'
+                                $('.emailActivation').fadeIn(500);
+                                $('.sign-up_sign-in').css('display', 'none');
                             } else {
                                 updateSignInErrors({ ...errors, ...err });
                             }
@@ -250,8 +228,11 @@ $('#signup__btn').click(function (e) {
                 clearSignUpErrors();
 
                 if (res.status === 200) {
-                    emailActive = $('#signup__email').val();
-                    window.location = '/auth/activation';
+                    emailActivation = $('#signup__email').val();
+                    $('.codeActivation').fadeIn(500);
+                    $('.sign-up_sign-in').css('display', 'none');
+                    $('#emailActivation__text').text(emailActivation);
+                    $('#title-page-sign').text('activation');
                 } else {
                     res.json()
                         .then(err => {
@@ -402,31 +383,4 @@ $('#forgotPwd__btn').click(function (e) {
                 }
             })
     }
-
-    // if (OTPCode.length > 0) {
-    //     const payload = { OTPCode, email: emailUser, actionType };
-
-    //     postData(`${window.location.origin}/api/user/validate-OTP`, payload)
-    //         .then(res => {
-    //             if (res.status === 200) {
-    //                 $('.resetPwd').fadeIn(500);
-    //                 $('.forgotPwd').css('display', 'none');
-    //                 $('#emailForgotPwd__text').text(emailUser);
-    //             } else {
-    //                 res.json()
-    //                     .then(err => {
-    //                         console.log('Recovery password fail: ', err);
-
-    //                         const errMsg = err.email || err.OTPcode || err.expiredAt;
-    //                         showAuthErrorsModal($(this), errMsg);
-    //                     })
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //             showAuthErrorsModal($(this), 'Fail to recovery passsword.');
-    //         });
-    // } else {
-    //     showAuthErrorsModal($(this), 'OTP code is invalid.')
-    // }
 });

@@ -5,11 +5,38 @@ router.get('/home', function (req, res, next) {
     const account = req.user;
 
     //Lấy 5 bài có views nhiều nhất trong tuần qua
-    const fiveArticlesHot = [{ title: 'Apple has edged out a number ofthird-party screen time and parental control apps: report', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Samsung delays Galaxy Fold indefinitely:‘We will take measures to strengthen the display’', categoryName: 'Samsung', publishDate: 1558810668776, coverImage: '' },
-    { title: 'Nvidia’s new GTX 1660 Ti and 1650 could power your next budget gaming laptop', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'How to organize your Google Photos collection', categoryName: 'Google', publishDate: 1558810668776, coverImage: '' },
-    { title: 'Avengers: Endgame — our spoiler-free review', categoryName: 'Review', publishDate: 1558802053334, coverImage: '' }];
+    const fiveArticlesHot = [
+        {
+            title: 'Apple has edged out a number ofthird-party screen time and parental control apps: report',
+            categoryName: 'Apple',
+            publishDate: 1558802053334,
+            coverImage: ''
+        },
+        {
+            title: 'Samsung delays Galaxy Fold indefinitely:‘We will take measures to strengthen the display’',
+            categoryName: 'Samsung',
+             publishDate: 1558810668776, 
+             coverImage: ''
+        },
+        {
+            title: 'Nvidia’s new GTX 1660 Ti and 1650 could power your next budget gaming laptop', 
+            categoryName: 'Tech', 
+            publishDate: 1558802053334, 
+            coverImage: ''
+        },
+        {
+            title: 'How to organize your Google Photos collection', 
+            categoryName: 'Google', 
+            publishDate: 1558810668776,
+             coverImage: ''
+        },
+        {
+            title: 'Avengers: Endgame — our spoiler-free review', 
+            categoryName: 'Review', 
+            publishDate: 1558802053334, 
+            coverImage: ''
+        }
+    ];
 
     //Lấy 10 bài mới đăng gần nhất tất cả chuyên mục
     const tenArticlesLastest = [{ title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
@@ -154,8 +181,8 @@ router.get('/category', function (req, res, next) {
             srcScript: '/javascripts/guest-subscriber/script.js',
             hrefCss: '/stylesheets/guest-subscriber/category.css',
             account,
-            articlesCategory, 
-            resultArticlesCategory, 
+            articlesCategory,
+            resultArticlesCategory,
             sixArticlesMostRead
         }
     );
