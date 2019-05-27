@@ -307,10 +307,27 @@ function formatDateTypeFull(msDate) {
     return (customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
     // $('.date-posted').append(customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
 }
+
 function formatDateTypeAbstract(msDate) {
     var temp = new Date(Number(msDate));
-    return (temp.getDate() + '/' + (temp.getMonth()+1) + '/' + (temp.getFullYear()));
+    return (temp.getDate() + '/' + (temp.getMonth() + 1) + '/' + (temp.getFullYear()));
 
+}
+
+function formatDateTypeBOD(msDate) {
+    var temp = new Date(Number(msDate));
+    if ((temp.getMonth() + 1) < 10) {
+        return ('0' + (temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
+    } else {
+        return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
+    }
+}
+
+function formatGender(gender){
+    if(gender = "false"){
+        return "Male";
+    }
+    return "Female";
 }
 
 //transfer news to pdf
