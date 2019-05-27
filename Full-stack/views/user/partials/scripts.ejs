@@ -5,9 +5,11 @@
 <script src="/javascripts/guest-subscriber/script.js" type="text/javascript"></script>
 <script src="/javascripts/guest-subscriber/jspdf.min.js" type="text/javascript"></script>
 
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+
 <script>//datepicker
     $(document).ready(function () {
-        $("#update__bod").datepicker({});
+        $("#updateInf__bod").datepicker({});
     });
 
     $('#date-posted-main').html(formatDateTypeFull($('#date-posted-main').html()));
@@ -15,15 +17,23 @@
     var formatDateComments = document.querySelectorAll('#date-commented');
     for (i = 0; i < formatDateComments.length; i++) {
         formatDateComments[i].innerHTML = formatDateTypeFull(formatDateComments[i].innerHTML);
-    }
+    };
 
     var formatDateArticlesMini = document.querySelectorAll('#date-posted');
     for (j = 0; j < formatDateArticlesMini.length; j++) {
         formatDateArticlesMini[j].innerHTML = formatDateTypeAbstract(formatDateArticlesMini[j].innerHTML);
-    }
-</script>
+    };
 
-<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+    var oldFname = document.getElementById('updateInf__fullname').value;
+    var oldGend = document.getElementById('updateInf__gender').value;
+    var oldBod = document.getElementById('updateInf__bod').value;
+    $('#updateInf__btnCancel').click(function (e) {
+        document.getElementById('updateInf__fullname').value = oldFname;
+        document.getElementById('updateInf__gender').value = oldGend;
+        document.getElementById('updateInf__bod').value = oldBod;
+        document.getElementById('updateInf__email').value = document.getElementById('updateInf__email').value;
+    });
+</script>
 
 <% if(account){ %>
 <% if(account.userType="subscriber"){ %>
