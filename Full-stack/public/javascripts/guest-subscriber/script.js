@@ -316,15 +316,20 @@ function formatDateTypeAbstract(msDate) {
 
 function formatDateTypeBOD(msDate) {
     var temp = new Date(Number(msDate));
-    if ((temp.getMonth() + 1) < 10) {
+    if ((temp.getMonth() + 1) < 10 && temp.getDate() > 9) {
         return ('0' + (temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
-    } else {
+    } else if ((temp.getMonth() + 1) < 10 && temp.getDate() < 10) {
+        return ('0' + (temp.getMonth() + 1) + '/' + '0' + temp.getDate() + '/' + (temp.getFullYear()));
+
+    } else if((temp.getMonth() + 1) > 9 && temp.getDate() < 10) {
+        return ((temp.getMonth() + 1) + '/' + '0' + temp.getDate() + '/' + (temp.getFullYear()));
+    }else {
         return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
     }
 }
 
-function formatGender(gender){
-    if(gender = "false"){
+function formatGender(gender) {
+    if (gender = "false") {
         return "Male";
     }
     return "Female";

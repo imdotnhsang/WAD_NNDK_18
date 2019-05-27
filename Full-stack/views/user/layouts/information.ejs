@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="gender">
                                     <label class="m-0">Date of birth</label>
-                                    <p id="bod_acccount"  class="content-dob"><%= account.birthday %></p>
+                                    <p id="bod_acccount" class="content-dob"><%= account.birthday %></p>
                                 </div>
                             </div>
                             <br>
@@ -76,12 +76,9 @@
                             </div>
                             <div class="content-stt-account pt-2">
                                 <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
-                                        class="expiry-date font-weight-bold" id="expiry-date"><% account.expiredAt %></span>.</p>
+                                        class="expiry-date font-weight-bold" id="expiry-date"><%= account.expiredAt %></span>.</p>
                             </div>
                             <br>
-                            <div class="text-center">
-                                <div class="btn text-uppercase btn-subscribe-premium">subscribe</div>
-                            </div>
                         </div>
                         <% }else{ %>
                         <div class="status-account p-4">
