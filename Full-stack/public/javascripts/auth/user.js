@@ -47,6 +47,7 @@ $('#signin__btn').click(function (e) {
                             let errors = { usernameOrEmail: '', password: '' };
 
                             if (err.confirmed) {
+                                $('.activation').css('display', 'block')
                                 $('.emailActivation').fadeIn(500);
                                 $('.sign-up_sign-in').css('display', 'none');
                             } else {
@@ -113,6 +114,7 @@ $('#signup__btn').click(function (e) {
                 clearSignUpErrors();
 
                 if (res.status === 200) {
+                    $('.activation').css('display', 'block')
                     emailActivation = $('#signup__email').val();
                     $('.codeActivation').fadeIn(500);
                     $('.sign-up_sign-in').css('display', 'none');
