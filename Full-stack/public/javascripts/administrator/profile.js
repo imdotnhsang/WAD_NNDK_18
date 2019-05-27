@@ -25,9 +25,14 @@ $(document).on('click', '#js-button-change-password', function(){
       newPassword = $('#js-newPassword-input').val(),
       retypeNewPassword = $('#js-retypeNewPassword-input').val();
 
-    console.log(currentPassword);
-    console.log(newPassword);
-    console.log(retypeNewPassword);
+    if (!currentPassword && !newPassword && !retypeNewPassword) {
+      $('#js-form-change-password').removeAttr("style").hide();
+
+      $(this).children().removeClass('fas fa-check');
+      $(this).children().addClass('far fa-edit');
+
+      return;
+    }
 
     if (!validatePassword(currentPassword)) {
       errors.currentPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
