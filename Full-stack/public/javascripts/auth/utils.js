@@ -95,8 +95,8 @@ const showAuthErrorsModal = (curElm, errMsg) => {
 const showAuthSuccessModal = (curElm, successMsg) => {
     curElm.attr('data-toggle', 'modal');
     curElm.attr('data-target', '#auth-success__modal');
-    $('#auth-errors__modal').modal('show');
-    $('#auth-errors__modalContent').html(successMsg);
+    $('#auth-success__modal').modal('show');
+    $('#auth-success__modalContent').html(successMsg);
 
     $('.auth-success__modal button').click(function () {
         curElm.removeAttr('data-toggle');

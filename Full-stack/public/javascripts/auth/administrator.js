@@ -29,7 +29,7 @@ $('#signin__btn').click(function (e) {
 
         const payload = { usernameOrEmail, password };
 
-        postData(`${window.location.origin}/api/user/login`, payload)
+        postData(`/api/user/login`, payload)
             .then(res => {
                 if (res.status != 200) {
                     res.json()
