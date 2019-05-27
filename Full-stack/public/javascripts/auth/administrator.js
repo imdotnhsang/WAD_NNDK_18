@@ -45,7 +45,11 @@ $('#signin__btn').click(function (e) {
                                 updateSignInErrors({ ...errors, ...err });
                             }
                         })
-                } else {
+                } 
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                }
+                else {
                     window.location = '/administrator/profile';
                 }
             })

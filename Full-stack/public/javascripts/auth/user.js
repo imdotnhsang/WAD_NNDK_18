@@ -1,5 +1,3 @@
-import { resolveSoa } from "dns";
-
 // auth
 $('#login-tab').click(function () {
     clearSignInErrors();
@@ -10,6 +8,8 @@ $('#signup-tab').click(function () {
 })
 
 $('#signin__btn').click(function (e) {
+    console.log('abc');
+    
     e.preventDefault();
 
     let errors = { usernameOrEmail: '', password: '' };
@@ -43,9 +43,8 @@ $('#signin__btn').click(function (e) {
 
         postData(`/api/user/login`, payload)
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     window.location = '/home';
-
                 }
                 else if (res.status === 500) {
                     showAuthErrorsModal('Server Error. Please try again!');
