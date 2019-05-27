@@ -224,13 +224,6 @@ $('#updateInf__btn').click(function (e) {
     }
 });
 
-$('#updateInf__btnCancel').click(function (e) {
-    document.getElementById('updateInf__fullname').value = 'Leo Nguyen';
-    document.getElementById('updateInf__gender').value = 1;
-    document.getElementById('updateInf__bod').value = '8/16/98';
-    document.getElementById('updateInf__email').value = '1612556@student.hcmus.edu.vn';
-})
-
 //check validate change password
 $('#updatePwd__btn').click(function (e) {
     e.preventDefault();
@@ -319,6 +312,7 @@ function formatDateTypeAbstract(msDate) {
     return (temp.getDate() + '/' + (temp.getMonth()+1) + '/' + (temp.getFullYear()));
 
 }
+
 //transfer news to pdf
 $('#detail__print').click(function () {
     var pdf = new jsPDF('p', 'pt', 'letter');
