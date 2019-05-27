@@ -15,6 +15,7 @@ module.exports = (user, userType) => {
             result.categoriesManagement = user.categoriesManagement;
             break;
         case 'administrator':
+            result.expiredAt = user.expiredAt;
             break;
         default:
             break;
