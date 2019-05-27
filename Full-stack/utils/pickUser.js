@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 module.exports = (user, userType) => {
-    const result = _.pick(user, ['_id', 'username', 'email', 'birthday', 'fullname', 'confirmed', 'userType']);
+    const result = _.pick(user, ['_id', 'username', 'email', 'birthday', 'fullname', 'confirmed', 'userType', 'gender']);
     
     console.log(result);
     switch (userType) {

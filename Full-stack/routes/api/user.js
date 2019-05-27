@@ -44,11 +44,11 @@ router.post('/register', (req, res) => {
         .then(user => {
             if (user) {
                 if (user.username === username) {
-                    errors.username = 'Username already exist.'
+                    errors.username = 'Username already exist.';
                 }
 
                 if (user.email === email) {
-                    errors.email = 'Email already exist.'
+                    errors.email = 'Email already exist.';
                 }
 
                 return res.status(400).json(errors);
@@ -94,6 +94,90 @@ router.post('/register', (req, res) => {
         })
         .catch(err => res.status(400).json(err));
 });
+
+router.post('/update', (req, res) => {
+    const errors = {};
+
+    const { email, fullname, gender, birthday } = req.body;
+
+    if (email !== req.user.email) {
+        errors.email = 'authorization has failed.';
+        return res.status(400).json(errors);
+    }
+
+    if (!fullname || fullname.length === 0 || fullname.length > 32) {
+        errors.fullname = 'Fullname is invalid.'
+    }
+
+    if (gender && !_.isBoolean(gender)) {
+        errors.gender = 'Gender is invalid.';
+    }
+
+    if (birthday && !_.isNumber(birthday)) {
+        errors.birthday = 'Birthday is invalid.';
+    }
+
+    const isInvalid = Object.keys(errors).length;
+    if (isInvalid) {
+        return res.status(400).json(errors);
+    }
+
+    User.findOne({ email })
+        .then(user => {
+            if (!user) {
+                errors.email = 'authorization has failed.';
+                return res.status(400).json(errors);
+            }
+
+            user.fullname = fullname;
+            user.gender = gender;
+            user.birthday = birthday;
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    req.session.passport.user = payload;
+
+                    return res.json(payload);
+                });
+        })
+        .catch(err => res.status(400).json(err));
+});
+
+router.post('/change-password', (req, res) => {
+    const errors = {}; 
+
+    const { email, currentPassword, newPassword } = req.body;
+
+    if (email !== req.user.email) {
+        errors.email = 'authorization has failed.';
+        return res.status(400).json(errors);
+    }
+
+    User.findOne({ email })
+        .then(user => {
+            if (!user) {
+                errors.email = 'authorization has failed.';
+                return res.status(400).json(errors);
+            }
+
+            if (!user.validPassword(currentPassword)) {
+                errors.currentPassword = 'Current password incorrect.'
+                return res.status(400).json(errors);
+            }
+
+            user.password = user.encryptPassword(newPassword);
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    req.session.passport.user = payload;
+
+                    return res.json(payload);
+                })
+        })
+        .catch(err => res.status(400).json(err));
+})
 
 router.post('/send-OTP', (req, res) => {
     const errors = {};

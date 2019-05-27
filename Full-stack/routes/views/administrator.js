@@ -16,13 +16,16 @@ router.get('/', (req, res) => {
 router.get('/profile', function (req, res, next) {
     const adminAccount = req.user;
 
+    console.log(adminAccount);
+    
     if (adminAccount && adminAccount.userType === 'administrator') {
         res.render(
             'administrator',
             {
                 title: 'Profile',
                 layout: 'layouts/profile',
-                srcScript: '/javascripts/administrator/profile.js'
+                srcScript: '/javascripts/administrator/profile.js',
+                adminAccount
             }
         );
     } else {
@@ -39,7 +42,8 @@ router.get('/news', function (req, res, next) {
             {
                 title: 'News',
                 layout: 'layouts/news',
-                srcScript: '/javascripts/administrator/news.js'
+                srcScript: '/javascripts/administrator/news.js',
+                adminAccount
             }
         );
     } else {
@@ -56,7 +60,8 @@ router.get('/categories', function (req, res, next) {
             {
                 title: 'Categories',
                 layout: 'layouts/categories',
-                srcScript: '/javascripts/administrator/categories.js'
+                srcScript: '/javascripts/administrator/categories.js',
+                adminAccount
             }
         );
     } else {
@@ -73,7 +78,8 @@ router.get('/tags', function (req, res, next) {
             {
                 title: 'Tags',
                 layout: 'layouts/tags',
-                srcScript: '/javascripts/administrator/tags.js'
+                srcScript: '/javascripts/administrator/tags.js',
+                adminAccount
             }
         );
     } else {
@@ -90,7 +96,8 @@ router.get('/users', function (req, res, next) {
             {
                 title: 'Users',
                 layout: 'layouts/users',
-                srcScript: '/javascripts/administrator/users.js'
+                srcScript: '/javascripts/administrator/users.js',
+                adminAccount
             }
         );
     } else {

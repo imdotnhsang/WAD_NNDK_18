@@ -27,7 +27,7 @@ const UserSchema = mongoose.Schema({
         type: Number,
         required: false
     },
-    gender: { // 1: Male, 2: Female
+    gender: { // 0: Male, 1: Female
         type: Boolean,
         required: false
     },

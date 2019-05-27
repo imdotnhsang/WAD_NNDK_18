@@ -29,3 +29,9 @@
 .img-avatar #pic-avatar {
   display: none;
 }
+
+span.field-validation-error {
+  color: #b94a48;
+  font-size: 10pt;
+  clear: both;
+}

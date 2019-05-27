@@ -1,10 +1,12 @@
+import { resolveSoa } from "dns";
+
 // auth
 $('#login-tab').click(function () {
     clearSignInErrors();
 })
 
 $('#signup-tab').click(function () {
-    clearSignUpErrors(); 
+    clearSignUpErrors();
 })
 
 $('#signin__btn').click(function (e) {
@@ -39,22 +41,28 @@ $('#signin__btn').click(function (e) {
         const isRemember = ($('#signin__remember').prop("checked") === true)
         const payload = { usernameOrEmail, password, isRemember };
 
-        postData(`${window.location.origin}/api/user/login`, payload)
+        postData(`/api/user/login`, payload)
             .then(res => {
-                if (res.status != 200) {
+                if (res.status == 200) {
+                    window.location = '/home';
+
+                }
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                }
+                else {
                     res.json()
                         .then(err => {
                             let errors = { usernameOrEmail: '', password: '' };
 
                             if (err.confirmed) {
+                                $('.activation').css('display', 'block')
                                 $('.emailActivation').fadeIn(500);
                                 $('.sign-up_sign-in').css('display', 'none');
                             } else {
                                 updateSignInErrors({ ...errors, ...err });
                             }
                         })
-                } else {
-                    window.location = '/home';
                 }
             })
             .catch(err => {
@@ -108,16 +116,20 @@ $('#signup__btn').click(function (e) {
     } else {
         const payload = { fullname, username, email, password, userType: 'subscriber' };
 
-        postData(`${window.location.origin}/api/user/register`, payload)
+        postData(`/api/user/register`, payload)
             .then(res => {
                 clearSignUpErrors();
 
                 if (res.status === 200) {
+                    $('.activation').css('display', 'block')
                     emailActivation = $('#signup__email').val();
                     $('.codeActivation').fadeIn(500);
                     $('.sign-up_sign-in').css('display', 'none');
                     $('#emailActivation__text').text(emailActivation);
                     $('#title-page-sign').text('activation');
+                }
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
                 } else {
                     res.json()
                         .then(err => {
@@ -141,7 +153,7 @@ $('#emailActivation__btn').click(function (e) {
 
     if (validateEmail(emailUser)) {
         postData(
-            `${window.location.origin}/api/user/send-OTP`,
+            `/api/user/send-OTP`,
             { email: emailUser, actionType: 'activation' }
         )
             .then(res => {
@@ -149,7 +161,11 @@ $('#emailActivation__btn').click(function (e) {
                     $('.codeActivation').fadeIn(500);
                     $('.emailActivation').css('display', 'none');
                     $('#emailActivation__text').text(emailUser);
-                } else {
+                }
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                }
+                else {
                     res.json().then(err => showAuthErrorsModal($(this), err.email))
                 }
             })
@@ -172,11 +188,15 @@ $('#codeActivation__btn').click(function (e) {
     if (OTPCode.length > 0) {
         const payload = { OTPCode, email: emailUser, actionType };
 
-        postData(`${window.location.origin}/api/user/validate-OTP`, payload)
+        postData(`/api/user/validate-OTP`, payload)
             .then(res => {
                 if (res.status === 200) {
                     window.location = '/auth';
-                } else {
+                }
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                }
+                else {
                     res.json()
                         .then(err => {
                             console.log('Activation fail: ', err);
@@ -203,7 +223,7 @@ $('#emailForgotPwd__btn').click(function (e) {
 
     if (validateEmail(emailUser)) {
         postData(
-            `${window.location.origin}/api/user/send-OTP`,
+            `/api/user/send-OTP`,
             { email: emailUser, actionType: 'forgottenPassword' }
         )
             .then(res => {
@@ -211,7 +231,11 @@ $('#emailForgotPwd__btn').click(function (e) {
                     $('.forgotPwd').fadeIn(500);
                     $('.emailForgotPwd').css('display', 'none');
                     $('#emailForgotPwd__text').text(emailUser);
-                } else {
+                }
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                }
+                else {
                     res.json().then(err => showAuthErrorsModal($(this), err.email))
                 }
             })
@@ -255,11 +279,15 @@ $('#forgotPwd__btn').click(function (e) {
     } else {
         const payload = { OTPCode, email: emailUser, actionType, password: newPasssword };
 
-        postData(`${window.location.origin}/api/user/validate-OTP`, payload)
+        postData(`/api/user/validate-OTP`, payload)
             .then(res => {
                 if (res.status === 200) {
                     window.location = '/auth';
-                } else {
+                }
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                }
+                else {
                     res.json()
                         .then(err => {
                             errMsg = err.email || err.OTPcode || err.expiredAt || 'Recovery password fail.';
