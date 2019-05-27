@@ -52,11 +52,11 @@
                                 </div>
                                 <div class="gender">
                                     <label class="m-0">Gender</label>
-                                    <p class="content-gender">Male</p>
+                                    <p id="gend_acccount" class="content-gender"><%= account.gender %></p>
                                 </div>
                                 <div class="gender">
                                     <label class="m-0">Date of birth</label>
-                                    <p class="content-dob">8/16/1998</p>
+                                    <p id="bod_acccount"  class="content-dob"><%= account.birthday %></p>
                                 </div>
                             </div>
                             <br>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="content-stt-account pt-2">
                                 <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
-                                        class="expiry-date font-weight-bold">9/26/19</span>.</p>
+                                        class="expiry-date font-weight-bold" id="expiry-date"><% account.expiredAt %></span>.</p>
                             </div>
                             <br>
                             <div class="text-center">
@@ -130,7 +130,7 @@
                         <label for="birthday" class="m-0">Date of birth</label>
                         <div class="d-flex select-birthday">
                             <input id="updateInf__bod" type="text" class="input-sm form-control" name="birthday"
-                                placeholder="8/16/98" value="">
+                                placeholder="8/16/98" value="<%= account.birthday %>">
                             <span class="">
                                 <span class="">
                                     <i class="fa fa-calendar"></i> </span>

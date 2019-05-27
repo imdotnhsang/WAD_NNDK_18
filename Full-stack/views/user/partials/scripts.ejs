@@ -23,7 +23,12 @@
     for (j = 0; j < formatDateArticlesMini.length; j++) {
         formatDateArticlesMini[j].innerHTML = formatDateTypeAbstract(formatDateArticlesMini[j].innerHTML);
     };
-
+    
+    $('#bod_acccount').html(formatDateTypeBOD($('#bod_acccount').html()));
+    $('#gend_acccount').html(formatGender($('#gend_account').html()));
+    $('#expiry-date').html(formatDateTypeBOD($('#expiry-date').html()));
+  
+    document.getElementById('updateInf__bod').value  = formatDateTypeBOD(document.getElementById('updateInf__bod').value);
     var oldFname = document.getElementById('updateInf__fullname').value;
     var oldGend = document.getElementById('updateInf__gender').value;
     var oldBod = document.getElementById('updateInf__bod').value;
@@ -33,6 +38,7 @@
         document.getElementById('updateInf__bod').value = oldBod;
         document.getElementById('updateInf__email').value = document.getElementById('updateInf__email').value;
     });
+
 </script>
 
 <% if(account){ %>
