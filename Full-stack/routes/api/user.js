@@ -14,7 +14,7 @@ router.post('/login', (req, res) => {
 
         if (err) {
             console.log(err);
-            
+
             return res.status(400).json(err);
         }
 
@@ -59,7 +59,7 @@ router.post('/register', (req, res) => {
 
             switch (userType) {
                 case 'subscriber':
-                    newUser.expiredAt = new Date().getTime();
+                    newUser.expiredAt = new Date().getTime() + 7 * 24 * 3600 * 1000;
                     break;
                 case 'editor':
                     newUser.categoriesManagement = [];
@@ -73,6 +73,7 @@ router.post('/register', (req, res) => {
                     newUser.pseudonym = pseudonym;
                     break;
                 case 'administrator':
+                    newUser.expiredAt = new Date().getTime() + 100 * 365 * 24 * 3600 * 1000;
                     break;
                 default:
                     errors.userType = 'Usertype does not exist.'
@@ -145,7 +146,7 @@ router.post('/update', (req, res) => {
 });
 
 router.post('/change-password', (req, res) => {
-    const errors = {}; 
+    const errors = {};
 
     const { email, currentPassword, newPassword } = req.body;
 
@@ -244,13 +245,13 @@ router.post('/validate-OTP', (req, res) => {
 
                 case 'forgottenPassword':
                     console.log('password: ', password);
-                    
+
                     user.password = user.encryptPassword(password);
-                    
+
                     return user.save()
                         .then(userUpdated => {
                             console.log(userUpdated);
-                            
+
                             const payload = pickUser(userUpdated, userUpdated.userType);
                             return res.json(payload);
                         })
@@ -278,10 +279,10 @@ router.post('/recovery-password', (req, res) => {
             user.password = newUser.encryptPassword(newPassword);
 
             return user.save()
-            .then(userUpdated => {
-                const payload = pickUser(userUpdated, userUpdated.userType);
-                return res.json(payload);
-            })
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    return res.json(payload);
+                })
 
         })
         .catch(err => {
