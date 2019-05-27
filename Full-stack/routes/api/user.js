@@ -101,7 +101,8 @@ router.post('/update', (req, res) => {
     const { email, fullname, gender, birthday } = req.body;
 
     if (email !== req.user.email) {
-        errors.email = 'authorization has failed.'
+        errors.email = 'authorization has failed.';
+        return res.status(400).json(errors);
     }
 
     if (!fullname || fullname.length === 0 || fullname.length > 32) {
@@ -135,13 +136,48 @@ router.post('/update', (req, res) => {
             return user.save()
                 .then(userUpdated => {
                     const payload = pickUser(userUpdated, userUpdated.userType);
-
                     req.session.passport.user = payload;
+
                     return res.json(payload);
                 });
         })
         .catch(err => res.status(400).json(err));
 });
+
+router.post('/change-password', (req, res) => {
+    const errors = {}; 
+
+    const { email, currentPassword, newPassword } = req.body;
+
+    if (email !== req.user.email) {
+        errors.email = 'authorization has failed.';
+        return res.status(400).json(errors);
+    }
+
+    User.findOne({ email })
+        .then(user => {
+            if (!user) {
+                errors.email = 'authorization has failed.';
+                return res.status(400).json(errors);
+            }
+
+            if (!user.validPassword(currentPassword)) {
+                errors.currentPassword = 'Current password incorrect.'
+                return res.status(400).json(errors);
+            }
+
+            user.password = user.encryptPassword(newPassword);
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    req.session.passport.user = payload;
+
+                    return res.json(payload);
+                })
+        })
+        .catch(err => res.status(400).json(err));
+})
 
 router.post('/send-OTP', (req, res) => {
     const errors = {};

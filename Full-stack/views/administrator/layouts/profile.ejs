@@ -33,9 +33,9 @@
                         <span class="field-validation-error" id="js-gender-errmsg"></span>
 
                         <script>
-                            const genderVal = '<%= adminAccount.gender %>';                                                    
+                            const genderVal = '<%= adminAccount.gender %>';
                             if (genderVal.length > 0) {
-                                document.getElementById('js-gender-select').value = genderVal;                    
+                                document.getElementById('js-gender-select').value = genderVal;
                             }
                         </script>
                     </div>
@@ -60,7 +60,7 @@
                                         month = ("0" + (date.getMonth() + 1)).slice(-2),
                                         day = ("0" + date.getDate()).slice(-2),
                                         year = date.getFullYear();
-                                    
+
                                     document.getElementById('js-birthday-input').value = `${month}/${day}/${year}`;
                                 }
                             </script>
@@ -79,20 +79,30 @@
                         <div id="js-form-change-password" style="display: none;">
                             <div class="border-bottom mt-2"></div>
                             <div class="form-group w-75 mx-auto my-4">
-                                <div class="form-group d-flex">
-                                    <label class="w-25" for="currentPassword">Current</label>
-                                    <input type="password" class="input-sm form-control" name="currentPassword">
+                                <div class="form-group">
+                                    <div class="d-flex">
+                                        <label class="w-25" for="currentPassword">Current</label>
+                                        <input type="password" class="input-sm form-control"
+                                            id="js-currentPassword-input">
+                                    </div>
+                                    <span class="field-validation-error" id="js-currentPassword-errmsg"></span>
                                 </div>
 
-                                <div class="form-group d-flex">
-                                    <label class="w-25" for="newPassword">New</label>
-                                    <input type="password" class="input-sm form-control" name="newPassword">
-
+                                <div class="form-group">
+                                    <div class="d-flex">
+                                        <label class="w-25" for="newPassword">New</label>
+                                        <input type="password" class="input-sm form-control" id="js-newPassword-input">
+                                    </div>
+                                    <span class="field-validation-error" id="js-newPassword-errmsg"></span>
                                 </div>
 
-                                <div class="form-group d-flex m-0">
-                                    <label class="w-25" for="retypePassword">Retype new</label>
-                                    <input type="password" class="input-sm form-control" name="retypePassword">
+                                <div class="form-group m-0">
+                                    <div class="d-flex">
+                                        <label class="w-25" for="retypeNewPassword">Retype new</label>
+                                        <input type="password" class="input-sm form-control"
+                                            id="js-retypeNewPassword-input">
+                                    </div>
+                                    <span class="field-validation-error" id="js-retypeNewPassword-errmsg"></span>
                                 </div>
                             </div>
                         </div>

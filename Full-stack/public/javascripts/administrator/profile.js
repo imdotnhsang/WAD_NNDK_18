@@ -1,75 +1,84 @@
-const showSuccessModal = (curElm, successMsg) => {
-  curElm.attr('data-toggle', 'modal');
-  curElm.attr('data-target', '#success__modal');
-  $('#success__modal').modal('show');
-  $('#success__modalContent').html(successMsg);
-
-  $('.success__modal button').click(function () {
-      curElm.removeAttr('data-toggle');
-      curElm.removeAttr('data-target');
-  });
-
-  $(document).mouseup(function (e) {
-      var container = $(".success__modal");
-
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-          curElm.removeAttr('data-toggle');
-          curElm.removeAttr('data-target');
-      }
-  });
-};
-
-const showErrorsModal = (curElm, errMsg) => {
-  curElm.attr('data-toggle', 'modal');
-  curElm.attr('data-target', '#errors__modal');
-  $('#errors__modal').modal('show');
-  $('#errors__modalContent').html(errMsg);
-
-  $('.errors__modal button').click(function () {
-      curElm.removeAttr('data-toggle');
-      curElm.removeAttr('data-target');
-  });
-
-  $(document).mouseup(function (e) {
-      var container = $(".errors__modal");
-
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-          curElm.removeAttr('data-toggle');
-          curElm.removeAttr('data-target');
-      }
-  });
-};
-
-const updateAccountErrors = (errors) => {
-  $('#js-fullname-errmsg').text(errors.fullname);
-  $('#js-gender-errmsg').text(errors.gender);
-  $('#js-birthday-errmsg').text(errors.birthday);
-};
-
-const clearAccountErrors = () => {
-  $('#js-fullname-errmsg').text('');
-  $('#js-gender-errmsg').text('');
-  $('#js-birthday-errmsg').text('');
-};
-
-
 $(document).ready(function() {
   $("#js-birthday-input").datepicker({});
 });
 
 $(document).on('click', '#js-button-change-password', function(){
-  console.log();
+  clearChangePasswordErrors();
 
   if ($('#js-form-change-password').attr("style")) {
     $('#js-form-change-password').show();
 
+    $('#js-currentPassword-input').val('');
+    $('#js-newPassword-input').val('');
+    $('#js-retypeNewPassword-input').val('');
+
     $(this).children().removeClass('far fa-edit');
     $(this).children().addClass('fas fa-check');
   } else {
-    $('#js-form-change-password').removeAttr("style").hide();
+    const errors = {
+      currentPassword: '',
+      newPassword: '',
+      retypeNewPassword: ''
+    }
 
-    $(this).children().removeClass('fas fa-check');
-    $(this).children().addClass('far fa-edit');
+    const currentPassword = $('#js-currentPassword-input').val(),
+      newPassword = $('#js-newPassword-input').val(),
+      retypeNewPassword = $('#js-retypeNewPassword-input').val();
+
+    console.log(currentPassword);
+    console.log(newPassword);
+    console.log(retypeNewPassword);
+
+    if (!validatePassword(currentPassword)) {
+      errors.currentPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+
+    if (!validatePassword(newPassword)) {
+      errors.newPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+
+    if (retypeNewPassword !== newPassword) {
+      errors.retypeNewPassword = 'Retype new password must be correct.'
+    }
+
+    if(!newPassword || newPassword.length === 0) {
+      errors.newPassword = 'New password is required.';
+    }
+
+    const isInvalid = errors.currentPassword || errors.newPassword || errors.retypeNewPassword;
+    if (isInvalid) {
+        updateChangePasswordErrors(errors);
+    } else {
+      const payload = { 
+        email: $('#js-email-input').val(),
+        currentPassword,
+        newPassword
+      }
+
+      postData('/api/user/change-password', payload)
+        .then(res => {
+          if (res.status === 200) {
+            showSuccessModal($(this), 'Change password succesfully.');
+
+            $('#js-form-change-password').removeAttr("style").hide();
+
+            $(this).children().removeClass('fas fa-check');
+            $(this).children().addClass('far fa-edit');
+          } else if (res.status === 500) {
+            showErrorsModal($(this), 'Server Error. Please try again!')
+          } else {
+            res.json()
+              .then(err => {
+                if (err.email) {
+                  showErrorsModal($(this), 'Fail to change password.');
+                } else {
+                  updateChangePasswordErrors({...errors, ...err});
+                }
+              })
+          }
+        })
+    
+    }
   }
 })
 
@@ -122,7 +131,7 @@ $('#js-update-account-btn').on('click', (e) => {
         res.json()
           .then(err => {
             if (err.email) {
-              showErrorsModal('Fail to update account.');
+              showErrorsModal($(this), 'Fail to update account.');
             } else {
               updateAccountErrors({...errors, ...err});
             }
