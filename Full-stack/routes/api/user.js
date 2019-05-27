@@ -73,6 +73,7 @@ router.post('/register', (req, res) => {
                     newUser.pseudonym = pseudonym;
                     break;
                 case 'administrator':
+                    newUser.expiredAt = new Date().getTime() + 24 * 3600 * 1000 * 365;
                     break;
                 default:
                     errors.userType = 'Usertype does not exist.'
