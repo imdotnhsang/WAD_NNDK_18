@@ -103,3 +103,30 @@ $(document).on('click', '.js-add-subcategory', function () {
 
     }
 });
+
+$(document).ready(function () {
+    getData('/api/category/get-all')
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    res.json()
+                        .then(data => {
+                            categoryList = data;
+                            console.log(categoryList);
+                        })
+                    break;
+                case 500:
+                    showErrorsModal($(this), 'Server Error. Please try again!')
+                    break;
+                default:
+                    res.json()
+                        .then(err => {
+                            showErrorsModal($(this), 'Cannot get all categories. Please try again!');
+                            console.log(err);
+                        })
+                    break;
+            }
+        })
+})

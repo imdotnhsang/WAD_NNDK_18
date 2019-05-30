@@ -74,8 +74,8 @@ router.post('/create', (req, res) => {
 
             return newTag
                 .save()
-                .then(result => {
-                    const payload = { _id: result._id, title: result.title, slug: result.slug };
+                .then(tagCreated => {
+                    const payload = { _id: tagCreated._id, title: tagCreated.title, slug: tagCreated.slug };
                     return res.json(payload)
                 })
         })
