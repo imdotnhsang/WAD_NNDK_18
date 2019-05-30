@@ -234,10 +234,11 @@
     top: 25%;
     left: 50%;
     transform: translate(-50%, -15%);
-    box-shadow: 0 0 18px rgba(0,0,0,.4);
+    box-shadow: 0 0 18px rgba(0, 0, 0, .4);
     border-color: #444d56 1px solid;
 }
-#changeAvatar__modal .background_sp{
+
+#changeAvatar__modal .background_sp {
     position: absolute;
     top: 0;
     height: 0;
@@ -245,33 +246,39 @@
     height: 100vw;
     background: #000;
 }
+
 #changeAvatar__modal .img_change {
     width: 300px;
     height: 300px;
 }
 
-#changeAvatar__modal  .changeAvatar__modal_header {
+#changeAvatar__modal .changeAvatar__modal_header {
     background: #f6f8fa;
     /* border-bottom: 1px solid #d1d5da; */
-  
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
 }
 
-#changeAvatar__modal  .changeAvatar__modal_footer {
+#changeAvatar__modal .changeAvatar__modal_footer {
     /* border-top: 1px solid #d1d5da; */
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
-
-}
-#changeAvatar__modal-background{
-    background: rgba(27,31,35,.5);
 }
 
-#changeAvatar__modal  .changeAvatar__modal_footer .btn{
- border-radius: 25px;
- font-size: 12px;
- font-weight: 500;
+#changeAvatar__modal-background {
+    background: rgba(27, 31, 35, .5);
+}
+
+#changeAvatar__modal .changeAvatar__modal_footer .btn {
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+span.field-validation-error {
+    color: #b94a48;
+    font-size: 10pt;
+    clear: both;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,3 +1,55 @@
+function validateEmail(sEmail) {
+    var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (filter.test(sEmail)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function validateUsername(sUsername) {
+    var filter = /^(?=.*[a-z])(?=.{1,})/;
+    if (filter.test(sUsername) && checkSpaceInString(sUsername) == false) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function validatePassword(sPassword) {
+    var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{7,})/;
+    if (filter.test(sPassword) && checkSpaceInString(sPassword) == false) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function validatePassword(sPassword) {
+    var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{7,})/;
+    if (filter.test(sPassword) && checkSpaceInString(sPassword) == false) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+const validateIsEmpty = (data, keys) => {
+    let errors = {};
+
+    for (const key of keys) {
+        if (data[key] === undefined || data[key].length === 0) {
+            errors[key] = key.charAt(0).toUpperCase() + key.slice(1) + " field is required.";
+        }
+    }
+
+    return errors;
+};
+
 //navbar logo
 $('.logo').click(function () {
     location.reload();
@@ -132,14 +184,14 @@ $("#pic-avatar").change(function () {
         reader.onload = function (e) {
             $('#avatar-change').attr('src', e.target.result);
         }
-        $('#changeAvatar__modal-background').css('display','block');
+        $('#changeAvatar__modal-background').css('display', 'block');
         image_change = this.files[0];
         reader.readAsDataURL(this.files[0]);
     }
 });
 
 $("#btn_changeAvatar_fail").click(function () {
-    $('#changeAvatar__modal-background').css('display','none');
+    $('#changeAvatar__modal-background').css('display', 'none');
 });
 $("#btn_changeAvatar_success").click(function (e) {
     e.preventDefault();
@@ -147,8 +199,8 @@ $("#btn_changeAvatar_success").click(function (e) {
     reader.onload = function (e) {
         $('#profile-avatar').attr('src', e.target.result);
     }
-    reader.readAsDataURL( image_change);
-    $('#changeAvatar__modal-background').css('display','none');
+    reader.readAsDataURL(image_change);
+    $('#changeAvatar__modal-background').css('display', 'none');
 });
 
 
@@ -211,35 +263,56 @@ $('#btn_updateInfTab').click(function () {
     $('#edit_profile').addClass('show');
     $('#edit_profile').addClass('active');
     $('#edit_profile-tab').addClass('active');
-
 });
 
 //check validate information update
+const updateEditProfileErrors = (errors) => {
+    $('#editprofile__fullname-errmsg').text(errors.fullname);
+    $('#editprofile__gender-errmsg').text(errors.gender);
+    $('#editprofile__bod-errmsg').text(errors.birthOfday);
+};
+
 $('#updateInf__btn').click(function (e) {
     e.preventDefault();
-    var fname, gender, dob, email;
-    if ($('#updateInf__fullname').val().trim().length > 0 && $('#updateInf__gender').val() != 0 && $('#updateInf__bod').val().trim().length > 0 && validateEmail($('#updateInf__email').val())) {
-        fname = $('#updateInf__fullname').val();
-        gender = $('#updateInf__gender').val();
-        dob = $('#updateInf__bod').val();
-        email = $('#updateInf__email').val();
-        console.log(fname, gender, dob, email);
+
+    let errors = { fullname: '', gender: '', birthOfday: '' };
+
+    let gender = $('#updateInf__gender').val(),
+        birthOfday = $('#updateInf__bod').val(),
+        fullname = $('#updateInf__fullname').val();
+
+    if (fullname.length < 6 && fullname.length <= 23) {
+        errors.fullname = 'Fullname must be between 6 and 23 characters long.'
+    }
+
+    if (gender == 0) {
+        errors.gender = 'You must choose a gender.'
+    }
+
+    if (new Date(birthOfday).getTime() < 0) {
+        errors.birthOfday = "You must choose your birthday."
+    }
+    errors = {
+        ...errors,
+        ...validateIsEmpty(
+            { fullname, gender, birthOfday },
+            ['fullname', 'gender', 'birthOfday']
+        )
+    };
+
+    const isInvalid = errors.fullname || errors.gender || errors.birthOfday;
+    if (isInvalid) {
+        updateEditProfileErrors(errors);
     } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#changeInf__modal');
-        $('.changeInf__modal button').click(function () {
-            $('#updateInf__btn').removeAttr('data-toggle');
-            $('#updateInf__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".changeInf__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#updateInf__btn').removeAttr('data-toggle');
-                $('#updateInf__btn').removeAttr('data-target');
-            }
-        });
+        clearEditProfileErrors();
+        console.log(fullname, gender, birthOfday);
     }
 });
+
+const clearEditProfileErrors = () => {
+    let errors = { fullname: '', gender: '',  birthOfday: '' };
+    updateEditProfileErrors(errors);
+};
 
 //check validate change password
 $('#updatePwd__btn').click(function (e) {
