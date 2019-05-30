@@ -5,26 +5,26 @@
         <ul id="clothing-nav" class="nav nav-tabs col-md-3 p-0" role="tablist">
             <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
                     src="/images/avatars/0.jpg" alt=""></div>
-            <li class="nav-item col-3 col-md-12 pl-0 pr-0 m-0">
+            <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link active d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#home" id="home-tab"
                     role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i
                         class="fa fa-user"></i><span>Account overview</span></a>
             </li>
-            <li class="nav-item col-3 col-md-12 pl-0 pr-0 m-0">
+            <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link d-flex align-items-center pt-3 pb-3 pl-3 pr-1 m-0" href="#edit_profile" role="tab"
                     id="edit_profile-tab" data-toggle="tab" aria-controls="edit_profile"><i
                         class="fa fa-pencil"></i><span>Edit profile</span></a>
             </li>
-            <li class="nav-item col-3 col-md-12 pl-0 pr-0 m-0">
+            <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link d-flex align-items-center pt-3 pb-3 pl-3 pr-1 m-0" href="#change_password" role="tab"
                     id="change_password-tab" data-toggle="tab" aria-controls="change_password"><i
                         class="fa fa-lock"></i><span>Change password</span></a>
             </li>
-            <li class="nav-item col-3 col-md-12 pl-0 pr-0 m-0">
+            <!-- <li class="nav-item col-3 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#receipts" role="tab"
                     id="receipts-tab" data-toggle="tab" aria-controls="receipts"><i
                         class="fa fa-clock-o"></i><span>Receipts</span></a>
-            </li>
+            </li> -->
             <li class="nav-item col-md-12 pl-0 pr-0 m-0">
 
             </li>
@@ -69,32 +69,33 @@
                     <div class="blank-row"></div>
                     <div class="pl-md-2 p-0 col-md-5">
                         <% if(account){ %>
-                            <% if(account.expiredAt > Date.now()){ %>
-                                <div class="status-account p-4">
-                                    <div class="title-stt-account pt-2 pb-2">
-                                        <p class="m-0 text-center"><i class="fa fa-check"></i>&nbsp;TBW Premium</p>
-                                    </div>
-                                    <div class="content-stt-account pt-2">
-                                        <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
-                                                class="expiry-date font-weight-bold" id="expiry-date"><%= account.expiredAt %></span>.</p>
-                                    </div>
-                                    <br>
-                                </div>
-                            <% } else { %>
-                                <div class="status-account p-4">
-                                    <div class="title-stt-account pt-2 pb-2">
-                                        <p class="m-0 text-center">TBW Free</p>
-                                    </div>
-                                    <div class="content-stt-account pt-2">
-                                        <p class="m-0 text-center pt-3 pb-3">You're currently TBW Free. We have an even better
-                                            service called TBW Premium. It lets you listen ad-free, on-demand and offline.</p>
-                                    </div>
-                                    <br>
-                                    <div class="text-center">
-                                        <div class="btn text-uppercase btn-subscribe-premium">subscribe</div>
-                                    </div>
-                                </div>
-                            <% } %>
+                        <% if(account.expiredAt > Date.now()){ %>
+                        <div class="status-account p-4">
+                            <div class="title-stt-account pt-2 pb-2">
+                                <p class="m-0 text-center"><i class="fa fa-check"></i>&nbsp;TBW Premium</p>
+                            </div>
+                            <div class="content-stt-account pt-2">
+                                <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
+                                        class="expiry-date font-weight-bold"
+                                        id="expiry-date"><%= account.expiredAt %></span>.</p>
+                            </div>
+                            <br>
+                        </div>
+                        <% } else { %>
+                        <div class="status-account p-4">
+                            <div class="title-stt-account pt-2 pb-2">
+                                <p class="m-0 text-center">TBW Free</p>
+                            </div>
+                            <div class="content-stt-account pt-2">
+                                <p class="m-0 text-center pt-3 pb-3">You're currently TBW Free. We have an even better
+                                    service called TBW Premium. It lets you listen ad-free, on-demand and offline.</p>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <div class="btn text-uppercase btn-subscribe-premium">subscribe</div>
+                            </div>
+                        </div>
+                        <% } %>
                         <% } %>
                     </div>
                 </div>
@@ -107,7 +108,7 @@
                 <form class="p-4">
                     <div class="form-group">
                         <div class="img-avatar d-flex justify-content-center">
-                            <img id="profile-change" src="/images/avatars/0.jpg" alt="">
+                            <img id="profile-avatar" src="/images/avatars/0.jpg" alt="">
                             <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
                             <input type="file" id="pic-avatar" name="pic" accept="image/*">
                         </div>
@@ -120,7 +121,8 @@
                     <div class="form-group">
                         <label for="gender" class="m-0">Gender</label>
                         <select class="custom-select select-gender" id="updateInf__gender" name="gender">
-                            <option selected value="1">Male</option>
+                            <option selected value="0">Choose your gender</option>
+                            <option value="1">Male</option>
                             <option value="2">Female</option>
                         </select></div>
                     <div class="form-group">
@@ -136,8 +138,8 @@
                     </div>
                     <div class="form-group">
                         <label class="m-0">Email</label>
-                        <input disabled type="email" class="form-control" id="updateInf__email"
-                            placeholder="" value="<%= account.email %>">
+                        <input disabled type="email" class="form-control" id="updateInf__email" placeholder=""
+                            value="<%= account.email %>">
                     </div>
                     <div class="row m-0 btns-done-edit justify-content-end align-items-center">
                         <div class="pr-2">
@@ -148,6 +150,21 @@
                         </div>
                     </div>
                 </form>
+                <div class="modal" id="changeAvatar__modal-background">
+                    <div class="changeAvatar__modal" id="changeAvatar__modal">
+                        <div class="changeAvatar__modal_header d-flex justify-content-end">
+                            <div class="btn text-dark" id="btn_changeAvatar_fail"><i class="fa fa-close"></i></div>
+                        </div>
+                        <div class="img_change pl-4 pr-4 pt-0 pb-0 d-flex align-items-center">
+                            <img class="w-100" id="avatar-change" src="/images/avatars/0.jpg" alt="">
+                        </div>
+                        <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+                            <div class="btn btn btn-success d-flex justify-content-center"
+                                id="btn_changeAvatar_success">Set new profile picture
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="change_password" aria-labelledby="hats-tab">
                 <div class="title-tab">
@@ -176,7 +193,7 @@
                     </div>
                 </form>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="receipts" aria-labelledby="hats-tab">
+            <!-- <div role="tabpanel" class="tab-pane fade" id="receipts" aria-labelledby="hats-tab">
                 <div class="title-tab">
                     <p class="m-0">Receipts</p>
                 </div>
@@ -204,11 +221,12 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-xl-2 col-0 p-0 m-0 blank-col-container"></div>
 </div>
+<br>
 
 <div class="modal fade changePwd__modal" id="changePwd__modal" tabindex="-1" role="dialog"
     aria-labelledby="changePwd__modalLabel" aria-hidden="true">
@@ -229,6 +247,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade changeInf__modal" id="changeInf__modal" tabindex="-1" role="dialog"
     aria-labelledby="changeInf__modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
