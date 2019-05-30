@@ -17,17 +17,13 @@ function validateUsername(sUsername) {
         return false;
     }
 }
-
-function validatePassword(sPassword) {
-    var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{7,})/;
-    if (filter.test(sPassword) && checkSpaceInString(sPassword) == false) {
+function checkSpaceInString(sSen) {
+    var patt = /\s/g;
+    if (sSen.match(patt)) {
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 }
-
 function validatePassword(sPassword) {
     var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{7,})/;
     if (filter.test(sPassword) && checkSpaceInString(sPassword) == false) {
@@ -310,31 +306,57 @@ $('#updateInf__btn').click(function (e) {
 });
 
 const clearEditProfileErrors = () => {
-    let errors = { fullname: '', gender: '',  birthOfday: '' };
+    let errors = { fullname: '', gender: '', birthOfday: '' };
     updateEditProfileErrors(errors);
 };
 
 //check validate change password
+const updateChangePasswordErrors = (errors) => {
+    $('#changePassword__oldPwd-errmsg').text(errors.oldPassword);
+    $('#changePassword__newPwd-errmsg').text(errors.newPassword);
+    $('#changePassword__rePwd-errmsg').text(errors.retypePassword);
+};
+
+const clearChangePasswordErrors = () => {
+    let errors = { oldPassword: '', newPassword: '', retypePassword: '' };
+    updateChangePasswordErrors(errors);
+};
+
 $('#updatePwd__btn').click(function (e) {
     e.preventDefault();
-    var pwd, pwdNew, pwdNewRe;
-    if (($('#updatePwd__pwdNew').val() == $('#updatePwd__pwdNewRe').val()) && validatePassword($('#updatePwd__pwdNew').val()) && validatePassword($('#updatePwd__pwdOld').val())) {
-        pwdNew = $('#updatePwd__pwdNew').val();
-        console.log(pwdNew)
+    let errors = { oldPassword: '', newPassword: '', retypePassword: '' };
+
+    let oldPassword = $('#updatePwd__pwdOld').val(),
+        newPassword = $('#updatePwd__pwdNew').val(),
+        retypePassword = $('#updatePwd__pwdNewRe').val();
+
+    if (!validatePassword(oldPassword)) {
+        errors.oldPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+
+    if (!validatePassword(newPassword)) {
+        errors.newPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
+    }
+if(newPassword === oldPassword){
+    errors.newPassword="New password must be different from old password."
+}
+    if (retypePassword !== newPassword) {
+        errors.retypePassword = 'Retype password must be correct.'
+    }
+
+    errors = {
+        ...errors,
+        ...validateIsEmpty(
+            { oldPassword, newPassword, retypePassword },
+            ['oldPassword', 'newPassword', 'retypePassword']
+        )
+    };
+    const isInvalid = errors.oldPassword || errors.newPassword || errors.retypePassword;
+    if (isInvalid) {
+        updateChangePasswordErrors(errors);
     } else {
-        $(this).attr('data-toggle', 'modal');
-        $(this).attr('data-target', '#changePwd__modal');
-        $('.changePwd__modal button').click(function () {
-            $('#updatePwd__btn').removeAttr('data-toggle');
-            $('#updatePwd__btn').removeAttr('data-target');
-        });
-        $(document).mouseup(function (e) {
-            var container = $(".changePwd__modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#updatePwd__btn').removeAttr('data-toggle');
-                $('#updatePwd__btn').removeAttr('data-target');
-            }
-        });
+        clearChangePasswordErrors();
+        console.log(newPassword)
     }
 });
 
@@ -342,6 +364,7 @@ $('#updatePwd__btnCancel').click(function (e) {
     document.getElementById('updatePwd__pwdOld').value = '';
     document.getElementById('updatePwd__pwdNew').value = '';
     document.getElementById('updatePwd__pwdNewRe').value = '';
+    clearChangePasswordErrors();
 })
 
 //check comment
