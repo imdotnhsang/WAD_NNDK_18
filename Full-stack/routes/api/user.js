@@ -10,7 +10,7 @@ router.post('/login', (req, res) => {
     passport.authenticate('local.login', (err, user) => {
         const { isRemember } = req.body;
 
-        console.log('isRemember', isRemember);
+        console.log('isRemember: ', isRemember);
 
         if (err) {
             console.log(err);

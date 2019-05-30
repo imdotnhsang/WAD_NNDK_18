@@ -5,11 +5,41 @@ const _ = require('lodash');
 const router = express.Router();
 const Tag = mongoose.model('Tag');
 
-router.get('/get-all', (_, res) => {
+router.get('/count', (req, res) => {
+    Tag.countDocuments({ isActive: true })
+        .then(value => res.json(value))
+        .catch(err => res.status(400).json(err));
+});
+
+router.get('/get-all', (req, res) => {
     Tag
         .find({ isActive: true })
+        .sort({ _id: -1})
+        .select({
+            '_id': true,
+            'title': true,
+            'slug': true
+        })
         .then(tagList => res.json(tagList))
-        .catch(err => res.status(400).json({ ...errors, ...err.errors }));
+        .catch(err => res.status(400).json(err));
+});
+
+router.get('/get-page/:page', (req, res) => {
+    const { page } = req.params;
+    const tagsPerPage = 5;
+    
+    Tag
+        .find({ isActive: true })
+        .sort({ _id: -1})
+        .skip((page - 1) * tagsPerPage)
+        .limit(tagsPerPage)
+        .select({
+            '_id': true,
+            'title': true,
+            'slug': true
+        })
+        .then(tagList => res.json(tagList))
+        .catch(err => res.status(400).json(err));
 });
 
 router.post('/create', (req, res) => {
@@ -45,7 +75,7 @@ router.post('/create', (req, res) => {
             return newTag
                 .save()
                 .then(result => {
-                    const payload = { title: result.title, slug: result.slug };
+                    const payload = { _id: result._id, title: result.title, slug: result.slug };
                     return res.json(payload)
                 })
         })
