@@ -50,13 +50,23 @@
                                     <label class="m-0">Email</label>
                                     <p class="content-email"><%= account.email %></p>
                                 </div>
+                                <script>console.log('<%= account.gender %>')</script>
                                 <div class="gender">
                                     <label class="m-0">Gender</label>
+                                    <% if(isNaN(account.gender)){ %>
+                                    <p class="content-gender">&nbsp; </p>
+                                    <% } else { %>
                                     <p id="gend_acccount" class="content-gender"><%= account.gender %></p>
+                                    <% } %>
                                 </div>
+                                <script>console.log(isNaN('<%= account.birthday %>'));</script>
                                 <div class="gender">
                                     <label class="m-0">Date of birth</label>
+                                    <% if(isNaN(account.birthday)){ %>
+                                    <p class="content-dob"> &nbsp;</p>
+                                    <% } else { %>
                                     <p id="bod_acccount" class="content-dob"><%= account.birthday %></p>
+                                    <% } %>
                                 </div>
                             </div>
                             <br>
@@ -117,14 +127,28 @@
                         <label for="fullname" class="m-0">Full name</label>
                         <input type="text" class="form-control" id="updateInf__fullname" placeholder="Leo Nguyen"
                             value="<%= account.fullname %>" name="fullname">
+                        <span class="field-validation-error" id="editprofile__fullname-errmsg"></span>
                     </div>
                     <div class="form-group">
                         <label for="gender" class="m-0">Gender</label>
                         <select class="custom-select select-gender" id="updateInf__gender" name="gender">
-                            <option selected value="0">Choose your gender</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                        </select></div>
+                            <% if(isNaN(account.gender)){ %>
+                                <option selected value="0">Choose your gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <% }else{ %>
+                                    <% if(account.gender == false){ %>
+                                        <option selected value="1">Male</option>
+                                        <option value="2">Female</option>
+                                    <% }else{ %>
+                                        <option value="1">Male</option>
+                                        <option selected value="2">Female</option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                        <span class="field-validation-error" id="editprofile__gender-errmsg"></span>
+                    </div>
+
                     <div class="form-group">
                         <label for="birthday" class="m-0">Date of birth</label>
                         <div class="d-flex select-birthday">
@@ -135,6 +159,7 @@
                                     <i class="fa fa-calendar"></i> </span>
                             </span>
                         </div>
+                        <span class="field-validation-error" id="editprofile__bod-errmsg"></span>
                     </div>
                     <div class="form-group">
                         <label class="m-0">Email</label>
@@ -160,7 +185,8 @@
                         </div>
                         <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
                             <div class="btn btn btn-success d-flex justify-content-center"
-                                id="btn_changeAvatar_success">Set new profile picture
+                                id="btn_changeAvatar_success">Set
+                                new profile picture
                             </div>
                         </div>
                     </div>
@@ -175,13 +201,16 @@
                     <div class="form-group">
                         <label for='#update__pwdOld' class="m-0 pb-1">Password</label>
                         <input type="password" class="form-control" id="updatePwd__pwdOld" placeholder="Old password">
+                        <span class="field-validation-error" id="changePassword__oldPwd-errmsg"></span>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" id="updatePwd__pwdNew" placeholder="New password">
+                        <span class="field-validation-error" id="changePassword__newPwd-errmsg"></span>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" id="updatePwd__pwdNewRe"
                             placeholder="Retype new password">
+                        <span class="field-validation-error" id="changePassword__rePwd-errmsg"></span>
                     </div>
                     <div class="row m-0 btns-done-edit justify-content-end align-items-center">
                         <div class="pr-2">
