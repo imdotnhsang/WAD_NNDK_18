@@ -69,32 +69,32 @@
                     <div class="blank-row"></div>
                     <div class="pl-md-2 p-0 col-md-5">
                         <% if(account){ %>
-                        <% if(account.userType=="subscriber"){ %>
-                        <div class="status-account p-4">
-                            <div class="title-stt-account pt-2 pb-2">
-                                <p class="m-0 text-center"><i class="fa fa-check"></i>&nbsp;TBW Premium</p>
-                            </div>
-                            <div class="content-stt-account pt-2">
-                                <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
-                                        class="expiry-date font-weight-bold" id="expiry-date"><%= account.expiredAt %></span>.</p>
-                            </div>
-                            <br>
-                        </div>
-                        <% }else{ %>
-                        <div class="status-account p-4">
-                            <div class="title-stt-account pt-2 pb-2">
-                                <p class="m-0 text-center">TBW Free</p>
-                            </div>
-                            <div class="content-stt-account pt-2">
-                                <p class="m-0 text-center pt-3 pb-3">You're currently TBW Free. We have an even better
-                                    service called TBW Premium. It lets you listen ad-free, on-demand and offline.</p>
-                            </div>
-                            <br>
-                            <div class="text-center">
-                                <div class="btn text-uppercase btn-subscribe-premium">subscribe</div>
-                            </div>
-                        </div>
-                        <% } %>
+                            <% if(account.expiredAt > Date.now()){ %>
+                                <div class="status-account p-4">
+                                    <div class="title-stt-account pt-2 pb-2">
+                                        <p class="m-0 text-center"><i class="fa fa-check"></i>&nbsp;TBW Premium</p>
+                                    </div>
+                                    <div class="content-stt-account pt-2">
+                                        <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
+                                                class="expiry-date font-weight-bold" id="expiry-date"><%= account.expiredAt %></span>.</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            <% } else { %>
+                                <div class="status-account p-4">
+                                    <div class="title-stt-account pt-2 pb-2">
+                                        <p class="m-0 text-center">TBW Free</p>
+                                    </div>
+                                    <div class="content-stt-account pt-2">
+                                        <p class="m-0 text-center pt-3 pb-3">You're currently TBW Free. We have an even better
+                                            service called TBW Premium. It lets you listen ad-free, on-demand and offline.</p>
+                                    </div>
+                                    <br>
+                                    <div class="text-center">
+                                        <div class="btn text-uppercase btn-subscribe-premium">subscribe</div>
+                                    </div>
+                                </div>
+                            <% } %>
                         <% } %>
                     </div>
                 </div>

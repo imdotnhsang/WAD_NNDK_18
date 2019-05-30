@@ -44,7 +44,10 @@ router.post('/create', (req, res) => {
 
             return newTag
                 .save()
-                .then(result => res.json(result))
+                .then(result => {
+                    const payload = { title: result.title, slug: result.slug };
+                    return res.json(payload)
+                })
         })
         .catch(err => res.status(400).json({ ...errors, ...err.errors }));
 });

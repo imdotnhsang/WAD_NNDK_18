@@ -36,7 +36,7 @@ $(document).ready(function () {
 
 $(document).on('click', 'li.page-item', function () {
     const value = $(this).children('a').html().trim();
-    
+
     switch (value) {
         case '\253':
             tagPageNumber = Math.max(1, tagPageNumber - 1);
@@ -47,7 +47,38 @@ $(document).on('click', 'li.page-item', function () {
         default:
             break;
     }
-    
+
     document.getElementById('js-tags-page-number').innerHTML = tagPageNumber;
     updateTagsTable(tagPageNumber);
 });
+
+$('#js-addNewTag-btn').click(function () {
+    const tagStr = $('#js-addNewTag-input').val();
+
+    if (tagStr && tagStr.length === 0) return;
+
+    postData('/api/tag/create', { title: tagStr })
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    res.json()
+                        .then(data => {
+                            console.log(data);
+                            $('#js-addNewTag-input').val('')
+                        })
+                    break;
+                case 500:
+                    showErrorsModal($(this), 'Server Error. Please try again!')
+                    break;
+                default:
+                    res.json()
+                        .then(err => {
+                            showErrorsModal($(this), err.tag)
+                            console.log(err);
+                        })
+                    break;
+            }
+        })
+})

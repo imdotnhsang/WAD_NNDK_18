@@ -4,6 +4,7 @@ var router = express.Router();
 router.get('/home', function (req, res, next) {
     const account = req.user;
 
+    console.log('account', account);
     //Lấy 5 bài có views nhiều nhất trong tuần qua
     const fiveArticlesHot = [
         {

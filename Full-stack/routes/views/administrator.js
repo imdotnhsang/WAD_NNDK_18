@@ -2,22 +2,24 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render(
-        'auth',
-        {
-            title: 'Administrator',
-            layout: 'layouts/administrator',
-            srcScript: '/javascripts/auth/administrator.js',
-            hrefCss: '/stylesheets/guest-subscriber/auth.css'
-        }
-    )
+    if (req.user) {
+        res.redirect('/administrator/profile')
+    } else {
+        res.render(
+            'auth',
+            {
+                title: 'Administrator',
+                layout: 'layouts/administrator',
+                srcScript: '/javascripts/auth/administrator.js',
+                hrefCss: '/stylesheets/guest-subscriber/auth.css'
+            }
+        )
+    }
 });
 
 router.get('/profile', function (req, res, next) {
     const adminAccount = req.user;
 
-    console.log(adminAccount);
-    
     if (adminAccount && adminAccount.userType === 'administrator') {
         res.render(
             'administrator',
@@ -108,7 +110,7 @@ router.get('/users', function (req, res, next) {
 router.get('/logout', function (req, res, next) {
     req.logOut();
     res.redirect('/administrator');
-});  
+});
 
 router.get('/:other', function (req, res, next) {
     res.redirect('/administrator');
