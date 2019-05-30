@@ -134,7 +134,10 @@
     background: #fff;
     border-radius: 5px;
 }
-
+.container-information #change_password form {
+    background: #fff;
+    border-radius: 5px;
+}
 .container-information #edit_profile input {
     color: #222326;
     outline: 0!important;
