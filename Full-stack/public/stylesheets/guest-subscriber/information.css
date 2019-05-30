@@ -134,10 +134,12 @@
     background: #fff;
     border-radius: 5px;
 }
+
 .container-information #change_password form {
     background: #fff;
     border-radius: 5px;
 }
+
 .container-information #edit_profile input {
     color: #222326;
     outline: 0!important;
@@ -221,6 +223,57 @@
     background: transparent;
 }
 
+.container-information #edit_profile {
+    position: relative;
+}
+
+#changeAvatar__modal {
+    background: #fff;
+    border-radius: 10px;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+    box-shadow: 0 0 18px rgba(0,0,0,.4);
+    border-color: #444d56 1px solid;
+}
+#changeAvatar__modal .background_sp{
+    position: absolute;
+    top: 0;
+    height: 0;
+    width: 100vh;
+    height: 100vw;
+    background: #000;
+}
+#changeAvatar__modal .img_change {
+    width: 300px;
+    height: 300px;
+}
+
+#changeAvatar__modal  .changeAvatar__modal_header {
+    background: #f6f8fa;
+    /* border-bottom: 1px solid #d1d5da; */
+  
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+#changeAvatar__modal  .changeAvatar__modal_footer {
+    /* border-top: 1px solid #d1d5da; */
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+
+}
+#changeAvatar__modal-background{
+    background: rgba(27,31,35,.5);
+}
+
+#changeAvatar__modal  .changeAvatar__modal_footer .btn{
+ border-radius: 25px;
+ font-size: 12px;
+ font-weight: 500;
+}
+
 @media screen and (max-width: 767px) {
     .container-information .blank-row {
         padding: 7px;
@@ -248,13 +301,13 @@
     }
     .container-information ul#clothing-nav li a i {
         padding-right: 0;
-    }.container-information ul#clothing-nav li:nth-child(3) a i {
+    }
+    .container-information ul#clothing-nav li:nth-child(3) a i {
         padding-right: 0;
     }
 }
 
 @media screen and (max-width: 575px) {
-
     .container-information td {
         font-size: 14px;
         word-break: break-all;
@@ -303,7 +356,6 @@
 }
 
 @media screen and (min-width: 576px) {
-    
     .container-information td {
         font-size: 16px;
         word-break: break-all;

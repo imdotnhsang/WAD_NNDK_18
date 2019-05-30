@@ -125,16 +125,33 @@ $(document).ready(function () {
 });
 
 //change avatar
+var image_change;
 $("#pic-avatar").change(function () {
     if (this.files && this.files[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
-            $('#profile-change').attr('src', e.target.result);
+            $('#avatar-change').attr('src', e.target.result);
         }
+        $('#changeAvatar__modal-background').css('display','block');
+        image_change = this.files[0];
         reader.readAsDataURL(this.files[0]);
     }
 });
+
+$("#btn_changeAvatar_fail").click(function () {
+    $('#changeAvatar__modal-background').css('display','none');
+});
+$("#btn_changeAvatar_success").click(function (e) {
+    e.preventDefault();
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $('#profile-avatar').attr('src', e.target.result);
+    }
+    reader.readAsDataURL( image_change);
+    $('#changeAvatar__modal-background').css('display','none');
+});
+
+
 
 //check validate search bar
 $('#searchBar__btn').click(function (e) {
@@ -296,10 +313,13 @@ function formatDateTypeFull(msDate) {
             break;
         case 2:
             customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[1] + '</sup>';
+            break;
         case 3:
             customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[2] + '</sup>';
+            break;
         default:
             customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[3] + '</sup>';
+            break;
     }
 
     customDate.year = new Date(Number(msDate)).getFullYear();
@@ -321,9 +341,9 @@ function formatDateTypeBOD(msDate) {
     } else if ((temp.getMonth() + 1) < 10 && temp.getDate() < 10) {
         return ('0' + (temp.getMonth() + 1) + '/' + '0' + temp.getDate() + '/' + (temp.getFullYear()));
 
-    } else if((temp.getMonth() + 1) > 9 && temp.getDate() < 10) {
+    } else if ((temp.getMonth() + 1) > 9 && temp.getDate() < 10) {
         return ((temp.getMonth() + 1) + '/' + '0' + temp.getDate() + '/' + (temp.getFullYear()));
-    }else {
+    } else {
         return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
     }
 }

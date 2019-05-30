@@ -25,7 +25,7 @@
             <div class="facebook"><i class="fa fa-facebook"></i></div>
             <div class="twitter"><i class="fa fa-twitter"></i></div>
             <% if(account){ %>
-            <% if(account.userType=="subscriber"){ %>
+            <% if(account.expiredAt > Date.now()){ %>
             <div class="print" id="detail__print"><i class="fa fa-floppy-o"></i></div>
             <% } %>
             <% } %>
