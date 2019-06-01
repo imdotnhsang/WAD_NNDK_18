@@ -4,7 +4,7 @@
     <div class="main-container-information row m-0 col-xl-8 col-12 p-0">
         <ul id="clothing-nav" class="nav nav-tabs col-md-3 p-0" role="tablist">
             <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
-                    src="/images/avatars/0.jpg" alt=""></div>
+                    src="<%= account.avatar %>" alt=""></div>
             <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link active d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#home" id="home-tab"
                     role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i
@@ -118,7 +118,7 @@
                 <form class="p-4">
                     <div class="form-group">
                         <div class="img-avatar d-flex justify-content-center">
-                            <img id="profile-avatar" src="/images/avatars/0.jpg" alt="">
+                            <img id="profile-avatar" src="<%= account.avatar %>" alt="">
                             <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
                             <input type="file" id="pic-avatar" name="pic" accept="image/*">
                         </div>
@@ -181,7 +181,7 @@
                             <div class="btn text-dark" id="btn_changeAvatar_fail"><i class="fa fa-close"></i></div>
                         </div>
                         <div class="img_change pl-4 pr-4 pt-0 pb-0 d-flex align-items-center">
-                            <img class="w-100" id="avatar-change" src="/images/avatars/0.jpg" alt="">
+                            <img class="w-100" id="avatar-change" src="<%= account.avatar %>" alt="">
                         </div>
                         <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
                             <div class="btn btn btn-success d-flex justify-content-center"
