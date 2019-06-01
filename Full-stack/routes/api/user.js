@@ -2,13 +2,38 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 const passport = require('passport');
+const path = require('path');
+const fs = require('fs');
 
-const { sendOTPCode, createOTP, pickUser } = require('../../utils');
-const { User } = require('../../models/User');
+const {
+    sendOTPCode,
+    createOTP,
+    pickUser
+} = require('../../utils');
+const {
+    User
+} = require('../../models/User');
+
+const multer = require('multer');
+const destAvatar = path.join(__dirname, '../../public/images/avatars/');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, destAvatar);
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+const upload = multer({
+    storage
+});
 
 router.post('/login', (req, res) => {
     passport.authenticate('local.login', (err, user) => {
-        const { isRemember } = req.body;
+        const {
+            isRemember
+        } = req.body;
 
         console.log('isRemember: ', isRemember);
 
@@ -25,8 +50,7 @@ router.post('/login', (req, res) => {
 
             if (isRemember) {
                 req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-            }
-            else {
+            } else {
                 req.session.cookie.expires = false;
             }
 
@@ -37,10 +61,23 @@ router.post('/login', (req, res) => {
 
 router.post('/register', (req, res) => {
     const errors = {};
-    const { username, fullname, email, password, userType, pseudonym } = req.body;
+    const {
+        username,
+        fullname,
+        email,
+        password,
+        userType,
+        pseudonym
+    } = req.body;
 
     User
-        .findOne({ $or: [{ username }, { email }] })
+        .findOne({
+            $or: [{
+                username
+            }, {
+                email
+            }]
+        })
         .then(user => {
             if (user) {
                 if (user.username === username) {
@@ -55,7 +92,13 @@ router.post('/register', (req, res) => {
             }
 
             const OTP = createOTP();
-            const newUser = new User({ username, fullname, email, userType, OTP });
+            const newUser = new User({
+                username,
+                fullname,
+                email,
+                userType,
+                OTP
+            });
 
             switch (userType) {
                 case 'subscriber':
@@ -99,9 +142,14 @@ router.post('/register', (req, res) => {
 router.post('/update', (req, res) => {
     const errors = {};
 
-    const { email, fullname, gender, birthday } = req.body;
+    const {
+        email,
+        fullname,
+        gender,
+        birthday
+    } = req.body;
 
-    if (email !== req.user.email) {
+    if (!req.user || email !== req.user.email) {
         errors.email = 'authorization has failed.';
         return res.status(400).json(errors);
     }
@@ -123,7 +171,9 @@ router.post('/update', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    User.findOne({ email })
+    User.findOne({
+            email
+        })
         .then(user => {
             if (!user) {
                 errors.email = 'authorization has failed.';
@@ -148,17 +198,23 @@ router.post('/update', (req, res) => {
 router.post('/change-password', (req, res) => {
     const errors = {};
 
-    const { email, currentPassword, newPassword } = req.body;
+    const {
+        email,
+        currentPassword,
+        newPassword
+    } = req.body;
 
-    if (email !== req.user.email) {
-        errors.email = 'authorization has failed.';
+    if (!req.user || email !== req.user.email) {
+        errors.email = 'Authorization has failed.';
         return res.status(400).json(errors);
     }
 
-    User.findOne({ email })
+    User.findOne({
+            email
+        })
         .then(user => {
             if (!user) {
-                errors.email = 'authorization has failed.';
+                errors.email = 'Authorization has failed.';
                 return res.status(400).json(errors);
             }
 
@@ -182,9 +238,14 @@ router.post('/change-password', (req, res) => {
 
 router.post('/send-OTP', (req, res) => {
     const errors = {};
-    const { email, actionType } = req.body;
+    const {
+        email,
+        actionType
+    } = req.body;
 
-    User.findOne({ email })
+    User.findOne({
+            email
+        })
         .then(user => {
             if (!user) {
                 errors.email = 'Email does not exist.'
@@ -207,9 +268,16 @@ router.post('/send-OTP', (req, res) => {
 
 router.post('/validate-OTP', (req, res) => {
     const errors = {};
-    const { email, OTPCode, actionType, password } = req.body;
+    const {
+        email,
+        OTPCode,
+        actionType,
+        password
+    } = req.body;
 
-    User.findOne({ email })
+    User.findOne({
+            email
+        })
         .then(user => {
             if (!user) {
                 errors.email = 'Email does not exist.'
@@ -266,10 +334,16 @@ router.post('/validate-OTP', (req, res) => {
 
 router.post('/recovery-password', (req, res) => {
     const errors = {};
-    const { newPassword, email } = req.body;
+    const {
+        newPassword,
+        email
+    } = req.body;
 
     User
-        .findOne({ email, isActive: true })
+        .findOne({
+            email,
+            isActive: true
+        })
         .then(user => {
             if (!user) {
                 errors.email = 'Email does not exits.';
@@ -288,6 +362,60 @@ router.post('/recovery-password', (req, res) => {
         .catch(err => {
             res.status(400).json(err);
         })
-})
+});
+
+router.post('/upload-avatar', upload.single('avatar'), (req, res) => {
+    const errors = {};
+
+    const file = req.file;
+    if (!file) {
+        errors.avatar = 'Avatar is invalid.';
+        return res.status(400).json(errors);
+    }
+
+    const filename = req.file.filename;
+
+    const {
+        email
+    } = req.body;
+
+    if (!req.user || email !== req.user.email) {
+        errors.email = 'Authorization has failed.';
+        fs.unlinkSync(destAvatar + filename);
+
+        return res.status(400).json(errors);
+    }
+
+    User
+        .findOne({
+            email,
+            isActive: true
+        })
+        .then(user => {
+            console.log(user);
+            
+            if (!user) {
+                errors.email = 'Authorization has failed.';
+                fs.unlinkSync(destAvatar + filename);
+                
+                return res.status(400).json(errors);
+            }
+
+            const pathFile = '/images/avatars/' + filename
+            user.avatar = pathFile;
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    req.session.passport.user = payload;
+
+                    return res.json(payload);
+                });
+        })
+        .catch(err => {
+            fs.unlinkSync(destAvatar + filename);
+            return res.status(400).json(err);
+        });
+});
 
 module.exports = router;
