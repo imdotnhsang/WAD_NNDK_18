@@ -196,6 +196,34 @@ $("#btn_changeAvatar_success").click(function (e) {
         $('#profile-avatar').attr('src', e.target.result);
     }
     reader.readAsDataURL(image_change);
+    
+    const email = $('#updateInf__email').val();
+    const formData = new FormData();
+    
+    formData.append('avatar', image_change);
+    formData.append('email', email);
+
+    fetch(
+        '/api/user/upload-avatar', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    console.log('success');
+
+                    break;
+
+                default:
+                    console.log('fail');
+
+                    break;
+            }
+        })
+
     $('#changeAvatar__modal-background').css('display', 'none');
 });
 

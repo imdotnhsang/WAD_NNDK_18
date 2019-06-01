@@ -378,7 +378,7 @@ router.post('/upload-avatar', upload.single('avatar'), (req, res) => {
     const {
         email
     } = req.body;
-
+    
     if (!req.user || email !== req.user.email) {
         errors.email = 'Authorization has failed.';
         fs.unlinkSync(destAvatar + filename);
@@ -391,9 +391,7 @@ router.post('/upload-avatar', upload.single('avatar'), (req, res) => {
             email,
             isActive: true
         })
-        .then(user => {
-            console.log(user);
-            
+        .then(user => {            
             if (!user) {
                 errors.email = 'Authorization has failed.';
                 fs.unlinkSync(destAvatar + filename);

@@ -3,6 +3,9 @@ var router = express.Router();
 
 router.get('/', (req, res) => {
     const account = req.user;
+
+    console.log(account);
+    
     if (account && account.userType === 'administrator') {
         res.redirect('/administrator/profile')
     } else {
