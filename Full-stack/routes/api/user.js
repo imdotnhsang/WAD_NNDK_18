@@ -364,6 +364,53 @@ router.post('/recovery-password', (req, res) => {
         })
 });
 
+router.get('/renew-premium', (req, res) => {
+    const errors = {};
+
+    const {
+        email,
+        renewTime
+    } = req.body;
+
+    if (!req.user || email !== req.user.email) {
+        errors.email = 'Authorization has failed.';
+        fs.unlinkSync(destAvatar + filename);
+
+        return res.status(400).json(errors);
+    }
+
+    if (!_.isNumber(renewTime)) {
+        errors.renewTime = 'Renew time is invalid.';
+
+        return res.status(400).json(errors);
+    }
+
+    User
+        .findOne({
+            email,
+            isActive: true
+        })
+        .then(user => {
+            if (!user) {
+                errors.email = 'Authorization has failed.';                
+                return res.status(400).json(errors);
+            }
+
+            user.expiredAt = Date.now() + renewTime;
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    req.session.passport.user = payload;
+
+                    return res.json(payload);
+                });
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        })
+});
+
 router.post('/upload-avatar', upload.single('avatar'), (req, res) => {
     const errors = {};
 
