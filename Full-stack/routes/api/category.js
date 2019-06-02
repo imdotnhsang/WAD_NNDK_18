@@ -43,7 +43,7 @@ router.get('/get-all', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
-router.use('/create', (req, res) => {
+router.post('/create', (req, res) => {
     const errors = {};
     let { title, parentId } = req.body;
 
@@ -51,7 +51,7 @@ router.use('/create', (req, res) => {
     let slug = title.replace(/ /g, '-').toLowerCase();
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
-        errors.category = 'Category does not exist.'
+        errors.title = 'Title category does not exist.'
         return res.status(400).json(errors);
     }
 
@@ -108,6 +108,67 @@ router.use('/create', (req, res) => {
                             })
                     })
             }
+        })
+        .catch(err => res.status(400).json(err));
+});
+
+router.post('/update', (req, res) => {
+    const errors = {};
+    let { title, id } = req.body;
+
+    title = _.trim(title);
+    let slug = title.replace(/ /g, '-').toLowerCase();
+
+    if (_.isEmpty(title) || _.isEmpty(slug)) {
+        errors.title = 'Title category does not exist.'
+        return res.status(400).json(errors);
+    }
+
+    if (_.isEmpty(id)) {
+        errors.category = 'Cannot find category to edit.';
+        return res.status(400).json(errors);
+    }
+
+    Category
+        .findOne(
+            {
+                $and: [
+                    { $or: [{ title }, { slug }] },
+                    { isActive: true }
+                ]
+            }
+        )
+        .then(result => {
+            if (result) {
+                errors.category = 'Category already exist';
+                return res.status(400).json(errors);
+            }
+
+            Category
+                .findById(id)
+                .then(category => {
+                    if (!category) {
+                        errors.category = 'Cannot find category to edit.';
+                        return res.status(400).json(errors);
+                    }
+
+                    category.title = title;
+                    category.slug = slug;
+
+                    return category
+                        .save()
+                        .then(categoryUpdated => {
+                            const payload = {
+                                _id: categoryUpdated._id,
+                                title: categoryUpdated.title,
+                                slug: categoryUpdated.slug,
+                                parentId: categoryUpdated.parentId
+                            };
+
+                            return res.json(payload);
+                        })
+                })
+                .catch(err => res.status(400).json(err));
         })
         .catch(err => res.status(400).json(err));
 });

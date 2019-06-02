@@ -1,3 +1,5 @@
+let isEditting = false;
+
 const createCategory = (id, title) => (
     `
         <li class="list-item col-5 p-3 border mx-auto mb-3" id=${id}>
@@ -7,8 +9,8 @@ const createCategory = (id, title) => (
                     <button class="btn btn-white js-edit-input" type="button">
                         <i class="far fa-edit"></i>
                     </button>
-                    <button class="btn btn-white js-delete-input" type="button">
-                        <i class="far fa-trash-alt"></i>
+                    <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                        <i class="far fa-window-close"></i>
                     </button>
                 </div>
             </div>
@@ -31,15 +33,15 @@ const createCategory = (id, title) => (
 
 const createSubCategory = (id, title) => (
     `
-        <li class="list-group-item" id=${id}>
+        <li class="list-group-item">
             <div class="input-group">
                 <input type="text" class="form-control" value=${title} disabled>
                 <div class="input-group-append">
-                    <button class="btn btn-white js-edit-input" type="button">
+                    <button class="btn btn-white js-edit-input" type="button" id=${id}>
                         <i class="far fa-edit"></i>
                     </button>
-                    <button class="btn btn-white js-delete-input" type="button">
-                        <i class="far fa-trash-alt"></i>
+                    <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                        <i class="far fa-window-close"></i>
                     </button>
                 </div>
             </div>
@@ -59,8 +61,9 @@ const createCategoryList = (categoryList) => {
                         <button class="btn btn-white js-edit-input" type="button">
                         <i class="far fa-edit"></i>
                         </button>
-                        <button class="btn btn-white js-delete-input" type="button">
-                        <i class="far fa-trash-alt"></i> </button>
+                        <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                            <i class="far fa-window-close"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -88,20 +91,7 @@ const createCategoryList = (categoryList) => {
 const createSubCategoryList = (subCategoryList) => {
     let subCategories = '';
     for (let subCategory of subCategoryList) {
-        subCategories += `
-            <li class="list-group-item" id=${subCategory._id}>
-                <div class="input-group">
-                    <input type="text" class="form-control" value=${subCategory.title} disabled>
-                    <div class="input-group-append">
-                        <button class="btn btn-white js-edit-input" type="button">
-                        <i class="far fa-edit"></i>
-                        </button>
-                        <button class="btn btn-white js-delete-input" type="button">
-                        <i class="far fa-trash-alt"></i> </button>
-                    </div>
-                </div>
-            </li>
-        `
+        subCategories += createSubCategory(subCategory._id, subCategory.title);
     }
 
     return subCategories;
@@ -116,21 +106,61 @@ const createElement = str => {
 
 $(document).on('click', ".js-edit-input", function () {
     let inputTag = $(this).parent().parent().children('input');
+    let cancelBtn = $(this).parent().children('.js-cancel-input');
 
     if (inputTag.attr('disabled')) {
-        inputTag.removeAttr('disabled')
+        if (isEditting) {
+            return;
+        }
+
+        isEditting = true;
+
+        inputTag.removeAttr('disabled');
+        cancelBtn.css("display", "block");
+
         $(this).children().removeClass('far fa-edit');
         $(this).children().addClass('fas fa-check');
     } else {
-        inputTag.prop('disabled', 'true')
-        $(this).children().removeClass('fas fa-check');
-        $(this).children().addClass('far fa-edit');
+        const title = inputTag.val();
+        const id = $(this).attr('id');
+
+        postData('/api/category/update', { title, id })
+            .then(res => {
+                const statusCode = res.status;
+
+                switch (statusCode) {
+                    case 200:
+                        res.json().then(categoryUpdated => {
+                            isEditting = false;
+                            inputTag.prop('disabled', 'true');
+                            cancelBtn.css("display", "none");
+                            $(this).children().removeClass('fas fa-check');
+                            $(this).children().addClass('far fa-edit');
+                        })
+                        break;
+                    case 500:
+                        showErrorsModal($(this), 'Server Error. Please try again!');
+
+                    default:
+                        res.json().then(err => {
+                            const errMsg = err.title || err.category || 'Cannot edit category.';
+                            showErrorsModal($(this), errMsg); 
+                        })
+                        break;
+                }
+            })
     }
 });
 
-$(document).on('click', ".js-delete-input", function () {
-    let liTag = $(this).parent().parent().parent();
-    liTag.remove();
+$(document).on('click', ".js-cancel-input", function () {
+    let inputTag = $(this).parent().parent().children('input');
+    let editBtn = $(this).parent().children('.js-edit-input i');
+
+    isEditting = false;
+    inputTag.prop('disabled', 'true');
+    $(this).css("display", "none");
+    editBtn.removeClass('fas fa-check');
+    editBtn.addClass('far fa-edit');
 });
 
 $(document).on('click', '.js-add-category', function () {
@@ -162,7 +192,7 @@ $(document).on('click', '.js-add-category', function () {
                     break;
                 default:
                     res.json().then(err => {
-                        const errMsg = err.category || 'Cannot add subcategory.'
+                        const errMsg = err.title || err.category || 'Cannot add subcategory.'
                         showErrorsModal($(this), errMsg)
                     })
                     break;
@@ -204,7 +234,7 @@ $(document).on('click', '.js-add-subcategory', function () {
                     break;
                 default:
                     res.json().then(err => {
-                        const errMsg = err.category || 'Cannot add category.'
+                        const errMsg = err.title || err.category || 'Cannot add category.'
                         showErrorsModal($(this), errMsg)
                     })
                     break;
