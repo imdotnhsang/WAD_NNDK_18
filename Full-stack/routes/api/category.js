@@ -47,6 +47,13 @@ router.post('/create', (req, res) => {
     const errors = {};
     let { title, parentId } = req.body;
 
+    const accountAdmin = req.user;
+
+    if (!accountAdmin || accountAdmin.userType !== 'administrator') {
+        errors.category = 'Authorization has failed.';
+        return res.status(400).json(errors);
+    } 
+
     title = _.trim(title);
     let slug = title.replace(/ /g, '-').toLowerCase();
 
@@ -116,6 +123,13 @@ router.post('/update', (req, res) => {
     const errors = {};
     let { title, id } = req.body;
 
+    const accountAdmin = req.user;
+
+    if (!accountAdmin || accountAdmin.userType !== 'administrator') {
+        errors.category = 'Authorization has failed.';
+        return res.status(400).json(errors);
+    } 
+    
     title = _.trim(title);
     let slug = title.replace(/ /g, '-').toLowerCase();
 

@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('config');
+const fetch = require('node-fetch');
 
 const session = require('express-session');
 const passport = require('passport');
@@ -58,9 +59,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// locals
+const getCategoryList = require('./utils/getCategoryList');
+app.use((req, res, next) => {
+    getCategoryList()
+        .then(categoryList => {
+            res.locals.categoryList = categoryList;
+            next();
+        })
+});
+
 // routes
 const views = require('./routes/views');
-const api = require('./routes/api')
+const api = require('./routes/api');
 
 app.use('/', views);
 app.use('/api', api);
