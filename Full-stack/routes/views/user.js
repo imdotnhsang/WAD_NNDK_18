@@ -3,7 +3,8 @@ var router = express.Router();
 
 router.get('/home', function (req, res, next) {
     const account = req.user;
-
+    const categoryList = res.locals.categoryList;
+    console.log(categoryList);
     console.log('account', account);
     //Lấy 5 bài có views nhiều nhất trong tuần qua
     const fiveArticlesHot = [
@@ -95,7 +96,8 @@ router.get('/home', function (req, res, next) {
 
 router.get('/detail', function (req, res, next) {
     const account = req.user;
-
+    console.log(categoryList);
+    
     const articleDetail = {
         title: 'Apple Pay is coming to New York City’s MTA transit system this summer',
         tags: ['Apple Pay', 'Apple 2019', 'New York'],
