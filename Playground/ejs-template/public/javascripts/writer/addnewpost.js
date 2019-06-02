@@ -1,15 +1,22 @@
-CKEDITOR.replace('textarea_content');
-CKEDITOR.config.height = "500";
 
 $('#btn_publish').click(function (e) {
     e.preventDefault();
 
     var data = CKEDITOR.instances['textarea_content'].getData();
-    alert(data);
+    var imgList = document.querySelectorAll('.easyimage');
+    alert(imgList.length);
 });
 
+var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
 
-CKEDITOR.replace('textarea_content', {
+
+CKEDITOR.replace('editor', {
     "extraPlugins": 'imagebrowser',
-    "imageBrowser_listUrl": "/files"
+    "imageBrowser_listUrl": "/writer/files",
 });
+
+// CKEDITOR.config.filebrowserImageUploadUrl = '/api/writer/upload';
+CKEDITOR.config.height = "500";
+

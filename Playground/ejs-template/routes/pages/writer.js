@@ -1,30 +1,35 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var fs = require('fs')
 var path = require('path')
-var crypto = require('crypto');
 
-var storage = multer.diskStorage({
-    destination: 'public/imgages/writer',
-    filename: function (req, file, cb) {
-        crypto.pseudoRandomBytes(16, function (err, raw) {
-            if (err) return cb(err)
-            cb(null, Math.floor(Math.random() * 9000000000) + 1000000000 + path.extname(file.originalname))
-        })
-    }
-})
-var upload = multer({ storage: storage });
+// var multer  =   require('multer');
+var fs = require('fs')
+// var path = require('path')
+// var crypto = require('crypto');
+
+
+// var storage = multer.diskStorage({
+//     destination: 'images/writer',
+//     filename: function (req, file, cb) {
+//         crypto.pseudoRandomBytes(16, function (err, raw) {
+//             if (err) return cb(err)
+//             cb(null, Date.now() + file.originalname)
+//         })
+//     }
+// })
+// var upload = multer({ storage: storage });
 
 //show ckeditor to home
-router.get('/', function (req, res) {
-    var title = "Plugin Imagebrowser ckeditor for nodejs"
-    res.render('index', { result: 'result' })
-})
+// router.get('/', function (req, res) {
+//     var title = "Plugin Imagebrowser ckeditor for nodejs"
+//     res.render('index', { result: 'result' })
+// })
 
 router.get('/files', function (req, res) {
-    const images = fs.readdirSync('public/upload')
+    const pathImages = path.join(__dirname, '../../public/images/writer');
+    console.log(pathImages);
+    
+    const images = fs.readdirSync(pathImages);
     var sorted = []
     for (let item of images) {
         if (item.split('.').pop() === 'png'
@@ -32,7 +37,7 @@ router.get('/files', function (req, res) {
             || item.split('.').pop() === 'jpeg'
             || item.split('.').pop() === 'svg') {
             var abc = {
-                "image": "/upload/" + item,
+                "image": "/images/writer/" + item,
                 "folder": '/'
             }
             sorted.push(abc)
@@ -41,9 +46,9 @@ router.get('/files', function (req, res) {
     res.send(sorted);
 })
 
-router.post('/upload', upload.array('flFileUpload', 12), function (req, res, next) {
-    res.redirect('back')
-});
+// router.post('/upload', upload.array('flFileUpload', 12), function (req, res, next) {
+//     res.redirect('back')
+// });
 
 router.post('/delete_file', function (req, res, next) {
     var url_del = 'public' + req.body.url_del

@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 
+
 const { MONGO_URI } = process.env;
 
 mongoose
@@ -34,6 +35,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 const pages = require('./routes/pages');
 app.use('/', pages);
 
+//
+var multer  =   require('multer');
+var path = require('path')
+var crypto = require('crypto');
+
+const destAvatar = path.join(__dirname, 'public/images/writer/');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, destAvatar);
+  },
+  filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+var upload = multer({ storage: storage });
+
+app.post('/upload', upload.array('flFileUpload', 12), function (req, res, next) {
+  res.redirect('back')
+});
+
+// 
 const api = require('./routes/api')
 app.use('/api', api);
 
