@@ -364,7 +364,7 @@ router.post('/recovery-password', (req, res) => {
         })
 });
 
-router.get('/renew-premium', (req, res) => {
+router.post('/renew-premium', (req, res) => {
     const errors = {};
 
     const {
