@@ -277,5 +277,4 @@ router.get('/logout', function (req, res, next) {
     req.logOut();
     res.redirect('/home');
 });  
-
 module.exports = router;
