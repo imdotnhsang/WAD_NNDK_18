@@ -16,115 +16,31 @@
                <div class="blank">
 
                </div>
+               <% var val=1 %>
                <div class="list-child-nav-links">
-                  <li class="child-nav-links" value=1 checkOpen="false">
-                     <a
-                        class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0">tech&nbsp;&nbsp;<i
+                  <% categoryList.forEach(function(eachCategory){%>
+                  <li class="child-nav-links" value='<%= val++ %>' checkOpen="false">
+                     <% if(eachCategory.subCategories.length !== 0){ %>
+                     <a class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0"><%= eachCategory.title %>&nbsp;&nbsp;<i
                            class="fa fa-caret-down"></i></a>
                      <ul class="dropdown-menu-custom p-0">
+                        <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
                         <li>
                            <a class="d-flex justify-content-between align-content-center align-items-center"
-                              href="category">Apple</i></a>
+                              href="category"><%= eachSubCategory.title %></i></a>
                         </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center"
-                              href="category">Samsung</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center"
-                              href="category">Google</a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center"
-                              href="category">Microsoft</a>
-                        </li>
+                        <% }) %>
                         <li>
                            <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
-                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Techs</a>
+                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All <%= eachCategory.title %>s </a>
                         </li>
                      </ul>
-                  </li>
-                  <li class="child-nav-links" value=2 checkOpen="false">
+                     <% }else{ %>
                      <a
-                        class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0">reviews&nbsp;&nbsp;<i
-                           class="fa fa-caret-down"></i></a>
-                     <ul class="dropdown-menu-custom p-0">
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Phones</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Laptops</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Tablets</a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Accessories</a>
-                        </li>
-                        <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
-                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Reviews</a>
-                        </li>
-                     </ul>
+                        class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0"><%= eachCategory.title %>&nbsp;&nbsp;</i></a>
+                     <% } %>
                   </li>
-                  <li class="child-nav-links" value=3 checkOpen="false">
-                     <a
-                        class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0">science&nbsp;&nbsp;<i
-                           class="fa fa-caret-down"></i></a>
-                     <ul class="dropdown-menu-custom p-0">
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Space</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Energy</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Environment</a>
-                        </li>
-                        <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
-                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Sciences</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li class="child-nav-links" value=4 checkOpen="false">
-                     <a
-                        class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0">creators&nbsp;&nbsp;<i
-                           class="fa fa-caret-down"></i></a>
-                     <ul class="dropdown-menu-custom p-0">
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center"
-                              href="category">Instagram</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Youtube</i></a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Adobe</a>
-                        </li>
-                        <li>
-                           <a class="d-flex justify-content-between align-content-center align-items-center "
-                              href="category">Photography</a>
-                        </li>
-                        <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
-                                 class="fa fa-asterisk"></i>&nbsp;&nbsp;All Creators</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li class="child-nav-links" value=5 checkOpen="false">
-                     <a class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0"
-                        href="category">features</i></a>
-                  </li>
+                  <%})%>
                </div>
             </div>
             <div class="control-nav d-flex align-items-center">
@@ -134,13 +50,13 @@
                </div>
 
                <% if(account){ %>
-                  <% if(account.avatar == undefined){ %>
-                     <div class="sign" id="btn-open-informationUser" checkOpen="false"> <img class=""
-                        src="/images/avatars/none.jpg" alt=""></div>
-                  <% }else{ %>
-                     <div class="sign img-avatar" id="btn-open-informationUser" checkOpen="false"><img class=""
-                           src="<%= account.avatar %>" alt=""></div>
-                  <%}%>
+               <% if(account.avatar == undefined){ %>
+               <div class="sign" id="btn-open-informationUser" checkOpen="false"> <img class=""
+                     src="/images/avatars/none.jpg" alt=""></div>
+               <% }else{ %>
+               <div class="sign img-avatar" id="btn-open-informationUser" checkOpen="false"><img class=""
+                     src="<%= account.avatar %>" alt=""></div>
+               <%}%>
                <% }else{ %>
                <div class="sign" id="btn-open-informationUser" checkOpen="false"> <a href="/auth"><img class=""
                         src="/images/icons/auth.png" alt=""></a></div>
@@ -153,150 +69,150 @@
          <% if(account.expiredAt > Date.now()) { %>
          <div class="information-user">
             <div class="control-information-user m-0 row">
-                  <% if(account.avatar == undefined){ %>
-                     <div class="avatar-user img-avatar"><img src="/images/avatars/none.jpg" alt=""></div>
+               <% if(account.avatar == undefined){ %>
+               <div class="avatar-user img-avatar"><img src="/images/avatars/none.jpg" alt=""></div>
                <% }else{ %>
-                  <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
-                  <%}%>
+               <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
+               <%}%>
                <div class="status-user">
                   <p class="full-name font-weight-bold m-0"><%= account.fullname %></p>
-                  <span class="badge badge-custom-premium">Premium</span>
-               </div>
-               <div class="control w-100 row">
-                  <a href="information">Account</a>
-                  <a href="/logout" id="log-out">Log Out</a>
-               </div>
-               <div class="top-5-recent-news">
-                  <div class="title text-uppercase">top 5 recently news</div>
-                  <div class="list-5-recent-news">
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent1.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Apple’s latest iPad Pros are cheaper than ever at Amazon
-                                 and Best Buy</p>
-                           </div>
+               <span class="badge badge-custom-premium">Premium</span>
+            </div>
+            <div class="control w-100 row">
+               <a href="information">Account</a>
+               <a href="/logout" id="log-out">Log Out</a>
+            </div>
+            <div class="top-5-recent-news">
+               <div class="title text-uppercase">top 5 recently news</div>
+               <div class="list-5-recent-news">
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent1.jpg" alt="">
                         </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent2.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Microsoft unveils disc-less Xbox One S All-Digital
-                                 Edition for $249</p>
-                           </div>
+                        <div class="title-news">
+                           <p class="m-0">Apple’s latest iPad Pros are cheaper than ever at Amazon
+                              and Best Buy</p>
                         </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent3.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Apple adds extra step to App Store subscriptions to
-                                 prevent scams and accidental purchases</p>
-                           </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent2.jpg" alt="">
                         </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent4.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Fujifilm X-T30 review: a little wonder of a camera</p>
-                           </div>
+                        <div class="title-news">
+                           <p class="m-0">Microsoft unveils disc-less Xbox One S All-Digital
+                              Edition for $249</p>
                         </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent5.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Kinetic sculptures and sound circuits: building
-                                 solar-powered art at Pioneer Works</p>
-                           </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent3.jpg" alt="">
                         </div>
-                     </a>
-                  </div>
+                        <div class="title-news">
+                           <p class="m-0">Apple adds extra step to App Store subscriptions to
+                              prevent scams and accidental purchases</p>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent4.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Fujifilm X-T30 review: a little wonder of a camera</p>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent5.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Kinetic sculptures and sound circuits: building
+                              solar-powered art at Pioneer Works</p>
+                        </div>
+                     </div>
+                  </a>
                </div>
             </div>
-            <div class="top-5-product-seen"></div>
          </div>
-         <% } else { %>
-         <div class="information-user">
-            <div class="control-information-user m-0 row">
-               <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
-               <div class="status-user">
-                  <p class="full-name font-weight-bold m-0">Leo Nguyen</p>
-                  <span class="badge badge-custom-free">Free</span>
-               </div>
-
-               <div class="control w-100 row">
-                  <a href="information">Account</a>
-                  <a href="/auth/logout" id="log-out">Log Out</a>
-               </div>
-               <div class="top-5-recent-news">
-                  <div class="title text-uppercase">top 5 recently news</div>
-                  <div class="list-5-recent-news">
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent1.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Apple’s latest iPad Pros are cheaper than ever at Amazon
-                                 and Best Buy</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent2.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Microsoft unveils disc-less Xbox One S All-Digital
-                                 Edition for $249</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent3.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Apple adds extra step to App Store subscriptions to
-                                 prevent scams and accidental purchases</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent4.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Fujifilm X-T30 review: a little wonder of a camera</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="detail" class="recent-news">
-                        <div class="d-flex m-0 backgorund-recent-news">
-                           <div class="avatar-news"><img src="/images/products/recent5.jpg" alt="">
-                           </div>
-                           <div class="title-news">
-                              <p class="m-0">Kinetic sculptures and sound circuits: building
-                                 solar-powered art at Pioneer Works</p>
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
-            </div>
-            <div class="top-5-product-seen"></div>
-         </div>
-         <% } %>
-         <% } %>
+         <div class="top-5-product-seen"></div>
       </div>
-      <div class="col-xl-2 col-0 p-0 m-0 blank-col-nav"></div>
+      <% } else { %>
+      <div class="information-user">
+         <div class="control-information-user m-0 row">
+            <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
+            <div class="status-user">
+               <p class="full-name font-weight-bold m-0">Leo Nguyen</p>
+               <span class="badge badge-custom-free">Free</span>
+            </div>
+
+            <div class="control w-100 row">
+               <a href="information">Account</a>
+               <a href="/auth/logout" id="log-out">Log Out</a>
+            </div>
+            <div class="top-5-recent-news">
+               <div class="title text-uppercase">top 5 recently news</div>
+               <div class="list-5-recent-news">
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent1.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Apple’s latest iPad Pros are cheaper than ever at Amazon
+                              and Best Buy</p>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent2.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Microsoft unveils disc-less Xbox One S All-Digital
+                              Edition for $249</p>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent3.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Apple adds extra step to App Store subscriptions to
+                              prevent scams and accidental purchases</p>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent4.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Fujifilm X-T30 review: a little wonder of a camera</p>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="detail" class="recent-news">
+                     <div class="d-flex m-0 backgorund-recent-news">
+                        <div class="avatar-news"><img src="/images/products/recent5.jpg" alt="">
+                        </div>
+                        <div class="title-news">
+                           <p class="m-0">Kinetic sculptures and sound circuits: building
+                              solar-powered art at Pioneer Works</p>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="top-5-product-seen"></div>
+      </div>
+      <% } %>
+      <% } %>
+   </div>
+   <div class="col-xl-2 col-0 p-0 m-0 blank-col-nav"></div>
    </div>
 </nav>
 <br>
