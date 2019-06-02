@@ -3,8 +3,13 @@
     </div>
     <div class="main-container-information row m-0 col-xl-8 col-12 p-0">
         <ul id="clothing-nav" class="nav nav-tabs col-md-3 p-0" role="tablist">
+            <% if(account.avatar == undefined){ %>
             <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
+                    src="/images/avatars/none.jpg" alt=""></div>
+            <% }else{ %>
+                <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
                     src="<%= account.avatar %>" alt=""></div>
+            <% } %>
             <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link active d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#home" id="home-tab"
                     role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i
@@ -44,23 +49,23 @@
                             <div class="content-profile">
                                 <div class="full-name">
                                     <label class="m-0">Name</label>
-                                    <p class="content-name"><%= account.fullname %></p>
+                                    <p id="fullname_account" class="content-name"><%= account.fullname %></p>
                                 </div>
                                 <div class="email">
                                     <label class="m-0">Email</label>
-                                    <p class="content-email"><%= account.email %></p>
+                                    <p class="content-email" id="renew__subscriber-email"><%= account.email %></p>
                                 </div>
-                                <script>console.log('<%= account.gender %>')</script>
                                 <div class="gender">
                                     <label class="m-0">Gender</label>
                                     <% if(isNaN(account.gender)){ %>
                                     <p class="content-gender">&nbsp; </p>
                                     <% } else { %>
-                                    <p id="gend_acccount" class="content-gender"><%= account.gender %></p>
+                                    <p id="gend_acccount" class="content-gender">
+                                        <%- account.gender ? 'Female' : 'Male' %></p>
                                     <% } %>
                                 </div>
-                                <script>console.log(isNaN('<%= account.birthday %>'));</script>
-                                <div class="gender">
+
+                                <div class="birthday-temp">
                                     <label class="m-0">Date of birth</label>
                                     <% if(isNaN(account.birthday)){ %>
                                     <p class="content-dob"> &nbsp;</p>
@@ -102,7 +107,8 @@
                             </div>
                             <br>
                             <div class="text-center">
-                                <div class="btn text-uppercase btn-subscribe-premium">subscribe</div>
+                                <div class="btn text-uppercase btn-subscribe-premium" id="renew__subscriber-btn">
+                                    subscribe</div>
                             </div>
                         </div>
                         <% } %>
@@ -118,7 +124,11 @@
                 <form class="p-4">
                     <div class="form-group">
                         <div class="img-avatar d-flex justify-content-center">
-                            <img id="profile-avatar" src="<%= account.avatar %>" alt="">
+                                <% if(account.avatar == undefined){ %>
+                            <img id="profile-avatar" src="/images/avatars/none.jpg" alt="">
+                            <% }else{ %>
+                                <img id="profile-avatar" src="<%= account.avatar %>" alt="">
+                            <% } %>
                             <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
                             <input type="file" id="pic-avatar" name="pic" accept="image/*">
                         </div>
@@ -133,17 +143,17 @@
                         <label for="gender" class="m-0">Gender</label>
                         <select class="custom-select select-gender" id="updateInf__gender" name="gender">
                             <% if(isNaN(account.gender)){ %>
-                                <option selected value="0">Choose your gender</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                                <% }else{ %>
-                                    <% if(account.gender == false){ %>
-                                        <option selected value="1">Male</option>
-                                        <option value="2">Female</option>
-                                    <% }else{ %>
-                                        <option value="1">Male</option>
-                                        <option selected value="2">Female</option>
-                                <% } %>
+                            <option selected value="2">Choose your gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                            <% }else{ %>
+                            <% if(account.gender == false){ %>
+                            <option selected value="0">Male</option>
+                            <option value="1">Female</option>
+                            <% }else{ %>
+                            <option value="0">Male</option>
+                            <option selected value="1">Female</option>
+                            <% } %>
                             <% } %>
                         </select>
                         <span class="field-validation-error" id="editprofile__gender-errmsg"></span>
@@ -180,8 +190,8 @@
                         <div class="changeAvatar__modal_header d-flex justify-content-end">
                             <div class="btn text-dark" id="btn_changeAvatar_fail"><i class="fa fa-close"></i></div>
                         </div>
-                        <div class="img_change pl-4 pr-4 pt-0 pb-0 d-flex align-items-center">
-                            <img class="w-100" id="avatar-change" src="<%= account.avatar %>" alt="">
+                        <div class="img_change pl-4 pr-4 pt-4 pb-4 d-flex align-items-center">
+                            <img class="w-100 h-100" id="avatar-change" src="<%= account.avatar %>" alt="">
                         </div>
                         <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
                             <div class="btn btn btn-success d-flex justify-content-center"
@@ -257,38 +267,36 @@
 </div>
 <br>
 
-<div class="modal fade changePwd__modal" id="changePwd__modal" tabindex="-1" role="dialog"
-    aria-labelledby="changePwd__modalLabel" aria-hidden="true">
+<div class="modal fade information-success__modal" id="information-success__modal" tabindex="-1" role="dialog"
+    aria-labelledby="information-success__modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header pt-2 pb-2 pl-3 pr-3">
-                <h4 class="modal-title modal-title-custom" id="changePwd__modalLabel">Warning</h4>
+                <h4 class="modal-title modal-title-custom" id="information-success__modalLabel">Congratulations</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
-                Are you sure passwords were true?<br>I think you should check that again 😉😉😉
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3" id="information-success__modalContent">
             </div>
             <div class="modal-footer modal-footer-custom p-2">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">OKAY</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade changeInf__modal" id="changeInf__modal" tabindex="-1" role="dialog"
-    aria-labelledby="changeInf__modalLabel" aria-hidden="true">
+<div class="modal fade information-errors__modal" id="information-errors__modal" tabindex="-1" role="dialog"
+    aria-labelledby="information-errors__modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header pt-2 pb-2 pl-3 pr-3">
-                <h4 class="modal-title modal-title-custom" id="changeInf__modalLabel">Warning</h4>
+                <h4 class="modal-title modal-title-custom" id="information-errors__modalLabel">Warning</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3">
-                Are you sure your information was true?<br>I think you should check that again 😉😉😉
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3" id="information-errors__modalContent">
             </div>
             <div class="modal-footer modal-footer-custom p-2">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

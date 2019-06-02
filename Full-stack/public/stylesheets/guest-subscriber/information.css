@@ -280,7 +280,11 @@ span.field-validation-error {
     font-size: 10pt;
     clear: both;
 }
-
+.alert-custom{
+    position: absolute!important;
+    right: 8px;
+    top: 100px;
+}
 @media screen and (max-width: 767px) {
     .container-information .blank-row {
         padding: 7px;

@@ -189,45 +189,6 @@ $("#pic-avatar").change(function () {
 $("#btn_changeAvatar_fail").click(function () {
     $('#changeAvatar__modal-background').css('display', 'none');
 });
-$("#btn_changeAvatar_success").click(function (e) {
-    e.preventDefault();
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        $('#profile-avatar').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(image_change);
-    
-    const email = $('#updateInf__email').val();
-    const formData = new FormData();
-    
-    formData.append('avatar', image_change);
-    formData.append('email', email);
-
-    fetch(
-        '/api/user/upload-avatar', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(res => {
-            const statusCode = res.status;
-
-            switch (statusCode) {
-                case 200:
-                    console.log('success');
-
-                    break;
-
-                default:
-                    console.log('fail');
-
-                    break;
-            }
-        })
-
-    $('#changeAvatar__modal-background').css('display', 'none');
-});
-
-
 
 //check validate search bar
 $('#searchBar__btn').click(function (e) {
@@ -296,43 +257,6 @@ const updateEditProfileErrors = (errors) => {
     $('#editprofile__bod-errmsg').text(errors.birthOfday);
 };
 
-$('#updateInf__btn').click(function (e) {
-    e.preventDefault();
-
-    let errors = { fullname: '', gender: '', birthOfday: '' };
-
-    let gender = $('#updateInf__gender').val(),
-        birthOfday = $('#updateInf__bod').val(),
-        fullname = $('#updateInf__fullname').val();
-
-    if (fullname.length < 6 && fullname.length <= 23) {
-        errors.fullname = 'Fullname must be between 6 and 23 characters long.'
-    }
-
-    if (gender == 0) {
-        errors.gender = 'You must choose a gender.'
-    }
-
-    if (new Date(birthOfday).getTime() < 0) {
-        errors.birthOfday = "You must choose your birthday."
-    }
-    errors = {
-        ...errors,
-        ...validateIsEmpty(
-            { fullname, gender, birthOfday },
-            ['fullname', 'gender', 'birthOfday']
-        )
-    };
-
-    const isInvalid = errors.fullname || errors.gender || errors.birthOfday;
-    if (isInvalid) {
-        updateEditProfileErrors(errors);
-    } else {
-        clearEditProfileErrors();
-        console.log(fullname, gender, birthOfday);
-    }
-});
-
 const clearEditProfileErrors = () => {
     let errors = { fullname: '', gender: '', birthOfday: '' };
     updateEditProfileErrors(errors);
@@ -349,44 +273,6 @@ const clearChangePasswordErrors = () => {
     let errors = { oldPassword: '', newPassword: '', retypePassword: '' };
     updateChangePasswordErrors(errors);
 };
-
-$('#updatePwd__btn').click(function (e) {
-    e.preventDefault();
-    let errors = { oldPassword: '', newPassword: '', retypePassword: '' };
-
-    let oldPassword = $('#updatePwd__pwdOld').val(),
-        newPassword = $('#updatePwd__pwdNew').val(),
-        retypePassword = $('#updatePwd__pwdNewRe').val();
-
-    if (!validatePassword(oldPassword)) {
-        errors.oldPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
-    }
-
-    if (!validatePassword(newPassword)) {
-        errors.newPassword = 'Password must contain at least 8 characters including uppercase, lowercase and numbers.'
-    }
-if(newPassword === oldPassword){
-    errors.newPassword="New password must be different from old password."
-}
-    if (retypePassword !== newPassword) {
-        errors.retypePassword = 'Retype password must be correct.'
-    }
-
-    errors = {
-        ...errors,
-        ...validateIsEmpty(
-            { oldPassword, newPassword, retypePassword },
-            ['oldPassword', 'newPassword', 'retypePassword']
-        )
-    };
-    const isInvalid = errors.oldPassword || errors.newPassword || errors.retypePassword;
-    if (isInvalid) {
-        updateChangePasswordErrors(errors);
-    } else {
-        clearChangePasswordErrors();
-        console.log(newPassword)
-    }
-});
 
 $('#updatePwd__btnCancel').click(function (e) {
     document.getElementById('updatePwd__pwdOld').value = '';
@@ -473,7 +359,7 @@ function formatDateTypeBOD(msDate) {
 }
 
 function formatGender(gender) {
-    if (gender = "false") {
+    if (gender == false) {
         return "Male";
     }
     return "Female";
