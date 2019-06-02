@@ -18,7 +18,7 @@ const createCategory = (id, title) => (
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Add new subcategory" aria-label="Add new category" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-white js-add-subcategory" type="button">
+                            <button class="btn btn-white js-add-subcategory" type="button" parentId=${id}>
                                 <i class="material-icons">add</i>
                             </button>
                         </div>
@@ -36,10 +36,11 @@ const createSubCategory = (id, title) => (
                 <input type="text" class="form-control" value=${title} disabled>
                 <div class="input-group-append">
                     <button class="btn btn-white js-edit-input" type="button">
-                    <i class="far fa-edit"></i>
+                        <i class="far fa-edit"></i>
                     </button>
                     <button class="btn btn-white js-delete-input" type="button">
-                    <i class="far fa-trash-alt"></i> </button>
+                        <i class="far fa-trash-alt"></i>
+                    </button>
                 </div>
             </div>
         </li>
@@ -70,7 +71,7 @@ const createCategoryList = (categoryList) => {
                         <input type="text" class="form-control" placeholder="Add new subcategory" aria-label="Add new category"
                             aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-white js-add-subcategory" type="button">
+                            <button class="btn btn-white js-add-subcategory" type="button" parentId=${category._id}>
                                 <i class="material-icons">add</i>
                             </button>
                         </div>
@@ -140,47 +141,75 @@ $(document).on('click', '.js-add-category', function () {
         return;
     }
 
+    postData('/api/category/create', {
+            title: valInput
+        })
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    res.json().then(category => {
+                        console.log(category);
+
+                        ulCate.html(ulCate.html() + createCategory(category._id, category.title));
+                        $('#js-add-category__input').val('');
+                    });
+                    break;
+
+                case 500:
+                    showErrorsModal($(this), 'Server Error. Please try again!');
+                    break;
+                default:
+                    res.json().then(err => {
+                        const errMsg = err.category || 'Cannot add subcategory.'
+                        showErrorsModal($(this), errMsg)
+                    })
+                    break;
+            }
+        })
 });
 
 $(document).on('click', '.js-add-subcategory', function () {
     let inputElmAddSubcategory = $(this).parent().parent().children('input');
     const valInput = inputElmAddSubcategory.val().trim();
 
-    if (valInput.length) {
-        const title = valInput;
-        const parentId = $(this).parent().parent().parent().parent().attr('id');
-
-        // postData('/api/category/create', { title, parentId })
-        //     .then(res => {
-        //         const statusCode = res.status;
-
-        //         switch (statusCode) {
-        //             case 200:
-        //                 let subcategories = $(this).parent().parent().parent();
-
-        //                 let newSubcategory = createElement(emptySubcategoryHTML);
-        //                 newSubcategory.getElementsByClassName('form-control')[0].value = valInput;
-
-        //                 subcategories.before(newSubcategory);
-
-        //                 inputElmAddSubcategory.val('');
-        //                 break;
-
-        //             case 500:
-        //                 showErrorsModal($(this), 'Server Error. Please try again!')
-        //                 break;
-        //             default:
-        //                     showErrorsModal($(this), 'Fail to add subcategory.')
-
-        //                 break;
-        //         }
-        //    })
-
-
-    } else {
-        // Notice: must be enter valid subcategory name
-
+    if (valInput.length === 0) {
+        return;
     }
+
+    const title = valInput;
+    const parentId = $(this).attr('parentId');
+
+    postData('/api/category/create', {
+            title,
+            parentId
+        })
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    res.json()
+                        .then(subCategory => {
+                            let subcategories = $(this).parent().parent().parent();
+                            subcategories.before(createSubCategory(subCategory._id, subCategory.title));
+
+                            inputElmAddSubcategory.val('');
+                        });
+                    break;
+
+                case 500:
+                    showErrorsModal($(this), 'Server Error. Please try again!')
+                    break;
+                default:
+                    res.json().then(err => {
+                        const errMsg = err.category || 'Cannot add category.'
+                        showErrorsModal($(this), errMsg)
+                    })
+                    break;
+            }
+        })
 });
 
 $(document).ready(function () {
@@ -193,13 +222,6 @@ $(document).ready(function () {
                     res.json()
                         .then(data => {
                             categoryList = data;
-                            console.log(categoryList);
-                            // let htmlCate = '';
-
-                            // for (let category of categoryList) {
-                            //     htmlCate += createCategory(category._id, category.title);
-                            // }
-
                             $('#js-categories-ul').html(createCategoryList(categoryList));
                         })
                     break;
