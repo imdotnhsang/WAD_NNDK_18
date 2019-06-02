@@ -4,7 +4,6 @@ const path = require('path');
 // 3rd packages
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
@@ -41,8 +40,6 @@ app.use('/', pages);
 
 //
 var multer  =   require('multer');
-var path = require('path')
-var crypto = require('crypto');
 
 const destAvatar = path.join(__dirname, 'public/images/writer/');
 

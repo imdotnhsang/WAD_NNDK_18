@@ -89,3 +89,21 @@
   .img-avatar #pic-avatar {
 	display: none;
   }
+
+  .cate{
+	  max-height: 200px;
+	  overflow-x: hidden;
+	  overflow-y: auto;
+  }
+
+  ul li {
+	  list-style: none;
+	  
+  }
+
+  ul li ul {
+	  padding-left: 25px;
+  }
+  .radiobutton{
+	  padding-left: 40px;
+  }

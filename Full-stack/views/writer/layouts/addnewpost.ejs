@@ -1,82 +1,92 @@
-<div class="col-lg-9 col-md-12">
-    <!-- Add New Post Form -->
-    <div class="card card-small mb-3">
-        <div class="card-body">
-            <form class="add-new-post">
+<form class="add-new-post row m-0">
+    <div class="col-lg-9 col-md-12">
+        <!-- Add New Post Form -->
+        <div class="card card-small mb-3">
+            <div class="card-body">
+                <!-- <form class="add-new-post"> -->
                 <input class="form-control form-control-lg mb-3" id="title" type="text" placeholder="Your Post Title">
                 <div class="comsume_content">
-                    <textarea class="form-control form-control-lg mb-3" id="summary" rows="3" cols="106"
+                    <textarea id="sumarry" class="form-control form-control-lg mb-3" rows="3" cols="106"
                         placeholder="Summary of your article here"></textarea>
                 </div>
                 <div class="post_editor_content">
-                    <textarea name="editor" id="editor" rows="30" cols=106></textarea>
+                    <textarea id="editor" name="editor" rows="3" cols=106></textarea>
                 </div>
-            </form>
+                <!-- </form> -->
+            </div>
         </div>
+        <!-- / Add New Post Form -->
     </div>
-    <!-- / Add New Post Form -->
-</div>
-<div class="col-lg-3 col-md-12">
-    <!-- Post Overview -->
-    <div class='card card-small mb-3'>
-        <div class="card-header border-bottom">
-            <h6 class="m-0">Tags</h6>
-        </div>
-        <div class='card-body p-0'>
-            <ul class="list-group list-group-flush">
+    <div class="col-lg-3 col-md-12 m-0">
+        <!-- Post Overview -->
+        <div class='card card-small mb-3'>
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Tags</h6>
+            </div>
+            <div class='card-body p-0'>
+                <ul class="list-group list-group-flush">
 
-                <li class="list-group-item d-flex px-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Add tag">
-                        <div class="input-group-append">
-                            <button class="btn btn-white px-2" type="button">
-                                <i class="material-icons">add</i>
-                            </button>
+                    <li class="list-group-item d-flex px-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Add tag">
+                            <div class="input-group-append">
+                                <button class="btn btn-white px-2" type="button">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
-            </ul>
+                </ul>
+            </div>
         </div>
+        <!-- / Post Overview -->
+        <!-- Post Overview -->
+        <div class='card card-small mb-3'>
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Categories</h6>
+            </div>
+            <div class='card-body p-0'>
+                <ul class="list-group list-group-flush cate">
+                    <% categoryList.forEach(function(eachCategory){%>
+                    <li class="list-group-item px-3 pb-2">
+                        <% if(eachCategory.subCategories.length !== 0){ %>
+                        <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category1">
+                            <label class="custom-control-label" for="category1"><%= eachCategory.title %></label>
+                        </div>
+                        <ul>
+                            <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
+                            <li>
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="category1">
+                                    <label class="custom-control-label" for="category1"><%= eachSubCategory.title %></label>
+                                </div>
+                                
+                            </li>
+                            <% }) %>
+                            
+                        </ul>
+                        <% }else{ %>
+                            <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="category1">
+                                    <label class="custom-control-label" for="category1"><%= eachCategory.title %></label>
+                                </div>
+                        <% } %>
+                    </li>
+                    <%})%>
+                </ul>
+
+                <ulclass="list-group list-group-flush>
+                    <li class="list-group-item d-flex px-3">
+                        <button class="btn btn-sm btn-outline-accent">
+                            <i class="material-icons">save</i>Save Draft</button>
+                        <button type="submit" id="btn_publish" class="btn btn-sm btn-accent ml-auto">
+                            <i class="material-icons">file_copy</i>Publish</button>
+                    </li>
+                    </ul>
+            </div>
+        </div>
+        <!-- / Post Overview -->
     </div>
-    <!-- / Post Overview -->
-    <!-- Post Overview -->
-    <div class='card card-small mb-3'>
-        <div class="card-header border-bottom">
-            <h6 class="m-0">Categories</h6>
-        </div>
-        <div class='card-body p-0'>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item px-3 pb-2">
-                    <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category1" checked>
-                        <label class="custom-control-label" for="category1">Tech</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category2">
-                        <label class="custom-control-label" for="category2">Review</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category3">
-                        <label class="custom-control-label" for="category3">Science</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category4">
-                        <label class="custom-control-label" for="category4">Creator</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category5">
-                        <label class="custom-control-label" for="category5">Features</label>
-                    </div>
-                </li>
-                <li class="list-group-item d-flex px-3">
-                    <button class="btn btn-sm btn-outline-accent">
-                        <i class="material-icons">save</i> Save Draft</button>
-                    <button class="btn btn-sm btn-accent ml-auto" id="btn_publish">
-                        <i class="material-icons">file_copy</i> Publish</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- / Post Overview -->
-</div>
+</form>

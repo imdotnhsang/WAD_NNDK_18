@@ -7,6 +7,12 @@ $('#btn_publish').click(function (e) {
     alert(data);
 });
 
+$("#radioP1_C1").change(function(){
+  $(this).attr('checked','true');
+  var p = '#'+ $(this).attr("nameParent");
+  $(p).attr('checked','true');
+})
+
 var quill = new Quill('#editor', {
     theme: 'snow'
   });
