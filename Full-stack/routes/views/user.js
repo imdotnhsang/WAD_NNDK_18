@@ -4,8 +4,7 @@ var router = express.Router();
 router.get('/home', function (req, res, next) {
     const account = req.user;
     const categoryList = res.locals.categoryList;
-    console.log(categoryList);
-    console.log('account', account);
+
     //Lấy 5 bài có views nhiều nhất trong tuần qua
     const fiveArticlesHot = [
         {
@@ -17,25 +16,25 @@ router.get('/home', function (req, res, next) {
         {
             title: 'Samsung delays Galaxy Fold indefinitely:‘We will take measures to strengthen the display’',
             categoryName: 'Samsung',
-             publishDate: 1558810668776, 
-             coverImage: ''
-        },
-        {
-            title: 'Nvidia’s new GTX 1660 Ti and 1650 could power your next budget gaming laptop', 
-            categoryName: 'Tech', 
-            publishDate: 1558802053334, 
+            publishDate: 1558810668776,
             coverImage: ''
         },
         {
-            title: 'How to organize your Google Photos collection', 
-            categoryName: 'Google', 
-            publishDate: 1558810668776,
-             coverImage: ''
+            title: 'Nvidia’s new GTX 1660 Ti and 1650 could power your next budget gaming laptop',
+            categoryName: 'Tech',
+            publishDate: 1558802053334,
+            coverImage: ''
         },
         {
-            title: 'Avengers: Endgame — our spoiler-free review', 
-            categoryName: 'Review', 
-            publishDate: 1558802053334, 
+            title: 'How to organize your Google Photos collection',
+            categoryName: 'Google',
+            publishDate: 1558810668776,
+            coverImage: ''
+        },
+        {
+            title: 'Avengers: Endgame — our spoiler-free review',
+            categoryName: 'Review',
+            publishDate: 1558802053334,
             coverImage: ''
         }
     ];
@@ -96,8 +95,7 @@ router.get('/home', function (req, res, next) {
 
 router.get('/detail', function (req, res, next) {
     const account = req.user;
-    console.log(categoryList);
-    
+
     const articleDetail = {
         title: 'Apple Pay is coming to New York City’s MTA transit system this summer',
         tags: ['Apple Pay', 'Apple 2019', 'New York'],
@@ -226,7 +224,7 @@ router.get('/information', function (req, res, next) {
     const account = req.user;
 
     console.log(account);
-    
+
     if (account) {
         res.render(
             'user',
@@ -272,9 +270,10 @@ router.get('/search', function (req, res, next) {
         }
     );
 });
- 
+
 router.get('/logout', function (req, res, next) {
     req.logOut();
     res.redirect('/home');
-});  
+});
+
 module.exports = router;

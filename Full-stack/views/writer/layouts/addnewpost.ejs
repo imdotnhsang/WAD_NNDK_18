@@ -3,13 +3,13 @@
     <div class="card card-small mb-3">
         <div class="card-body">
             <form class="add-new-post">
-                <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title">
+                <input class="form-control form-control-lg mb-3" id="title" type="text" placeholder="Your Post Title">
                 <div class="comsume_content">
-                    <textarea class="form-control form-control-lg mb-3" rows="3" cols="106"
+                    <textarea class="form-control form-control-lg mb-3" id="summary" rows="3" cols="106"
                         placeholder="Summary of your article here"></textarea>
                 </div>
                 <div class="post_editor_content">
-                    <textarea name="textarea_content" rows="30" cols=106></textarea>
+                    <textarea name="editor" id="editor" rows="30" cols=106></textarea>
                 </div>
             </form>
         </div>
@@ -72,7 +72,7 @@
                 <li class="list-group-item d-flex px-3">
                     <button class="btn btn-sm btn-outline-accent">
                         <i class="material-icons">save</i> Save Draft</button>
-                    <button class="btn btn-sm btn-accent ml-auto">
+                    <button class="btn btn-sm btn-accent ml-auto" id="btn_publish">
                         <i class="material-icons">file_copy</i> Publish</button>
                 </li>
             </ul>

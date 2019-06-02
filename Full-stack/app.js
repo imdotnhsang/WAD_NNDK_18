@@ -75,6 +75,27 @@ app.use((req, res, next) => {
 const views = require('./routes/views');
 const api = require('./routes/api');
 
+//
+var multer  =   require('multer');
+
+var crypto = require('crypto');
+
+const destAvatar = path.join(__dirname, 'public/images/writer/');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, destAvatar);
+  },
+  filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+var upload = multer({ storage: storage });
+
+app.post('/upload', upload.array('flFileUpload', 12), function (req, res, next) {
+  res.redirect('back')
+});
+
 app.use('/', views);
 app.use('/api', api);
 
