@@ -3,8 +3,13 @@
     </div>
     <div class="main-container-information row m-0 col-xl-8 col-12 p-0">
         <ul id="clothing-nav" class="nav nav-tabs col-md-3 p-0" role="tablist">
+            <% if(account.avatar == undefined){ %>
             <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
+                    src="/images/avatars/none.jpg" alt=""></div>
+            <% }else{ %>
+                <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
                     src="<%= account.avatar %>" alt=""></div>
+            <% } %>
             <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
                 <a class="nav-link active d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#home" id="home-tab"
                     role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i
@@ -53,9 +58,10 @@
                                 <div class="gender">
                                     <label class="m-0">Gender</label>
                                     <% if(isNaN(account.gender)){ %>
-                                        <p class="content-gender">&nbsp; </p>
+                                    <p class="content-gender">&nbsp; </p>
                                     <% } else { %>
-                                        <p id="gend_acccount" class="content-gender"><%- account.gender ? 'Female' : 'Male' %></p>
+                                    <p id="gend_acccount" class="content-gender">
+                                        <%- account.gender ? 'Female' : 'Male' %></p>
                                     <% } %>
                                 </div>
 
@@ -118,7 +124,11 @@
                 <form class="p-4">
                     <div class="form-group">
                         <div class="img-avatar d-flex justify-content-center">
-                            <img id="profile-avatar" src="<%= account.avatar %>" alt="">
+                                <% if(account.avatar == undefined){ %>
+                            <img id="profile-avatar" src="/images/avatars/none.jpg" alt="">
+                            <% }else{ %>
+                                <img id="profile-avatar" src="<%= account.avatar %>" alt="">
+                            <% } %>
                             <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
                             <input type="file" id="pic-avatar" name="pic" accept="image/*">
                         </div>

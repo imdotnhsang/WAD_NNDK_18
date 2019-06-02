@@ -62,6 +62,7 @@ $("#btn_changeAvatar_success").click(function (e) {
                 case 200:
                     res.json().then(account => {
                         $('.img-avatar img').attr('src', account.avatar);
+                        $('#btn-open-informationUser img').attr('src', account.avatar);
                     })
                     break;
 
