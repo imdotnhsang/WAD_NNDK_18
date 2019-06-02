@@ -134,7 +134,7 @@
                </div>
 
                <% if(account){ %>
-               <div class="sign" id="btn-open-informationUser" checkOpen="false"><img class=""
+               <div class="sign img-avatar" id="btn-open-informationUser" checkOpen="false"><img class=""
                      src="<%= account.avatar %>" alt=""></div>
                <% }else{ %>
                <div class="sign" id="btn-open-informationUser" checkOpen="false"> <a href="/auth"><img
@@ -148,7 +148,7 @@
             <% if(account.expiredAt > Date.now()) { %>
                <div class="information-user">
                   <div class="control-information-user m-0 row">
-                     <div class="avatar-user"><img src="<%= account.avatar %>" alt=""></div>
+                     <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
                      <div class="status-user">
                         <p class="full-name font-weight-bold m-0"><%= account.fullname %></p>
                         <span class="badge badge-custom-premium">Premium</span>
@@ -217,7 +217,7 @@
             <% } else { %>
                <div class="information-user">
                   <div class="control-information-user m-0 row">
-                     <div class="avatar-user"><img src="<%= account.avatar %>" alt=""></div>
+                     <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
                      <div class="status-user">
                         <p class="full-name font-weight-bold m-0">Leo Nguyen</p>
                         <span class="badge badge-custom-free">Free</span>

@@ -222,6 +222,9 @@ router.get('/hashtag', function (req, res, next) {
 
 router.get('/information', function (req, res, next) {
     const account = req.user;
+
+    console.log(account);
+    
     if (account) {
         res.render(
             'user',

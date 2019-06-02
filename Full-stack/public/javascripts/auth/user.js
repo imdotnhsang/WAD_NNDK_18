@@ -144,7 +144,6 @@ $('#signup__btn').click(function (e) {
     }
 });
 
-
 // activation
 $('#emailActivation__btn').click(function (e) {
     e.preventDefault();
