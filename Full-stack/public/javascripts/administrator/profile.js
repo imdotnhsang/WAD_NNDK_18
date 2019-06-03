@@ -144,3 +144,60 @@ $('#js-update-account-btn').on('click', (e) => {
       }
     })
 });
+
+var image_change;
+$("#pic-avatar").change(function () {
+  if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $('#avatar-change').attr('src', e.target.result);
+      }
+      $('#changeAvatar__modal-background').css('display', 'block');
+      image_change = this.files[0];
+      reader.readAsDataURL(this.files[0]);
+  }
+});
+
+$("#btn_changeAvatar_fail").click(function () {
+  $('#changeAvatar__modal-background').css('display', 'none');
+});
+
+$("#btn_changeAvatar_success").click(function (e) {
+  e.preventDefault();
+  var reader = new FileReader();
+  reader.onload = function (e) {
+      $('#profile-avatar').attr('src', e.target.result);
+  }
+  reader.readAsDataURL(image_change);
+
+  const email = $('#js-email-input').val();
+  const formData = new FormData();
+
+  formData.append('avatar', image_change);
+  formData.append('email', email);
+
+  fetch(
+      '/api/user/upload-avatar', {
+          method: 'POST',
+          body: formData,
+      })
+      .then(res => {
+          const statusCode = res.status;
+
+          switch (statusCode) {
+              case 200:
+                  res.json().then(account => {
+                      $('.img-avatar img').attr('src', account.avatar);
+                      $('#account__avatar').attr('src', account.avatar);
+                  })
+                  break;
+
+              default:
+                  console.log('fail');
+
+                  break;
+          }
+      })
+
+  $('#changeAvatar__modal-background').css('display', 'none');
+});

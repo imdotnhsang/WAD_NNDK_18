@@ -4,7 +4,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">
-                <img class="user-avatar rounded-circle mr-2" style="max-width: 35px;" src="/images/icons/logo.png"
+                <img class="mr-2" id="account__avatar" style="width: 40px; height: 40px; border-radius: 50%;" src="<%= adminAccount.avatar ? adminAccount.avatar : '/images/avatars/none.jpg' %>"
                     alt="avatar">
                 <span class="d-none d-md-inline-block" style="font-size: 12pt;"><%= adminAccount.fullname %></span>
             </a>

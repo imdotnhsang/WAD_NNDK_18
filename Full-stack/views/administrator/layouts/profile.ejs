@@ -3,7 +3,7 @@
         <div class="card-header border-bottom pb-0">
             <div class="row pb-3 border-bottom">
                 <div class="img-avatar d-flex m-auto">
-                    <img src="/images/icons/logo.png" alt="" width="110" height="110">
+                    <img src="<%= adminAccount.avatar ? adminAccount.avatar : '/images/avatars/none.jpg' %>" alt="" width="110" height="110">
                     <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
                     <input type="file" id="pic-avatar" name="pic" accept="image/*">
                 </div>
@@ -111,6 +111,19 @@
                     <button type="submit" class="btn btn-accent mt-3" id="js-update-account-btn">Update Account</button>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="changeAvatar__modal-background">
+    <div class="changeAvatar__modal" id="changeAvatar__modal">
+        <div class="changeAvatar__modal_header d-flex justify-content-end">
+            <div class="btn text-dark" id="btn_changeAvatar_fail"><i class="fas fa-window-close fa-2x"></i></div>
+        </div>
+        <div class="img_change pl-4 pr-4 pt-4 pb-4 d-flex align-items-center">
+            <img class="w-100 h-100" id="avatar-change" src="<%= adminAccount.avatar %>" alt="">
+        </div>
+        <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+            <div class="btn btn btn-success d-flex justify-content-center" id="btn_changeAvatar_success">Set new profile picture</div>
         </div>
     </div>
 </div>
