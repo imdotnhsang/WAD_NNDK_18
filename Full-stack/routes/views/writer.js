@@ -39,49 +39,49 @@ router.get('/add-new-post', function (req, res, next) {
         {
             title: 'Add new post',
             layout: 'layouts/addnewpost',
-            srcScript: '/javascripts/writer/addnewpost.js'
+            srcScript: '/javascripts/writer/addNewPost.js'
         }
     );
 });
 
-router.get('/approved-post', function (req, res, next) {
+router.get('/posts-approved', function (req, res, next) {
     res.render(
         'writer',
         {
-            title: 'Approved Post',
-            layout: 'layouts/approvedpost',
+            title: 'Posts Approved',
+            layout: 'layouts/postsApproved',
             srcScript: ''
         }
     );
 });
 
-router.get('/denied-post', function (req, res, next) {
+router.get('/posts-denied', function (req, res, next) {
     res.render(
         'writer',
         {
-            title: 'Denied Post',
-            layout: 'layouts/deniedpost',
+            title: 'Posts Denied',
+            layout: 'layouts/postsDenied',
             srcScript: ''
         }
     );
 });
-router.get('/published-post', function (req, res, next) {
+router.get('/posts-published', function (req, res, next) {
     res.render(
         'writer',
         {
-            title: 'Published Post',
-            layout: 'layouts/publishedpost',
+            title: 'Posts Published',
+            layout: 'layouts/postsPublished',
             srcScript: ''
         }
     );
 });
 
-router.get('/unapproved-post', function (req, res, next) {
+router.get('/posts-unapproved', function (req, res, next) {
     res.render(
         'writer',
         {
-            title: 'Unapproved Post',
-            layout: 'layouts/unapprovedpost',
+            title: 'Posts Unapproved',
+            layout: 'layouts/postsUnapproved',
             srcScript: ''
         }
     );

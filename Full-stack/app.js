@@ -77,9 +77,6 @@ const api = require('./routes/api');
 
 //
 var multer  =   require('multer');
-
-var crypto = require('crypto');
-
 const destAvatar = path.join(__dirname, 'public/images/writer/');
 
 var storage = multer.diskStorage({
