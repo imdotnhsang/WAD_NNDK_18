@@ -21,288 +21,52 @@
 
         <div class="card-body pt-0">
             <ul id="js-categories-ul" class="list-unstyled row m-auto">
-                <!-- <li class="list-item col-5 p-3 border mx-auto mb-3">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Tech" style="font-size: 13pt;" disabled>
-                        <div class="input-group-append">
-                            <button class="btn btn-white js-edit-input" type="button">
-                                <i class="far fa-edit"></i>
-                            </button>
-                            <button class="btn btn-white js-delete-input" type="button">
-                                <i class="far fa-trash-alt"></i> </button>
+                <% categoryList.forEach(function(eachCategory){ %>
+                    <li class="list-item col-5 p-3 border mx-auto mb-3" id="<%= eachCategory._id %>">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="<%= eachCategory.title %>" style="font-size: 13pt;" disabled>
+                            <div class="input-group-append">
+                                <button class="btn btn-white js-edit-input" type="button">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                                    <i class="far fa-window-close"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Apple" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
+                        <ul class="list-group">
+                            <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
+                                <li class="list-group-item">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" value="<%= eachSubCategory.title %>" disabled>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-white js-edit-input" type="button" id="<%= eachSubCategory._id %>">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                                                    <i class="far fa-window-close"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                            <% }) %>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Add new subcategory"
+                                        aria-label="Add new category" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-white js-add-subcategory" type="button"
+                                            parentId="<%= eachCategory._id %>">
+                                            <i class="material-icons">add</i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Samsung" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Google" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Microsoft" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Add new subcategory"
-                                    aria-label="Add new category" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-add-subcategory" type="button">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="list-item col-5 p-3 border mx-auto mb-3">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Review" style="font-size: 13pt;" disabled>
-                        <div class="input-group-append">
-                            <button class="btn btn-white js-edit-input" type="button">
-                                <i class="far fa-edit"></i>
-                            </button>
-                            <button class="btn btn-white js-delete-input" type="button">
-                                <i class="far fa-trash-alt"></i> </button>
-                        </div>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Phones" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Laptop" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Tablets" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Accessories" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Add new subcategory"
-                                    aria-label="Add new category" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-add-subcategory" type="button">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="list-item col-5 p-3 border mx-auto mb-3">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Science" style="font-size: 13pt;" disabled>
-                        <div class="input-group-append">
-                            <button class="btn btn-white js-edit-input" type="button">
-                                <i class="far fa-edit"></i>
-                            </button>
-                            <button class="btn btn-white js-delete-input" type="button">
-                                <i class="far fa-trash-alt"></i> </button>
-                        </div>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Space" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Energy" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Environment" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Add new subcategory"
-                                    aria-label="Add new category" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-add-subcategory" type="button">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="list-item col-5 p-3 border mx-auto mb-3">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Creator" style="font-size: 13pt;" disabled>
-                        <div class="input-group-append">
-                            <button class="btn btn-white js-edit-input" type="button">
-                                <i class="far fa-edit"></i>
-                            </button>
-                            <button class="btn btn-white js-delete-input" type="button">
-                                <i class="far fa-trash-alt"></i> </button>
-                        </div>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Instagram" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Youtube" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Adobe" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="Photography" disabled>
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-edit-input" type="button">
-                                        <i class="far fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-white js-delete-input" type="button">
-                                        <i class="far fa-trash-alt"></i> </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Add new subcategory"
-                                    aria-label="Add new category" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-white js-add-subcategory" type="button">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li> -->
+                            </li>
+ 
+                        </ul>
+                    </li>
+                <% }) %>
             </ul>
         </div>
     </div>

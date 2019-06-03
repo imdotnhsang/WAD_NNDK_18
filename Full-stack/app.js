@@ -37,8 +37,8 @@ require('./configs/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-// locals
-const getCategoryList = require('./utils/getCategoryList');
+// // locals
+const { getCategoryList } = require('./utils');
 app.use((req, res, next) => {
     getCategoryList()
         .then(categoryList => {

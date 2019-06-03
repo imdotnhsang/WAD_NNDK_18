@@ -154,8 +154,8 @@ $(document).on('click', ".js-edit-input", function () {
 
 $(document).on('click', ".js-cancel-input", function () {
     let inputTag = $(this).parent().parent().children('input');
-    let editBtn = $(this).parent().children('.js-edit-input i');
-
+    let editBtn = $(this).parent().children('.js-edit-input').children();
+    
     isEditting = false;
     inputTag.prop('disabled', 'true');
     $(this).css("display", "none");
@@ -164,10 +164,13 @@ $(document).on('click', ".js-cancel-input", function () {
 });
 
 $(document).on('click', '.js-add-category', function () {
+    $(this).attr("disabled", true);
+
     const ulCate = $('#js-categories-ul');
     const valInput = $('#js-add-category__input').val();
 
     if (valInput.length === 0) {
+        $(this).attr("disabled", false);
         return;
     }
 
@@ -184,16 +187,19 @@ $(document).on('click', '.js-add-category', function () {
 
                         ulCate.html(ulCate.html() + createCategory(category._id, category.title));
                         $('#js-add-category__input').val('');
+                        $(this).attr("disabled", false);
                     });
                     break;
 
                 case 500:
                     showErrorsModal($(this), 'Server Error. Please try again!');
+                    $(this).attr("disabled", false);
                     break;
                 default:
                     res.json().then(err => {
                         const errMsg = err.title || err.category || 'Cannot add subcategory.'
-                        showErrorsModal($(this), errMsg)
+                        showErrorsModal($(this), errMsg);
+                        $(this).attr("disabled", false);
                     })
                     break;
             }
@@ -201,10 +207,13 @@ $(document).on('click', '.js-add-category', function () {
 });
 
 $(document).on('click', '.js-add-subcategory', function () {
+    $(this).attr("disabled", true);
+
     let inputElmAddSubcategory = $(this).parent().parent().children('input');
     const valInput = inputElmAddSubcategory.val().trim();
 
     if (valInput.length === 0) {
+        $(this).attr("disabled", false);
         return;
     }
 
@@ -226,45 +235,21 @@ $(document).on('click', '.js-add-subcategory', function () {
                             subcategories.before(createSubCategory(subCategory._id, subCategory.title));
 
                             inputElmAddSubcategory.val('');
+                            $(this).attr("disabled", false);
                         });
                     break;
 
                 case 500:
-                    showErrorsModal($(this), 'Server Error. Please try again!')
+                    showErrorsModal($(this), 'Server Error. Please try again!');
+                    $(this).attr("disabled", false);
                     break;
                 default:
                     res.json().then(err => {
                         const errMsg = err.title || err.category || 'Cannot add category.'
-                        showErrorsModal($(this), errMsg)
+                        showErrorsModal($(this), errMsg);
+                        $(this).attr("disabled", false);
                     })
                     break;
             }
         })
 });
-
-$(document).ready(function () {
-    getData('/api/category/get-all')
-        .then(res => {
-            const statusCode = res.status;
-
-            switch (statusCode) {
-                case 200:
-                    res.json()
-                        .then(data => {
-                            categoryList = data;
-                            $('#js-categories-ul').html(createCategoryList(categoryList));
-                        })
-                    break;
-                case 500:
-                    showErrorsModal($(this), 'Server Error. Please try again!')
-                    break;
-                default:
-                    res.json()
-                        .then(err => {
-                            showErrorsModal($(this), 'Cannot get all categories. Please try again!');
-                            console.log(err);
-                        })
-                    break;
-            }
-        })
-})

@@ -5,50 +5,11 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
 
-const findSubCategories = (parentId) => {
-    return new Promise((resolve, reject) => {
-        Category
-            .find({ parentId, isActive: true })
-            .select({
-                _id: true,
-                title: true,
-                slug: true,
-            })
-            .then(subCategories => {
-                const result = subCategories.map(subCategory => subCategory._doc);
-                resolve(result);
-            })
-            .catch(err => {
-                reject(err);
-            })
-    })
-}
-
-router.get('/get-all', (req, res) => {
-    Category
-        .find({ isActive: true })
-        .exists('parentId', false)
-        .select({
-            _id: true,
-            title: true,
-            slug: true
-        })
-        .then(categoryList => {
-            return Promise.all(categoryList.map((category) => {
-                return findSubCategories(category._id)
-                    .then(subCategories => ({ ...category._doc, subCategories }));
-            }))
-        })
-        .then(allCategories => res.json(allCategories))
-        .catch(err => res.status(400).json(err));
-});
-
 router.post('/create', (req, res) => {
     const errors = {};
     let { title, parentId } = req.body;
 
     const accountAdmin = req.user;
-
     if (!accountAdmin || accountAdmin.userType !== 'administrator') {
         errors.category = 'Authorization has failed.';
         return res.status(400).json(errors);
@@ -78,43 +39,46 @@ router.post('/create', (req, res) => {
             }
 
             if (_.isEmpty(parentId)) {
-                const newCategory = new Category({ title, slug })
+                const newCategory = new Category({
+                    title,
+                    slug
+                })
 
                 return newCategory
                     .save()
                     .then(categoryCreated => {
-                        const payload = {
-                            _id: categoryCreated._id,
-                            title: categoryCreated.title,
-                            slug: categoryCreated.slug,
-                            parentId: categoryCreated.parentId
-                        };
-
+                        const payload = _.pick(categoryCreated, ['_id', 'title', 'slug', 'subCategories']);
                         return res.json(payload);
                     })
-            } else {
-                Category
-                    .findOne({ _id: parentId, isActive: true })
-                    .then(result => {
-                        if (!result) {
-                            errors.parentId = 'Parent category does not exist';
-                            return res.status(400).json(errors);
-                        }
-
-                        const newCategory = new Category({ title, slug, parentId });
-                        return newCategory
-                            .save()
-                            .then(categoryCreated => {
-                                const payload = {
-                                    _id: categoryCreated._id,
-                                    title: categoryCreated.title,
-                                    slug: categoryCreated.slug,
-                                    parentId: categoryCreated.parentId
-                                };
-                                return res.json(payload);
-                            })
-                    })
             }
+
+            Category
+                .findOne({
+                    _id: parentId,
+                    isActive: true
+                })
+                .then(result => {
+                    if (!result) {
+                        errors.parentId = 'Parent category does not exist';
+                        return res.status(400).json(errors);
+                    }
+
+                    const newCategory = new Category({
+                        title,
+                        slug,
+                        parentId
+                    });
+                    return newCategory
+                        .save()
+                        .then(categoryCreated => {
+                            const payload = _.pick(categoryCreated, ['_id', 'title', 'slug', 'subCategories']);
+
+                            result.subCategories.push(payload._id);
+                            return result.save()
+                                .then(() => res.json(payload))
+                        })
+                })
+
         })
         .catch(err => res.status(400).json(err));
 });
@@ -124,7 +88,6 @@ router.post('/update', (req, res) => {
     let { title, id } = req.body;
 
     const accountAdmin = req.user;
-
     if (!accountAdmin || accountAdmin.userType !== 'administrator') {
         errors.category = 'Authorization has failed.';
         return res.status(400).json(errors);
@@ -158,7 +121,7 @@ router.post('/update', (req, res) => {
                 return res.status(400).json(errors);
             }
 
-            Category
+            return Category
                 .findById(id)
                 .then(category => {
                     if (!category) {
@@ -172,19 +135,31 @@ router.post('/update', (req, res) => {
                     return category
                         .save()
                         .then(categoryUpdated => {
-                            const payload = {
-                                _id: categoryUpdated._id,
-                                title: categoryUpdated.title,
-                                slug: categoryUpdated.slug,
-                                parentId: categoryUpdated.parentId
-                            };
-
+                            const payload = _.pick(categoryUpdated, ['_id', 'title', 'slug', 'subCategories']);
                             return res.json(payload);
                         })
                 })
-                .catch(err => res.status(400).json(err));
         })
         .catch(err => res.status(400).json(err));
 });
+
+router.get('/get-all', (req, res) => {
+    Category
+        .find({ isActive: true, parentId: null })
+        .select({
+            _id: 1,
+            title: 1,
+            slug: 1,
+            subCategories: 1
+        })
+        .populate('subCategories', '_id title slug parentId')
+        .then(allCategories => {
+            return res.json(allCategories);
+        })
+        .catch(err => res.status(400).json(err));
+
+})
+
+
 
 module.exports = router;

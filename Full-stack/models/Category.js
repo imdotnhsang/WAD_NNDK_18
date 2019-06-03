@@ -16,6 +16,11 @@ const CategorySchema = mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    subCategories: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false,
+        ref: 'Category'
     }
 });
 
