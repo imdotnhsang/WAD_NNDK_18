@@ -1,5 +1,5 @@
-<form class="add-new-post row m-0">
-    <div class="col-lg-9 col-md-12">
+<div class="add-new-post__main d-flex">
+    <div class="col-lg-9 col-md-12 w-75">
         <!-- Add New Post Form -->
         <div class="card card-small mb-3">
             <div class="card-body">
@@ -15,10 +15,9 @@
                 <!-- </form> -->
             </div>
         </div>
-        <!-- / Add New Post Form -->
+
     </div>
-    <div class="col-lg-3 col-md-12 m-0">
-        <!-- Post Overview -->
+    <div class="col-lg-3 col-md-12 m-0 w-25">
         <div class='card card-small mb-3'>
             <div class="card-header border-bottom">
                 <h6 class="m-0">Tags</h6>
@@ -40,53 +39,46 @@
                 </ul>
             </div>
         </div>
-        <!-- / Post Overview -->
-        <!-- Post Overview -->
+
         <div class='card card-small mb-3'>
             <div class="card-header border-bottom">
                 <h6 class="m-0">Categories</h6>
             </div>
             <div class='card-body p-0'>
-                <ul class="list-group list-group-flush cate">
-                    <% categoryList.forEach(function(eachCategory){%>
-                    <li class="list-group-item px-3 pb-2">
-                        <% if(eachCategory.subCategories.length !== 0){ %>
-                        <div class="custom-control custom-checkbox mb-1">
-                            <input type="checkbox" class="custom-control-input" id="category1">
-                            <label class="custom-control-label" for="category1"><%= eachCategory.title %></label>
-                        </div>
-                        <ul>
-                            <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
-                            <li>
-                                <div class="custom-control custom-checkbox mb-1">
-                                    <input type="checkbox" class="custom-control-input" id="category1">
-                                    <label class="custom-control-label" for="category1"><%= eachSubCategory.title %></label>
-                                </div>
-                                
-                            </li>
-                            <% }) %>
-                            
-                        </ul>
-                        <% }else{ %>
-                            <div class="custom-control custom-checkbox mb-1">
-                                    <input type="checkbox" class="custom-control-input" id="category1">
-                                    <label class="custom-control-label" for="category1"><%= eachCategory.title %></label>
-                                </div>
-                        <% } %>
-                    </li>
-                    <%})%>
-                </ul>
+                <div class="px-4 mt-3">
+                    <% categoryList.forEach(function(eachCategory){ %>
+                        <label class="container_input" id="<%= eachCategory._id %>"><%= eachCategory.title %>
+                            <input type="checkbox" name="radio">
+                            <span class="custom-checkbox"></span>
+                        </label>
 
-                <ulclass="list-group list-group-flush>
+                        <% if(eachCategory.subCategories.length !== 0){ %>
+                            <div class="ml-4">
+                                <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
+                                <label class="container_input" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
+                                    <input type="radio" name="radio">
+                                    <span class="custom-radio"></span>
+                                </label>
+                                <% }) %>
+                            </div>
+                        <% } %>
+
+                        <div class="w-100 border mb-3"></div>
+                    <% }) %>
+                </div>
+
+
+                <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex px-3">
                         <button class="btn btn-sm btn-outline-accent">
-                            <i class="material-icons">save</i>Save Draft</button>
+                            <i class="material-icons">save</i>Save Draft
+                        </button>
                         <button type="submit" id="btn_publish" class="btn btn-sm btn-accent ml-auto">
-                            <i class="material-icons">file_copy</i>Publish</button>
+                            <i class="material-icons">file_copy</i>Publish
+                        </button>
                     </li>
-                    </ul>
+                </ul>
             </div>
         </div>
-        <!-- / Post Overview -->
     </div>
-</form>
+</div>

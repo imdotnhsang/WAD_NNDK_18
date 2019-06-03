@@ -1,27 +1,33 @@
 $('#btn_publish').click(function (e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    var title = $('#title').val();
-    var summary = $('#summary').val();
-    var data = CKEDITOR.instances['editor'].getData();
-    
-   console.log(title,summary,data);
+  var title = $('#title').val();
+  var summary = $('#summary').val();
+  var data = CKEDITOR.instances['editor'].getData();
+
+  console.log(title, summary, data);
 });
 
-
-
 var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
+  theme: 'snow'
+});
 
 
 CKEDITOR.replace('editor', {
-    "extraPlugins": 'imagebrowser',
-    "imageBrowser_listUrl": "/writer/files",
+  "extraPlugins": 'imagebrowser',
+  "imageBrowser_listUrl": "/writer/files",
 });
 
-var category = [ 'tech', 'aa', 'bb'];
-
-// CKEDITOR.config.filebrowserImageUploadUrl = '/api/writer/upload';
 CKEDITOR.config.height = "500";
 
+
+$('.container_input').click(function() {
+  $('.container_input input:checked').prop('checked', false);
+
+  $(this).children('input').prop('checked', true);
+
+  const parentId = $(this).attr('parentId');
+  if (parentId) {
+    $(`#${parentId}`).children('input').prop('checked', true);
+  }
+});
