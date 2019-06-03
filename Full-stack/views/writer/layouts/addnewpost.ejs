@@ -1,45 +1,37 @@
 <div class="add-new-post__main d-flex">
     <div class="col-lg-9 col-md-12 w-75">
-        <!-- Add New Post Form -->
         <div class="card card-small mb-3">
             <div class="card-body">
-                <!-- <form class="add-new-post"> -->
-                <input class="form-control form-control-lg mb-3" id="title" type="text" placeholder="Your Post Title">
+                <input class="form-control form-control-lg mb-3" placeholder="Your Post Title">
                 <div class="comsume_content">
-                    <textarea id="sumarry" class="form-control form-control-lg mb-3" rows="3" cols="106"
+                    <textarea id="sumarry" class="form-control form-control-lg mb-3" rows="3" cols="110"
                         placeholder="Summary of your article here"></textarea>
+                </div>
+                <div class="article__tags mb-3">
+                    <input type='text' placeholder='Choose list of tags' class='form-control flexdatalist flexdatalist-set' data-min-length='1'
+                        multiple='' data-selection-required='1' list='languages'>
+
+                    <datalist id="languages">
+                        <option value="PHP">PHP</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Cobol">Cobol</option>
+                        <option value="C#">C#</option>
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="Pascal">Pascal</option>
+                        <option value="FORTRAN">FORTRAN</option>
+                        <option value="Lisp">Lisp</option>
+                        <option value="Swift">Swift</option>
+                    </datalist>
                 </div>
                 <div class="post_editor_content">
                     <textarea id="editor" name="editor" rows="3" cols=106></textarea>
                 </div>
-                <!-- </form> -->
             </div>
         </div>
 
     </div>
     <div class="col-lg-3 col-md-12 m-0 w-25">
-        <div class='card card-small mb-3'>
-            <div class="card-header border-bottom">
-                <h6 class="m-0">Tags</h6>
-            </div>
-            <div class='card-body p-0'>
-                <ul class="list-group list-group-flush">
-
-                    <li class="list-group-item d-flex px-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Add tag">
-                            <div class="input-group-append">
-                                <button class="btn btn-white px-2" type="button">
-                                    <i class="material-icons">add</i>
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-
         <div class='card card-small mb-3'>
             <div class="card-header border-bottom">
                 <h6 class="m-0">Categories</h6>

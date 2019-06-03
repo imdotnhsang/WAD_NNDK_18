@@ -31,3 +31,7 @@ $('.container_input').click(function() {
     $(`#${parentId}`).children('input').prop('checked', true);
   }
 });
+
+$('.flexdatalist').flexdatalist({
+  minLength: 1
+});
