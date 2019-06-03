@@ -7,13 +7,12 @@
 var app = require('../app');
 var debug = require('debug')('full-stack:server');
 var http = require('http');
-var config = require('config');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || config.PORT);
+var port = normalizePort(process.env.PORT);
 app.set('port', port);
 
 /**

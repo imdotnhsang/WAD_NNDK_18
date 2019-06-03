@@ -15,11 +15,10 @@ var quill = new Quill('#editor', {
 
 CKEDITOR.replace('editor', {
   "extraPlugins": 'imagebrowser',
-  "imageBrowser_listUrl": "/writer/files",
+  "imageBrowser_listUrl": "/writer/files"
 });
 
 CKEDITOR.config.height = "500";
-
 
 $('.container_input').click(function() {
   $('.container_input input:checked').prop('checked', false);

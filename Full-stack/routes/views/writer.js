@@ -37,7 +37,7 @@ router.get('/add-new-post', function (req, res, next) {
     res.render(
         'writer',
         {
-            title: 'Add new post',
+            title: 'Add New Post',
             layout: 'layouts/addnewpost',
             srcScript: '/javascripts/writer/addNewPost.js'
         }

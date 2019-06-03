@@ -1,8 +1,6 @@
 const nodemailer = require('nodemailer');
-const config = require('config');
 
-const autoUser = config.autoUser;
-const autoPass = config.autoPass;
+const { autoUser, autoPass } = process.env;
 
 const sendOTPCode = (email, OTPCode, typeEmail) => {
     const transporter = nodemailer.createTransport({

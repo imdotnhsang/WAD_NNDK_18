@@ -6,8 +6,7 @@ const chai = require('chai');
 const app = require('../app');
 const request = require('request');
 
-const config = require('config');
-const baseUrl = `http://localhost:${config.PORT}/api/tag`;
+const baseUrl = `http://localhost:${process.env.PORT}/api/tag`;
 
 const mongoose = require('mongoose');
 const Tag = mongoose.model('Tag');

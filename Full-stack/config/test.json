@@ -1,4 +1,0 @@
-{
-    "MONGO_URI": "mongodb://localhost:27017/the-big-wind",
-    "PORT": 3000
-}
