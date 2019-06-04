@@ -35,19 +35,32 @@ $('#saveArticle-btn').click(function () {
   const content = editor.getData();
   const title = $('#article__title-input').val();
   const abstract = $('#article__abstract-input').val();
-  const tags = [];
-  for (i = 0; i < $('.flexdatalist-multiple').find("li").length - 1; i++) {
-    tags[i] = $('.flexdatalist-multiple').find("li")[i].children[0].textContent;
-  }
-
   $('#contentElm').html(content);
   const coverImage = $('#contentElm img').eq(0).attr('src');
-
-  if ($("#article__categories-input input:checked").parent().length == 2) {
-    var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: $("#article__categories-input input:checked").parent()[1].getAttribute("parentid") };
-  } else {
-    var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: "" };
+  
+  switch ($('.flexdatalist-multiple').find("li").length - 1) {
+    case 0:
+      alert("fill tag");
+      break;
+    default:
+      var tags = [];
+      for (i = 0; i < $('.flexdatalist-multiple').find("li").length - 1; i++) {
+        tags[i] = $('.flexdatalist-multiple').find("li")[i].children[0].textContent;
+      }
+      break;
   }
+
+  switch ($("#article__categories-input input:checked").parent().length) {
+    case 0:
+      alert("fill category");
+      break;
+    case 1:
+      var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: "" };
+      break;
+    default:
+      var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: $("#article__categories-input input:checked").parent()[1].getAttribute("parentid") };
+  }
+
   console.log(title);
   console.log(abstract);
   console.log(tags);
