@@ -10,14 +10,14 @@
 
                 <div class="article__abstract mb-3">
                     <h5>Abstract</h5>
-                    <textarea id="sumarry" class="form-control form-control-lg " rows="3" cols="110"
+                    <textarea id="article__abstract-input" class="form-control form-control-lg " rows="3" cols="110"
                     placeholder="Summary of your article here"></textarea>
                 </div>
                 
                 <div class="article__tags mb-3">
                     <h5>Tags</h5>
                     <input class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple=''
-                        data-selection-required='1' list='tagList'>
+                        data-selection-required='1' list='tagList' id="article__tag-input">
 
                     <datalist id="tagList">
                         <% tagList.forEach(eachTag => { %>
@@ -45,7 +45,7 @@
                 <h6 class="m-0">Categories</h6>
             </div>
             <div class='card-body p-0'>
-                <div class="px-4 mt-3">
+                <div class="px-4 mt-3" id="article__categories-input">
                     <% categoryList.forEach(function(eachCategory){ %>
                     <label class="container_input" id="<%= eachCategory._id %>"><%= eachCategory.title %>
                         <input type="checkbox" name="radio">
