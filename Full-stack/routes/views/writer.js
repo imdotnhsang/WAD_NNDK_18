@@ -3,6 +3,8 @@ var router = express.Router();
 var path = require('path')
 var fs = require('fs')
 
+const { getTagList } = require('../../utils');
+
 router.get('/files', function (req, res) {
     const pathImages = path.join(__dirname, '../../public/images/writer');
     console.log(pathImages);
@@ -33,13 +35,16 @@ router.post('/delete_file', function (req, res, next) {
     res.redirect('back')
 });
 
-router.get('/add-new-post', function (req, res, next) {
+router.get('/add-new-post', async function (req, res, next) {
+    const tagList = await getTagList();
+
     res.render(
         'writer',
         {
             title: 'Add New Post',
             layout: 'layouts/addnewpost',
-            srcScript: '/javascripts/writer/addNewPost.js'
+            srcScript: '/javascripts/writer/addNewPost.js',
+            tagList
         }
     );
 });

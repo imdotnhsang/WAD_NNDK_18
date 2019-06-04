@@ -1,9 +1,16 @@
-const createOTP = require('./createOTP');
+const createOTP = require('./OTP/createOTP');
 const pickUser = require('./pickUser');
-const sendOTPCode = require('./sendOTPCode');
-const validateOTP = require('./validateOTP');
-const getCategoryList = require('./getCategoryList');
+const sendOTPCode = require('./OTP/sendOTPCode');
+const validateOTP = require('./OTP/validateOTP');
+
+const getCategoryList = require('./getData/getCategoryList');
+const getTagList = require('./getData/getTagList');
 
 module.exports = {
-    createOTP, pickUser, sendOTPCode, validateOTP, getCategoryList
+    createOTP,
+    pickUser,
+    sendOTPCode,
+    validateOTP,
+    getCategoryList,
+    getTagList
 }

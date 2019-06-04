@@ -2,30 +2,38 @@
     <div class="col-lg-9 col-md-12 w-75">
         <div class="card card-small mb-3">
             <div class="card-body">
-                <input class="form-control form-control-lg mb-3" placeholder="Your Post Title">
-                <div class="comsume_content">
-                    <textarea id="sumarry" class="form-control form-control-lg mb-3" rows="3" cols="110"
-                        placeholder="Summary of your article here"></textarea>
+                <div class="article__title mb-3">
+                    <h5>Title</h5>
+                    <input class="form-control form-control-lg" id="article__title-input"
+                        placeholder="Enter Post Title...">
                 </div>
-                <div class="article__tags mb-3">
-                    <input type='text' placeholder='Choose list of tags' class='form-control flexdatalist flexdatalist-set' data-min-length='1'
-                        multiple='' data-selection-required='1' list='tags'>
 
-                    <datalist id="tags">
-                        <option value="PHP">PHP</option>
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="Cobol">Cobol</option>
-                        <option value="C#">C#</option>
-                        <option value="C++">C++</option>
-                        <option value="Java">Java</option>
-                        <option value="Pascal">Pascal</option>
-                        <option value="FORTRAN">FORTRAN</option>
-                        <option value="Lisp">Lisp</option>
-                        <option value="Swift">Swift</option>
+                <div class="article__abstract mb-3">
+                    <h5>Abstract</h5>
+                    <textarea id="sumarry" class="form-control form-control-lg " rows="3" cols="110"
+                    placeholder="Summary of your article here"></textarea>
+                </div>
+                
+                <div class="article__tags mb-3">
+                    <h5>Tags</h5>
+                    <input class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple=''
+                        data-selection-required='1' list='tagList'>
+
+                    <datalist id="tagList">
+                        <% tagList.forEach(eachTag => { %>
+                            <option value="<%= eachTag._id %>"><%= eachTag.title %></option>
+                        <% }) %>
                     </datalist>
                 </div>
-                <div class="post_editor_content">
-                    <textarea id="editor" name="editor" rows="3" cols=106></textarea>
+
+                <!-- <div class="article__coverImage mb-3">
+                    <h5>Cover Image</h5>
+
+                </div> -->
+
+                <div class="article__content mb-3">
+                    <h5>Content</h5>
+                    <textarea id="editor" rows="3" cols=106></textarea>
                 </div>
             </div>
         </div>
@@ -39,38 +47,41 @@
             <div class='card-body p-0'>
                 <div class="px-4 mt-3">
                     <% categoryList.forEach(function(eachCategory){ %>
-                        <label class="container_input" id="<%= eachCategory._id %>"><%= eachCategory.title %>
-                            <input type="checkbox" name="radio">
-                            <span class="custom-checkbox"></span>
+                    <label class="container_input" id="<%= eachCategory._id %>"><%= eachCategory.title %>
+                        <input type="checkbox" name="radio">
+                        <span class="custom-checkbox"></span>
+                    </label>
+
+                    <% if(eachCategory.subCategories.length !== 0){ %>
+                    <div class="ml-4">
+                        <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
+                        <label class="container_input" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
+                            <input type="radio" name="radio">
+                            <span class="custom-radio"></span>
                         </label>
-
-                        <% if(eachCategory.subCategories.length !== 0){ %>
-                            <div class="ml-4">
-                                <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
-                                <label class="container_input" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
-                                    <input type="radio" name="radio">
-                                    <span class="custom-radio"></span>
-                                </label>
-                                <% }) %>
-                            </div>
-                        <% } %>
-
-                        <div class="w-100 border mb-3"></div>
+                        <% }) %>
+                    </div>
+                    <% } %>
                     <% }) %>
                 </div>
 
-
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex px-3">
-                        <button class="btn btn-sm btn-outline-accent">
-                            <i class="material-icons">save</i>Save Draft
-                        </button>
-                        <button type="submit" id="btn_publish" class="btn btn-sm btn-accent ml-auto">
-                            <i class="material-icons">file_copy</i>Publish
-                        </button>
-                    </li>
-                </ul>
+                <div class="w-100 border"></div>
             </div>
+
+            <ul class="list-group w-100">
+                <li class="list-group-item d-flex">
+                    <button class="btn btn-outline-accent" id="saveArticle-btn" style="font-size: 16px;">
+                        <i class="far fa-save"></i> Save
+                    </button>
+                    <button class="btn btn-danger mx-3" id="clearArticle-btn" style="font-size: 16px;">
+                        <i class="fas fa-trash-alt"></i> Clear
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
+
+<div id="contentElm" style="display: none;">
+    
 </div>
