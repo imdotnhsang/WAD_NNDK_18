@@ -2,27 +2,31 @@ const mongoose = require('mongoose');
 const { CommentSchema } = require('./Comment')
 
 const ArticleSchema = mongoose.Schema({
-    title: { //*
+    title: { 
         type: String,
         required: true
     },
-    tags: { //*
+    tags: {
         type: [mongoose.Schema.Types.ObjectId],
         required: false
     },
-    coverImage: {
+    categories: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: true
+    },
+    coverImage: { 
         type: String,
         required: true
     },
-    publishDate: { //*
+    publishedAt: { 
         type: Date,
         required: false
     },
-    content: { //*
+    content: { 
         type: String,
         required: true
     },
-    abstract: { //*
+    abstract: { 
         type: String,
         required: true
     },
@@ -30,34 +34,38 @@ const ArticleSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    comments: { //*
+    comments: { 
         type: [CommentSchema],
         required: false
     },
-    isPremium: { //*
+    isPremium: { 
         type: Boolean,
         default: false
     },
-    status: { // publish, edit, admin
+    process: { // subcriber, editor, administrator
         type: String,
         required: true
     }, 
-    reasonDenied: {
+    reasonDenied: { 
         type: String,
-        default: ''
+        required: false
+    }, 
+    writerId: { 
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    editorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false
+    },
+    administratorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false
     },
     createdAt: {
         type: Date,
-        default: new Date().getTime()
-    },
-    categoryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    }, //subcate
-    writerId: { //*
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
+        default: Date.now()
+    }
 });
 
 const Article = mongoose.model('Article', ArticleSchema);
