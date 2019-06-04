@@ -2,55 +2,54 @@ const mongoose = require('mongoose');
 const { CommentSchema } = require('./Comment')
 
 const ArticleSchema = mongoose.Schema({
-    title: { 
+    title: {
         type: String,
         required: true
     },
-    tags: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: false
-    },
-    categories: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: true
-    },
-    coverImage: { 
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
+    }],
+    categories: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+    }],
+    coverImage: {
         type: String,
         required: true
     },
-    publishedAt: { 
+    publishedAt: {
         type: Date,
         required: false
     },
-    content: { 
+    content: {
         type: String,
         required: true
     },
-    abstract: { 
+    abstract: {
         type: String,
         required: true
     },
-    views: { 
+    views: {
         type: Number,
         default: 0
     },
-    comments: { 
-        type: [CommentSchema],
-        required: false
-    },
-    isPremium: { 
+    comments: [{
+        type: CommentSchema
+    }],
+    isPremium: {
         type: Boolean,
         default: false
     },
     process: { // subcriber, editor, administrator
         type: String,
         required: true
-    }, 
-    reasonDenied: { 
+    },
+    reasonDenied: {
         type: String,
         required: false
-    }, 
-    writerId: { 
+    },
+    writerId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
