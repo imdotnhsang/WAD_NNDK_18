@@ -30,8 +30,6 @@ var editor = CKEDITOR.instances.editor;
 var contentElm;
 
 $('#saveArticle-btn').click(function () {
-  editor.execCommand('source', true);
-
   const content = editor.getData();
   const title = $('#article__title-input').val().trim();
   const abstract = $('#article__abstract-input').val().trim();
@@ -71,4 +69,34 @@ $('#saveArticle-btn').click(function () {
   console.log(`categories: ${categories}.`);
   console.log(`coverImage: ${coverImage}.`);
   console.log(`content: ${content}.`);
+
+  const isInvalid = !title || !abstract || !categories.length || !coverImage || !content;
+  if (!isInvalid) {
+    postData('/api/article/create', {title, abstract, tags, categories, coverImage, content})
+      .then(res => {
+        const statusCode = res.status;
+
+        switch (statusCode) {
+          case 200:
+            res.json().then(article => {
+              console.log(article);
+            })
+
+            break;
+          case 500:
+            break;
+            
+          default:
+            res.json().then(err => {
+              console.log(err);
+            })
+            break;
+        }
+
+        // editor.execCommand('source');  
+      })
+  } else {
+    console.log('isInvalid');
+  }
+
 });
