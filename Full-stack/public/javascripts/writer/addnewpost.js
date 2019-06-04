@@ -60,5 +60,4 @@ $('#saveArticle-btn').click(function() {
   console.log(abstract);
   console.log(coverImage);
   console.log(content);  
-
 })
