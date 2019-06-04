@@ -1,13 +1,3 @@
-$('#btn_publish').click(function (e) {
-  e.preventDefault();
-
-  var title = $('#title').val();
-  var summary = $('#summary').val();
-  var data = CKEDITOR.instances['editor'].getData();
-
-  console.log(title, summary, data);
-});
-
 var quill = new Quill('#editor', {
   theme: 'snow'
 });
@@ -20,7 +10,7 @@ CKEDITOR.replace('editor', {
 
 CKEDITOR.config.height = "500";
 
-$('.container_input').click(function() {
+$('.container_input').click(function () {
   $('.container_input input:checked').prop('checked', false);
 
   $(this).children('input').prop('checked', true);
@@ -39,25 +29,30 @@ $('.flexdatalist').flexdatalist({
 var editor = CKEDITOR.instances.editor;
 var contentElm;
 
-$('#saveArticle-btn').click(function() {
+$('#saveArticle-btn').click(function () {
   editor.execCommand('source', true);
 
   const content = editor.getData();
   const title = $('#article__title-input').val();
-  const abstract = $('#article__abstract').val();
-
-  $('#contentElm').html(content);
-  const listImgElm = $('#contentElm img');
-
-  if (listImgElm.length === 0) {
-    console.log('Img');
-    return;
+  const abstract = $('#article__abstract-input').val();
+  const tags = [];
+  for (i = 0; i < $('.flexdatalist-multiple').find("li").length - 1; i++) {
+    tags[i] = $('.flexdatalist-multiple').find("li")[i].children[0].textContent;
   }
 
-  const coverImage = listImgElm.eq(0).attr('src');
+  $('#contentElm').html(content);
+  const coverImage = $('#contentElm img').eq(0).attr('src');
 
+  if ($("#article__categories-input input:checked").parent().length == 2) {
+    var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: $("#article__categories-input input:checked").parent()[1].getAttribute("parentid") };
+  } else {
+    var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: "" };
+  }
   console.log(title);
   console.log(abstract);
+  console.log(tags);
+  console.log(category);
   console.log(coverImage);
-  console.log(content);  
+  console.log(content);
+
 })
