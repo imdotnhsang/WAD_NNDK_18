@@ -30,42 +30,73 @@ var editor = CKEDITOR.instances.editor;
 var contentElm;
 
 $('#saveArticle-btn').click(function () {
-  editor.execCommand('source', true);
-
   const content = editor.getData();
-  const title = $('#article__title-input').val();
-  const abstract = $('#article__abstract-input').val();
+  const title = $('#article__title-input').val().trim();
+  const abstract = $('#article__abstract-input').val().trim();
+
+  // coverImage
   $('#contentElm').html(content);
   const coverImage = $('#contentElm img').eq(0).attr('src');
-  
-  switch ($('.flexdatalist-multiple').find("li").length - 1) {
-    case 0:
-      alert("fill tag");
-      break;
-    default:
-      var tags = [];
-      for (i = 0; i < $('.flexdatalist-multiple').find("li").length - 1; i++) {
-        tags[i] = $('.flexdatalist-multiple').find("li")[i].children[0].textContent;
-      }
-      break;
+
+  // tags
+  let tags = [];
+  const tagsElm = $('.flexdatalist-multiple').find("li");
+
+  if (tagsElm.length - 1 !== 0) {
+    for (i = 0; i < tagsElm.length - 1; i++) {
+      tags[i] = tagsElm[i].children[0].textContent;
+    }
   }
 
-  switch ($("#article__categories-input input:checked").parent().length) {
+  // categories  
+  let categories = [];
+  const categoriesElm = $("#article__categories-input input:checked").parent();
+
+  switch (categoriesElm.length) {
     case 0:
-      alert("fill category");
+      console.log('Empty Cate');
       break;
     case 1:
-      var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: "" };
+      categories = [categoriesElm[0].id];
       break;
     default:
-      var category = { _id: $("#article__categories-input input:checked").parent()[0].id, parentId: $("#article__categories-input input:checked").parent()[1].getAttribute("parentid") };
+      categories =  [categoriesElm[0].id, categoriesElm[1].getAttribute("parentid")]
   }
 
-  console.log(title);
-  console.log(abstract);
-  console.log(tags);
-  console.log(category);
-  console.log(coverImage);
-  console.log(content);
+  console.log(`title: ${title}.`);
+  console.log(`abstract: ${abstract}.`);
+  console.log(`tags: ${tags}.`);
+  console.log(`categories: ${categories}.`);
+  console.log(`coverImage: ${coverImage}.`);
+  console.log(`content: ${content}.`);
 
-})
+  const isInvalid = !title || !abstract || !categories.length || !coverImage || !content;
+  if (!isInvalid) {
+    postData('/api/article/create', {title, abstract, tags, categories, coverImage, content})
+      .then(res => {
+        const statusCode = res.status;
+
+        switch (statusCode) {
+          case 200:
+            res.json().then(article => {
+              console.log(article);
+            })
+
+            break;
+          case 500:
+            break;
+            
+          default:
+            res.json().then(err => {
+              console.log(err);
+            })
+            break;
+        }
+
+        // editor.execCommand('source');  
+      })
+  } else {
+    console.log('isInvalid');
+  }
+
+});
