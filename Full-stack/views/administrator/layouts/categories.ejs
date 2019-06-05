@@ -34,12 +34,34 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="input-group mb-3">
+                            <textarea type="text" class="form-control" style="font-size: 10pt;" disabled> <%= eachCategory.title %> </textarea>
+                            <div class="input-group-append">
+                                <button class="btn btn-white js-edit-input" type="button">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                                    <i class="far fa-window-close"></i>
+                                </button>
+                            </div>
+                        </div>
 
                         <ul class="list-group">
                             <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
                                 <li class="list-group-item">
-                                        <div class="input-group">
+                                        <div class="input-group mb-3">
                                             <input type="text" class="form-control" value="<%= eachSubCategory.title %>" disabled>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-white js-edit-input" type="button" id="<%= eachSubCategory._id %>">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                                                    <i class="far fa-window-close"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <textarea class="form-control" style="font-size: 10pt;" disabled> <%= eachSubCategory.title %> </textarea>
                                             <div class="input-group-append">
                                                 <button class="btn btn-white js-edit-input" type="button" id="<%= eachSubCategory._id %>">
                                                     <i class="far fa-edit"></i>

@@ -14,10 +14,21 @@ const createCategory = (id, title) => (
                     </button>
                 </div>
             </div>
+            <div class="input-group mb-3">
+                <textarea type="text" class="form-control" style="font-size: 10pt;" disabled>Description category</textarea>
+                <div class="input-group-append">
+                    <button class="btn btn-white js-edit-input" type="button">
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                        <i class="far fa-window-close"></i>
+                    </button>
+                </div>
+            </div>
 
             <ul class="list-group">
                 <li class="list-group-item">
-                    <div class="input-group">
+                    <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Add new subcategory" aria-label="Add new category" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-white js-add-subcategory" type="button" parentId=${id}>
@@ -43,6 +54,18 @@ const createSubCategory = (id, title) => (
                     <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
                         <i class="far fa-window-close"></i>
                     </button>
+                </div>
+            </div>
+            <div class="input-group mt-3">
+                <textarea class="form-control" style="font-size: 10pt;" disabled> Description subcategory </textarea>
+                    <div class="input-group-append">
+                        <button class="btn btn-white js-edit-input" type="button" id="<%= eachSubCategory._id %>">
+                            <i class="far fa-edit"></i>
+                        </button>
+                        <button class="btn btn-white js-cancel-input" type="button" style="display:none;">
+                            <i class="far fa-window-close"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </li>
@@ -107,8 +130,8 @@ const createElement = str => {
 $(document).on('click', ".js-edit-input", function () {
     let inputTag = $(this).parent().parent().children('input');
     let cancelBtn = $(this).parent().children('.js-cancel-input');
-
-    if (inputTag.attr('disabled')) {
+    let descriptionTag = $(this).parent().parent().children('textarea');
+    if (inputTag.attr('disabled') || descriptionTag.attr('disabled')) {
         if (isEditting) {
             return;
         }
@@ -116,14 +139,15 @@ $(document).on('click', ".js-edit-input", function () {
         isEditting = true;
 
         inputTag.removeAttr('disabled');
+        descriptionTag.removeAttr('disabled');
         cancelBtn.css("display", "block");
 
         $(this).children().removeClass('far fa-edit');
         $(this).children().addClass('fas fa-check');
     } else {
         const title = inputTag.val();
+        const description = descriptionTag.val();
         const id = $(this).attr('id');
-
         postData('/api/category/update', { title, id })
             .then(res => {
                 const statusCode = res.status;
@@ -133,6 +157,7 @@ $(document).on('click', ".js-edit-input", function () {
                         res.json().then(categoryUpdated => {
                             isEditting = false;
                             inputTag.prop('disabled', 'true');
+                            descriptionTag.prop('disabled', 'true');
                             cancelBtn.css("display", "none");
                             $(this).children().removeClass('fas fa-check');
                             $(this).children().addClass('far fa-edit');
@@ -144,7 +169,7 @@ $(document).on('click', ".js-edit-input", function () {
                     default:
                         res.json().then(err => {
                             const errMsg = err.title || err.category || 'Cannot edit category.';
-                            showErrorsModal($(this), errMsg); 
+                            showErrorsModal($(this), errMsg);
                         })
                         break;
                 }
@@ -155,9 +180,11 @@ $(document).on('click', ".js-edit-input", function () {
 $(document).on('click', ".js-cancel-input", function () {
     let inputTag = $(this).parent().parent().children('input');
     let editBtn = $(this).parent().children('.js-edit-input').children();
-    
+    let descriptionTag = $(this).parent().parent().children('textarea');
+
     isEditting = false;
     inputTag.prop('disabled', 'true');
+    descriptionTag.prop('disabled', 'true');
     $(this).css("display", "none");
     editBtn.removeClass('fas fa-check');
     editBtn.addClass('far fa-edit');
@@ -175,8 +202,8 @@ $(document).on('click', '.js-add-category', function () {
     }
 
     postData('/api/category/create', {
-            title: valInput
-        })
+        title: valInput
+    })
         .then(res => {
             const statusCode = res.status;
 
@@ -221,9 +248,9 @@ $(document).on('click', '.js-add-subcategory', function () {
     const parentId = $(this).attr('parentId');
 
     postData('/api/category/create', {
-            title,
-            parentId
-        })
+        title,
+        parentId
+    })
         .then(res => {
             const statusCode = res.status;
 
