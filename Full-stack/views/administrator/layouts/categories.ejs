@@ -23,6 +23,7 @@
             <ul id="js-categories-ul" class="list-unstyled row m-auto">
                 <% categoryList.forEach(function(eachCategory){ %>
                     <li class="list-item col-5 p-3 border mx-auto mb-3" id="<%= eachCategory._id %>">
+                        <p class="mb-1">Title</p>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" value="<%= eachCategory.title %>" style="font-size: 13pt;" disabled>
                             <div class="input-group-append">
@@ -34,6 +35,8 @@
                                 </button>
                             </div>
                         </div>
+
+                        <p class="mb-1">Content</p>
                         <div class="input-group mb-3">
                             <textarea type="text" class="form-control" style="font-size: 10pt;" disabled> <%= eachCategory.title %> </textarea>
                             <div class="input-group-append">
