@@ -60,7 +60,7 @@ $('#saveArticle-btn').click(function () {
       categories = [categoriesElm[0].id];
       break;
     default:
-      categories =  [categoriesElm[0].id, categoriesElm[1].getAttribute("parentid")]
+      categories =  [categoriesElm[1].getAttribute("id"), categoriesElm[1].getAttribute("parentid")]
   }
 
   console.log(`title: ${title}.`);
