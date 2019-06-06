@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     }
 });
 
-router.get('/profile', function (req, res, next) {
+router.get('/profile', function (req, res) {
     const adminAccount = req.user;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
@@ -37,7 +37,7 @@ router.get('/profile', function (req, res, next) {
     }
 });
 
-router.get('/news', function (req, res, next) {
+router.get('/news', function (req, res) {
     const adminAccount = req.user;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
@@ -55,7 +55,7 @@ router.get('/news', function (req, res, next) {
     }
 });
 
-router.get('/categories', function (req, res, next) {
+router.get('/categories', function (req, res) {
     const adminAccount = req.user;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
@@ -73,7 +73,7 @@ router.get('/categories', function (req, res, next) {
     }
 });
 
-router.get('/tags', function (req, res, next) {
+router.get('/tags', function (req, res) {
     const adminAccount = req.user;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
@@ -91,7 +91,7 @@ router.get('/tags', function (req, res, next) {
     }
 });
 
-router.get('/users', function (req, res, next) {
+router.get('/users', function (req, res) {
     const adminAccount = req.user;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
@@ -109,12 +109,12 @@ router.get('/users', function (req, res, next) {
     }
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', function (req, res) {
     req.logOut();
     res.redirect('/administrator');
 });
 
-router.get('/:other', function (req, res, next) {
+router.get('/:other', function (req, res) {
     res.redirect('/administrator');
 });
 

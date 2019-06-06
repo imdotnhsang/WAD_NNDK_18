@@ -133,6 +133,7 @@ $(document).on('click', ".js-edit-input", function () {
     let descriptionTag = $(this).parent().parent().children('textarea');
     if (inputTag.attr('disabled') || descriptionTag.attr('disabled')) {
         if (isEditting) {
+            $(this).attr("disabled", false);
             return;
         }
 
@@ -148,6 +149,8 @@ $(document).on('click', ".js-edit-input", function () {
         const title = inputTag.val();
         const description = descriptionTag.val();
         const id = $(this).attr('id');
+
+        $(this).attr("disabled", true);
         postData('/api/category/update', { title, id })
             .then(res => {
                 const statusCode = res.status;
@@ -161,15 +164,19 @@ $(document).on('click', ".js-edit-input", function () {
                             cancelBtn.css("display", "none");
                             $(this).children().removeClass('fas fa-check');
                             $(this).children().addClass('far fa-edit');
+
+                            $(this).attr("disabled", false);
                         })
                         break;
                     case 500:
                         showErrorsModal($(this), 'Server Error. Please try again!');
-
+                        $(this).attr("disabled", false);
+                        break;
                     default:
                         res.json().then(err => {
                             const errMsg = err.title || err.category || 'Cannot edit category.';
                             showErrorsModal($(this), errMsg);
+                            $(this).attr("disabled", false);
                         })
                         break;
                 }

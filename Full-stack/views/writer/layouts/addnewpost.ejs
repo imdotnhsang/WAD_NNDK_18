@@ -16,8 +16,7 @@
                 
                 <div class="article__tags mb-3">
                     <h5>Tags</h5>
-                    <input class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple=''
-                        data-selection-required='1' list='tagList' id="article__tag-input">
+                    <input class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple='multiple' list='tagList' id="article__tag-input">
 
                     <datalist id="tagList">
                         <% tagList.forEach(eachTag => { %>
@@ -25,11 +24,6 @@
                         <% }) %>
                     </datalist>
                 </div>
-
-                <!-- <div class="article__coverImage mb-3">
-                    <h5>Cover Image</h5>
-
-                </div> -->
 
                 <div class="article__content mb-3">
                     <h5>Content</h5>
@@ -55,7 +49,7 @@
                     <% if(eachCategory.subCategories.length !== 0){ %>
                     <div class="ml-4">
                         <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
-                        <label class="container_input" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
+                        <label class="container_input" id="<%= eachSubCategory._id %>" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
                             <input type="radio" name="radio">
                             <span class="custom-radio"></span>
                         </label>
@@ -81,7 +75,7 @@
         </div>
     </div>
 </div>
-
+<!-- 
 <div id="contentElm" style="display: none;">
     
-</div>
+</div> -->
