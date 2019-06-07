@@ -8,7 +8,13 @@
     <div class="container-fluid">
         <div class="row">
 
-            <main class="main">
+            <!-- sidebar-->
+            <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+                <% include partials/sidebar %>
+            </aside>
+
+            <!--navbar-->
+            <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
                 <div class="main-navbar sticky-top bg-white">
                     <% include partials/navbar %>
                 </div>
@@ -21,14 +27,16 @@
 
                     <!-- Page Content -->
                     <div class="row">
-                        <% include partials/maincontent %>
+                        <%- include(layout) %>
                     </div>
 
-                    <!-- Page Footer -->
-                    <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
-                        <% include partials/footer %>
-                    </footer>
+
                 </div>
+
+                <!-- Page Footer -->
+                <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+                    <% include partials/footer %>
+                </footer>
             </main>
         </div>
     </div>
