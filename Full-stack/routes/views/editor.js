@@ -33,7 +33,7 @@ router.post('/delete_file', function (req, res, next) {
     res.redirect('back')
 });
 
-router.get('/add-new-post', async function (req, res, next) {
+router.get('/edit-post', async function (req, res, next) {
     res.render(
         'editor',
         {
