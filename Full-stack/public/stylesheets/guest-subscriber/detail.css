@@ -324,6 +324,10 @@
     border-radius: 7px;
 }
 
+.container-detail .content-detail .main-content-detail img{
+    width: 100%!important;
+    height: 100%!important;
+}
 @media screen and (max-width: 993px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
         font-size: 15px;
@@ -352,10 +356,7 @@
     .container-detail .top-6-most-read-news .most-read-news .author .date-posted {
         font-size: 13px;
     }
-    .container-detail .content-detail .main-content-detail img{
-        width: 100%!important;
-        height: 100%!important;
-    }
+
 }
 
 @media screen and (max-width: 413px) {
