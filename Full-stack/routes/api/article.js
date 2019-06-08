@@ -25,12 +25,18 @@ router.post('/upload-image', upload.array('flFileUpload', 12), (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    // let accountWriter = req.user;
+    let accountWriter = req.user;
     const errors = {};
+
+    if (!accountWriter || accountWriter.userType !== 'writer'){
+        errors.writer = 'Authorization fail.';
+        return res.status(400).json(errors)
+    }
+
 
     let { title, tagListOld, tagListNew, categories, coverImage, content, abstract } = req.body;
     let process = 'editor';
-    let writer = '5cf3825bd75d653cd04fadcb';
+    let writer = accountWriter._id;
 
     title = _.trim(title);
     let slug = title.replace(/ /g, '-').toLowerCase();
