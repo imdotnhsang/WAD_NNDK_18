@@ -37,6 +37,7 @@ const UserSchema = mongoose.Schema({
     },
     userType: { // subscriber, writer, editor, administrator
         type: String,
+        enum: ['subscriber', 'writer', 'editor', 'administrator'],
         required: true
     },
     createdAt: {

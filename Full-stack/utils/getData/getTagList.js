@@ -3,9 +3,7 @@ const Tag = mongoose.model('Tag');
 
 const getTagList = () => {
     return Tag
-        .find({
-            isActive: true
-        })
+        .find()
         .sort({
             _id: -1
         })

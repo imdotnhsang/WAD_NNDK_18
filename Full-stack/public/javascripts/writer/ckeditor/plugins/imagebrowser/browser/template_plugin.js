@@ -48,7 +48,7 @@ $(document).on('click', '.show_image_list span', function () {
   var url_del = $(this).attr('data-image')
   if(url_del.split('/').pop() !== 'no-image.png'){
       $.ajax({
-        url: '/delete_file',
+        url: '/actions/delete_file',
         type: 'POST',
         dataType: 'text',
         data: {

@@ -4,7 +4,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
     .connect(MONGO_URI, {
-        useNewUrlParser: true
+        useNewUrlParser: true, useCreateIndex: true
     })
     .then(() => {
         console.log("Connected to MongoDB.");

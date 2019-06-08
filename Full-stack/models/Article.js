@@ -10,10 +10,12 @@ const ArticleSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tags: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tag'
-    }],
+    tags: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tag'
+        }
+    ],
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'

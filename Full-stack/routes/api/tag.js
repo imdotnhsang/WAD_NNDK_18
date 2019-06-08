@@ -42,6 +42,23 @@ router.get('/get-page/:page', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+router.post('create-many', (req, res) => {
+    const { tagList } = req.body;
+
+    let docs = [];
+    for (let tag of tagList) {
+        let title =  _.trim(tag);
+        let slug = title.replace(/ /g, '-').toLowerCase();
+
+        docs.push({ title, slug})
+    }
+
+    Tag.insertMany(docs, { ordered: false }, (err, result) => {
+        console.log(err);
+        console.log(result);
+    })
+})
+
 router.post('/create', (req, res) => {
     let errors = {};
 
@@ -90,7 +107,6 @@ router.post('/delete', (req, res) => {
         errors.id = 'Id does not exist.';
         return res.status(400).json(errors);
     }
-
     
     Tag
         .findOne({ _id: id, isActive: true })
@@ -100,7 +116,7 @@ router.post('/delete', (req, res) => {
                 return res.status(404).json(errors);
             }
 
-            result.isActive = false;
+            result.isActive = (req.user && req.user.userType === 'administrator');
 
             return result
                 .save()
@@ -159,5 +175,16 @@ router.post('/update', (req, res) => {
             res.status(400).json({ ...errors, ...err.errors });
         });
 });
+
+router.post('active', (req, res) => {
+    const { id } = req.body;
+
+    Tag.findByIdAndUpdate(id, { isActive: true })
+        .then(tag => res.json(tag))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        });
+})
 
 module.exports = router;

@@ -1,3 +1,48 @@
+const showSuccessModal = (curElm, successMsg) => {
+  curElm.attr('data-toggle', 'modal');
+  curElm.attr('data-target', '#success__modal');
+  $('#success__modal').modal('show');
+  $('#success__modalContent').html(successMsg);
+
+  $('.success__modal button').click(function () {
+    curElm.removeAttr('data-toggle');
+    curElm.removeAttr('data-target');
+    location.reload();
+  });
+
+  $(document).mouseup(function (e) {
+    var container = $(".success__modal");
+
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      curElm.removeAttr('data-toggle');
+      curElm.removeAttr('data-target');
+    }
+
+    location.reload();
+  });
+};
+
+const showErrorsModal = (curElm, errMsg) => {
+  curElm.attr('data-toggle', 'modal');
+  curElm.attr('data-target', '#errors__modal');
+  $('#errors__modal').modal('show');
+  $('#errors__modalContent').html(errMsg);
+
+  $('.errors__modal button').click(function () {
+    curElm.removeAttr('data-toggle');
+    curElm.removeAttr('data-target');
+  });
+
+  $(document).mouseup(function (e) {
+    var container = $(".errors__modal");
+
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      curElm.removeAttr('data-toggle');
+      curElm.removeAttr('data-target');
+    }
+  });
+};
+
 var quill = new Quill('#editor', {
   theme: 'snow'
 });
@@ -5,7 +50,7 @@ var quill = new Quill('#editor', {
 
 CKEDITOR.replace('editor', {
   "extraPlugins": 'imagebrowser',
-  "imageBrowser_listUrl": "/writer/files"
+  "imageBrowser_listUrl": "/actions/files"
 });
 
 CKEDITOR.config.height = "500";
@@ -43,59 +88,68 @@ const getArticleCoverImage = (content) => {
   return coverImage;
 }
 
-const getArticleTags = () => {
-  let result = [];
-  const tagsElm = $('.flexdatalist-multiple').find("li");
-
-  for (let i = 0; i < tagsElm.length - 1; i++) {
-    result.push(tagsElm[i].firstChild.textContent);
-  }
-
-  return result;
-}
-
 $('#saveArticle-btn').click(function () {
   const content =  CKEDITOR.instances.editor.getData();
   const title = $('#article__title-input').val().trim();
   const abstract = $('#article__abstract-input').val().trim();
   const categories = getArticleCategories();
   const coverImage = getArticleCoverImage(content);
-  const tags = getArticleTags();
+  const tagListInput = $('.flexdatalist').flexdatalist('value');
+
+  let tagListOld = [];
+  let tagListNew = [];
+  let idSelect;
+  for (let tag of tagListInput) {
+    idSelect = $('#tagList').find('option').filter(function() {
+      return $(this).html() === tag
+    }).val();
+    
+    if (idSelect) {
+      tagListOld.push(idSelect)
+    } else {
+      tagListNew.push(tag);
+    }
+  }
 
   console.log(`title: ${title}.`);
   console.log(`abstract: ${abstract}.`);
-  console.log(`tags: ${tags}.`);
+  console.log(`tagListOld: ${tagListOld}.`);
+  console.log(`tagListNew: ${tagListNew}.`);
   console.log(`categories: ${categories}.`);
   console.log(`coverImage: ${coverImage}.`);
   console.log(`content: ${content}.`);
 
   const isInvalid = !title || !abstract || !categories.length || !coverImage || !content;
-  console.log("isInvalid: ", isInvalid);
 
-  // if (!isInvalid) {
-  //   postData('/api/article/create', { title, abstract, tags, categories, coverImage, content })
-  //     .then(res => {
-  //       const statusCode = res.status;
+  if (isInvalid) {
+    console.log("isInvalid: ", isInvalid);
+    return;
+  }
 
-  //       switch (statusCode) {
-  //         case 200:
-  //           res.json().then(article => {
-  //             console.log(article);
-  //           })
+  postData('/api/article/create', { title, abstract, tagListOld, tagListNew, categories, coverImage, content })
+    .then(res => {
+      const statusCode = res.status;
 
-  //           break;
-  //         case 500:
-  //           break;
+      switch (statusCode) {
+        case 200:
+          res.json().then(article => {
+            console.log(article);
+            showSuccessModal($(this), 'Add new post successfully.');
+          })
 
-  //         default:
-  //           res.json().then(err => {
-  //             console.log(err);
-  //           })
-  //           break;
-  //       }
-  //     })
-  // } else {
-  //   console.log('isInvalid');
-  // }
+          break;
+        case 500:
+          showErrorsModalModal($(this), 'Server Error. Please try again!');
+          break;
 
+        default:
+          res.json().then(err => {
+            console.log(err);
+          })
+          break;
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
 });

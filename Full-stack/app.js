@@ -52,8 +52,10 @@ app.use((req, res, next) => {
 // routes
 const views = require('./routes/views');
 const api = require('./routes/api');
+const actions = require('./routes/actions');
 
 app.use('/', views);
+app.use('/actions', actions);
 app.use('/api', api);
 
 module.exports = app;
