@@ -27,11 +27,11 @@
                         <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
                         <li>
                            <a class="d-flex justify-content-between align-content-center align-items-center"
-                              href="category"><%= eachSubCategory.title %></i></a>
+                              href="/category/<%= eachSubCategory.slug %>/1"><%= eachSubCategory.title %></i></a>
                         </li>
                         <% }) %>
                         <li>
-                           <a class="text-uppercase d-flex align-content-center align-items-center" href="category"><i
+                           <a class="text-uppercase d-flex align-content-center align-items-center" href="/category/<%= eachCategory.slug %>/1"><i
                                  class="fa fa-asterisk"></i>&nbsp;&nbsp;All <%= eachCategory.title %>s </a>
                         </li>
                      </ul>
