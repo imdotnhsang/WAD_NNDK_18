@@ -25,7 +25,7 @@ const ArticleSchema = mongoose.Schema({
         required: true
     },
     publishedAt: {
-        type: Date,
+        type: Number,
         required: false
     },
     content: {
@@ -69,7 +69,7 @@ const ArticleSchema = mongoose.Schema({
         required: false
     },
     createdAt: {
-        type: Date,
+        type: Number,
         default: Date.now()
     }
 });

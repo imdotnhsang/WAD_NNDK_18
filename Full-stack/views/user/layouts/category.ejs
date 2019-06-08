@@ -41,7 +41,7 @@
                         <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
                                 href="/category/<%= eachArticleCategory.categories[eachArticleCategory.categories.length - 1].slug %>/1"><%= eachArticleCategory.categories[eachArticleCategory.categories.length - 1].title %></a>&nbsp;&nbsp;
                             <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                    id="date-posted"><%= eachArticleCategory.publishDate %></span>
+                                    id="date-posted"><%= eachArticleCategory.publishedAt %></span>
                             </p>&nbsp;&nbsp;
                         </span>
                         <p class="abstract-news pt-0 pt-sm-1 m-0">
@@ -127,9 +127,9 @@
                                 class="title-most-read-news m-0 font-weight-bold"><%= eachArticleMR.title %>
                             </a>
                             <span class="author m-0 p-0 pt-1 row"><a class=""
-                                    href="category"><%= eachArticleMR.categoryName %></a>&nbsp;&nbsp;
+                                    href="/category/<%=  eachArticleMR.categories[eachArticleMR.categories.length - 1].slug %>/1"><%= eachArticleMR.categories[eachArticleMR.categories.length - 1].title %></a>&nbsp;&nbsp;
                                 <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                        id="date-posted"><%= eachArticleMR.publishDate %></span></p></span></div>
+                                        id="date-posted"><%= eachArticleMR.publishedAt %></span></p></span></div>
                     </div>
                     <% }) %>
                 </div>

@@ -103,33 +103,58 @@ router.get('/article/:slug', function (req, res, next) {
 
     const { slug } = req.params;
 
-    //Lấy đại 5 bài trong cũng chuyên mục (nếu là chuyên mục con thì lấy 5 thằng chỉ cùng chuyên mục con)
-    const fiveArticlesNextUp = [{ title: 'Apple’s Q2 earnings: iPhone sales continue to drop as services keep growing' },
-    { title: 'The man who predicted Antennagate is no longer at Apple' },
-    { title: 'Apple’s Aperture photo editing software will shutter for good after macOS Mojave' },
-    { title: 'Apple explains why it’s cracking down on third-party screen time and parental control apps' },
-    { title: 'Apple claims it isn’t scanning customers’ faces, after teen sues for $1 billion' }];
+    const waitting = Promise.all(
+        [
+            // getTop6ArticlesMostRead
+            new Promise((resolve, reject) => {
+                Article
+                    .find({ publishedAt: { $ne: null } })
+                    .select('title slug categories publishedAt coverImage')
+                    .populate('categories')
+                    .sort({views: -1})
+                    .limit(6)
+                    .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
+                    .catch(err => reject(err));
+            }),
 
-    //Lấy 6 bài đọc nhiều nhất chuyên mục cha của thằng chuyên mục con của bài detail (nếu là chuyên mục cha rồi thì lấy các bài cùng chuyên mục cha đó)
-    const sixArticlesMostRead = [{ title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Samsung', publishDate: 1558810668776, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }];
+            // details Article + fiveArticlesNextUp
+            new Promise((resolve, reject) => {
+                Article
+                    .findOneAndUpdate({ slug, publishedAt: { $ne: null } }, { $inc: { views: 1 } })
+                    .populate('tags')
+                    .populate('categories')
+                    .populate('writer', '_id fullname pseudonym')
+                    .then(articleDetail => {
+                        if (!articleDetail) {
+                            resolve({ articleDetail })
+                        }
 
-    Article
-        .findOneAndUpdate({ slug }, {$inc: { views: 1 }})
-        //.find({ publishedAt: { $ne: null } })
-        .populate('tags')
-        .populate('categories')
-        .populate('writer', '_id fullname pseudonym')
-        .then(article => {
-            if (!article) {
+                        const targetCategory = articleDetail.categories[articleDetail.categories.length - 1];
+
+                        return Article
+                            .find({ categories: targetCategory._id , publishedAt: { $ne: null } })
+                            .populate('categories')
+                            .limit(5)
+                            .select('title slug')
+                            .then(fiveArticlesNextUp => resolve({ articleDetail, fiveArticlesNextUp }))
+                    })
+                    .catch(err => reject(err));
+            })
+
+            //
+        ]
+    )
+
+    return waitting
+        .then(values => {
+            console.log(values);
+
+            let sixArticlesMostRead = values[0];
+            let { articleDetail, fiveArticlesNextUp } = values[1];
+            
+            if (!articleDetail) {
                 return res.redirect('/home');
             }
-
-            // console.log(article);
 
             return res.render(
                 'user',
@@ -139,7 +164,7 @@ router.get('/article/:slug', function (req, res, next) {
                     srcScript: '/javascripts/guest-subscriber/script.js',
                     hrefCss: '/stylesheets/guest-subscriber/detail.css',
                     account,
-                    articleDetail: article,
+                    articleDetail,
                     fiveArticlesNextUp,
                     sixArticlesMostRead
                 }
@@ -156,21 +181,10 @@ router.get('/category/:slug/:page', function (req, res, next) {
 
     const { slug, page } = req.params;
 
-    console.log('slug: ', slug);
-    console.log('page: ', page);
-
     let pageNumber = parseInt(page, 10);
     if (isNaN(pageNumber)) {
         return res.redirect('/home');
     }
-
-    //Lấy 6 bài đọc nhiều nhất cùng chuyên mục (nếu chuyên mục con thì chỉ lấy chuyên mục con, còn nếu chuyên mục cha thì lấy tất cả các bài của chuyên mục con)
-    // const sixArticlesMostRead = [{ title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' },
-    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Samsung', publishDate: 1558810668776, coverImage: '' },
-    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }]
 
     const categoryDetail = {
         categoryName: 'Apple',
@@ -198,7 +212,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     Article
                         .find({
                             categories: categoryId,
-                            //publishedAt: { $ne: null}
+                            publishedAt: { $ne: null}
                         })
                         .populate('tags')
                         .populate('categories')
@@ -208,16 +222,17 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         .catch(err => reject(err));
                 }),
 
-                // getTop6ArticlesMostRead
+                // getTop6ArticlesCategoryMostRead
                 new Promise((resolve, reject) => {
                     Article
                         .find({
                             categories: categoryId,
-                            //publishedAt: { $ne: null}
+                            publishedAt: { $ne: null}
                         })
-                        .sort({views: -1})
+                        .select('title slug categories publishedAt coverImage')
                         .populate('tags')
                         .populate('categories')
+                        .sort({views: -1})
                         .limit(6)
                         .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                         .catch(err => reject(err));

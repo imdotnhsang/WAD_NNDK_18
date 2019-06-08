@@ -6,14 +6,14 @@
         <ul class="breadcrumb breadcrumb-custom p-0">
             <% if(articleDetail.categories.length > 1){ %>
             <li class="breadcrumb-item breadcrumb-item-custom"><a class="p-0"
-                    href="/category/<%= articleDetail.categories[0].slug %>"><%= articleDetail.categories[0].title %></a>
+                    href="/category/<%= articleDetail.categories[0].slug %>/1"><%= articleDetail.categories[0].title %></a>
             </li>
             <li class="breadcrumb-item breadcrumb-item-custom active"><a class="p-0"
-                    href="/category/<%= articleDetail.categories[1].slug %>"><%= articleDetail.categories[1].title %></a>
+                    href="/category/<%= articleDetail.categories[1].slug %>/1"><%= articleDetail.categories[1].title %></a>
             </li>
             <% }else{ %>
             <li class="breadcrumb-item breadcrumb-item-custom active"><a class="p-0"
-                    href="/category/<%= articleDetail.categories[0].slug %>"><%= articleDetail.categories[0].title %></a>
+                    href="/category/<%= articleDetail.categories[0].slug %>/1"><%= articleDetail.categories[0].title %></a>
             </li>
             <% } %>
         </ul>
@@ -54,7 +54,7 @@
                     <div class="list-next-up-in-category row m-0 pt-2">
                         <% fiveArticlesNextUp.forEach(function(eachArticleNextUp){ %>
                         <div class="name-next-up-news">
-                            <a href="detail"><%= eachArticleNextUp.title %></a>
+                            <a href="/article/<%= eachArticleNextUp.slug %>"><%= eachArticleNextUp.title %></a>
                         </div>
                         <% }) %>
                     </div>
@@ -111,16 +111,16 @@
                 <div class="list-top-6-most-read-news pl-2 p-lg-0 row m-0">
                     <% sixArticlesMostRead.forEach(function(eachArticleMR){ %>
                     <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                        <div class="img-most-read-news col-12 p-0"><a href="detail"><img class="w-100"
-                                    src="/images/products/mostreadnews_category.jpg" alt=""></a> </div>
+                        <div class="img-most-read-news col-12 p-0"><a href="/article/<%= eachArticleMR.slug %>"><img class="w-100"
+                                    src="<%= eachArticleMR.coverImage %>" alt=""></a> </div>
                         <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                            <a href="detail"
+                            <a href="/article/<%= eachArticleMR.slug %>"
                                 class="title-most-read-news m-0 font-weight-bold"><%= eachArticleMR.title %>
                             </a>
                             <span class="author m-0 p-0 pt-1 row"><a class=""
-                                    href="category"><%= eachArticleMR.categoryName %></a>&nbsp;&nbsp;
+                                    href="/category/<%= eachArticleMR.categories[eachArticleMR.categories.length-1].slug %>/1"><%= eachArticleMR.categories[eachArticleMR.categories.length-1].title %></a>&nbsp;&nbsp;
                                 <p class="date-posted m-0" id="news_mostRead_1"><i class="fa fa-clock-o"></i>
-                                    <span id="date-posted"><%= eachArticleMR.publishDate %></span></p>
+                                    <span id="date-posted"><%= eachArticleMR.publishedAt %></span></p>
                             </span>
                         </div>
                     </div>
