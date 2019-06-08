@@ -5,6 +5,7 @@ const validateOTP = require('./OTP/validateOTP');
 
 const getCategoryList = require('./getData/getCategoryList');
 const getTagList = require('./getData/getTagList');
+const countArticlesCategory = require('./getData/countArticlesCategory');
 
 module.exports = {
     createOTP,
@@ -12,5 +13,6 @@ module.exports = {
     sendOTPCode,
     validateOTP,
     getCategoryList,
-    getTagList
+    getTagList,
+    countArticlesCategory
 }

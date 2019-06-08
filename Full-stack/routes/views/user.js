@@ -3,6 +3,9 @@ var router = express.Router();
 const mongoose = require('mongoose');
 
 const Article = mongoose.model('Article');
+const Category = mongoose.model('Category');
+
+const { countArticlesCategory } = require('../../utils');
 
 router.get('/home', function (req, res, next) {
     const account = req.user;
@@ -115,7 +118,9 @@ router.get('/article/:slug', function (req, res, next) {
     { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
     { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }];
 
-    Article.findOneAndUpdate({ slug }, {$inc: { views: 1 }})
+    Article
+        .findOneAndUpdate({ slug }, {$inc: { views: 1 }})
+        //.find({ publishedAt: { $ne: null } })
         .populate('tags')
         .populate('categories')
         .populate('writer', '_id fullname pseudonym')
@@ -124,7 +129,7 @@ router.get('/article/:slug', function (req, res, next) {
                 return res.redirect('/home');
             }
 
-            console.log(article);
+            // console.log(article);
 
             return res.render(
                 'user',
@@ -146,56 +151,109 @@ router.get('/article/:slug', function (req, res, next) {
         })
 });
 
-router.get('/category', function (req, res, next) {
+router.get('/category/:slug/:page', function (req, res, next) {
     const account = req.user;
 
-    const articlesCategory = {
+    const { slug, page } = req.params;
+
+    console.log('slug: ', slug);
+    console.log('page: ', page);
+
+    let pageNumber = parseInt(page, 10);
+    if (isNaN(pageNumber)) {
+        return res.redirect('/home');
+    }
+
+    //Lấy 6 bài đọc nhiều nhất cùng chuyên mục (nếu chuyên mục con thì chỉ lấy chuyên mục con, còn nếu chuyên mục cha thì lấy tất cả các bài của chuyên mục con)
+    // const sixArticlesMostRead = [{ title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' },
+    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Samsung', publishDate: 1558810668776, coverImage: '' },
+    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }]
+
+    const categoryDetail = {
         categoryName: 'Apple',
         descriptionCategory: 'The latest tech news about the world is best (and sometimes worst) hardware, apps, and much more. From top companies like Google and Apple to tiny startups vying for your attention, Verge Tech has the latest in what matters in technology daily.',
         twoArticlesHot: [{ title: 'Apple has edged out a number of third-party screen time and parental control apps: report 1', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
         { title: 'Apple has edged out a number of third-party screen time and parental control apps: report 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' }]
     }
 
-    //Lấy tất cả các bài trong chuyên mục (nếu chuyên mục con thì chỉ lấy chuyên mục con, còn nếu chuyên mục cha thì lấy tất cả các bài của chuyên mục con)
-    const resultArticlesCategory = [{ title: 'Apple Pay is coming to New York City’s MTA transit system this summer', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 3 ', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 4', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 5', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 6', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 7', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 8', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 9', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 10', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 10', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] }];
+    Category.findOne({slug})
+        .then(async category => {
+            if (!category) {
+                return res.redirect('/home');
+            }
+            
+            const categoryId = category._id;
 
-    //Lấy 6 bài đọc nhiều nhất cùng chuyên mục (nếu chuyên mục con thì chỉ lấy chuyên mục con, còn nếu chuyên mục cha thì lấy tất cả các bài của chuyên mục con)
-    const sixArticlesMostRead = [{ title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Samsung', publishDate: 1558810668776, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }]
+            const waitting = Promise.all([
+                // countArticlesCategory
+                new Promise((resolve, reject) => { 
+                    resolve(countArticlesCategory(categoryId))
+                }),
 
-    res.render(
-        'user',
-        {
-            title: 'Category',
-            layout: 'layouts/category',
-            srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/category.css',
-            account,
-            articlesCategory,
-            resultArticlesCategory,
-            sixArticlesMostRead
-        }
-    );
-});
+                // getArticleCategory(page)
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({
+                            categories: categoryId,
+                            //publishedAt: { $ne: null}
+                        })
+                        .populate('tags')
+                        .populate('categories')
+                        .skip(10 * (pageNumber - 1))
+                        .limit(10)
+                        .then(articlesCategory => resolve(articlesCategory))
+                        .catch(err => reject(err));
+                }),
 
-router.get('/category/:slug', function (req, res, next) {
-    const account = req.user;
+                // getTop6ArticlesMostRead
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({
+                            categories: categoryId,
+                            //publishedAt: { $ne: null}
+                        })
+                        .sort({views: -1})
+                        .populate('tags')
+                        .populate('categories')
+                        .limit(6)
+                        .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
+                        .catch(err => reject(err));
+                })
+            ])
 
+            return waitting
+                .then(values => {
+                    let countArticlesCategoryValue = values[0];
+                    let articlesCategory = values[1];
+                    let sixArticlesMostRead = values[2];
 
+                    if (articlesCategory.length === 0 || countArticlesCategoryValue === -1) {
+                        return res.redirect('/home');
+                    }
+
+                    return res.render(
+                        'user',
+                        {
+                            title: 'Category',
+                            layout: 'layouts/category',
+                            srcScript: '/javascripts/guest-subscriber/script.js',
+                            hrefCss: '/stylesheets/guest-subscriber/category.css',
+                            account,
+                            categoryDetail,
+                            articlesCategory,
+                            countArticlesCategory: countArticlesCategoryValue,
+                            sixArticlesMostRead
+                        }
+                    );
+                })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.redirect('/home');
+        }) 
 });
 
 router.get('/hashtag', function (req, res, next) {
