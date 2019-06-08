@@ -6,7 +6,7 @@
                 aria-haspopup="true" aria-expanded="false">
                 <img class="mr-2" id="account__avatar" style="width: 40px; height: 40px; border-radius: 50%;" src="<%= adminAccount.avatar ? adminAccount.avatar : '/images/avatars/none.jpg' %>"
                     alt="avatar">
-                <span class="d-none d-md-inline-block" style="font-size: 12pt;"><%= adminAccount.fullname %></span>
+                <span class="d-none d-md-inline-block" id="account__fullname" style="font-size: 12pt;"><%= adminAccount.fullname %></span>
             </a>
             <div class="dropdown-menu dropdown-menu-small">
                 <a class="dropdown-item" href="profile">

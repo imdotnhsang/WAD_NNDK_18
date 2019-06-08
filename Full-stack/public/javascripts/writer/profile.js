@@ -127,7 +127,7 @@ $('#js-update-account-btn').on('click', (e) => {
     .then(res => {
       if (res.status === 200) {
         res.json().then(account => {
-          $('#account__fullname').text(account.fullname.html());
+          $('#account__fullname').text(account.fullname);
         })
         showSuccessModal($(this), 'Update account successfully!');
       }

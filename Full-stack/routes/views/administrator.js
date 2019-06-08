@@ -7,15 +7,8 @@ router.get('/', (req, res) => {
     if (account && account.userType === 'administrator') {
         res.redirect('/administrator/profile')
     } else {
-        res.render(
-            'auth',
-            {
-                title: 'Administrator',
-                layout: 'layouts/administrator',
-                srcScript: '/javascripts/auth/administrator.js',
-                hrefCss: '/stylesheets/guest-subscriber/auth.css'
-            }
-        )
+        res.redirect('/auth/member-company')
+
     }
 });
 
@@ -111,7 +104,7 @@ router.get('/users', function (req, res) {
 
 router.get('/logout', function (req, res) {
     req.logOut();
-    res.redirect('/administrator');
+    res.redirect('/auth/member-company');
 });
 
 router.get('/:other', function (req, res) {

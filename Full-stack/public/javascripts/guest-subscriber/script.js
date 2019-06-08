@@ -17,6 +17,7 @@ function validateUsername(sUsername) {
         return false;
     }
 }
+
 function checkSpaceInString(sSen) {
     var patt = /\s/g;
     if (sSen.match(patt)) {
@@ -24,6 +25,7 @@ function checkSpaceInString(sSen) {
     }
     return false;
 }
+
 function validatePassword(sPassword) {
     var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{7,})/;
     if (filter.test(sPassword) && checkSpaceInString(sPassword) == false) {
@@ -364,6 +366,9 @@ function formatGender(gender) {
     }
     return "Female";
 }
+
+$('.container-detail .content-detail .main-content-detail img').parent('p').css('display','flex');
+$('.container-detail .content-detail .main-content-detail img').parent('p').css('justify-content','center');
 
 //transfer news to pdf
 $('#detail__print').click(function () {

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res, next) {  
+router.get('/', function (req, res, next) {
   if (req.user) {
     res.redirect('/home')
   } else {
@@ -27,6 +27,47 @@ router.get('/forgotten-password', (req, res) => {
       hrefCss: '/stylesheets/guest-subscriber/auth.css'
     }
   );
+});
+
+router.get('/member-company', function (req, res, next) {
+  if (req.user) {
+    switch (req.user.userType) {
+      case 'administrator':
+        res.redirect('/administrator')
+        break;
+      case 'writer':
+        res.redirect('/writer')
+        break;
+      case 'editor':
+        res.redirect('/editor')
+        break;
+      default:
+    }
+  } else {
+    res.render(
+      'auth',
+      {
+        title: 'Member of Company',
+        layout: 'layouts/companyMember',
+        srcScript: '/javascripts/auth/administrator.js',
+        hrefCss: '/stylesheets/guest-subscriber/auth.css'
+      }
+    );
+  }
+
+  // if (req.user) {
+  //   res.redirect('/administrator')
+  // } else {
+  //   res.render(
+  //     'auth',
+  //     {
+  //       title: 'Member of Company',
+  //       layout: 'layouts/companyMember',
+  //       srcScript: '/javascripts/auth/administrator.js',
+  //       hrefCss: '/stylesheets/guest-subscriber/auth.css'
+  //     }
+  //   );
+  // }
 });
 
 // router.get('/activation', (req, res) => {

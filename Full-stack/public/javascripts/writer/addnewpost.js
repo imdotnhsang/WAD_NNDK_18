@@ -1,4 +1,4 @@
-const showSuccessModal = (curElm, successMsg) => {
+const showSuccessModalAddNewPost = (curElm, successMsg) => {
   curElm.attr('data-toggle', 'modal');
   curElm.attr('data-target', '#success__modal');
   $('#success__modal').modal('show');
@@ -22,26 +22,26 @@ const showSuccessModal = (curElm, successMsg) => {
   });
 };
 
-const showErrorsModal = (curElm, errMsg) => {
-  curElm.attr('data-toggle', 'modal');
-  curElm.attr('data-target', '#errors__modal');
-  $('#errors__modal').modal('show');
-  $('#errors__modalContent').html(errMsg);
+// const showErrorsModal = (curElm, errMsg) => {
+//   curElm.attr('data-toggle', 'modal');
+//   curElm.attr('data-target', '#errors__modal');
+//   $('#errors__modal').modal('show');
+//   $('#errors__modalContent').html(errMsg);
 
-  $('.errors__modal button').click(function () {
-    curElm.removeAttr('data-toggle');
-    curElm.removeAttr('data-target');
-  });
+//   $('.errors__modal button').click(function () {
+//     curElm.removeAttr('data-toggle');
+//     curElm.removeAttr('data-target');
+//   });
 
-  $(document).mouseup(function (e) {
-    var container = $(".errors__modal");
+//   $(document).mouseup(function (e) {
+//     var container = $(".errors__modal");
 
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      curElm.removeAttr('data-toggle');
-      curElm.removeAttr('data-target');
-    }
-  });
-};
+//     if (!container.is(e.target) && container.has(e.target).length === 0) {
+//       curElm.removeAttr('data-toggle');
+//       curElm.removeAttr('data-target');
+//     }
+//   });
+// };
 
 var quill = new Quill('#editor', {
   theme: 'snow'
@@ -134,12 +134,12 @@ $('#saveArticle-btn').click(function () {
         case 200:
           res.json().then(article => {
             console.log(article);
-            showSuccessModal($(this), 'Add new post successfully.');
+            showSuccessModalAddNewPost($(this), 'Add new post successfully.');
           })
 
           break;
         case 500:
-          showErrorsModalModal($(this), 'Server Error. Please try again!');
+          showErrorsModal($(this), 'Server Error. Please try again!');
           break;
 
         default:
