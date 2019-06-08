@@ -55,9 +55,10 @@ const ArticleSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    writerId: {
+    writer: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'User'
     },
     editorId: {
         type: mongoose.Schema.Types.ObjectId,

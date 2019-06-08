@@ -30,7 +30,7 @@ router.post('/create', async (req, res) => {
 
     let { title, tagListOld, tagListNew, categories, coverImage, content, abstract } = req.body;
     let process = 'editor';
-    let writerId = '5cf3825bd75d653cd04fadcb';
+    let writer = '5cf3825bd75d653cd04fadcb';
 
     title = _.trim(title);
     let slug = title.replace(/ /g, '-').toLowerCase();
@@ -76,7 +76,7 @@ router.post('/create', async (req, res) => {
                             content,
                             abstract,
                             process,
-                            writerId
+                            writer
                         }
                     );
 
@@ -96,7 +96,7 @@ router.post('/create', async (req, res) => {
                                 'isPremium',
                                 'process',
                                 'reasonDenied',
-                                'writerId',
+                                'writer',
                                 'editorId',
                                 'administratorId'
                             ])

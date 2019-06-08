@@ -4,8 +4,12 @@
     </div>
     <div class="main-container-detail col-xl-8 col-12 m-0 p-0">
         <ul class="breadcrumb breadcrumb-custom p-0">
-            <li class="breadcrumb-item breadcrumb-item-custom"><a class="p-0" href="category">Tech</a></li>
-            <li class="breadcrumb-item breadcrumb-item-custom active"><%= articleDetail.categoryName %></li>
+            <% if(articleDetail.categories.length > 1){ %>
+                <li class="breadcrumb-item breadcrumb-item-custom"><a class="p-0" href="/category/<%= articleDetail.categories[0].slug %>"><%= articleDetail.categories[0].title %></a></li>
+                <li class="breadcrumb-item breadcrumb-item-custom active"><a class="p-0" href="/category/<%= articleDetail.categories[1].slug %>"><%= articleDetail.categories[1].title %></a></li>
+            <% }else{ %>
+                <li class="breadcrumb-item breadcrumb-item-custom active"><a class="p-0" href="/category/<%= articleDetail.categories[0].slug %>"><%= articleDetail.categories[0].title %></a></li>
+            <% } %>
         </ul>
         <div class="pl-2 pr-2 pl-xl-0 pr-xl-0" id="newsDet__pdf">
             <div class="title-detail-news">
@@ -15,10 +19,10 @@
                 <p class="mb-1"><%= articleDetail.abstract %></p>
             </div>
             <div class="description-detail-news row m-0">
-                <div class="author">By <a href="#"><%= articleDetail.writerName %></a></div>
-                <div class="nickname"><a href="#">@<%= articleDetail.writerId %></a></div>
-                <div class="date-posted"> <i class="fa fa-clock-o"></i> <span
-                        id="date-posted-main"><%- articleDetail.publishDate %></span></div>
+                <div class="author">By <a href="#"><%= articleDetail.writer.fullname %></a></div>
+                <div class="nickname"><a href="#">@<%= articleDetail.writer.pseudonym %></a></div>
+                <!-- <div class="date-posted"> <i class="fa fa-clock-o"></i> <span
+                        id="date-posted-main"><%- articleDetail.publishDate %></span></div> -->
             </div>
         </div>
         <div class="share-detail-news row m-0 pl-2 p-xl-0">
@@ -39,7 +43,8 @@
                 <div class="next-up-in-category pt-3 pb-4">
                     <div class="title-next-up-in-category">
                         <a class="text-uppercase">Next Up In <span
-                                class="category-current"><%= articleDetail.categoryName %></span> </a>
+                                class="category-current"><%= articleDetail.categories[articleDetail.categories.length - 1].title %></span>
+                        </a>
                     </div>
                     <div class="list-next-up-in-category row m-0 pt-2">
                         <% fiveArticlesNextUp.forEach(function(eachArticleNextUp){ %>
@@ -53,7 +58,7 @@
                 <div class="list-tags">
                     <% articleDetail.tags.forEach(function(eachTag){ %>
                     <a href="hashtag">
-                        <span class="badge badge-pill">#<%= eachTag %></span></a>&nbsp;
+                        <span class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
                     <% }) %>
                 </div>
 
