@@ -115,7 +115,7 @@ router.get('/article/:slug', function (req, res, next) {
     { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'SpaceX', publishDate: 1558802053334, coverImage: '' },
     { title: 'Apple, Luminary, Spotify, and the podcast wars to come', categoryName: 'Tech', publishDate: 1558810668776, coverImage: '' }];
 
-    Article.findOne({ slug })
+    Article.findOneAndUpdate({ slug }, {$inc: { views: 1 }})
         .populate('tags')
         .populate('categories')
         .populate('writer', '_id fullname pseudonym')
@@ -190,6 +190,12 @@ router.get('/category', function (req, res, next) {
             sixArticlesMostRead
         }
     );
+});
+
+router.get('/category/:slug', function (req, res, next) {
+    const account = req.user;
+
+
 });
 
 router.get('/hashtag', function (req, res, next) {
