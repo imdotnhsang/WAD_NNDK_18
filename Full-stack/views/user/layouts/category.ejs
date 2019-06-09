@@ -29,7 +29,7 @@
             </div>
             <div class="col-lg-2 col-md-1"></div>
         </div>
-        <div class="list-news row m-0 pt-2 pr-2 pr-xl-0">
+        <div class="list-news row m-0 pt-2 pr-1 pr-xl-0">
             <div class="col-lg-9 main-list-news pl-4 pr-4 pr-lg-5">
                 <% articlesCategory.forEach(function(eachArticleCategory){ %>
                 <div class="news pb-1 pl-0 pr-0 pt-2 row">
@@ -54,9 +54,9 @@
                     </div>
                 </div>
                 <% }) %>
-                <!-- <div class="pagination-list-news row m-0 pt-2 pb-3 pb-lg-4">
+                <div class="pagination-list-news row m-0 pt-2 pb-3 pb-lg-4">
                     <div class="col-lg-12 pl-4 pr-4 pr-lg-5">
-                        <% if(Math.round(articlesCategory.length/3 + 0.4)>1){ %>
+                        <% if(Math.round(countArticlesCategory/10 + 0.4)>1){ %>
                         <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
                             <ul class="pagination pagination-custom m-0">
                                 <div class="pt-1 pb-1 p-sm-1">
@@ -69,9 +69,9 @@
                                 <div class="p-1">
                                     <li class="page-item active"><a href="#" class="page-link">1</a></li>
                                 </div>
-                                <% for(j=1;j<Math.round(articlesCategory.length/10 + 0.4);j++){ %>
+                                <% for(j=1;j<Math.round(countArticlesCategory/10 + 0.4);j++){ %>
                                 <div class="p-1">
-                                    <li class="page-item"><a href="#" class="page-link"><%= j + 1 %></a></li>
+                                    <li class="page-item"><a href="/category/<%= categoryDetail.slug %>/1" class="page-link"><%= j + 1 %></a></li>
                                 </div>
                                 <% } %>
                                 <div class="p-1">
@@ -94,7 +94,7 @@
                                     </li>
                                 </div>
                                 <div class="p-1">
-                                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                    <li class="page-item active"><a href="/category/<%= categoryDetail.slug %>/1" class="page-link">1</a></li>
                                 </div>
                                 <div class="p-1">
                                     <li class="page-item disabled">
@@ -108,7 +108,7 @@
                         <% } %>
                     </div>
                     <div class="col-lg-3 m-0"></div>
-                </div> -->
+                </div>
             </div>
             <div class="top-6-most-read-news p-0 col-lg-3">
                 <div class="row p-0 m-0">

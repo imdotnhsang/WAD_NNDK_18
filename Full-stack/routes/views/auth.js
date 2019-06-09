@@ -42,6 +42,8 @@ router.get('/member-company', function (req, res, next) {
         res.redirect('/editor')
         break;
       default:
+        res.redirect('/member-company')
+        break;
     }
   } else {
     res.render(

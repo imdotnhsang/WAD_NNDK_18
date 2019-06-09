@@ -111,7 +111,7 @@ router.get('/article/:slug', function (req, res, next) {
                     .find({ publishedAt: { $ne: null } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
-                    .sort({views: -1})
+                    .sort({ views: -1 })
                     .limit(6)
                     .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                     .catch(err => reject(err));
@@ -132,7 +132,7 @@ router.get('/article/:slug', function (req, res, next) {
                         const targetCategory = articleDetail.categories[articleDetail.categories.length - 1];
 
                         return Article
-                            .find({ categories: targetCategory._id , publishedAt: { $ne: null } })
+                            .find({ categories: targetCategory._id, publishedAt: { $ne: null }, _id: { $ne: articleDetail._id } })
                             .populate('categories')
                             .limit(5)
                             .select('title slug')
@@ -151,7 +151,7 @@ router.get('/article/:slug', function (req, res, next) {
 
             let sixArticlesMostRead = values[0];
             let { articleDetail, fiveArticlesNextUp } = values[1];
-            
+
             if (!articleDetail) {
                 return res.redirect('/home');
             }
@@ -188,22 +188,23 @@ router.get('/category/:slug/:page', function (req, res, next) {
 
     const categoryDetail = {
         categoryName: 'Apple',
+        slug: 'apple',
         descriptionCategory: 'The latest tech news about the world is best (and sometimes worst) hardware, apps, and much more. From top companies like Google and Apple to tiny startups vying for your attention, Verge Tech has the latest in what matters in technology daily.',
         twoArticlesHot: [{ title: 'Apple has edged out a number of third-party screen time and parental control apps: report 1', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
         { title: 'Apple has edged out a number of third-party screen time and parental control apps: report 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' }]
     }
 
-    Category.findOne({slug})
+    Category.findOne({ slug })
         .then(async category => {
             if (!category) {
                 return res.redirect('/home');
             }
-            
+
             const categoryId = category._id;
 
             const waitting = Promise.all([
                 // countArticlesCategory
-                new Promise((resolve, reject) => { 
+                new Promise((resolve, reject) => {
                     resolve(countArticlesCategory(categoryId))
                 }),
 
@@ -212,12 +213,13 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     Article
                         .find({
                             categories: categoryId,
-                            publishedAt: { $ne: null}
+                            publishedAt: { $ne: null }
                         })
                         .populate('tags')
                         .populate('categories')
                         .skip(10 * (pageNumber - 1))
                         .limit(10)
+                        .sort({ publishedAt: -1 })
                         .then(articlesCategory => resolve(articlesCategory))
                         .catch(err => reject(err));
                 }),
@@ -227,12 +229,12 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     Article
                         .find({
                             categories: categoryId,
-                            publishedAt: { $ne: null}
+                            publishedAt: { $ne: null }
                         })
                         .select('title slug categories publishedAt coverImage')
                         .populate('tags')
                         .populate('categories')
-                        .sort({views: -1})
+                        .sort({ views: -1 })
                         .limit(6)
                         .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                         .catch(err => reject(err));
@@ -268,7 +270,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
         .catch(err => {
             console.log(err);
             return res.redirect('/home');
-        }) 
+        })
 });
 
 router.get('/hashtag', function (req, res, next) {

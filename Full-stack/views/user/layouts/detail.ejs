@@ -27,8 +27,8 @@
             <div class="description-detail-news row m-0">
                 <div class="author">By <a href="#"><%= articleDetail.writer.fullname %></a></div>
                 <div class="nickname"><a href="#">@<%= articleDetail.writer.pseudonym %></a></div>
-                <!-- <div class="date-posted"> <i class="fa fa-clock-o"></i> <span
-                        id="date-posted-main"><%- articleDetail.publishDate %></span></div> -->
+                <div class="date-posted"> <i class="fa fa-clock-o"></i> <span
+                        id="date-posted-main"><%- articleDetail.publishedAt %></span></div>
             </div>
         </div>
         <div class="share-detail-news row m-0 pl-2 p-xl-0">
@@ -51,7 +51,7 @@
                                 class="category-current"><%= articleDetail.categories[articleDetail.categories.length - 1].title %></span>
                         </a>
                     </div>
-                    <div class="list-next-up-in-category row m-0 pt-2">
+                    <div class="list-next-up-in-category m-0 pt-2">
                         <% fiveArticlesNextUp.forEach(function(eachArticleNextUp){ %>
                         <div class="name-next-up-news">
                             <a href="/article/<%= eachArticleNextUp.slug %>"><%= eachArticleNextUp.title %></a>

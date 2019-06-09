@@ -336,13 +336,13 @@ function formatDateTypeFull(msDate) {
 
     customDate.year = new Date(Number(msDate)).getFullYear();
 
-    return (customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
+    return (customDate.month + ' ' + customDate.day + ' ' +  ',' + customDate.year);
     // $('.date-posted').append(customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
 }
 
 function formatDateTypeAbstract(msDate) {
     var temp = new Date(Number(msDate));
-    return (temp.getDate() + '/' + (temp.getMonth() + 1) + '/' + (temp.getFullYear()));
+    return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
 
 }
 
