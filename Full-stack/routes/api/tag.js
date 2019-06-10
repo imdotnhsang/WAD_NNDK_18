@@ -13,7 +13,7 @@ router.get('/count', (req, res) => {
 
 router.get('/get-all', (req, res) => {
     Tag
-        .find({ isActive: true })
+        .find()
         .sort({ _id: -1})
         .select({
             '_id': true,
