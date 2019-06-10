@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const _ = require('lodash');
+const createSlug = require('slug');
 
 const router = express.Router();
 const Tag = mongoose.model('Tag');
@@ -67,12 +68,12 @@ router.post('/create', (req, res) => {
         return res.status(400).json(errors);
     }
 
+    console.log(title, slug);
     Tag
         .findOne(
             {
                 $and: [
                     { $or: [{ title }, { slug }] },
-                    { isActive: true }
                 ]
             }
         )
@@ -86,12 +87,11 @@ router.post('/create', (req, res) => {
 
             return newTag
                 .save()
-                .then(tagCreated => {
-                    const payload = { _id: tagCreated._id, title: tagCreated.title, slug: tagCreated.slug };
-                    return res.json(payload)
-                })
+                .then(tagCreated => res.json(tagCreated))
         })
-        .catch(err => res.status(400).json({ ...errors, ...err.errors }));
+        .catch(err => {
+            res.status(400).json(err);
+        });
 });
 
 router.post('/delete', (req, res) => {
