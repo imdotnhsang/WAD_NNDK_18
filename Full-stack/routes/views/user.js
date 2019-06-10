@@ -251,6 +251,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         return res.redirect('/home');
                     }
 
+                    console.log(countArticlesCategoryValue);
+
                     return res.render(
                         'user',
                         {

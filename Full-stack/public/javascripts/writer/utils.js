@@ -62,12 +62,14 @@ const updateAccountErrors = (errors) => {
   $('#js-fullname-errmsg').text(errors.fullname);
   $('#js-gender-errmsg').text(errors.gender);
   $('#js-birthday-errmsg').text(errors.birthday);
+  $('#js-pseudonym-errmsg').text(errors.pseudonym);
 };
 
 const clearAccountErrors = () => {
   $('#js-fullname-errmsg').text('');
   $('#js-gender-errmsg').text('');
   $('#js-birthday-errmsg').text('');
+  $('#js-pseudonym-errmsg').text('');
 };
 
 const updateChangePasswordErrors = (errors) => {

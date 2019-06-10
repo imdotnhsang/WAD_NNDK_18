@@ -95,13 +95,15 @@ $('#js-update-account-btn').on('click', (e) => {
   const errors = {
     fullname: '',
     gender: '',
-    birthday: ''
+    birthday: '',
+    pseudonym: ''
   }
 
-  let fullname = $('#js-fullname-input').val(),
-    genderStr = $('#js-gender-select').val(),
-    birthdayStr = $('#js-birthday-input').val(),
-    email = $('#js-email-input').val();
+  let fullname = $('#js-fullname-input').val().trim(),
+    genderStr = $('#js-gender-select').val().trim(),
+    birthdayStr = $('#js-birthday-input').val().trim(),
+    email = $('#js-email-input').val().trim();
+    pseudonym = $('#js-pseudonym-input').val().trim();
 
   switch (genderStr) {
     case 'false':
@@ -122,6 +124,7 @@ $('#js-update-account-btn').on('click', (e) => {
 
   payload.fullname = fullname;
   payload.email = email;
+  payload.pseudonym = pseudonym;
 
   postData('/api/user/update', payload)
     .then(res => {

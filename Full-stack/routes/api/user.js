@@ -146,7 +146,8 @@ router.post('/update', (req, res) => {
         email,
         fullname,
         gender,
-        birthday
+        birthday,
+        pseudonym
     } = req.body;
 
     if (!req.user || email !== req.user.email) {
@@ -178,6 +179,15 @@ router.post('/update', (req, res) => {
             if (!user) {
                 errors.email = 'authorization has failed.';
                 return res.status(400).json(errors);
+            }
+
+            if (user.userType === 'writer') {
+                if (_.isEmpty(pseudonym)) {
+                    errors.pseudonym = 'Pseudonym is invalid.';
+                    return res.status(400).json(errors);
+                }
+
+                user.pseudonym = pseudonym;
             }
 
             user.fullname = fullname;
