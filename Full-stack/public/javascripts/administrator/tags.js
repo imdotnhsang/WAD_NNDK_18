@@ -47,9 +47,10 @@ const createPagination = (curElm, numberItems) => {
     const pageNeed = Math.ceil(numberItems / itemsPerPage);
 
     let pageItems = '';
-    let end = Math.min(maxPage, pageNeed);
+    let start = Math.max(1, tagPageNumber - 4);
+    let end = Math.max(Math.min(maxPage, pageNeed), tagPageNumber);
 
-    for (let i = 1; i <= end; i++) {
+    for (let i = start; i <= end; i++) {
         pageItems +=
             `
                 <li class="page-item mr-1" id="page-item-${i}">
