@@ -2,7 +2,10 @@ const TAGS_PER_PAGE = 5;
 let tagPageNumber = 1;
 let tagList = [];
 
-const updateTagsTable = (tagList, pageNumber) => {
+let datalist = [];
+let showActive = -1;
+
+const updateTagsTable = (tagList, pageNumber) => {    
     createPagination($('#js-tag__pagination'), tagList.length);
 
     const tagsTbody = $('.js-tags-table').children('tbody');
@@ -13,32 +16,43 @@ const updateTagsTable = (tagList, pageNumber) => {
     tagsTbody.html('');
     for (let i = start; i < end; i++) {
         const tag = tagList[i];
+
         tagsTbody.html(
             tagsTbody.html() +
             `
-                <tr class="text-center" id='${tag._id}'>
-                    <td>${i + 1}</td>
-                    <td>${tag.title}</td>
-                    <td>
-                        ${
-                            tag.isActive 
-                            ?
-                                `<button class="js-deleteTag-btn btn btn-danger">
-                                    <i class="fas fa-trash"> Delete</i>
-                                </button>`
-                            :
-                                `<button class="js-activeTag-btn btn btn-primary">
-                                    <i class="fas fa-check-circle"> Active</i>
-                                </button>`
-                        }
-
-                    </td>
-                </tr>
-            `
+                    <tr class="text-center" id='${tag._id}'>
+                        <td>${i + 1}</td>
+                        <td>${tag.title}</td>
+                        <td>
+                            ${
+            tag.isActive
+                ?
+                `<button class="js-deleteTag-btn btn btn-danger">
+                                        <i class="fas fa-trash"> Delete</i>
+                                    </button>`
+                :
+                `<button class="js-activeTag-btn btn btn-primary">
+                                        <i class="fas fa-check-circle"> Active</i>
+                                    </button>`
+            }
+    
+                        </td>
+                    </tr>
+                `
         );
     };
 
     $(`#page-item-${tagPageNumber}`).addClass('active');
+}
+
+const updateTagList = (tagList, datalist) => {
+    if (showActive === -1) {
+        tagList = [...datalist];
+        return tagList;
+    }
+
+    tagList = datalist.filter(tag => tag.isActive == showActive);
+    return tagList;
 }
 
 const createPagination = (curElm, numberItems) => {
@@ -81,8 +95,9 @@ $(document).ready(function () {
                 case 200:
                     res.json()
                         .then(data => {
-                            tagList = data;
+                            datalist = data;
 
+                            tagList = updateTagList(tagList, datalist);
                             updateTagsTable(tagList, tagPageNumber);
                         })
                     break;
@@ -137,8 +152,9 @@ $('#js-addNewTag-btn').click(function () {
                 case 200:
                     res.json()
                         .then(data => {
-                            tagList.unshift(data);
+                            datalist.unshift(data);
 
+                            tagList = updateTagList(tagList, datalist);
                             updateTagsTable(tagList, tagPageNumber);
                             $('#js-addNewTag-input').val('');
                         })
@@ -149,8 +165,8 @@ $('#js-addNewTag-btn').click(function () {
                 default:
                     res.json()
                         .then(err => {
-                            showErrorsModal($(this), err.tag)
                             console.log(err);
+                            showErrorsModal($(this), err.tag || 'Something error.')
                         })
                     break;
             }
@@ -170,7 +186,14 @@ $(document).on('click', '.js-deleteTag-btn', function (event) {
                 case 200:
                     res.json()
                         .then(data => {
-                            tagList[curPos].isActive = false;
+                            for (let tag of datalist) {
+                                if (tag._id === data._id) {
+                                    tag.isActive = false;
+                                    break;
+                                }
+                            }
+
+                            tagList.splice(curPos, 1);
                             updateTagsTable(tagList, tagPageNumber);
                         })
                     break;
@@ -201,7 +224,15 @@ $(document).on('click', '.js-activeTag-btn', function (event) {
                 case 200:
                     res.json()
                         .then(data => {
-                            tagList[curPos].isActive = true;
+                            console.log(data);
+                            for (let tag of datalist) {
+                                if (tag._id === data._id) {
+                                    tag.isActive = true;
+                                    break;
+                                }
+                            }
+
+                            tagList.splice(curPos, 1);
                             updateTagsTable(tagList, tagPageNumber);
                         })
                     break;
@@ -218,3 +249,11 @@ $(document).on('click', '.js-activeTag-btn', function (event) {
             }
         })
 });
+
+$('#js-tags-type-select').on('change', function(){
+    // console.log($(this).val());
+    showActive = parseInt($(this).val(), 10);
+    tagPageNumber = 1;
+    tagList = updateTagList(tagList, datalist);
+    updateTagsTable(tagList, tagPageNumber);
+})
