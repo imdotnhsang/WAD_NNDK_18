@@ -33,10 +33,12 @@
             <div class="col-lg-9 main-list-news pl-4 pr-4 pr-lg-5">
                 <% articlesCategory.forEach(function(eachArticleCategory){ %>
                 <div class="news pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-news col-4 col-sm-5 col-md-4 p-0"> <a href="/article/<%= eachArticleCategory.slug %>"> <img class="w-100"
+                    <div class="img-news col-4 col-sm-5 col-md-4 p-0"> <a
+                            href="/article/<%= eachArticleCategory.slug %>"> <img class="w-100"
                                 src="<%= eachArticleCategory.coverImage %>" alt=""></a></div>
                     <div class="description-news col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="/article/<%= eachArticleCategory.slug %>" class="title-news m-0 font-weight-bold"><%= eachArticleCategory.title %>
+                        <a href="/article/<%= eachArticleCategory.slug %>"
+                            class="title-news m-0 font-weight-bold"><%= eachArticleCategory.title %>
                         </a>
                         <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
                                 href="/category/<%= eachArticleCategory.categories[eachArticleCategory.categories.length - 1].slug %>/1"><%= eachArticleCategory.categories[eachArticleCategory.categories.length - 1].title %></a>&nbsp;&nbsp;
@@ -47,8 +49,9 @@
                         <p class="abstract-news pt-0 pt-sm-1 m-0">
                             <%= eachArticleCategory.abstract %></p>
                         <div class="list-tags">
-                                <% eachArticleCategory.tags.forEach(function(eachTag){ %>
-                                    <a href="/hashtag/<%= eachTag.title %>/1"><span class="badge badge-pill">#<%= eachTag.title %></span></a>
+                            <% eachArticleCategory.tags.forEach(function(eachTag){ %>
+                            <a href="/hashtag/<%= eachTag.title %>/1"><span
+                                    class="badge badge-pill">#<%= eachTag.title %></span></a>
                             <% }) %>
                         </div>
                     </div>
@@ -57,32 +60,37 @@
                 <div class="pagination-list-news row m-0 pt-2 pb-3 pb-lg-4">
                     <div class="col-lg-12 pl-4 pr-4 pr-lg-5">
                         <% if(Math.round(countArticlesCategory/10 + 0.4)>1){ %>
-                        <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
-                            <ul class="pagination pagination-custom m-0">
-                                <div class="pt-1 pb-1 p-sm-1">
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="Previous">
-                                            <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
-                                        </a>
-                                    </li>
-                                </div>
-                                <div class="p-1">
-                                    <li class="page-item active"><a href="/category/tech/1" class="page-link">1</a></li>
-                                </div>
-                                <% for(j=1;j<Math.round(countArticlesCategory/10 + 0.4);j++){ %>
-                                <div class="p-1">
-                                    <li class="page-item"><a href="/category/tech/<%= j + 1 %>" class="page-link"><%= j + 1 %></a></li>
-                                </div>
-                                <% } %>
-                                <div class="p-1">
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="Next">
-                                            <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
-                                        </a>
-                                    </li>
-                                </div>
-                            </ul>
-                        </nav>
+                            <% if(Math.round(countArticlesCategory/10 + 0.4)<6){ %>
+                                <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
+                                    <ul class="pagination pagination-custom m-0">
+                                        <div class="pt-1 pb-1 p-sm-1">
+                                            <li class="page-item">
+                                                <a href="#" class="page-link" aria-label="Previous">
+                                                    <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                        <div class="p-1">
+                                            <li class="page-item active"><a href="/category/tech/1" class="page-link">1</a></li>
+                                        </div>
+                                        <% for(j=1;j<Math.round(countArticlesCategory/10 + 0.4);j++){ %>
+                                        <div class="p-1">
+                                            <li class="page-item"><a href="/category/tech/<%= j + 1 %>"
+                                                    class="page-link"><%= j + 1 %></a></li>
+                                        </div>
+                                        <% } %>
+                                        <div class="p-1">
+                                            <li class="page-item">
+                                                <a href="#" class="page-link" aria-label="Next">
+                                                    <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </nav>
+                            <% }else{ %>
+                                <p>123</p>
+                            <% } %>
                         <% }else{ %>
                         <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
                             <ul class="pagination pagination-custom m-0">
@@ -94,7 +102,8 @@
                                     </li>
                                 </div>
                                 <div class="p-1">
-                                    <li class="page-item active"><a href="/category/<%= categoryDetail.slug %>/1" class="page-link">1</a></li>
+                                    <li class="page-item active"><a href="/category/<%= categoryDetail.slug %>/1"
+                                            class="page-link">1</a></li>
                                 </div>
                                 <div class="p-1">
                                     <li class="page-item disabled">
@@ -120,8 +129,8 @@
                 <div class="list-top-6-most-read-news pl-2 p-lg-0 row m-0">
                     <% sixArticlesMostRead.forEach(function(eachArticleMR){ %>
                     <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-sm-4 col-lg-12 m-0 row">
-                        <div class="img-most-read-news col-12 p-0"><a href="/article/<%= eachArticleMR.slug %>"><img class="w-100"
-                                    src="<%= eachArticleMR.coverImage %>" alt=""></a> </div>
+                        <div class="img-most-read-news col-12 p-0"><a href="/article/<%= eachArticleMR.slug %>"><img
+                                    class="w-100" src="<%= eachArticleMR.coverImage %>" alt=""></a> </div>
                         <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
                             <a href="/article/<%= eachArticleMR.slug %>"
                                 class="title-most-read-news m-0 font-weight-bold"><%= eachArticleMR.title %>
