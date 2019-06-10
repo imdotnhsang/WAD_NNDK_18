@@ -47,7 +47,12 @@
                 </div>
                 <% } %>
                 <div class="count-results row m-0 pt-3 pb-3 pb-lg-4">
-                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center">
+                    <% if(Math.round(resultArticlesSearch.result.length/10 + 0.4)>1){ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase">Prev</div>
+                    <% } else {%>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase disabled">Prev</div>
+                    <% } %>
+                    <div class="col-6 col-sm-8 col-xl-10 m-0 d-flex justify-content-center align-items-center">
                         <p class="m-0">Page <span class="page-current">1</span> of <span
                                 class="count-pages"><%= Math.round(resultArticlesSearch.result.length/10 + 0.4) %></span>
                         </p>

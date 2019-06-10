@@ -107,7 +107,7 @@
     color: #fff;
 }
 
-.container-search .list-results-search .count-results div:first-child {
+.container-search .list-results-search .count-results div:nth-child(2) {
     padding: 10px 0px;
     background: #efeff0;
     color: #626262;
@@ -117,7 +117,7 @@
     border-bottom-left-radius: 5px;
 }
 
-.container-search .list-results-search .count-results div:last-child {
+.container-search .list-results-search .count-results div:last-child{
     padding: 10px 0px;
     background: #e5127d;
     color: #fff;
@@ -126,6 +126,16 @@
     border-bottom-right-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+.container-search .list-results-search .count-results div:first-child{
+    padding: 10px 0px;
+    background: #e5127d;
+    color: #fff;
+    transition: background .3s;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .container-search .list-results-search .count-results div:last-child:hover {
