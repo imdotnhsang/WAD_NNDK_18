@@ -123,11 +123,14 @@ router.get('/article/:slug', function (req, res, next) {
                     .findOneAndUpdate({ slug, publishedAt: { $ne: null } }, { $inc: { views: 1 } })
                     .populate('tags')
                     .populate('categories')
+                    .populate('comments.user', 'avatar fullname')
                     .populate('writer', '_id fullname pseudonym')
                     .then(articleDetail => {
                         if (!articleDetail) {
                             resolve({ articleDetail })
                         }
+
+                        console.log(articleDetail.comments);
 
                         const targetCategory = articleDetail.categories[articleDetail.categories.length - 1];
 

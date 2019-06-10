@@ -286,11 +286,31 @@ $('#updatePwd__btnCancel').click(function (e) {
 //check comment
 $('#comment__btn').click(function (e) {
     e.preventDefault();
-    var contentComment;
-    if ($('#comment__content').val().trim().length > 0) {
-        contentComment = $('#comment__content').val();
+    var contentComment = $('#comment__content').val().trim();
+    var userId = $(this).attr('userId');
+    var articleId = $(this).attr('articleId');
+
+    if (contentComment.length > 0) {
         console.log(contentComment);
-        document.getElementById('comment__content').value = '';
+        console.log(userId);
+
+        postData('/api/comment/create', { content: contentComment, userId, articleId })
+            .then(res => {
+                const statusCode = res.status;
+
+                switch (statusCode) {
+                    case 200:
+                        res.json().then(console.log) 
+                        break;
+
+                    case 500:
+                        console.log('Server Error');
+                    default:
+                        res.json().then(console.log) 
+                        break;
+                }
+            })
+        // document.getElementById('comment__content').value = '';
     } else {
         $(this).attr('data-toggle', 'modal');
         $(this).attr('data-target', '#comment__modal');
