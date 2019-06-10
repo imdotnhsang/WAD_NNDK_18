@@ -10,11 +10,11 @@ router.post('/create', (req, res) => {
     const errors = {};
     const { userId, content, articleId } = req.body;
 
-    // const curAccount = req.user;
-    // if (!curAccount || curAccount._id !== userId) {
-    //     errors.authorization = 'Authorization has failed.';
-    //     return res.status(400).json(errors);
-    // }
+    const curAccount = req.user;
+    if (!curAccount || curAccount._id !== userId) {
+        errors.authorization = 'Authorization has failed.';
+        return res.status(400).json(errors);
+    }
 
 
     if (_.isEmpty(userId) || _.isEmpty(content)) {
