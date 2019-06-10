@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
+const createSlug = require('slug');
 
 const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
@@ -39,7 +40,7 @@ router.post('/create', async (req, res) => {
     let writer = accountWriter._id;
 
     title = _.trim(title);
-    let slug = title.replace(/ /g, '-').toLowerCase();
+    let slug = createSlug(title);
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.title = 'Title article does not exist.'
@@ -49,7 +50,7 @@ router.post('/create', async (req, res) => {
     let tagDocs = [];
     for (let tag of tagListNew) {
         let title =  _.trim(tag);
-        let slug = title.replace(/ /g, '-').toLowerCase();
+        let slug = createSlug(title);
         tagDocs.push({ 
             title, slug
         })

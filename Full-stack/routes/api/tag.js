@@ -48,7 +48,7 @@ router.post('create-many', (req, res) => {
     let docs = [];
     for (let tag of tagList) {
         let title =  _.trim(tag);
-        let slug = title.replace(/ /g, '-').toLowerCase();
+        let slug = createSlug(title);
 
         docs.push({ title, slug})
     }
@@ -65,7 +65,7 @@ router.post('/create', (req, res) => {
     let { title } = req.body; 
 
     title = _.trim(title); 
-    let slug = title.replace(/ /g, '-').toLowerCase();
+    let slug = createSlug(title);
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.tag = 'Tag does not exist.'
@@ -134,7 +134,7 @@ router.post('/update', (req, res) => {
     let { title, id } = req.body;
 
     title = _.trim(title);
-    let slug = title.replace(/ /g, '-').toLowerCase();
+    let slug = createSlug(title);
 
     if (_.isEmpty(title) || _.isEmpty(slug) || _.isEmpty(id)) {
         errors.tag = 'Tag does not exist.'

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
+const createSlug = require('slug');
 
 const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
@@ -16,7 +17,7 @@ router.post('/create', (req, res) => {
     } 
 
     title = _.trim(title);
-    let slug = title.replace(/ /g, '-').toLowerCase();
+    let slug = createSlug(slug);
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.title = 'Title category does not exist.'
@@ -94,7 +95,7 @@ router.post('/update', (req, res) => {
     } 
     
     title = _.trim(title);
-    let slug = title.replace(/ /g, '-').toLowerCase();
+    let slug = createSlug(title);
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.title = 'Title category does not exist.'
