@@ -60,37 +60,151 @@
                 <div class="pagination-list-news row m-0 pt-2 pb-3 pb-lg-4">
                     <div class="col-lg-12 pl-4 pr-4 pr-lg-5">
                         <% if(Math.round(countArticlesCategory/10 + 0.4)>1){ %>
-                            <% if(Math.round(countArticlesCategory/10 + 0.4)<6){ %>
-                                <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
-                                    <ul class="pagination pagination-custom m-0">
-                                        <div class="pt-1 pb-1 p-sm-1">
-                                            <li class="page-item">
-                                                <a href="#" class="page-link" aria-label="Previous">
-                                                    <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
-                                                </a>
-                                            </li>
-                                        </div>
-                                        <div class="p-1">
-                                            <li class="page-item active"><a href="/category/tech/1" class="page-link">1</a></li>
-                                        </div>
-                                        <% for(j=1;j<Math.round(countArticlesCategory/10 + 0.4);j++){ %>
-                                        <div class="p-1">
-                                            <li class="page-item"><a href="/category/tech/<%= j + 1 %>"
-                                                    class="page-link"><%= j + 1 %></a></li>
-                                        </div>
+                        <% if(Math.round(countArticlesCategory/10 + 0.4)<6){ %>
+                        <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
+                            <ul class="pagination pagination-custom m-0">
+                                <% if(pageCurrent===1){ %>
+                                <div class="pt-1 pb-1 p-sm-1">
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link" aria-label="Previous">
+                                            <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% }else{ %>
+                                <div class="pt-1 pb-1 p-sm-1">
+                                    <li class="page-item">
+                                        <a href="/category/apple/<%= pageCurrent - 1 %>" class="page-link"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% } %>
+                                <!-- <div class="p-1">
+                                    <li class="page-item active"><a href="/category/tech/1" class="page-link">1</a></li>
+                                </div> -->
+                                <% for(j=0;j<Math.round(countArticlesCategory/10 + 0.4);j++){ %>
+                                <% if((j+1) === pageCurrent){ %>
+                                <div class="p-1">
+                                    <li class="page-item active"><a href="/category/apple/<%= j + 1 %>"
+                                            class="page-link"><%= j + 1 %></a></li>
+                                </div>
+                                <% }else{ %>
+                                <div class="p-1">
+                                    <li class="page-item"><a href="/category/apple/<%= j + 1 %>"
+                                            class="page-link"><%= j + 1 %></a></li>
+                                </div>
+                                <% } %>
+                                <% } %>
+                                <% if(pageCurrent===Math.round(countArticlesCategory/10 + 0.4)){ %>
+                                <div class="p-1">
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link" aria-label="Next">
+                                            <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% }else{ %>
+                                <div class="p-1">
+                                    <li class="page-item">
+                                        <a href="/category/apple/<%= pageCurrent + 1 %>" class="page-link"
+                                            aria-label="Next">
+                                            <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% } %>
+                            </ul>
+                        </nav>
+                        <% }else{ %>
+                        <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
+                            <ul class="pagination pagination-custom m-0">
+                                <% if(pageCurrent===1){ %>
+                                <div class="pt-1 pb-1 p-sm-1">
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link" aria-label="Previous">
+                                            <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% }else{ %>
+                                <div class="pt-1 pb-1 p-sm-1">
+                                    <li class="page-item">
+                                        <a href="/category/tech/<%= pageCurrent - 1 %>" class="page-link"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true"><i class="fa fa-caret-left"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% } %>
+                                <!-- <div class="p-1">
+                                    <li class="page-item active"><a href="/category/tech/1" class="page-link">1</a></li>
+                                </div> -->
+                                <% if(Math.round(pageCurrent/5)<1){ %>
+                                    <% for(j=0;j<5;j++){ %>
+                                        <% if((j+1) === pageCurrent){ %>
+                                            <div class="p-1">
+                                                <li class="page-item active"><a href="/category/tech/<%= j + 1%>"
+                                                        class="page-link"><%= j + 1 %></a></li>
+                                            </div>
+                                        <% }else{ %>
+                                            <div class="p-1">
+                                                <li class="page-item"><a href="/category/tech/<%= j + 1 %>"
+                                                        class="page-link"><%= j + 1 %></a></li>
+                                            </div>
                                         <% } %>
-                                        <div class="p-1">
-                                            <li class="page-item">
-                                                <a href="#" class="page-link" aria-label="Next">
-                                                    <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
-                                                </a>
-                                            </li>
-                                        </div>
-                                    </ul>
-                                </nav>
-                            <% }else{ %>
-                                <p>123</p>
-                            <% } %>
+                                    <% } %>
+                                <% }else if(pageCurrent-Math.round(countArticlesCategory/10 + 0.4)===-2||pageCurrent-Math.round(countArticlesCategory/10 + 0.4)>-2){ %>
+                                    <% for(j=5;j>0;j--){ %>
+                                            <% if(((Math.round(countArticlesCategory/10 + 0.4) - j) + 1) === pageCurrent){ %>
+                                                <div class="p-1">
+                                                    <li class="page-item active"><a href="/category/tech/<%= (Math.round(countArticlesCategory/10 + 0.4) - j) + 1 %>"
+                                                            class="page-link"><%= (Math.round(countArticlesCategory/10 + 0.4) - j) + 1 %></a></li>
+                                                </div>
+                                            <% }else{ %>
+                                                <div class="p-1">
+                                                    <li class="page-item"><a href="/category/tech/<%= (Math.round(countArticlesCategory/10 + 0.4)) - j + 1 %>"
+                                                            class="page-link"><%= (Math.round(countArticlesCategory/10 + 0.4) - j) + 1 %></a></li>
+                                                </div>
+                                            <% } %>
+                                    <% } %>
+                                <% }else{ %>
+                                    <% for(j=pageCurrent-3;j<pageCurrent+2;j++){ %>
+                                        <% if( (j + 1) === pageCurrent){ %>
+                                            <div class="p-1">
+                                                <li class="page-item active"><a href="/category/tech/<%= j+1 %>"
+                                                        class="page-link"><%= j + 1 %></a></li>
+                                            </div>
+                                        <% }else{ %>
+                                            <div class="p-1">
+                                                <li class="page-item"><a href="/category/tech/<%= j + 1 %>"
+                                                        class="page-link"><%= j + 1 %></a></li>
+                                            </div>
+                                        <% } %>
+                                <% } %>
+                                <% } %>
+                                <% if(pageCurrent===Math.round(countArticlesCategory/10 + 0.4)){ %>
+                                <div class="p-1">
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link" aria-label="Next">
+                                            <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% }else{ %>
+                                <div class="p-1">
+                                    <li class="page-item">
+                                        <a href="/category/tech/<%= pageCurrent + 1 %>" class="page-link"
+                                            aria-label="Next">
+                                            <span aria-hidden="true"><i class="fa fa-caret-right"></i></span>
+                                        </a>
+                                    </li>
+                                </div>
+                                <% } %>
+                            </ul>
+                        </nav>
+                        <% } %>
                         <% }else{ %>
                         <nav class="mt-1 mt-sm-0 d-flex justify-content-center">
                             <ul class="pagination pagination-custom m-0">

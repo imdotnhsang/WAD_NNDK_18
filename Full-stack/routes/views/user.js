@@ -267,7 +267,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
                             categoryDetail,
                             articlesCategory,
                             countArticlesCategory: countArticlesCategoryValue,
-                            sixArticlesMostRead
+                            sixArticlesMostRead,
+                            pageCurrent: pageNumber
                         }
                     );
                 })
