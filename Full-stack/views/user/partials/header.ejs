@@ -36,7 +36,7 @@
                         </li>
                      </ul>
                      <% }else{ %>
-                     <a class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0"><%= eachCategory.title %>&nbsp;&nbsp;</i></a>
+                     <a class="nav-link-custom text-uppercase d-flex justify-content-between align-items-center font-weight-bold p-0" href="/category/<%= eachCategory.slug %>/1"><%= eachCategory.title %></i></a>
                      <% } %>
                   </li>
                   <%})%>
@@ -151,7 +151,7 @@
                <a href="/information">Account</a>
                <a href="/auth/logout" id="log-out">Log Out</a>
             </div>
-            <div class="top-5-recent-news">
+            <!-- <div class="top-5-recent-news">
                <div class="title text-uppercase">top 5 recently news</div>
                <div class="list-5-recent-news">
                   <a href="detail" class="recent-news">
@@ -204,9 +204,8 @@
                      </div>
                   </a>
                </div>
-            </div>
+            </div> -->
          </div>
-         <div class="top-5-product-seen"></div>
       </div>
       <% } %>
       <% } %>
