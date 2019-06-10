@@ -20,9 +20,18 @@ const updateTagsTable = (tagList, pageNumber) => {
                     <td>${i + 1}</td>
                     <td>${tag.title}</td>
                     <td>
-                        <button class="js-deleteTag-btn btn btn-sm btn-danger">
-                            <i class="material-icons">delete</i> Delete
-                        </button>
+                        ${
+                            tag.isActive 
+                            ?
+                                `<button class="js-deleteTag-btn btn btn-danger">
+                                    <i class="fas fa-trash"> Delete</i>
+                                </button>`
+                            :
+                                `<button class="js-activeTag-btn btn btn-primary">
+                                    <i class="fas fa-check-circle"> Active</i>
+                                </button>`
+                        }
+
                     </td>
                 </tr>
             `
@@ -160,7 +169,38 @@ $(document).on('click', '.js-deleteTag-btn', function (event) {
                 case 200:
                     res.json()
                         .then(data => {
-                            tagList.splice(curPos, 1);
+                            tagList[curPos].isActive = false;
+                            updateTagsTable(tagList, tagPageNumber);
+                        })
+                    break;
+                case 500:
+                    showErrorsModal($(this), 'Server Error. Please try again!')
+                    break;
+                default:
+                    res.json()
+                        .then(err => {
+                            showErrorsModal($(this), 'Fail to delete tag.')
+                            console.log(err);
+                        });
+                    break;
+            }
+        })
+});
+
+$(document).on('click', '.js-activeTag-btn', function (event) {
+    const trTag = $(this).parent().parent()
+    const id = trTag.attr('id');
+    const curPos = JSON.parse(trTag.children()[0].innerHTML) - 1;
+
+    postData('/api/tag/active', { id })
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    res.json()
+                        .then(data => {
+                            tagList[curPos].isActive = true;
                             updateTagsTable(tagList, tagPageNumber);
                         })
                     break;

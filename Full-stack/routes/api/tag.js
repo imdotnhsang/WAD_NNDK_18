@@ -15,11 +15,6 @@ router.get('/get-all', (req, res) => {
     Tag
         .find()
         .sort({ _id: -1})
-        .select({
-            '_id': true,
-            'title': true,
-            'slug': true
-        })
         .then(tagList => res.json(tagList))
         .catch(err => res.status(400).json(err));
 });
@@ -103,28 +98,22 @@ router.post('/delete', (req, res) => {
     let errors = {};
     let { id } = req.body;
 
+    const curAccount = req.user;
+    if (!curAccount || curAccount.userType !== 'administrator') {
+        errors.authorization = 'Authorization has failed.';
+        return res.status(400).json(errors);
+    }
+
     if (_.isEmpty(id)) {
         errors.id = 'Id does not exist.';
         return res.status(400).json(errors);
     }
     
-    Tag
-        .findOne({ _id: id, isActive: true })
-        .then(result => {
-            if (_.isEmpty(result)) {
-                errors.id = 'Id not found.';
-                return res.status(404).json(errors);
-            }
-
-            result.isActive = (req.user && req.user.userType === 'administrator');
-
-            return result
-                .save()
-                .then(newResult => res.json(newResult))
-        })
+    Tag.findByIdAndUpdate(id, { isActive: false })
+        .then(tag => res.json(tag))
         .catch(err => {
             console.log(err);
-            res.status(400).json({ ...errors, ...err.errors });
+            res.status(400).json(err);
         });
 });
 
@@ -176,8 +165,19 @@ router.post('/update', (req, res) => {
         });
 });
 
-router.post('active', (req, res) => {
-    const { id } = req.body;
+router.post('/active', (req, res) => {
+    let { id } = req.body;
+
+    const curAccount = req.user;
+    if (!curAccount || curAccount.userType !== 'administrator') {
+        errors.authorization = 'Authorization has failed.';
+        return res.status(400).json(errors);
+    }
+
+    if (_.isEmpty(id)) {
+        errors.id = 'Id does not exist.';
+        return res.status(400).json(errors);
+    }
 
     Tag.findByIdAndUpdate(id, { isActive: true })
         .then(tag => res.json(tag))
