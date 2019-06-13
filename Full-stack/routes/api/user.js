@@ -71,7 +71,7 @@ router.post('/register', (req, res) => {
     } = req.body;
 
     User
-        .findOne({
+        .findOne({  
             $or: [{
                 username
             }, {
@@ -268,8 +268,8 @@ router.post('/send-OTP', (req, res) => {
             return user.save()
                 .then(userUpdated => {
                     const payload = pickUser(userUpdated, userUpdated.userType);
-
                     sendOTPCode(userUpdated.email, userUpdated.OTP.code, actionType);
+                    
                     return res.json(payload);
                 })
         })
