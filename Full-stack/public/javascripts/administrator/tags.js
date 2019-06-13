@@ -140,9 +140,13 @@ $(document).on('click', 'li.page-item', function () {
 });
 
 $('#js-addNewTag-btn').click(function () {
+    $(this).attr('disabled', true);
     const tagStr = $('#js-addNewTag-input').val();
 
-    if (tagStr && tagStr.length === 0) return;
+    if (tagStr && tagStr.length === 0) {
+        $(this).attr('disabled', false);
+        return;
+    };
 
     postData('/api/tag/create', { title: tagStr })
         .then(res => {
@@ -157,16 +161,19 @@ $('#js-addNewTag-btn').click(function () {
                             tagList = updateTagList(tagList, datalist);
                             updateTagsTable(tagList, tagPageNumber);
                             $('#js-addNewTag-input').val('');
+                            $(this).attr('disabled', false);
                         })
                     break;
                 case 500:
-                    showErrorsModal($(this), 'Server Error. Please try again!')
+                    showErrorsModal($(this), 'Server Error. Please try again!');
+                    $(this).attr('disabled', false);
                     break;
                 default:
                     res.json()
                         .then(err => {
                             console.log(err);
-                            showErrorsModal($(this), err.tag || 'Something error.')
+                            showErrorsModal($(this), err.tag || 'Something error.');
+                            $(this).attr('disabled', false);
                         })
                     break;
             }
@@ -174,6 +181,7 @@ $('#js-addNewTag-btn').click(function () {
 })
 
 $(document).on('click', '.js-deleteTag-btn', function (event) {
+    $(this).attr('disabled', true);
     const trTag = $(this).parent().parent()
     const id = trTag.attr('id');
     const curPos = JSON.parse(trTag.children()[0].innerHTML) - 1;
@@ -212,6 +220,8 @@ $(document).on('click', '.js-deleteTag-btn', function (event) {
 });
 
 $(document).on('click', '.js-activeTag-btn', function (event) {
+    $(this).attr('disabled', true);
+
     const trTag = $(this).parent().parent()
     const id = trTag.attr('id');
     const curPos = JSON.parse(trTag.children()[0].innerHTML) - 1;
