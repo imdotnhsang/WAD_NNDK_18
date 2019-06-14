@@ -25,9 +25,7 @@ var storage = multer.diskStorage({
     }
 })
 
-const upload = multer({
-    storage
-});
+const upload = multer({ storage });
 
 router.post('/login', (req, res) => {
     passport.authenticate('local.login', (err, user) => {
@@ -129,7 +127,7 @@ router.post('/register', (req, res) => {
                 .save()
                 .then(userCreated => {
                     const payload = pickUser(userCreated, userCreated.userType);
-                    console.log(payload);
+                    //console.log(payload);
 
                     sendOTPCode(userCreated.email, userCreated.OTP.code, 'activation');
 
