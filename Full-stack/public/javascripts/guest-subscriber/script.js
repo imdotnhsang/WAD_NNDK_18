@@ -289,7 +289,8 @@ $('#comment__btn').click(function (e) {
     var contentComment = $('#comment__content').val().trim();
     var userId = $(this).attr('userId');
     var articleId = $(this).attr('articleId');
-
+    var userFullname = $('#sign_fullname').html();
+    var userAvatar = $('#sign_avatar').attr('src');
     if (contentComment.length > 0) {
         console.log(contentComment);
         console.log(userId);
@@ -300,13 +301,17 @@ $('#comment__btn').click(function (e) {
 
                 switch (statusCode) {
                     case 200:
-                        res.json().then(console.log) 
+                        res.json().then(console.log);
+                        document.getElementById('comment__content').value = '';
+                        $('#list-comment-old').html(
+                            '<div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center" ><div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class="" src="'+ userAvatar +'" alt=""></div><div class="content-comment col-8 col-sm-10 m-0"><p class="m-0 content-comment-detail"><span class="author-comment">'+userFullname+'&nbsp;</span>'+contentComment+'</p><p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span class="date-commented" id="date-commented">'+ formatDateTypeFull(Date.now()) +'</span></p></div></div>' +  $('#list-comment-old').html()
+                        )
+                      
                         break;
-
                     case 500:
                         console.log('Server Error');
                     default:
-                        res.json().then(console.log) 
+                        res.json().then(console.log)
                         break;
                 }
             })
@@ -356,7 +361,7 @@ function formatDateTypeFull(msDate) {
 
     customDate.year = new Date(Number(msDate)).getFullYear();
 
-    return (customDate.month + ' ' + customDate.day + ' ' +  ',' + customDate.year);
+    return (customDate.month + ' ' + customDate.day + ' ' + ',' + customDate.year);
     // $('.date-posted').append(customDate.day + ' ' + customDate.month + ',' + ' ' + customDate.year);
 }
 
@@ -387,8 +392,8 @@ function formatGender(gender) {
     return "Female";
 }
 
-$('.container-detail .content-detail .main-content-detail img').parent('p').css('display','flex');
-$('.container-detail .content-detail .main-content-detail img').parent('p').css('justify-content','center');
+$('.container-detail .content-detail .main-content-detail img').parent('p').css('display', 'flex');
+$('.container-detail .content-detail .main-content-detail img').parent('p').css('justify-content', 'center');
 
 //transfer news to pdf
 $('#detail__print').click(function () {
@@ -400,7 +405,7 @@ $('#detail__print').click(function () {
     //     }
     // }
     // css={
-        
+
     // }
     // pdf.fromHTML(
     //     source,

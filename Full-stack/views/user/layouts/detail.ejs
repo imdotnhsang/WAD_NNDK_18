@@ -69,20 +69,22 @@
 
                 <div class="list-comment pl-2 pr-2">
                     <div class="list-comment-old" id="list-comment-old">
-                        <% articleDetail.comments.forEach(function(eachComment){ %>
+                        <% var max = articleDetail.comments.length; %>
+                        <% for(i=0;i<max;i++){ %>
+                       
                         <div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center">
                             <div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class=""
-                                    src="<%= eachComment.user.avatar %>" alt=""></div>
+                                    src="<%= articleDetail.comments[max-i-1].user.avatar %>" alt=""></div>
                             <div class="content-comment col-8 col-sm-10 m-0">
                                 <p class="m-0 content-comment-detail"><span
-                                        class="author-comment"><%= eachComment.user.fullname %></span>
-                                    <%= eachComment.content %></p>
+                                        class="author-comment"><%= articleDetail.comments[max-i-1].user.fullname %></span>
+                                    <%= articleDetail.comments[max-i-1].content %></p>
                                 <p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span
-                                        class="date-commented" id="date-commented"><%= eachComment.createdAt %></span>
+                                        class="date-commented" id="date-commented"><%= articleDetail.comments[max-i-1].createdAt %></span>
                                 </p>
                             </div>
                         </div>
-                        <% }) %>
+                        <% } %>
                     </div>
                     <% if(account){ %>
                     <div class="new-comment pt-2 pr-sm-3 pr-lg-4 pl-3 pr-3">
