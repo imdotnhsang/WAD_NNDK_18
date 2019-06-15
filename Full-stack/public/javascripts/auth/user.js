@@ -1,3 +1,4 @@
+console.log($('#captcha').val())
 // auth
 $('#login-tab').click(function () {
     clearSignInErrors();
@@ -9,7 +10,7 @@ $('#signup-tab').click(function () {
 
 $('#signin__btn').click(function (e) {
     console.log('abc');
-    
+
     e.preventDefault();
 
     let errors = { usernameOrEmail: '', password: '' };
@@ -73,13 +74,15 @@ $('#signin__btn').click(function (e) {
 
 $('#signup__btn').click(function (e) {
     e.preventDefault();
-    let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+    let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '', recaptcha: '' };
 
     let username = $('#signup__username').val().trim(),
         password = $('#signup__password').val(),
         retypePassword = $('#signup__pwdRepeat').val(),
         email = $('#signup__email').val().trim(),
-        fullname = $('#signup__fullname').val().trim();
+        fullname = $('#signup__fullname').val().trim(),
+        recaptcha = $('#g-recaptcha-response').val();
+    console.log(recaptcha);
 
     if (fullname.length < 6 && fullname.length <= 23) {
         errors.fullname = 'Fullname must be between 6 and 23 characters long.'
@@ -101,6 +104,10 @@ $('#signup__btn').click(function (e) {
         errors.retypePassword = 'Retype password must be correct.'
     }
 
+    if (recaptcha === "") {
+        errors.recaptcha = "Please check captcha."
+    }
+
     errors = {
         ...errors,
         ...validateIsEmpty(
@@ -109,7 +116,7 @@ $('#signup__btn').click(function (e) {
         )
     };
 
-    const isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword;
+    const isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword || errors.recaptcha;
     if (isInvalid) {
         updateSignUpErrors(errors);
     } else {

@@ -59,6 +59,7 @@ const updateSignUpErrors = (errors) => {
     $('#signup__email-errmsg').text(errors.email);
     $('#signup__password-errmsg').text(errors.password);
     $('#signup__pwdRepeat-errmsg').text(errors.retypePassword);
+    $('#signup__reCaptcha-errmsg').text(errors.recaptcha);
 };
 
 const clearSignInErrors = () => {
