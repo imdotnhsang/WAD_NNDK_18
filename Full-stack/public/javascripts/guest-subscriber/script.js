@@ -304,7 +304,7 @@ $('#comment__btn').click(function (e) {
                         // res.json().then(console.log);
                         res.json().then(article => {
                             $('#list-comment-old').html(
-                                '<div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center" ><div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class="" src="'+ userAvatar +'" alt=""></div><div class="content-comment col-8 col-sm-10 m-0"><p class="m-0 content-comment-detail"><span class="author-comment">'+ userFullname +'&nbsp;</span>'+article.comments[article.comments.length-1].content+'</p><p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span class="date-commented" id="date-commented">'+ formatDateTypeFull(article.comments[article.comments.length-1].createdAt) +'</span></p></div></div>' +  $('#list-comment-old').html()
+                                '<div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center" ><div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class="" src="' + userAvatar + '" alt=""></div><div class="content-comment col-8 col-sm-10 m-0"><p class="m-0 content-comment-detail"><span class="author-comment">' + userFullname + '&nbsp;</span>' + article.comments[article.comments.length - 1].content + '</p><p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span class="date-commented" id="date-commented">' + formatDateTypeFull(article.comments[article.comments.length - 1].createdAt) + '</span></p></div></div>' + $('#list-comment-old').html()
                             )
                         })
                         document.getElementById('comment__content').value = '';
@@ -343,21 +343,26 @@ function formatDateTypeFull(msDate) {
 
     // customDate.day = new Date(Number(msDate)).getDate();
     customDate.month = months[new Date(Number(msDate)).getMonth()];
-
+    var Day = new Date(Number(msDate)).getDate()
     var supDay = new Date(Number(msDate)).getDate() % 10;
-    switch (supDay) {
-        case 1:
-            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[0] + '</sup>';
-            break;
-        case 2:
-            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[1] + '</sup>';
-            break;
-        case 3:
-            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[2] + '</sup>';
-            break;
-        default:
-            customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[3] + '</sup>';
-            break;
+
+    if (Day === 11 || Day === 12 || Day === 13) {
+        customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[3] + '</sup>';
+    } else {
+        switch (supDay) {
+            case 1:
+                customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[0] + '</sup>';
+                break;
+            case 2:
+                customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[1] + '</sup>';
+                break;
+            case 3:
+                customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[2] + '</sup>';
+                break;
+            default:
+                customDate.day = new Date(Number(msDate)).getDate() + '<sup>' + typeDays[3] + '</sup>';
+                break;
+        }
     }
 
     customDate.year = new Date(Number(msDate)).getFullYear();
@@ -414,22 +419,27 @@ $('#detail__print').click(function () {
     //         pdf.save('newsTBW.pdf');
     //     }
     // )
+    var title = $('.title-detail-news h2').html();
+    var abstract = $('.astract-detail-news p').html();
+    var nameAuthor =$('.author a').html();
+    var nicknameAuthor = $('.nickname a').html();
+    var datePosted = $('.date-posted').html();
     $("#main-content-detail").printThis({
         debug: false,               // show the iframe for debugging
         importCSS: true,            // import parent page css
         importStyle: false,         // import style tags
         printContainer: true,       // print outer container/$.selector
-        loadCSS: "http://localhost:5000/stylesheets/guest-subscriber/detail.css",                // path to additional css file - use an array [] for multiple
-        pageTitle: "",              // add title to print page
+        loadCSS: null,                // path to additional css file - use an array [] for multiple
+        pageTitle: "&nbsp;",              // add title to print page
         removeInline: false,        // remove inline styles from print elements
         removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
         printDelay: 333,            // variable print delay
-        header: null,               // prefix to html
-        footer: null,               // postfix to html
+        header: '<p class="m-0 title">'+title+'</p><p class="m-0 abstract">'+abstract+'</p><div class="description-detail-news row m-0"><div class="author">By <span>'+nameAuthor+'</span></div><div class="nickname"><span>'+ nicknameAuthor +'</span></div><div class="date-posted"><span>'+ datePosted +'</span></div></div><br>',               // prefix to html
+        footer: '<p class="text-center m-0">&copy; 2019 <strong>The Big Wind</strong>, All Rights Reserved</p><div class="contact-fb text-center"><a href="https://www.facebook.com/leooonguyen" target="_blank">Leo Nguyen</a><a href="https://www.facebook.com/vinh.phat69" target="_blank">Phat Dang</a><a href="https://www.facebook.com/phongkenvil" target="_blank">Phong Kenvil</a></div>',  // postfix to html
         base: false,                // preserve the BASE tag or accept a string for the URL
         formValues: true,           // preserve input/form values
-        canvas: false,              // copy canvas content
-        doctypeString: '...',       // enter a different doctype for older markup
+        canvas: true,              // copy canvas content
+        doctypeString: null,       // enter a different doctype for older markup
         removeScripts: false,       // remove script tags from print content
         copyTagClasses: false,      // copy classes from the html & body tag
         beforePrintEvent: null,     // function for printEvent in iframe

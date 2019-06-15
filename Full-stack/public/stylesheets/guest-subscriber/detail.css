@@ -74,11 +74,11 @@
 }
 
 .container-detail .description-detail-news .author {
-    padding: 0 10px 0 0;
+    padding: 0 7px 0 0;
 }
 
 .container-detail .description-detail-news .nickname {
-    padding: 0 10px;
+    padding: 0 7px;
     border-left: 1px solid #888888;
 }
 
@@ -331,6 +331,88 @@
     height: 100%!important;
 }
 
+@media print {
+    @page {
+        size: landscape;
+        margin: 2.5cm 3cm;
+    }
+    img{
+        width: 100%!important;
+        height: 100%!important;
+    }
+    p {
+        font-family: Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        color: #424242;
+    }
+    
+    p a {
+        font-size: 18px;
+        color: #e2127d;
+        font-family: Helvetica, sans-serif;
+    }
+    iframe{
+        display: none;
+    }
+    p strong{
+        font-weight: 700;
+    }
+    .contact-fb a {
+        padding: 0 4px;
+        color: #666666;
+        text-decoration: none;
+    }
+    
+    .contact-fb a:nth-child(2) {
+        padding: 0 7px;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+    p.title{
+        font-size: 35px;
+        color: #000;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+    p.abstract{
+        font-size: 20px;
+        font-style: italic;
+        color: #6A6A6A;
+        margin-bottom: 4px;
+    }
+    .description-detail-news {
+        font-size: 14px;
+        font-weight: 400;
+    }
+    
+    .description-detail-news .author {
+        padding: 0 7px 0 0;
+    }
+    
+    .description-detail-news .nickname {
+        padding: 0 7px;
+        border-left: 1px solid #888888;
+    }
+    
+    .description-detail-news .author span, .description-detail-news .nickname span {
+        color: #e2127d;
+    }
+    .description-detail-news .date-posted {
+        color: #6A6A6A;
+    }
+}
+
+/* 
+@media print {
+    body {
+        margin-top: 0mm;
+        margin-bottom: 0mm;
+        margin-left: 25mm;
+        margin-right: 25mm
+    }
+} */
+
 @media screen and (max-width: 993px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
         font-size: 15px;
@@ -414,7 +496,6 @@
     }
 }
 
-
 @media screen and (min-width: 1600px) {
     .container-detail .top-6-most-read-news .most-read-news .title-most-read-news {
         font-size: 17px;
@@ -430,8 +511,8 @@
         height: 450px!important;
     }
 }
-@media screen and (min-width: 1800px) {
 
+@media screen and (min-width: 1800px) {
     .container-detail .content-detail .main-content-detail iframe {
         width: 100%!important;
         height: 480px!important;

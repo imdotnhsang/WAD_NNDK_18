@@ -66,6 +66,7 @@
 
 .container-category .list-news .news .img-news {
     overflow: hidden;
+    position: relative;
 }
 
 .container-category .list-news .news .img-news img {
@@ -203,6 +204,28 @@
     border-right: 2px solid #393092;
 }
 
+#badge-premium{
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(0,0);
+    padding: 6px 12px;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    font-size: 14px;
+}
+#badge-premium-top2hotnews{
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(0,0);
+    padding: 7px 14px;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    font-size: 21px;
+}
 @media screen and (max-width: 993px) {
     .container-category .top-6-most-read-news .most-read-news .title-most-read-news {
         font-size: 15px;
@@ -280,6 +303,28 @@
     .container-category .top-6-most-read-news .most-read-news .author .date-posted {
         font-size: 13px;
     }
+    #badge-premium{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0,0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 14px;
+    }
+    #badge-premium-top2hotnews{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0,0);
+        padding: 7px 14px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 16px;
+    }
 }
 
 @media screen and (max-width: 413px) {
@@ -303,6 +348,28 @@
     }
     .container-category .top-6-most-read-news .most-read-news .author .date-posted {
         font-size: 12px;
+    }
+    #badge-premium{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0,0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 12px;
+    }
+    #badge-premium-top2hotnews{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0,0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 14px;
     }
 }
 
