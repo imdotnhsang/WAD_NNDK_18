@@ -301,12 +301,13 @@ $('#comment__btn').click(function (e) {
 
                 switch (statusCode) {
                     case 200:
-                        res.json().then(console.log);
+                        // res.json().then(console.log);
+                        res.json().then(article => {
+                            $('#list-comment-old').html(
+                                '<div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center" ><div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class="" src="'+ userAvatar +'" alt=""></div><div class="content-comment col-8 col-sm-10 m-0"><p class="m-0 content-comment-detail"><span class="author-comment">'+ userFullname +'&nbsp;</span>'+article.comments[article.comments.length-1].content+'</p><p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span class="date-commented" id="date-commented">'+ formatDateTypeFull(article.comments[article.comments.length-1].createdAt) +'</span></p></div></div>' +  $('#list-comment-old').html()
+                            )
+                        })
                         document.getElementById('comment__content').value = '';
-                        $('#list-comment-old').html(
-                            '<div class="comment row m-0 pt-3 pb-1 pr-3 pr-md-4 pr-xl-5 align-items-center" ><div class="avatar col-4 col-sm-2 d-flex justify-content-center p-0"><img class="" src="'+ userAvatar +'" alt=""></div><div class="content-comment col-8 col-sm-10 m-0"><p class="m-0 content-comment-detail"><span class="author-comment">'+userFullname+'&nbsp;</span>'+contentComment+'</p><p class="title-posted-cmt m-0 d-flex justify-content-end">Posted on&nbsp;<span class="date-commented" id="date-commented">'+ formatDateTypeFull(Date.now()) +'</span></p></div></div>' +  $('#list-comment-old').html()
-                        )
-                      
                         break;
                     case 500:
                         console.log('Server Error');
