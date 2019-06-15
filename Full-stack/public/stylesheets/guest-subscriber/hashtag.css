@@ -117,6 +117,18 @@
     opacity: .65;
 }
 
+#badge-premium {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(0, 0);
+    padding: 7px 14px;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    font-size: 19px;
+}
+
 @media screen and (max-width: 993px) {
     .container-hashtag .title-hashtag span {
         font-size: 25px;
@@ -129,6 +141,17 @@
     .container-hashtag .list-results-hashtag .count-results div:last-child {
         font-size: 16px;
         font-weight: 500;
+    }
+    #badge-premium {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0, 0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 15px;
     }
 }
 
@@ -168,9 +191,32 @@
         font-size: 15px;
         font-weight: 500;
     }
+    #badge-premium {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0, 0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 13px;
+    }
 }
 
-@media screen and (max-width: 413px) {}
+@media screen and (max-width: 413px) {
+    #badge-premium {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0, 0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 12px;
+    }
+}
 
 @media screen and (min-width: 576px) {
     .container-hashtag .description-hashtag .abstract-hashtag p {
