@@ -192,41 +192,60 @@ router.get('/category/:slug/:page', function (req, res, next) {
         return res.redirect('/home');
     }
 
-    const categoryDetail = {
-        categoryName: 'Apple',
-        slug: 'apple',
-        descriptionCategory: 'The latest tech news about the world is best (and sometimes worst) hardware, apps, and much more. From top companies like Google and Apple to tiny startups vying for your attention, Verge Tech has the latest in what matters in technology daily.',
-        twoArticlesHot: [{ title: 'Apple has edged out a number of third-party screen time and parental control apps: report 1', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-        { title: 'Apple has edged out a number of third-party screen time and parental control apps: report 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' }]
+    // const categoryDetail = {
+    //     categoryName: 'Apple',
+    //     slug: 'apple',
+    //     descriptionCategory: 'The latest tech news about the world is best (and sometimes worst) hardware, apps, and much more. From top companies like Google and Apple to tiny startups vying for your attention, Verge Tech has the latest in what matters in technology daily.',
+    //     twoArticlesHot: [{ title: 'Apple has edged out a number of third-party screen time and parental control apps: report 1', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
+    //     { title: 'Apple has edged out a number of third-party screen time and parental control apps: report 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' }]
+    // }
+
+    let categoryDetail = {};
+
+    let isAccPremium = false;
+    if (account && account.expiredAt > Date.now()) {
+        isAccPremium = true;
     }
 
     Category.findOne({ slug })
-        .then(async category => {
+        .then(category => {
             if (!category) {
                 return res.redirect('/home');
             }
 
             const categoryId = category._id;
+            categoryDetail = category._doc;
+
+            // query
+            let articlesCateCondition = {
+                categories: categoryId,
+                publishedAt: { $ne: null },
+            }
+            let articlesCateSort = {};
+
+            if (!isAccPremium) {
+                articlesCateCondition = { ...articlesCateCondition, isPremium: false };
+                articlesCateSort.isPremium = -1;
+            } else {
+                articlesCateSort.publishedAt = -1;
+            }
+
 
             const waitting = Promise.all([
                 // countArticlesCategory
                 new Promise((resolve, reject) => {
-                    resolve(countArticlesCategory(categoryId))
+                    resolve(countArticlesCategory(articlesCateCondition))
                 }),
 
                 // getArticleCategory(page)
                 new Promise((resolve, reject) => {
                     Article
-                        .find({
-                            categories: categoryId,
-                            publishedAt: { $ne: null },
-                            isPremium: false
-                        })
+                        .find(articlesCateCondition)
                         .populate('tags')
                         .populate('categories')
-                        .skip(10 * (pageNumber - 1))
+                        .skip(10 * (pageNumber - 1) + 2)
                         .limit(10)
-                        .sort({ publishedAt: -1 })
+                        .sort(articlesCateSort)
                         .then(articlesCategory => resolve(articlesCategory))
                         .catch(err => reject(err));
                 }),
@@ -246,24 +265,37 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                         .catch(err => reject(err));
                 }),
+     
+                // twoArticlesNewest
                 new Promise((resolve, reject) => {
                     Article
-                        .find({
-                            categories: categoryId,
-                            publishedAt: { $ne: null },
-                            isPremium: true
-                        })
-                        .populate('tags')
-                        .populate('categories')
-                        .skip(10 * (pageNumber - 1))
-                        .limit(10)
-                        .sort({ publishedAt: -1 })
-                        .then(articlesPreCategory => resolve(articlesPreCategory))
-                        .catch(err => reject(err));
+                    .find(articlesCateCondition)
+                    .limit(2)
+                    .sort({ publishedAt: -1 })
+                    .then(twoArticlesNewest => resolve(twoArticlesNewest))
+                    .catch(err => reject(err));
                 }),
-                new Promise((resolve, reject) => {
-                    resolve(countArticlesPreCategory(categoryId))
-                })
+                // // articlesPreCategory
+                // new Promise((resolve, reject) => {
+                //     Article
+                //         .find({
+                //             categories: categoryId,
+                //             publishedAt: { $ne: null },
+                //             isPremium: true
+                //         })
+                //         .populate('tags')
+                //         .populate('categories')
+                //         .skip(10 * (pageNumber - 1))
+                //         .limit(10)
+                //         .sort({ publishedAt: -1 })
+                //         .then(articlesPreCategory => resolve(articlesPreCategory))
+                //         .catch(err => reject(err));
+                // }),
+                
+                // // countArticlesPreCategoryValue
+                // new Promise((resolve, reject) => {
+                //     resolve(countArticlesPreCategory(categoryId))
+                // }),
             ])
 
             return waitting
@@ -271,13 +303,15 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     let countArticlesCategoryValue = values[0];
                     let articlesCategory = values[1];
                     let sixArticlesMostRead = values[2];
-                    let articlesPreCategory = values[3];
-                    let countArticlesPreCategoryValue = values[4];
+                    let twoArticlesNewest = values[3];
+                    // let articlesPreCategory = values[3];
+                    // let countArticlesPreCategoryValue = values[4];
+                    
                     if (articlesCategory.length === 0 || countArticlesCategoryValue === -1) {
                         return res.redirect('/home');
                     }
 
-                    console.log(countArticlesCategoryValue);
+                    // console.log(countArticlesCategoryValue);
 
                     return res.render(
                         'user',
@@ -287,12 +321,13 @@ router.get('/category/:slug/:page', function (req, res, next) {
                             srcScript: '/javascripts/guest-subscriber/script.js',
                             hrefCss: '/stylesheets/guest-subscriber/category.css',
                             account,
+                            twoArticlesNewest,
                             categoryDetail,
                             articlesCategory,
-                            articlesPreCategory,
-                            countArticlesCategory: countArticlesCategoryValue,
-                            countArticlesPreCategory: countArticlesPreCategoryValue,
+                            // articlesPreCategory,
+                            // countArticlesPreCategory: cSountArticlesPreCategoryValue,
                             sixArticlesMostRead,
+                            countArticlesCategory: countArticlesCategoryValue,
                             pageCurrent: pageNumber
                         }
                     );
