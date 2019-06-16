@@ -81,6 +81,7 @@
     border-bottom-right-radius: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    font-weight: 500;
 }
 
 .container-hashtag .list-results-hashtag .count-results div#btn_next {
@@ -159,7 +160,7 @@
         font-size: 25px;
         padding: 15px 40px;
     }
-    .container-hashtag .list-results-hashtag .count-results div:first-child p {
+    .container-hashtag .list-results-hashtag .count-results div#content_pagination p {
         font-size: 15px;
         font-weight: 500;
     }
@@ -212,7 +213,7 @@
         font-size: 22px;
         padding: 12px 40px;
     }
-    .container-hashtag .list-results-hashtag .count-results div:first-child p {
+    .container-hashtag .list-results-hashtag .count-results div#content_pagination p {
         font-size: 14px;
         font-weight: 500;
     }
@@ -310,7 +311,7 @@
         font-size: 28px;
         padding: 20px 50px;
     }
-    .container-hashtag .list-results-hashtag .count-results div:first-child p {
+    .container-hashtag .list-results-hashtag .count-results div#content_pagination p {
         font-size: 15px;
         font-weight: 500;
     }
