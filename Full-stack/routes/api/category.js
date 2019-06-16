@@ -17,7 +17,7 @@ router.post('/create', (req, res) => {
     } 
 
     title = _.trim(title);
-    let slug = createSlug(slug);
+    let slug = createSlug(title);
 
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.title = 'Title category does not exist.'
@@ -84,7 +84,7 @@ router.post('/create', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
-router.post('/update', (req, res) => {
+router.post('/update-title', (req, res) => {
     const errors = {};
     let { title, id } = req.body;
 
@@ -144,16 +144,35 @@ router.post('/update', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+router.post('/update-description', (req, res) => {
+    const errors = {};
+    let { description, id } = req.body;
+
+    console.log(description, id);
+    const accountAdmin = req.user;
+    if (!accountAdmin || accountAdmin.userType !== 'administrator') {
+        errors.category = 'Authorization has failed.';
+        return res.status(400).json(errors);
+    } 
+
+    Category.findById(id)
+        .then(category => {
+            if (!category) {
+                errors.category = "Category does not exist.";
+                return res.status(404).json(category);
+            }
+            
+            category.description = description;
+            return category.save()
+                .then(categoryUpdated => res.json(categoryUpdated));
+        })
+        .catch(err => res.status(400).json(err));
+});
+
 router.get('/get-all', (req, res) => {
     Category
         .find({ isActive: true, parentId: null })
-        .select({
-            _id: 1,
-            title: 1,
-            slug: 1,
-            subCategories: 1
-        })
-        .populate('subCategories', '_id title slug parentId')
+        .populate('subCategories')
         .then(allCategories => {
             return res.json(allCategories);
         })

@@ -13,6 +13,7 @@ const CategorySchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: false
     },
+    description: String,
     isActive: {
         type: Boolean,
         default: true

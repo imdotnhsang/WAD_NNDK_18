@@ -53,15 +53,17 @@ $('#signin__btn').click(function (e) {
                     res.json().then(account => {
                         switch (account.userType) {
                             case 'administrator':
-                               window.location='/administrator';
+                                window.location = '/administrator';
                                 break;
                             case 'writer':
-                                    window.location='/writer';
+                                window.location = '/writer';
                                 break;
                             case 'editor':
-                                    window.location='/editor';
+                                window.location = '/editor';
                                 break;
                             default:
+                                window.location = '/home';
+                                break;
                         }
                     })
                 }

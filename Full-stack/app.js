@@ -43,7 +43,7 @@ app.use((req, res, next) => {
     getCategoryList()
         .then(categoryList => {
             res.locals.categoryList = categoryList;
-            // console.log(categoryList);
+            console.log(categoryList);
             
             next();
         })
