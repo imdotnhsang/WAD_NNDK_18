@@ -72,17 +72,18 @@
     color: #fff;
 }
 
-.container-hashtag .list-results-hashtag .count-results div:first-child {
+.container-hashtag .list-results-hashtag .count-results div#content_pagination {
+    font-size: 14px;
     padding: 10px 0px;
     background: #efeff0;
     color: #626262;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
-.container-hashtag .list-results-hashtag .count-results div:last-child {
+.container-hashtag .list-results-hashtag .count-results div#btn_next {
     padding: 10px 0px;
     background: #e5127d;
     color: #fff;
@@ -93,7 +94,31 @@
     border-bottom-left-radius: 0;
 }
 
-.container-hashtag .list-results-hashtag .count-results div:last-child:hover {
+.container-hashtag .list-results-hashtag .count-results div#btn_prev {
+    padding: 10px 0px;
+    background: #e5127d;
+    color: #fff;
+    transition: background .3s;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.container-hashtag .list-results-hashtag .count-results div#btn_next a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.container-hashtag .list-results-hashtag .count-results div#btn_prev a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.container-hashtag .list-results-hashtag .count-results div#btn_next:hover {
+    background: #b60e63;
+}
+.container-hashtag .list-results-hashtag .count-results div#btn_prev:hover {
     background: #b60e63;
 }
 
@@ -138,7 +163,11 @@
         font-size: 15px;
         font-weight: 500;
     }
-    .container-hashtag .list-results-hashtag .count-results div:last-child {
+    .container-hashtag .list-results-hashtag .count-results div#btn_next {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_prev {
         font-size: 16px;
         font-weight: 500;
     }
@@ -187,8 +216,12 @@
         font-size: 14px;
         font-weight: 500;
     }
-    .container-hashtag .list-results-hashtag .count-results div:last-child {
+    .container-hashtag .list-results-hashtag .count-results div#btn_next {
         font-size: 15px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_prev {
+        font-size: 16px;
         font-weight: 500;
     }
     #badge-premium {
@@ -281,7 +314,11 @@
         font-size: 15px;
         font-weight: 500;
     }
-    .container-hashtag .list-results-hashtag .count-results div:last-child {
+    .container-hashtag .list-results-hashtag .count-results div#btn_next {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_prev {
         font-size: 16px;
         font-weight: 500;
     }

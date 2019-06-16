@@ -1,62 +1,57 @@
 <div class="container-hashtag row m-0">
     <div class="title-hashtag col-12 justify-content-center d-flex pb-3">
-        <span class="badge badge-pill">#</span>
+        <span class="badge badge-pill">#<%= tagName %> </span>
     </div>
     <div class="col-xl-2 col-0 p-0 m-0 blank-col-container">
     </div>
     <div class="main-container-hashtag col-xl-8 col-12 m-0 pt-3 pt-sm-4 pr-2 pl-2 pl-xl-0 pr-xl-0">
-        <div class="select-category-hashtag d-flex justify-content-end pt-0 pr-0 pb-0">
-            <select>
-                <option value="0">All</option>
-                <option value="1">Tech</option>
-                <option value="2">Reviews</option>
-                <option value="3">Science</option>
-                <option value="4">Creators</option>
-                <option value="5">Feature</option>
-            </select>
-        </div>
         <div class="results-for-hashtag pt-1 pl-3 pr-3">
             <div class="list-results-hashtag m-0">
                 <% if(account){ %>
-                <% if(account.expiredAt > Date.now()){ %>
-                <%  resultArticlesPreHashtag.forEach(function(eachArticleTag){ %>
-                <div class="result-hashtag pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-hashtag col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img class="w-100"
-                                src="<%= eachArticleTag.coverImage %>" alt=""></a><span class="badge badge-warning"
-                            id="badge-premium"> <i class="fa fa-star"></i> </span></div>
-                    <div
-                        class="description-result-hashtag col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-hashtag m-0 font-weight-bold"><%= eachArticleTag.title %>
-                        </a>
-                        <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category"><%= eachArticleTag.categories[eachArticleTag.categories.length - 1].title %></a>&nbsp;&nbsp;
-                            <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                    id="date-posted"><%= eachArticleTag.publishedAt %></span></p>
-                            &nbsp;&nbsp;
-                        </span>
-                        <p class="abstract-result-hashtag pt-0 pt-sm-1 m-0">
-                            <%= eachArticleTag.abstract %></p>
-                        <div class="list-tags">
-                            <% eachArticleTag.tags.forEach(function(eachTag){ %>
-                            <a href="hashtag"><span class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
-                            <% }) %>
+                    <% if(account.expiredAt > Date.now()){ %>
+                        <%  resultArticlesPreHashtag.forEach(function(eachArticleTag){ %>
+                        <div class="result-hashtag pb-1 pl-0 pr-0 pt-2 row">
+                            <div class="img-result-hashtag col-4 col-sm-5 col-md-4 p-0"> <a
+                                    href="/article/<%= eachArticleTag.slug %>"> <img class="w-100"
+                                        src="<%= eachArticleTag.coverImage %>" alt=""></a><span class="badge badge-warning"
+                                    id="badge-premium"> <i class="fa fa-star"></i> </span></div>
+                            <div
+                                class="description-result-hashtag col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
+                                <a href="/article/<%= eachArticleTag.slug %>"
+                                    class="title-result-hashtag m-0 font-weight-bold"><%= eachArticleTag.title %>
+                                </a>
+                                <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
+                                        href="/category/<%= eachArticleTag.categories[eachArticleTag.categories.length - 1].slug %>/1"><%= eachArticleTag.categories[eachArticleTag.categories.length - 1].title %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
+                                            id="date-posted"><%= eachArticleTag.publishedAt %></span></p>
+                                    &nbsp;&nbsp;
+                                </span>
+                                <p class="abstract-result-hashtag pt-0 pt-sm-1 m-0">
+                                    <%= eachArticleTag.abstract %></p>
+                                <div class="list-tags">
+                                    <% eachArticleTag.tags.forEach(function(eachTag){ %>
+                                    <a href="/hashtag/<%= eachTag.slug %>/1"><span
+                                            class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
+                                    <% }) %>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <% }) %>
+                        <% }) %>
+                    <% } %>
                 <% } %>
-                <% } %>
-                
+
                 <%  resultArticlesHashtag.forEach(function(eachArticleTag){ %>
                 <div class="result-hashtag pb-1 pl-0 pr-0 pt-2 row">
-                    <div class="img-result-hashtag col-4 col-sm-5 col-md-4 p-0"> <a href="detail"> <img class="w-100"
+                    <div class="img-result-hashtag col-4 col-sm-5 col-md-4 p-0"> <a
+                            href="/article/<%= eachArticleTag.slug %>"> <img class="w-100"
                                 src="<%= eachArticleTag.coverImage %>" alt=""></a></div>
                     <div
                         class="description-result-hashtag col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
-                        <a href="detail" class="title-result-hashtag m-0 font-weight-bold"><%= eachArticleTag.title %>
+                        <a href="/article/<%= eachArticleTag.slug %>"
+                            class="title-result-hashtag m-0 font-weight-bold"><%= eachArticleTag.title %>
                         </a>
                         <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
-                                href="category"><%= eachArticleTag.categories[eachArticleTag.categories.length - 1].title %></a>&nbsp;&nbsp;
+                                href="/category/<%= eachArticleTag.categories[eachArticleTag.categories.length - 1].slug %>/1"><%= eachArticleTag.categories[eachArticleTag.categories.length - 1].title %></a>&nbsp;&nbsp;
                             <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
                                     id="date-posted"><%= eachArticleTag.publishedAt %></span></p>
                             &nbsp;&nbsp;
@@ -65,7 +60,8 @@
                             <%= eachArticleTag.abstract %></p>
                         <div class="list-tags">
                             <% eachArticleTag.tags.forEach(function(eachTag){ %>
-                            <a href="hashtag"><span class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
+                            <a href="/hashtag/<%= eachTag.slug %>/1"><span
+                                    class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
                             <% }) %>
                         </div>
                     </div>
@@ -73,15 +69,128 @@
                 <% }) %>
 
                 <div class="count-results row m-0 pt-3 pb-3 pb-lg-4">
-                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center">
-                        <p class="m-0">Page <span class="page-current">1</span> of <span
-                                class="count-pages"><%= Math.round(resultArticlesHashtag.length/10 + 0.4) %></span>
+                    <% if(account){ %>
+                    <% if(account.expiredAt > Date.now()){ %>
+                    <% if(Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4)!==1){ %>
+                    <% if(pageCurrent === 1){ %>
+                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4) %></span>
                         </p>
                     </div>
-                    <% if(Math.round(resultArticlesHashtag.length/10 + 0.4)>1){ %>
-                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase">next</div>
-                    <% } else {%>
-                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase disabled">next</div>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                    <% }else if(pageCurrent === Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4)){ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
+                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <% }else{ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
+                    <div class="col-6 col-sm-8 col-xl-10 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                    <% } %>
+                    <% }else{ %>
+                    <div class="col-12 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <% } %>
+                    <% }else{ %>
+                    <% if(Math.round(countArticlesTag/10 + 0.4)!==1){ %>
+                    <% if(pageCurrent === 1){ %>
+                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                    <% }else if(pageCurrent === Math.round(countArticlesTag/10 + 0.4)){ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
+                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <% }else{ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
+                    <div class="col-6 col-sm-8 col-xl-10 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                    <% } %>
+                    <% }else{ %>
+                    <div class="col-12 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <% } %>
+                    <% } %>
+                    <% }else{ %>
+                    <% if(Math.round(countArticlesTag/10 + 0.4)!==1){ %>
+                    <% if(pageCurrent === 1){ %>
+                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                    <% }else if(pageCurrent === Math.round(countArticlesTag/10 + 0.4)){ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
+                    <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <% }else{ %>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
+                    <div class="col-6 col-sm-8 col-xl-10 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round(countArticlesTag/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                    <% } %>
+                    <% }else{ %>
+                    <div class="col-12 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                        id="content_pagination">
+                        <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                class="count-pages"><%= Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4) %></span>
+                        </p>
+                    </div>
+                    <% } %>
                     <% } %>
                 </div>
             </div>

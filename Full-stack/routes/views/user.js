@@ -315,12 +315,14 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
     }
 
     Tag.findOne({ slug })
-        .then(async tag => {
+        .then(tag => {
             if (!tag) {
                 return res.redirect('/home');
             }
 
             const tagId = tag._id;
+            const tagName = tag.title;
+            const tagSlug = tag.slug;
 
             const waitting = Promise.all([
                 // countArticlesTag
@@ -374,10 +376,6 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
                     let articlesTag = values[2];
                     let articlesPreTag = values[3];
 
-                    if (articlesTag.length === 0 || countArticlesTagValue === -1) {
-                        return res.redirect('/home');
-                    }
-
                     console.log(countArticlesTagValue);
 
                     return res.render(
@@ -394,6 +392,7 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
                             countArticlesPreTag: countArticlesPreTagValue,
                             resultArticlesHashtag: articlesTag,
                             resultArticlesPreHashtag: articlesPreTag,
+                            tagName,tagSlug,
                             pageCurrent: pageNumber
                         }
                     );
@@ -403,34 +402,6 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             console.log(err);
             return res.redirect('/home');
         })
-
-
-    //Lấy tất cả các bài thuộc hashtag này
-    // const resultArticlesHashtag = {
-    //     nameHashtag: 'Apple 2019',
-    //     result: [{ title: 'Apple Pay is coming to New York City’s MTA transit system this summer', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 3 ', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 4', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 5', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 6', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 7', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 8', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 9', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 10', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] }]
-    // }
-
-    // res.render(
-    //     'user',
-    //     {
-    //         title: 'Hashtag',
-    //         layout: 'layouts/hashtag',
-    //         srcScript: '/javascripts/guest-subscriber/script.js',
-    //         hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
-    //         account,
-    //         resultArticlesHashtag
-    //     }
-    // );
 });
 
 router.get('/information', function (req, res, next) {
