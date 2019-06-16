@@ -10,64 +10,6 @@ const { countArticles } = require('../../utils');
 router.get('/home', function (req, res, next) {
     const account = req.user;
 
-    //Lấy 5 bài có views nhiều nhất trong tuần qua
-    const fiveArticlesHot = [
-        {
-            title: 'Apple has edged out a number ofthird-party screen time and parental control apps: report',
-            categoryName: 'Apple',
-            publishDate: 1558802053334,
-            coverImage: ''
-        },
-        {
-            title: 'Samsung delays Galaxy Fold indefinitely:‘We will take measures to strengthen the display’',
-            categoryName: 'Samsung',
-            publishDate: 1558810668776,
-            coverImage: ''
-        },
-        {
-            title: 'Nvidia’s new GTX 1660 Ti and 1650 could power your next budget gaming laptop',
-            categoryName: 'Tech',
-            publishDate: 1558802053334,
-            coverImage: ''
-        },
-        {
-            title: 'How to organize your Google Photos collection',
-            categoryName: 'Google',
-            publishDate: 1558810668776,
-            coverImage: ''
-        },
-        {
-            title: 'Avengers: Endgame — our spoiler-free review',
-            categoryName: 'Review',
-            publishDate: 1558802053334,
-            coverImage: ''
-        }
-    ];
-
-    //Lấy 10 bài mới đăng gần nhất tất cả chuyên mục
-    const tenArticlesLastest = [{ title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' },
-    { title: 'FCC approves SpaceX’s plans to fly internet-beaming satellites in a lower orbit', categoryName: 'Space', publishDate: 1558802053334, coverImage: '' }];
-
-    //Lấy 10 bài đọc nhiều nhất tất cả chuyên mục
-    const tenArticlesMostRead = [{ title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'DJI denies that it’s discontinuing its iconic Photom drones', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' }];
-
     //Lấy 12 chuyên mục có view lớn (tổng view các bài của chuyên mục đó) rồi lấy bài đọc mới nhất của chuyên mục đó. Lưu ý là không lấy chuyên mục cha, chỉ lấy chuyên mục con
     const twelveArticlesCategory = [{ title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
     { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
@@ -82,20 +24,79 @@ router.get('/home', function (req, res, next) {
     { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
     { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' }]
 
-    res.render(
-        'user',
-        {
-            title: 'Home',
-            layout: 'layouts/home',
-            srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '',
-            account,
-            fiveArticlesHot,
-            tenArticlesLastest,
-            tenArticlesMostRead,
-            twelveArticlesCategory
-        }
-    );
+    const waitting = Promise.all(
+        [
+               //Lấy 5 bài có views nhiều nhất trong tuần qua
+            new Promise((resolve, reject) => {
+                Article
+                    .find({ publishedAt: { $ne: null } })
+                    .select('title slug categories publishedAt coverImage')
+                    .populate('categories')
+                    .sort({ views: -1 })
+                    .limit(5)
+                    .then(fiveArticlesHot => resolve(fiveArticlesHot))
+                    .catch(err => reject(err));
+            }),
+            new Promise((resolve, reject) => {
+                Article
+                    .find({ publishedAt: { $ne: null } })
+                    .select('title slug categories publishedAt coverImage')
+                    .populate('categories')
+                    .sort({ views: -1 })
+                    .limit(10)
+                    .skip(5)
+                    .then(tenArticlesMostRead => resolve(tenArticlesMostRead))
+                    .catch(err => reject(err));
+            }),
+            new Promise((resolve, reject) => {
+                Article
+                    .find({ publishedAt: { $ne: null } })
+                    .select('title slug categories publishedAt coverImage')
+                    .populate('categories')
+                    .sort({ publishedAt: -1 })
+                    .limit(10)
+                    .then(topCategory => resolve(topCategory))
+                    .catch(err => reject(err));
+            })
+            // new Promise((resolve, reject) => {
+            //     Article
+            //         .find({ publishedAt: { $ne: null } })
+            //         .select('title slug categories publishedAt coverImage')
+            //         .populate('categories')
+            //         .sort({ publishedAt: -1 })
+            //         .limit(10)
+            //         .then(twelveArticlesCategory => resolve(twelveArticlesCategory))
+            //         .catch(err => reject(err));
+            // })
+        ]
+    )
+
+    return waitting
+        .then(values => {
+            console.log(values);
+            let fiveArticlesHot = values[0];
+            let tenArticlesMostRead = values[1];
+            let tenArticlesLastest = values[2];
+            return res.render(
+                'user',
+                {
+                    title: 'Home',
+                    layout: 'layouts/home',
+                    srcScript: '/javascripts/guest-subscriber/script.js',
+                    hrefCss: '',
+                    account,
+                    fiveArticlesHot,
+                    tenArticlesLastest,
+                    tenArticlesMostRead,
+                    twelveArticlesCategory
+                }
+            );
+        })
+        .catch(err => {
+            console.log(err);
+            return res.redirect('/home');
+        })
+
 });
 
 router.get('/article/:slug', function (req, res, next) {

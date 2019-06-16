@@ -7,72 +7,72 @@
                 <div class="owl-carousel owl-carousel-slide-top-5-hot-news owl-theme background-hot-news">
                     <div class="item item-custom row m-0 p-0 row" id="slide1">
                         <div class="img-hot-news col-7 col-sm-7 p-0">
-                            <a href="detail" class=""><img class="w-100" src="/images/products/hotnews1.jpg" alt=""></a>
+                            <a href="/article/<%= fiveArticlesHot[0].slug %>" class=""><img class="w-100" src="<%= fiveArticlesHot[0].coverImage %>" alt=""></a>
                         </div>
                         <div class="description-hot-news col-5 col-sm-5">
-                            <a href="detail" class="title-hot-news m-0 text-uppercase"><%= fiveArticlesHot[0].title %>
+                            <a href="/article/<%= fiveArticlesHot[0].slug %>" class="title-hot-news m-0 text-uppercase"><%= fiveArticlesHot[0].title %>
                             </a>
                             <span class="author m-0 pt-1 row"><a class="text-uppercase"
-                                    href="category"><%= fiveArticlesHot[0].categoryName %></a>&nbsp;&nbsp;<p
+                                    href="/category/<%= fiveArticlesHot[0].categories[fiveArticlesHot[0].categories.length-1].slug %>/1"><%= fiveArticlesHot[0].categories[fiveArticlesHot[0].categories.length-1].title %></a>&nbsp;&nbsp;<p
                                     class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                        id="date-posted"><%= fiveArticlesHot[0].publishDate %></span></p></span>
+                                        id="date-posted"><%= fiveArticlesHot[0].publishedAt %></span></p></span>
                         </div>
                     </div>
                     <div class="item item-custom row m-0 p-0 row" id="slide2">
                         <div class="img-hot-news col-7 col-sm-7 p-0">
-                            <a href="detail"><img class="w-100" src="/images/products/hotnews2.jpg" alt=""></a>
+                            <a href="/article/<%= fiveArticlesHot[1].slug %>"><img class="w-100" src="<%= fiveArticlesHot[1].coverImage %>" alt=""></a>
                         </div>
                         <div class="description-hot-news col-5 col-sm-5">
-                            <a href="detail"
+                            <a href="/article/<%= fiveArticlesHot[1].slug %>"
                                 class="title-hot-news m-0 text-uppercase"><%= fiveArticlesHot[1].title %></a>
                             <span class="author m-0 pt-1 row"><a class="text-uppercase"
-                                    href="category"><%= fiveArticlesHot[1].categoryName %></a>&nbsp;&nbsp;<p
+                                    href="/category/<%= fiveArticlesHot[1].categories[fiveArticlesHot[1].categories.length-1].slug %>/1"><%= fiveArticlesHot[1].categories[fiveArticlesHot[1].categories.length-1].title %></a>&nbsp;&nbsp;<p
                                     class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                        id="date-posted"><%= fiveArticlesHot[1].publishDate %></span></p></span>
+                                        id="date-posted"><%= fiveArticlesHot[1].publishedAt %></span></p></span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 m-0 small-hot-news background-hot-news p-0 row">
                 <div class="img-hot-news col-7 col-sm-12 p-0 m-0">
-                    <a href="detail" class="">
-                        <img class="w-100" src="/images/products/hotnews3.jpg" alt=""> </a>
+                    <a href="/article/<%= fiveArticlesHot[2].slug %>" class="">
+                        <img class="w-100" src="<%= fiveArticlesHot[2].coverImage %>" alt=""> </a>
                 </div>
                 <div class="description-hot-news col-5 col-sm-12 m-0">
-                    <a href="detail" class="title-hot-news m-0"><%= fiveArticlesHot[2].title %>
+                    <a href="/article/<%= fiveArticlesHot[2].slug %>" class="title-hot-news m-0"><%= fiveArticlesHot[2].title %>
                     </a>
                     <span class="author m-0 pt-1 row p-0"><a class="text-uppercase"
-                            href="category"><%= fiveArticlesHot[2].categoryName %></a>&nbsp;&nbsp;<p
+                            href="/category/<%= fiveArticlesHot[2].categories[fiveArticlesHot[2].categories.length-1].slug %>/1"><%= fiveArticlesHot[2].categories[fiveArticlesHot[2].categories.length-1].title %></a>&nbsp;&nbsp;<p
                             class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                id="date-posted"><%= fiveArticlesHot[2].publishDate %></span></p></span>
+                                id="date-posted"><%= fiveArticlesHot[2].publishedAt %></span></p></span>
                 </div>
             </div>
             <div class="col-sm-12 pt-1 space-line"></div>
             <div class="col-sm-4 m-0 small-hot-news background-hot-news p-0 m-0 row">
                 <div class="img-hot-news col-7 col-sm-12 p-0">
-                    <a href="detail" class="">
-                        <img class="w-100" src="/images/products/hotnews5.jpg" alt=""></a>
+                    <a href="/article/<%= fiveArticlesHot[3].slug %>" class="">
+                        <img class="w-100" src="<%= fiveArticlesHot[3].coverImage %>" alt=""></a>
                 </div>
                 <div class="description-hot-news col-5 col-sm-12">
-                    <a href="detail" class="title-hot-news m-0"><%= fiveArticlesHot[3].title %>
+                    <a href="/article/<%= fiveArticlesHot[3].slug %>" class="title-hot-news m-0"><%= fiveArticlesHot[3].title %>
                     </a>
                     <span class="author m-0 pt-1 row"><a class="text-uppercase"
-                            href="category"><%= fiveArticlesHot[3].categoryName %></a>&nbsp;&nbsp;<p
+                            href="/category/<%= fiveArticlesHot[3].categories[fiveArticlesHot[3].categories.length-1].slug %>/1"><%= fiveArticlesHot[3].categories[fiveArticlesHot[3].categories.length-1].title %></a>&nbsp;&nbsp;<p
                             class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                id="date-posted"><%= fiveArticlesHot[3].publishDate %></span></p></span>
+                                id="date-posted"><%= fiveArticlesHot[3].publishedAt %></span></p></span>
                 </div>
             </div>
             <div class="col-sm-8 m-0 large-hot-news pl-0 pl-sm-1 pt-1 pt-sm-0 row pr-0">
                 <div class="description-hot-news col-sm-5 col-5 background-hot-news">
-                    <a href="detail" class="title-hot-news m-0 text-uppercase m-0"><%= fiveArticlesHot[4].title %></a>
+                    <a href="/article/<%= fiveArticlesHot[4].slug %>" class="title-hot-news m-0 text-uppercase m-0"><%= fiveArticlesHot[4].title %></a>
                     <span class="author m-0 pt-1 row"><a class="text-uppercase"
-                            href="category"><%= fiveArticlesHot[4].categoryName %></a>&nbsp;&nbsp;<p
+                            href="/category/<%= fiveArticlesHot[4].categories[fiveArticlesHot[4].categories.length-1].slug %>/1"><%= fiveArticlesHot[4].categories[fiveArticlesHot[4].categories.length-1].title %></a>&nbsp;&nbsp;<p
                             class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                id="date-posted"><%= fiveArticlesHot[4].publishDate %></span></p></span>
+                                id="date-posted"><%= fiveArticlesHot[4].publishedAt %></span></p></span>
                 </div>
                 <div class="img-hot-news col-sm-7 col-7 p-0">
-                    <a href="detail" class="">
-                        <img class="w-100" src="/images/products/hotnews4.jpg" alt=""></a>
+                    <a href="/article/<%= fiveArticlesHot[4].slug %>" class="">
+                        <img class="w-100" src="<%= fiveArticlesHot[4].coverImage %>" alt=""></a>
                 </div>
             </div>
         </div>
@@ -87,16 +87,16 @@
                         <div class="list-top-10-lastest-news">
                             <% tenArticlesLastest.forEach(function(eachArticleLatest){ %>
                             <div class="lastest-news pb-1 pl-2 pr-2 pt-2 row">
-                                <div class="img-lastest-news col-5 col-sm-5 col-md-4"> <a href="detail"> <img
-                                            class="w-100" src="/images/products/latestnews.jpg" alt=""></a></div>
+                                <div class="img-lastest-news col-5 col-sm-5 col-md-4"> <a href="/article/<%= eachArticleLatest.slug %>"> <img
+                                            class="w-100" src="<%= eachArticleLatest.coverImage %>" alt=""></a></div>
                                 <div class="description-lastest-news col-7 col-sm-7 pt-0 pl-3 pr-2 pb-0 pt-md-1">
-                                    <a href="detail"
+                                    <a href="/article/<%= eachArticleLatest.slug %>"
                                         class="title-lastest-news m-0 font-weight-bold"><%= eachArticleLatest.title %>
                                     </a>
                                     <span class="author m-0 pt-1 row"><a class=""
-                                            href="category"><%= eachArticleLatest.categoryName %></a>&nbsp;&nbsp;<p
+                                            href="/category/<%= eachArticleLatest.categories[eachArticleLatest.categories.length-1].slug %>/1"><%= eachArticleLatest.categories[eachArticleLatest.categories.length-1].title %></a>&nbsp;&nbsp;<p
                                             class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                                id="date-posted"><%= eachArticleLatest.publishDate %></span></p></span>
+                                                id="date-posted"><%= eachArticleLatest.publishedAt %></span></p></span>
                                 </div>
                             </div>
                             <% }) %>
@@ -134,16 +134,16 @@
                     <div class="list-top-10-most-read-news p-0 row m-0">
                         <% tenArticlesMostRead.forEach(function(eachArticleMS){ %>
                         <div class="most-read-news pt-2 pb-1 pl-2 pr-2 col-6 col-md-12 m-0 row">
-                            <div class="img-most-read-news col-12"><a href="detail"><img class="w-100"
-                                        src="/images/products/mostreadnews.jpg" alt=""></a> </div>
+                            <div class="img-most-read-news col-12"><a href="/article/<%= eachArticleMS.slug %>"><img class="w-100"
+                                        src="<%= eachArticleMS.coverImage %>" alt=""></a> </div>
                             <div class="description-most-read-news col-12 p-0 p-md-0 pt-md-1">
-                                <a href="detail"
+                                <a href="/article/<%= eachArticleMS.slug %>"
                                     class="title-most-read-news m-0 font-weight-bold"><%= eachArticleMS.title %>
                                 </a>
                                 <span class="author m-0 p-0 pt-1 row"><a class=""
-                                        href="category"><%= eachArticleMS.categoryName %></a>&nbsp;&nbsp;<p
+                                        href="/category/<%= eachArticleMS.categories[eachArticleMS.categories.length-1].slug %>/1"><%= eachArticleMS.categories[eachArticleMS.categories.length-1].title %></a>&nbsp;&nbsp;<p
                                         class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                            id="date-posted"><%= eachArticleMS.publishDate %></span></p></span></div>
+                                            id="date-posted"><%= eachArticleMS.publishedAt %></span></p></span></div>
                         </div>
                         <% }) %>
                     </div>
