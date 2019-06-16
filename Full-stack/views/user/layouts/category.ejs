@@ -3,18 +3,32 @@
     </div>
     <div class="main-container-category col-xl-8 col-12 m-0 p-0">
         <div class="top-2-hot-news row m-0">
-            <% categoryDetail.twoArticlesHot.forEach(function(eachArticleHot){ %>
+            <% twoArticlesNewest.forEach(function(eachArticleNewest){ %>
             <div class="hot-news col-6 pr-0 pl-1">
-                <div class="img-hot-news"> <a href="detail"><img class="w-100" src="/images/products/hotnews1.jpg"
-                            alt=""></a><span class="badge badge-warning" id="badge-premium-top2hotnews"> <i
-                            class="fa fa-star"></i></div>
-                <div class="description-hot-news background-hot-news">
-                    <a href="detail" class="title-hot-news m-0 font-weight-bold"><%= eachArticleHot.title %>
+                <div class="img-hot-news">
+                    <a href="/article/<%= eachArticleNewest.slug %>">
+                        <img class="w-100" src="<%= eachArticleNewest.coverImage %>"alt="">
                     </a>
-                    <span class="author m-0 pt-2 row"><a class="text-uppercase"
-                            href="category"><%= eachArticleHot.categoryName %></a>&nbsp;&nbsp;<p
-                            class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                id="date-posted"><%= eachArticleHot.publishDate %></span></p></span></div>
+
+                    <% if(eachArticleNewest.isPremium) { %>
+                        <span class="badge badge-warning" id="badge-premium-top2hotnews">
+                            <i class="fa fa-star"></i>
+                        </span>
+                    <% } %>
+                </div>
+                <div class="description-hot-news background-hot-news">
+                    <a href="/article/<%= eachArticleNewest.slug %>" class="title-hot-news m-0 font-weight-bold"><%= eachArticleNewest.title %></a>
+                    <span class="author m-0 pt-2 row">
+                        <a class="text-uppercase" href="/category/<%= eachArticleNewest.slug %>/1">
+                            <%= eachArticleNewest.title %>
+                        </a>
+                        &nbsp;&nbsp;
+                        <p class="date-posted m-0">
+                            <i class="fa fa-clock-o"></i>
+                            <span id="date-posted"><%= eachArticleNewest.publishedAt %></span>
+                        </p>
+                    </span>
+                </div>
             </div>
             <% }) %>
         </div>
