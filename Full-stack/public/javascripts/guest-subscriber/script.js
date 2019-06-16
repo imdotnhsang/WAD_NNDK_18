@@ -220,11 +220,25 @@ $('#searchBar__btn').click(function (e) {
 //check validate search page
 $('#searchPage__btn').click(function (e) {
     e.preventDefault();
-    var keySearch;
-    if ($('#searchPage__content').val().trim().length > 0) {
+    handleSearchEvent();
+});
+
+$('#searchPage__content').keypress(function(event){
+    if(event.which == 13) {
+        handleSearchEvent();
+    }
+});
+
+const handleSearchEvent = () => {
+    var keySearch = $('#searchPage__content').val().trim();
+    if (keySearch.length > 0) {
         keySearch = $('#searchPage__content').val();
-        console.log(keySearch);
-        document.getElementById('searchBar__content').value = '';
+        typeSearch = $('#searchPage__type').val();
+
+        window.location = `/search?${typeSearch}=${keySearch}&page=1`;
+
+        // console.log(keySearch, typeSearch);
+        // document.getElementById('searchBar__content').value = '';
     } else {
         $(this).attr('data-toggle', 'modal');
         $(this).attr('data-target', '#search__modal');
@@ -240,7 +254,7 @@ $('#searchPage__btn').click(function (e) {
             }
         });
     }
-});
+}
 
 //move tab edit profile
 $('#btn_updateInfTab').click(function () {

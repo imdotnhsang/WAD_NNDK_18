@@ -10,20 +10,6 @@ const { countArticles } = require('../../utils');
 router.get('/home', function (req, res, next) {
     const account = req.user;
 
-    //Lấy 12 chuyên mục có view lớn (tổng view các bài của chuyên mục đó) rồi lấy bài đọc mới nhất của chuyên mục đó. Lưu ý là không lấy chuyên mục cha, chỉ lấy chuyên mục con
-    // const twelveArticlesCategory = [{ title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' }]
-
     const waitting = Promise.all(
         [
             //fiveArticlesHot
@@ -434,31 +420,131 @@ router.get('/information', function (req, res, next) {
 router.get('/search', function (req, res, next) {
     const account = req.user;
 
-    //Lấy tất cả các bài dựa trên keyword tìm kiếm đã nhập
-    const resultArticlesSearch = {
-        keySearch: 'Apple',
-        result: [{ title: 'Apple Pay is coming to New York City’s MTA transit system this summer', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 3 ', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 4', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 5', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 6', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 7', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 8', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 9', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 10', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] }]
+    const { all, title, abstract, content, page } = req.query;
+
+    let keySearch = all || title || abstract || content || '';
+    keySearch.trim();
+
+    let typeSearch;
+
+    let pageNumber = parseInt(page, 10);
+    if (keySearch.length > 0 &&  isNaN(pageNumber)) {
+        return res.redirect('/home');
     }
 
-    res.render(
-        'user',
-        {
-            title: 'Search',
-            layout: 'layouts/search',
-            srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/search.css',
-            account, resultArticlesSearch
-        }
-    );
+    let searchArticlesCondition = null;
+
+    let isAccPremium = false;
+    if (account && account.expiredAt > Date.now()) {
+        isAccPremium = true;
+    }
+
+    switch (keySearch) {
+        case '':
+            break;
+        case all:
+            typeSearch = 'all';
+
+            searchArticlesCondition = {
+                $text: { $search: keySearch },
+                publishedAt: { $ne: null }
+            }
+            break;
+        case title:
+            typeSearch = 'title';
+
+            searchArticlesCondition = {
+                title: { $regex: keySearch, $options: 'i' },
+                publishedAt: { $ne: null }
+            }
+            break;
+
+        case abstract:
+            typeSearch = 'abstract';
+
+            searchArticlesCondition = {
+                abstract: { $regex: keySearch, $options: 'i' },
+                publishedAt: { $ne: null }
+            }
+            break;
+        case content:
+            typeSearch = 'content';
+
+            searchArticlesCondition = {
+                content: { $regex: keySearch, $options: 'i' },
+                publishedAt: { $ne: null }
+            }
+            break;
+        default:
+            break;
+    }
+
+    let articlesSearchSort = {};
+    if (isAccPremium) {
+        articlesSearchSort =  { isPremium: 'desc', publishedAt: 'desc'};
+    } else {
+        searchArticlesCondition = { ...searchArticlesCondition, isPremium: false};
+        articlesSearchSort = { publishedAt: 'desc' };
+    }
+
+
+    if (searchArticlesCondition) {
+        const waitting = Promise.all([
+            //countArticlesSearch
+            new Promise((resolve, reject) => {
+                resolve(countArticles(searchArticlesCondition))
+            }),
+
+            // getArticlesSearch(page)
+            new Promise((resolve, reject) => {
+                Article
+                    .find(searchArticlesCondition)
+                    .populate('tags')
+                    .populate('categories')
+                    .select('title slug categories abstract tags publishedAt coverImage isPremium')
+                    .skip(10 * (pageNumber - 1))
+                    .limit(10)
+                    .sort(articlesSearchSort)
+                    .then(articlesCategory => resolve(articlesCategory))
+                    .catch(err => reject(err));
+            })
+        ])
+
+        waitting
+            .then(values => {
+                let countArticlesSearch = values[0];
+                let resultArticlesSearch = values[1];
+
+                res.render(
+                    'user',
+                    {
+                        title: 'Search',
+                        layout: 'layouts/search',
+                        srcScript: '/javascripts/guest-subscriber/script.js',
+                        hrefCss: '/stylesheets/guest-subscriber/search.css',
+                        account, 
+                        keySearch,
+                        typeSearch,
+                        countArticlesSearch,
+                        pageCurrent: pageNumber,
+                        resultArticlesSearch
+                    }
+                );
+
+            })
+    } else {
+        res.render(
+            'user',
+            {
+                title: 'Search',
+                layout: 'layouts/search',
+                srcScript: '/javascripts/guest-subscriber/script.js',
+                hrefCss: '/stylesheets/guest-subscriber/search.css',
+                account, 
+                keySearch
+            }
+        );
+    }
 });
 
 router.get('/logout', function (req, res, next) {
