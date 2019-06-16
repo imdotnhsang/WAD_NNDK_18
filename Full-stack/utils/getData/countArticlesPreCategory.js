@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const Article = mongoose.model('Article');
 
-const countArticlesCategory = (categoryId) => {
+const countArticlesPreCategory = (categoryId) => {
     return Article.countDocuments({
         categories: categoryId,
         publishedAt: { $ne: null},
-        isPremium: false
+        isPremium: true
     }, (err, countValue) => {
         if (err) {
             return -1;
@@ -16,4 +16,4 @@ const countArticlesCategory = (categoryId) => {
     });
 }
 
-module.exports = countArticlesCategory;
+module.exports = countArticlesPreCategory;

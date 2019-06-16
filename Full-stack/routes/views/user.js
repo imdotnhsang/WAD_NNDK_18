@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 
 const Article = mongoose.model('Article');
 const Category = mongoose.model('Category');
-
+const Tag = mongoose.model('Tag');
 const { countArticlesCategory } = require('../../utils');
+const { countArticlesPreCategory } = require('../../utils');
+const { countArticlesTag } = require('../../utils');
+const { countArticlesPreTag } = require('../../utils');
 
 router.get('/home', function (req, res, next) {
     const account = req.user;
@@ -216,7 +219,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     Article
                         .find({
                             categories: categoryId,
-                            publishedAt: { $ne: null }
+                            publishedAt: { $ne: null },
+                            isPremium: false
                         })
                         .populate('tags')
                         .populate('categories')
@@ -241,6 +245,24 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         .limit(6)
                         .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                         .catch(err => reject(err));
+                }),
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({
+                            categories: categoryId,
+                            publishedAt: { $ne: null },
+                            isPremium: true
+                        })
+                        .populate('tags')
+                        .populate('categories')
+                        .skip(10 * (pageNumber - 1))
+                        .limit(10)
+                        .sort({ publishedAt: -1 })
+                        .then(articlesPreCategory => resolve(articlesPreCategory))
+                        .catch(err => reject(err));
+                }),
+                new Promise((resolve, reject) => {
+                    resolve(countArticlesPreCategory(categoryId))
                 })
             ])
 
@@ -249,7 +271,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     let countArticlesCategoryValue = values[0];
                     let articlesCategory = values[1];
                     let sixArticlesMostRead = values[2];
-
+                    let articlesPreCategory = values[3];
+                    let countArticlesPreCategoryValue = values[4];
                     if (articlesCategory.length === 0 || countArticlesCategoryValue === -1) {
                         return res.redirect('/home');
                     }
@@ -266,7 +289,9 @@ router.get('/category/:slug/:page', function (req, res, next) {
                             account,
                             categoryDetail,
                             articlesCategory,
+                            articlesPreCategory,
                             countArticlesCategory: countArticlesCategoryValue,
+                            countArticlesPreCategory: countArticlesPreCategoryValue,
                             sixArticlesMostRead,
                             pageCurrent: pageNumber
                         }
@@ -279,35 +304,133 @@ router.get('/category/:slug/:page', function (req, res, next) {
         })
 });
 
-router.get('/hashtag', function (req, res, next) {
+router.get('/hashtag/:slug/:page', function (req, res, next) {
     const account = req.user;
 
-    //Lấy tất cả các bài thuộc hashtag này
-    const resultArticlesHashtag = {
-        nameHashtag: 'Apple 2019',
-        result: [{ title: 'Apple Pay is coming to New York City’s MTA transit system this summer', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 3 ', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 4', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 5', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 6', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 7', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 8', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 9', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
-        { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 10', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] }]
+    const { slug, page } = req.params;
+
+    let pageNumber = parseInt(page, 10);
+    if (isNaN(pageNumber)) {
+        return res.redirect('/home');
     }
 
-    res.render(
-        'user',
-        {
-            title: 'Hashtag',
-            layout: 'layouts/hashtag',
-            srcScript: '/javascripts/guest-subscriber/script.js',
-            hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
-            account,
-            resultArticlesHashtag
-        }
-    );
+    Tag.findOne({ slug })
+        .then(async tag => {
+            if (!tag) {
+                return res.redirect('/home');
+            }
+
+            const tagId = tag._id;
+
+            const waitting = Promise.all([
+                // countArticlesTag
+                new Promise((resolve, reject) => {
+                    resolve(countArticlesTag(tagId))
+                }),
+
+                new Promise((resolve, reject) => {
+                    resolve(countArticlesPreTag(tagId))
+                }),
+
+                // getArticleTag(page)
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({
+                            tags: tagId,
+                            publishedAt: { $ne: null },
+                            isPremium: false
+                        })
+                        .populate('tags')
+                        .populate('categories')
+                        .skip(10 * (pageNumber - 1))
+                        .limit(10)
+                        .sort({ publishedAt: -1 })
+                        .then(articlesTag => resolve(articlesTag))
+                        .catch(err => reject(err));
+                }),
+
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({
+                            tags: tagId,
+                            publishedAt: { $ne: null },
+                            isPremium: true
+                        })
+                        .populate('tags')
+                        .populate('categories')
+                        .skip(10 * (pageNumber - 1))
+                        .limit(10)
+                        .sort({ publishedAt: -1 })
+                        .then(articlesPreTag => resolve(articlesPreTag))
+                        .catch(err => reject(err));
+                })
+            ])
+
+            return waitting
+                .then(values => {
+                    console.log(values);
+                    let countArticlesTagValue = values[0];
+                    let countArticlesPreTagValue = values[1];
+                    let articlesTag = values[2];
+                    let articlesPreTag = values[3];
+
+                    if (articlesTag.length === 0 || countArticlesTagValue === -1) {
+                        return res.redirect('/home');
+                    }
+
+                    console.log(countArticlesTagValue);
+
+                    return res.render(
+                        'user',
+                        {
+                            title: 'Hashtag',
+                            layout: 'layouts/hashtag',
+                            srcScript: '/javascripts/guest-subscriber/script.js',
+                            hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
+                            account,
+                            articlesTag,
+                            articlesPreTag,
+                            countArticlesTag: countArticlesTagValue,
+                            countArticlesPreTag: countArticlesPreTagValue,
+                            resultArticlesHashtag: articlesTag,
+                            resultArticlesPreHashtag: articlesPreTag,
+                            pageCurrent: pageNumber
+                        }
+                    );
+                })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.redirect('/home');
+        })
+
+
+    //Lấy tất cả các bài thuộc hashtag này
+    // const resultArticlesHashtag = {
+    //     nameHashtag: 'Apple 2019',
+    //     result: [{ title: 'Apple Pay is coming to New York City’s MTA transit system this summer', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 3 ', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 4', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 5', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 6', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 7', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 8', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 9', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] },
+    //     { title: 'Apple Pay is coming to New York City’s MTA transit system this summer 10', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '', abstract: 'Hello OMNY (you know, like “omni” spelled with NY for New York)', tags: ['Apple Pay', 'Apple 2019'] }]
+    // }
+
+    // res.render(
+    //     'user',
+    //     {
+    //         title: 'Hashtag',
+    //         layout: 'layouts/hashtag',
+    //         srcScript: '/javascripts/guest-subscriber/script.js',
+    //         hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
+    //         account,
+    //         resultArticlesHashtag
+    //     }
+    // );
 });
 
 router.get('/information', function (req, res, next) {
