@@ -192,14 +192,6 @@ router.get('/category/:slug/:page', function (req, res, next) {
         return res.redirect('/home');
     }
 
-    // const categoryDetail = {
-    //     categoryName: 'Apple',
-    //     slug: 'apple',
-    //     descriptionCategory: 'The latest tech news about the world is best (and sometimes worst) hardware, apps, and much more. From top companies like Google and Apple to tiny startups vying for your attention, Verge Tech has the latest in what matters in technology daily.',
-    //     twoArticlesHot: [{ title: 'Apple has edged out a number of third-party screen time and parental control apps: report 1', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' },
-    //     { title: 'Apple has edged out a number of third-party screen time and parental control apps: report 2', categoryName: 'Apple', publishDate: 1558802053334, coverImage: '' }]
-    // }
-
     let categoryDetail = {};
 
     let isAccPremium = false;
@@ -223,13 +215,12 @@ router.get('/category/:slug/:page', function (req, res, next) {
             }
             let articlesCateSort = {};
 
-            if (!isAccPremium) {
-                articlesCateCondition = { ...articlesCateCondition, isPremium: false };
-                articlesCateSort.isPremium = -1;
+            if (isAccPremium) {
+                articlesCateSort.isPremium = 'desc';
             } else {
-                articlesCateSort.publishedAt = -1;
+                articlesCateCondition = { ...articlesCateCondition, isPremium: false };
+                articlesCateSort.publishedAt = 'desc';
             }
-
 
             const waitting = Promise.all([
                 // countArticlesCategory
@@ -243,7 +234,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         .find(articlesCateCondition)
                         .populate('tags')
                         .populate('categories')
-                        .skip(10 * (pageNumber - 1) + 2)
+                        .select('title slug categories abstract tags publishedAt coverImage isPremium')
+                        .skip(10 * (pageNumber - 1))
                         .limit(10)
                         .sort(articlesCateSort)
                         .then(articlesCategory => resolve(articlesCategory))
@@ -253,14 +245,11 @@ router.get('/category/:slug/:page', function (req, res, next) {
                 // getTop6ArticlesCategoryMostRead
                 new Promise((resolve, reject) => {
                     Article
-                        .find({
-                            categories: categoryId,
-                            publishedAt: { $ne: null }
-                        })
-                        .select('title slug categories publishedAt coverImage')
+                        .find(articlesCateCondition)
+                        .select('title slug categories publishedAt coverImage isPremium')
                         .populate('tags')
                         .populate('categories')
-                        .sort({ views: -1 })
+                        .sort({ views: 'desc' })
                         .limit(6)
                         .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                         .catch(err => reject(err));
@@ -270,33 +259,12 @@ router.get('/category/:slug/:page', function (req, res, next) {
                 new Promise((resolve, reject) => {
                     Article
                     .find(articlesCateCondition)
-                    .populate('categories')
+                    .select('title slug publishedAt coverImage isPremium')
                     .limit(2)
                     .sort({ publishedAt: -1 })
                     .then(twoArticlesNewest => resolve(twoArticlesNewest))
                     .catch(err => reject(err));
                 }),
-                // // articlesPreCategory
-                // new Promise((resolve, reject) => {
-                //     Article
-                //         .find({
-                //             categories: categoryId,
-                //             publishedAt: { $ne: null },
-                //             isPremium: true
-                //         })
-                //         .populate('tags')
-                //         .populate('categories')
-                //         .skip(10 * (pageNumber - 1))
-                //         .limit(10)
-                //         .sort({ publishedAt: -1 })
-                //         .then(articlesPreCategory => resolve(articlesPreCategory))
-                //         .catch(err => reject(err));
-                // }),
-                
-                // // countArticlesPreCategoryValue
-                // new Promise((resolve, reject) => {
-                //     resolve(countArticlesPreCategory(categoryId))
-                // }),
             ])
 
             return waitting
@@ -305,9 +273,11 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     let articlesCategory = values[1];
                     let sixArticlesMostRead = values[2];
                     let twoArticlesNewest = values[3];
-                    // let articlesPreCategory = values[3];
-                    // let countArticlesPreCategoryValue = values[4];
-                    
+
+                    console.log('articlesCategory', articlesCategory);
+                    console.log('sixArticlesMostRead', sixArticlesMostRead);
+                    console.log('twoArticlesNewest', twoArticlesNewest);
+
                     if (articlesCategory.length === 0 || countArticlesCategoryValue === -1) {
                         return res.redirect('/home');
                     }
@@ -325,8 +295,6 @@ router.get('/category/:slug/:page', function (req, res, next) {
                             twoArticlesNewest,
                             categoryDetail,
                             articlesCategory,
-                            // articlesPreCategory,
-                            // countArticlesPreCategory: cSountArticlesPreCategoryValue,
                             sixArticlesMostRead,
                             countArticlesCategory: countArticlesCategoryValue,
                             pageCurrent: pageNumber
