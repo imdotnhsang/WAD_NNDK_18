@@ -9,10 +9,18 @@
             <div class="list-results-hashtag m-0">
                         <%  resultArticlesHashtag.forEach(function(eachArticleTag){ %>
                         <div class="result-hashtag pb-1 pl-0 pr-0 pt-2 row">
-                            <div class="img-result-hashtag col-4 col-sm-5 col-md-4 p-0"> <a
-                                    href="/article/<%= eachArticleTag.slug %>"> <img class="w-100"
-                                        src="<%= eachArticleTag.coverImage %>" alt=""></a>
-                                </div>
+                            <div class="img-result-hashtag col-4 col-sm-5 col-md-4 p-0"> 
+                                <a href="/article/<%= eachArticleTag.slug %>"> 
+                                    <img class="w-100" src="<%= eachArticleTag.coverImage %>" alt="">
+                                </a>
+                                <% if(eachArticleTag.isPremium) { %>
+                                    <span class="badge badge-warning" id="badge-premium">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                <% } %> 
+
+                            </div>
+
                             <div
                                 class="description-result-hashtag col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
                                 <a href="/article/<%= eachArticleTag.slug %>"

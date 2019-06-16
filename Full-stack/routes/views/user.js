@@ -340,7 +340,7 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             let articlesTagSort = {};
 
             if (isAccPremium) {
-                articlesCateSort =  { isPremium: 'desc', publishedAt: 'desc'};
+                articlesTagSort =  { isPremium: 'desc', publishedAt: 'desc'};
             } else {
                 articlesTagCondition = { ...articlesTagCondition, isPremium: false };
                 articlesTagSort = { publishedAt: 'desc'} ;
