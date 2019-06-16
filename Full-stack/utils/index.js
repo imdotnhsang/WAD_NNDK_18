@@ -6,9 +6,6 @@ const validateOTP = require('./OTP/validateOTP');
 const getCategoryList = require('./getData/getCategoryList');
 const getTagList = require('./getData/getTagList');
 const countArticles = require('./getData/countArticles');
-// const countArticlesPreCategory = require('./getData/countArticlesPreCategory');
-// const countArticlesTag = require('./getData/countArticlesTag');
-// const countArticlesPreTag = require('./getData/countArticlesPreTag');
 
 module.exports = {
     createOTP,
@@ -18,7 +15,4 @@ module.exports = {
     getCategoryList,
     getTagList,
     countArticles,
-    // countArticlesPreCategory,
-    // countArticlesTag,
-    // countArticlesPreTag
 }

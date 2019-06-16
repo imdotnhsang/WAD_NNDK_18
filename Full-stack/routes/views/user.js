@@ -6,9 +6,6 @@ const Article = mongoose.model('Article');
 const Category = mongoose.model('Category');
 const Tag = mongoose.model('Tag');
 const { countArticles } = require('../../utils');
-// const { countArticlesPreCategory } = require('../../utils');
-// const { countArticlesTag } = require('../../utils');
-// const { countArticlesPreTag } = require('../../utils');
 
 router.get('/home', function (req, res, next) {
     const account = req.user;
@@ -216,7 +213,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
             let articlesCateSort = {};
 
             if (isAccPremium) {
-                articlesCateSort =  { isPremium: 'desc', publishedAt:'desc'};
+                articlesCateSort =  { isPremium: 'desc', publishedAt: 'desc'};
             } else {
                 articlesCateCondition = { ...articlesCateCondition, isPremium: false };
                 articlesCateSort = { publishedAt: 'desc'};
@@ -332,8 +329,6 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             }
 
             const tagId = tag._id;
-            // const tagName = tag.title;
-            // const tagSlug = tag.slug;
 
             hashTag = tag;
 
@@ -345,7 +340,7 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             let articlesTagSort = {};
 
             if (isAccPremium) {
-                articlesTagCondition =  { isPremium: 'desc', publishedAt:'desc'};
+                articlesCateSort =  { isPremium: 'desc', publishedAt: 'desc'};
             } else {
                 articlesTagCondition = { ...articlesTagCondition, isPremium: false };
                 articlesTagSort = { publishedAt: 'desc'} ;
@@ -356,11 +351,6 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
                 new Promise((resolve, reject) => {
                     resolve(countArticles(articlesTagCondition))
                 }),
-
-                // new Promise((resolve, reject) => {
-                //     resolve(countArticlesPreTag(tagId))
-                // }),
-
                 // getArticleTag(page)
                 new Promise((resolve, reject) => {
                     Article
@@ -374,33 +364,13 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
                         .then(articlesTag => resolve(articlesTag))
                         .catch(err => reject(err));
                 }),
-
-                // new Promise((resolve, reject) => {
-                //     Article
-                //         .find({
-                //             tags: tagId,
-                //             publishedAt: { $ne: null },
-                //             isPremium: true
-                //         })
-                //         .populate('tags')
-                //         .populate('categories')
-                //         .skip(10 * (pageNumber - 1))
-                //         .limit(10)
-                //         .sort({ publishedAt: -1 })
-                //         .then(articlesPreTag => resolve(articlesPreTag))
-                //         .catch(err => reject(err));
-                // })
             ])
 
             return waitting
                 .then(values => {
-                    console.log(values);
                     let countArticlesTagValue = values[0];
-                    // let countArticlesPreTagValue = values[1];
                     let articlesTag = values[1];
-                    // let articlesPreTag = values[3];
 
-                    // console.log(countArticlesTagValue);
 
                     return res.render(
                         'user',
@@ -410,13 +380,8 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
                             srcScript: '/javascripts/guest-subscriber/script.js',
                             hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
                             account,
-                            // articlesTag,
-                            // articlesPreTag,
                             countArticlesTag: countArticlesTagValue,
-                            // countArticlesPreTag: countArticlesPreTagValue,
                             resultArticlesHashtag: articlesTag,
-                            // resultArticlesPreHashtag: articlesPreTag,
-                            // tagName,tagSlug,
                             hashTag,
                             pageCurrent: pageNumber
                         }
