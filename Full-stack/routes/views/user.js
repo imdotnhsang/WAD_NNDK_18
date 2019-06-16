@@ -270,6 +270,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
                 new Promise((resolve, reject) => {
                     Article
                     .find(articlesCateCondition)
+                    .populate('categories')
                     .limit(2)
                     .sort({ publishedAt: -1 })
                     .then(twoArticlesNewest => resolve(twoArticlesNewest))
@@ -311,7 +312,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         return res.redirect('/home');
                     }
 
-                    // console.log(countArticlesCategoryValue);
+                    console.log(twoArticlesNewest);
 
                     return res.render(
                         'user',
