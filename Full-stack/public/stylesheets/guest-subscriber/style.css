@@ -33,7 +33,9 @@ nav div.navbar-collapse-custom ul {
     list-style: none;
     position: relative;
     float: left;
-    cursor: pointer;
+}
+nav div.navbar-collapse-custom ul a {
+cursor: pointer
 }
 
 nav .navbar-collapse-custom .blank-col-nav {
