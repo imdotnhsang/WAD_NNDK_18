@@ -219,7 +219,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
                 articlesCateSort =  { isPremium: 'desc', publishedAt:'desc'};
             } else {
                 articlesCateCondition = { ...articlesCateCondition, isPremium: false };
-                articlesCateSort = { publishedAt: 'desc'} ;
+                articlesCateSort = { publishedAt: 'desc'};
             }
 
             const waitting = Promise.all([
