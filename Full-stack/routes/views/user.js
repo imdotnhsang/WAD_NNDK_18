@@ -11,53 +11,75 @@ router.get('/home', function (req, res, next) {
     const account = req.user;
 
     //Lấy 12 chuyên mục có view lớn (tổng view các bài của chuyên mục đó) rồi lấy bài đọc mới nhất của chuyên mục đó. Lưu ý là không lấy chuyên mục cha, chỉ lấy chuyên mục con
-    const twelveArticlesCategory = [{ title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
-    { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' }]
+    // const twelveArticlesCategory = [{ title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' },
+    // { title: 'Robot toy company Anki is going out of business', categoryName: 'Tech', publishDate: 1558802053334, coverImage: '' }]
 
     const waitting = Promise.all(
         [
-               //Lấy 5 bài có views nhiều nhất trong tuần qua
+            //fiveArticlesHot
             new Promise((resolve, reject) => {
                 Article
                     .find({ publishedAt: { $ne: null } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
-                    .sort({ views: -1 })
+                    .sort({ views: 'desc' })
                     .limit(5)
                     .then(fiveArticlesHot => resolve(fiveArticlesHot))
                     .catch(err => reject(err));
             }),
+
+            // tenArticlesMostRead
             new Promise((resolve, reject) => {
                 Article
                     .find({ publishedAt: { $ne: null } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
-                    .sort({ views: -1 })
-                    .limit(10)
+                    .sort({ views: 'desc' })
                     .skip(5)
+                    .limit(10)
                     .then(tenArticlesMostRead => resolve(tenArticlesMostRead))
                     .catch(err => reject(err));
             }),
+
+            // tenArticlesLastest
             new Promise((resolve, reject) => {
                 Article
                     .find({ publishedAt: { $ne: null } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
-                    .sort({ publishedAt: -1 })
+                    .sort({ publishedAt: 'desc' })
                     .limit(10)
                     .then(tenArticlesLastest => resolve(tenArticlesLastest))
                     .catch(err => reject(err));
-            })
+            }),
+
+            // twelveArticlesCategory
+            new Promise((resolve, reject) => {
+                Category
+                    .find({ isActive: true })
+                    .limit(12)
+                    .then(categoryList => {
+                        return Promise.all(categoryList.map(category => {
+                            return Article
+                                .findOne({ categories: category._id })
+                                .select('title slug publishedAt coverImage')
+                                .sort({ publishedAt: 'desc' })
+                                .then(article => ({ category, article }))
+                        }))
+                    })
+                    .then(twelveArticlesCategory => resolve(twelveArticlesCategory))
+                    .catch(err => reject(err));
+            }),
         ]
     )
 
@@ -67,6 +89,9 @@ router.get('/home', function (req, res, next) {
             let fiveArticlesHot = values[0];
             let tenArticlesMostRead = values[1];
             let tenArticlesLastest = values[2];
+            let twelveArticlesCategory = values[3];
+
+            console.log(twelveArticlesCategory);
             return res.render(
                 'user',
                 {
@@ -187,7 +212,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
         isAccPremium = true;
     }
 
-    Category.findOne({ slug })
+    Category.findOne({ isActive: true, slug })
         .then(category => {
             if (!category) {
                 return res.redirect('/home');
@@ -313,7 +338,7 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
         isAccPremium = true;
     }
 
-    Tag.findOne({ slug })
+    Tag.findOne({ isActive: true, slug })
         .then(tag => {
             if (!tag) {
                 return res.redirect('/home');

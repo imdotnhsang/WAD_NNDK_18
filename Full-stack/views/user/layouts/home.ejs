@@ -109,17 +109,20 @@
                             <div class="categories-news pb-2 pt-2 pr-2 pl-3 col-6 col-sm-4 ">
                                 <div class="title-categories pb-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
                                         class="text-uppercase "
-                                        href="category"><%= eachArticleCategory.categoryName %></a> </div>
-                                <div class="img-categories-news mb-lg-1"> <a href="detail"><img class="w-100"
-                                            src="/images/products/categoriesnews1.jpg" alt=""></a></div>
+                                        href="/category/<%= eachArticleCategory.category.slug %>/1"><%= eachArticleCategory.category.title %></a> </div>
+                                <div class="img-categories-news mb-lg-1">
+                                    <a href="/article/<%= eachArticleCategory.article.slug %>">
+                                        <img class="w-100" src="<%= eachArticleCategory.article.coverImage %>" alt="">
+                                    </a>
+                                </div>
                                 <div class="description-categories-news">
-                                    <a href="detail"
-                                        class="title-categories-news m-0 font-weight-bold"><%= eachArticleCategory.title %>
+                                    <a href="/article/<%= eachArticleCategory.article.slug %>" class="title-categories-news m-0 font-weight-bold">
+                                        <%= eachArticleCategory.article.title %>
                                     </a>
                                     <span class="author m-0 pt-1 row"><a class=""
-                                            href="category"><%= eachArticleCategory.categoryName %></a>&nbsp;&nbsp;<p
+                                            href="/category/<%= eachArticleCategory.category.slug %>/1"><%= eachArticleCategory.category.title %></a>&nbsp;&nbsp;<p
                                             class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
-                                                id="date-posted"><%= eachArticleCategory.publishDate %></span></p>
+                                                id="date-posted"><%= eachArticleCategory.article.publishedAt %></span></p>
                                     </span>
                                 </div>
                             </div>
