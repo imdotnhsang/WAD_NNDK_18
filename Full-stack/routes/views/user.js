@@ -55,19 +55,9 @@ router.get('/home', function (req, res, next) {
                     .populate('categories')
                     .sort({ publishedAt: -1 })
                     .limit(10)
-                    .then(topCategory => resolve(topCategory))
+                    .then(tenArticlesLastest => resolve(tenArticlesLastest))
                     .catch(err => reject(err));
             })
-            // new Promise((resolve, reject) => {
-            //     Article
-            //         .find({ publishedAt: { $ne: null } })
-            //         .select('title slug categories publishedAt coverImage')
-            //         .populate('categories')
-            //         .sort({ publishedAt: -1 })
-            //         .limit(10)
-            //         .then(twelveArticlesCategory => resolve(twelveArticlesCategory))
-            //         .catch(err => reject(err));
-            // })
         ]
     )
 
