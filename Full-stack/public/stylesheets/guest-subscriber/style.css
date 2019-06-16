@@ -21,7 +21,9 @@ header .navbar-custom .logo img {
 header .navbar-custom .logo img:hover {
     opacity: .8;
 }
-
+#btn-open-searchBox:hover,#btn-open-informationUser:hover{
+    cursor: pointer;
+}
 nav.navbar-custom {
     padding: 0;
     z-index: 3;
