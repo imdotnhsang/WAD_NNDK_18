@@ -5,10 +5,10 @@ const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
 const Category = mongoose.model('Category');
 const Tag = mongoose.model('Tag');
-const { countArticlesCategory } = require('../../utils');
-const { countArticlesPreCategory } = require('../../utils');
-const { countArticlesTag } = require('../../utils');
-const { countArticlesPreTag } = require('../../utils');
+const { countArticles } = require('../../utils');
+// const { countArticlesPreCategory } = require('../../utils');
+// const { countArticlesTag } = require('../../utils');
+// const { countArticlesPreTag } = require('../../utils');
 
 router.get('/home', function (req, res, next) {
     const account = req.user;
@@ -225,7 +225,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
             const waitting = Promise.all([
                 // countArticlesCategory
                 new Promise((resolve, reject) => {
-                    resolve(countArticlesCategory(articlesCateCondition))
+                    resolve(countArticles(articlesCateCondition))
                 }),
 
                 // getArticleCategory(page)
@@ -274,9 +274,9 @@ router.get('/category/:slug/:page', function (req, res, next) {
                     let sixArticlesMostRead = values[2];
                     let twoArticlesNewest = values[3];
 
-                    console.log('articlesCategory', articlesCategory);
-                    console.log('sixArticlesMostRead', sixArticlesMostRead);
-                    console.log('twoArticlesNewest', twoArticlesNewest);
+                    // console.log('articlesCategory', articlesCategory);
+                    // console.log('sixArticlesMostRead', sixArticlesMostRead);
+                    // console.log('twoArticlesNewest', twoArticlesNewest);
 
                     if (articlesCategory.length === 0 || countArticlesCategoryValue === -1) {
                         return res.redirect('/home');
@@ -318,6 +318,13 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
         return res.redirect('/home');
     }
 
+    let hashTag = {};
+
+    let isAccPremium = false;
+    if (account && account.expiredAt > Date.now()) {
+        isAccPremium = true;
+    }
+
     Tag.findOne({ slug })
         .then(tag => {
             if (!tag) {
@@ -325,62 +332,75 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             }
 
             const tagId = tag._id;
-            const tagName = tag.title;
-            const tagSlug = tag.slug;
+            // const tagName = tag.title;
+            // const tagSlug = tag.slug;
+
+            hashTag = tag;
+
+            // query
+            let articlesTagCondition = {
+                tags: tagId,
+                publishedAt: { $ne: null },
+            }
+            let articlesTagSort = {};
+
+            if (isAccPremium) {
+                articlesTagCondition =  { isPremium: 'desc', publishedAt:'desc'};
+            } else {
+                articlesTagCondition = { ...articlesTagCondition, isPremium: false };
+                articlesTagSort = { publishedAt: 'desc'} ;
+            }
 
             const waitting = Promise.all([
                 // countArticlesTag
                 new Promise((resolve, reject) => {
-                    resolve(countArticlesTag(tagId))
+                    resolve(countArticles(articlesTagCondition))
                 }),
 
-                new Promise((resolve, reject) => {
-                    resolve(countArticlesPreTag(tagId))
-                }),
+                // new Promise((resolve, reject) => {
+                //     resolve(countArticlesPreTag(tagId))
+                // }),
 
                 // getArticleTag(page)
                 new Promise((resolve, reject) => {
                     Article
-                        .find({
-                            tags: tagId,
-                            publishedAt: { $ne: null },
-                            isPremium: false
-                        })
+                        .find(articlesTagCondition)
                         .populate('tags')
                         .populate('categories')
+                        .select('title slug categories abstract tags publishedAt coverImage isPremium')
                         .skip(10 * (pageNumber - 1))
                         .limit(10)
-                        .sort({ publishedAt: -1 })
+                        .sort(articlesTagSort)
                         .then(articlesTag => resolve(articlesTag))
                         .catch(err => reject(err));
                 }),
 
-                new Promise((resolve, reject) => {
-                    Article
-                        .find({
-                            tags: tagId,
-                            publishedAt: { $ne: null },
-                            isPremium: true
-                        })
-                        .populate('tags')
-                        .populate('categories')
-                        .skip(10 * (pageNumber - 1))
-                        .limit(10)
-                        .sort({ publishedAt: -1 })
-                        .then(articlesPreTag => resolve(articlesPreTag))
-                        .catch(err => reject(err));
-                })
+                // new Promise((resolve, reject) => {
+                //     Article
+                //         .find({
+                //             tags: tagId,
+                //             publishedAt: { $ne: null },
+                //             isPremium: true
+                //         })
+                //         .populate('tags')
+                //         .populate('categories')
+                //         .skip(10 * (pageNumber - 1))
+                //         .limit(10)
+                //         .sort({ publishedAt: -1 })
+                //         .then(articlesPreTag => resolve(articlesPreTag))
+                //         .catch(err => reject(err));
+                // })
             ])
 
             return waitting
                 .then(values => {
                     console.log(values);
                     let countArticlesTagValue = values[0];
-                    let countArticlesPreTagValue = values[1];
-                    let articlesTag = values[2];
-                    let articlesPreTag = values[3];
+                    // let countArticlesPreTagValue = values[1];
+                    let articlesTag = values[1];
+                    // let articlesPreTag = values[3];
 
-                    console.log(countArticlesTagValue);
+                    // console.log(countArticlesTagValue);
 
                     return res.render(
                         'user',
@@ -390,13 +410,14 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
                             srcScript: '/javascripts/guest-subscriber/script.js',
                             hrefCss: '/stylesheets/guest-subscriber/hashtag.css',
                             account,
-                            articlesTag,
-                            articlesPreTag,
+                            // articlesTag,
+                            // articlesPreTag,
                             countArticlesTag: countArticlesTagValue,
-                            countArticlesPreTag: countArticlesPreTagValue,
+                            // countArticlesPreTag: countArticlesPreTagValue,
                             resultArticlesHashtag: articlesTag,
-                            resultArticlesPreHashtag: articlesPreTag,
-                            tagName,tagSlug,
+                            // resultArticlesPreHashtag: articlesPreTag,
+                            // tagName,tagSlug,
+                            hashTag,
                             pageCurrent: pageNumber
                         }
                     );

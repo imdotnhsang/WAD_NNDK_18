@@ -1,6 +1,6 @@
 <div class="container-hashtag row m-0">
     <div class="title-hashtag col-12 justify-content-center d-flex pb-3">
-        <span class="badge badge-pill">#<%= tagName %> </span>
+        <span class="badge badge-pill">#<%= hashTag.title %> </span>
     </div>
     <div class="col-xl-2 col-0 p-0 m-0 blank-col-container">
     </div>
@@ -80,7 +80,7 @@
                         </p>
                     </div>
                     <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
-                            href="/hashtag/<%= tagSlug %>/<%= pageCurrent + 1 %>">next</a></div>
+                            href="/hashtag/<%= hashTag.slug %>/<%= pageCurrent + 1 %>">next</a></div>
                     <% }else if(pageCurrent === Math.round((countArticlesTag+countArticlesPreTag)/10 + 0.4)){ %>
                     <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
                             href="/hashtag/<%= tagSlug %>/<%= pageCurrent - 1 %>">prev</a></div>
