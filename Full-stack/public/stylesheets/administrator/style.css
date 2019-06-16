@@ -83,3 +83,40 @@ span.field-validation-error {
   font-size: 12px;
   font-weight: 500;
 }
+
+
+
+#addUser__modal .changeAvatar__modal_header {
+  background: #f6f8fa;
+  /* border-bottom: 1px solid #d1d5da; */
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+#addUser__modal .changeAvatar__modal_footer {
+  /* border-top: 1px solid #d1d5da; */
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+#addUser__modal-background {
+  background: rgba(27, 31, 35, .5);
+}
+
+#addUser__modal .changeAvatar__modal_footer .btn {
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#addUser__modal {
+  width: 400px;
+  background: #fff;
+  border-radius: 10px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+  box-shadow: 0 0 18px rgba(0, 0, 0, .4);
+  border-color: #444d56 1px solid;
+}

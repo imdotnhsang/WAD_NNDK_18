@@ -6,9 +6,9 @@
                     <h6 class="m-0">List of Users</h6>
                 </div>
                 <div class="row m-0 pr-3">
-                        <button class="btn btn-white js-add-user px-2 mr-1" type="button">
-                                <i class="material-icons">add</i>
-                            </button>
+                    <button class="btn btn-white px-2 mr-1" id="js-add-user" type="button">
+                        <i class="material-icons">add</i>
+                    </button>
                     <div class="input-group border-bottom w-50 ml-auto">
                         <select class="custom-select" id="js-user-type-select">
                             <option value="subscriber">Subscriber</option>
@@ -16,7 +16,76 @@
                             <option value="editor">Editor</option>
                         </select>
                     </div>
-                    
+                </div>
+            </div>
+
+            <div class="modal" id="addUser__modal-background">
+                <div class="addUser__modal" id="addUser__modal">
+                    <div class="changeAvatar__modal_header d-flex justify-content-end">
+                        <div class="btn text-dark" id="btn_addUser_fail"><i class="fas fa-window-close fa-2x"></i></div>
+                    </div>
+                    <div class="p-3">
+                    <div class="form-group">
+                        <label for="fullname">Fullname</label>
+                        <input type="text" class="form-control" id="js-fullname-addUser-input"
+                            placeholder="Enter your fullname">
+                        <span class="field-validation-error" id="js-fullname-addUser-errmsg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="js-email-addUser-input" placeholder="Enter your email">
+                        <span class="field-validation-error" id="js-email-addUser-errmsg"></span>
+                    </div>
+<div class="form-group">
+                        <label for="email">Password</label>
+                        <input type="password" class="form-control" id="js-pwd-addUser-input" placeholder="Enter your password">
+                        <span class="field-validation-error" id="js-pwd-addUser-errmsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Gender</label>
+                        <select class="custom-select" id="js-gender-addUser-select">
+                            <option value="">Choose your gender</option>
+                            <option value="false">Male</option>
+                            <option value="true">Female</option>
+                        </select>
+                        <span class="field-validation-error" id="js-gender-addUser-errmsg"></span>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="email">Right</label>
+                            <select class="custom-select" id="js-right-addUser-select">
+                                <option value="">Choose your right</option>
+                                <option value="editor">Editor</option>
+                                <option value="writer">Writer</option>
+                                <option value="subscriber">Subscriber</option>
+                            </select>
+                            <span class="field-validation-error" id="js-right-addUser-errmsg"></span>
+                    </div>
+                  
+                    <div class="form-group">
+                            <label for="email">Pseudonym</label>
+                            <input type="text" class="form-control" id="js-pseudonym-addUser-input" disabled placeholder="Enter your pseudonym">
+                            <span class="field-validation-error" id="js-pseudonym-addUser-errmsg"></span>
+                        </div>
+                    <div class="form-group">
+                        <label for="birthday">Birthday</label>
+
+                        <div class="d-flex">
+                            <input id="js-birthday-addUser-input" type="text" class="input-sm form-control" name="birthday"
+                                placeholder="Enter your birthday">
+                            <span class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i> </span>
+                            </span>
+                            <span class="field-validation-error" id="js-birthday-addUser-errmsg"></span>
+                        </div>
+                    </div>
+                </div>
+                    <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+                        <div class="btn btn btn-success d-flex justify-content-center" id="btn_addUser_success">Save
+                        </div>
+                    </div>
                 </div>
             </div>
 
