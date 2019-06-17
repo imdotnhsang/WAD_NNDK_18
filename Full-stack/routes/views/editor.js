@@ -79,6 +79,25 @@ router.get('/posts-unapproved', function (req, res, next) {
         }
     );
 });
+
+router.get('/profile', function (req, res) {
+    const account = req.user;
+
+    if (account && account.userType === 'editor') {
+        res.render(
+            'editor',
+            {
+                title: 'Profile',
+                layout: 'layouts/profile',
+                srcScript: '/javascripts/writer/profile.js',
+                account
+            }
+        );
+    } else {
+        res.redirect('/editor');
+    }
+});
+
 router.get('/logout', function (req, res) {
     req.logOut();
     res.redirect('/auth/member-company');
