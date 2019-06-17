@@ -34,7 +34,45 @@ router.get('/add-new-post', async function (req, res, next) {
         res.redirect('/writer');
     }
 });
+router.get('/edit-post', async function (req, res, next) {
+    const tagList = await getTagList();
+    const { id } = req.query;
+    console.log(req.query);
+    const writerAccount = req.user;
 
+    if (writerAccount && writerAccount.userType === 'writer') {
+        Article
+            .findOne({
+                _id: id,
+                publishedAt: null,
+                process: 'editor',
+                reasonDenied: { $ne: null },
+                writer: writerAccount._id
+            })
+            .populate('categories tags')
+            .then(article => {
+                console.log(article);
+
+                res.render(
+                    'writer',
+                    {
+                        title: 'Edit Post',
+                        layout: 'layouts/editpost',
+                        srcScript: '/javascripts/writer/editPost.js',
+                        tagList,
+                        writerAccount,
+                        article
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/writer/profile');
+            });
+    } else {
+        res.redirect('/writer/profile');
+    }
+});
 router.get('/posts-approved', function (req, res, next) {
     const writerAccount = req.user;
 

@@ -22,27 +22,6 @@ const showSuccessModalAddNewPost = (curElm, successMsg) => {
   });
 };
 
-// const showErrorsModal = (curElm, errMsg) => {
-//   curElm.attr('data-toggle', 'modal');
-//   curElm.attr('data-target', '#errors__modal');
-//   $('#errors__modal').modal('show');
-//   $('#errors__modalContent').html(errMsg);
-
-//   $('.errors__modal button').click(function () {
-//     curElm.removeAttr('data-toggle');
-//     curElm.removeAttr('data-target');
-//   });
-
-//   $(document).mouseup(function (e) {
-//     var container = $(".errors__modal");
-
-//     if (!container.is(e.target) && container.has(e.target).length === 0) {
-//       curElm.removeAttr('data-toggle');
-//       curElm.removeAttr('data-target');
-//     }
-//   });
-// };
-
 var quill = new Quill('#editor', {
   theme: 'snow'
 });
