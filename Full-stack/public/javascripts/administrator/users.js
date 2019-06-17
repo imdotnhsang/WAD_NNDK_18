@@ -20,11 +20,13 @@ $('#js-user-type-select').change(function () {
     }
 });
 
-$('#js-right-addUser-select').change(function(){
-    if($(this).val()==="writer"){
-        $('#js-pseudonym-addUser-input').removeAttr('disabled');
-    }else{
-        $('#js-pseudonym-addUser-input').attr('disabled','true');
+$('#js-right-addUser-select').change(function () {
+    $('#js-pseudonym-addUser-input').val('');
+    
+    if ($(this).val() === "writer") {
+        $('#js-pseudonym-form').show();
+    } else {
+        $('#js-pseudonym-form').removeAttr("style").hide();
     }
 });
 
@@ -38,13 +40,18 @@ $("#btn_addUser_fail").click(function () {
 
 $("#btn_addUser_success").click(function (e) {
     e.preventDefault();
-    
+
+    const fullname = $('#js-fullname-addUser-input').val()
     const email = $('#js-email-addUser-input').val();
-    const fullname = $('js-fullname-addUser-input').val()
-    console.log(email,fullname);
+    const username = $('#js-username-addUser-input').val()
+    const password = $('#js-password-addUser-input').val()
+    const retypePassword = $('#js-retypePassword-addUser-input').val()
+    const pseudonym = $('#js-pseudonym-addUser-input').val()
+
+    console.log(email, fullname, username, password, retypePassword, pseudonym);
 
     $('#addUser__modal-background').css('display', 'none');
 });
-$(document).ready(function () {
-    $("#js-birthday-input").datepicker({});
-  });
+// $(document).ready(function () {
+//     $("#js-birthday-input").datepicker({});
+// });

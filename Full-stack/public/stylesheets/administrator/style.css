@@ -114,7 +114,7 @@ span.field-validation-error {
   background: #fff;
   border-radius: 10px;
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -15%);
   box-shadow: 0 0 18px rgba(0, 0, 0, .4);
