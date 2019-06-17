@@ -107,17 +107,17 @@
     color: #fff;
 }
 
-.container-search .list-results-search .count-results div:nth-child(2) {
+.container-search .list-results-search .count-results div#content_pagination{
     padding: 10px 0px;
     background: #efeff0;
     color: #626262;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
-.container-search .list-results-search .count-results div:last-child {
+.container-search .list-results-search .count-results div#btn_next {
     padding: 10px 0px;
     background: #e5127d;
     color: #fff;
@@ -128,7 +128,7 @@
     border-bottom-left-radius: 0;
 }
 
-.container-search .list-results-search .count-results div:first-child {
+.container-search .list-results-search .count-results div#btn_prev {
     padding: 10px 0px;
     background: #e5127d;
     color: #fff;
@@ -139,7 +139,7 @@
     border-bottom-left-radius: 5px;
 }
 
-.container-search .list-results-search .count-results div:last-child:hover {
+.container-search .list-results-search .count-results div#btn_next:hover {
     background: #b60e63;
 }
 
@@ -180,11 +180,15 @@
         font-size: 28px;
         font-weight: 700;
     }
-    .container-search .list-results-search .count-results div:first-child p {
+    .container-search .list-results-search .count-results div#content_pagination p {
         font-size: 15px;
         font-weight: 500;
     }
-    .container-search .list-results-search .count-results div:last-child {
+    .container-search .list-results-search .count-results div#btn_next {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .container-search .list-results-search .count-results div#btn_prev {
         font-size: 16px;
         font-weight: 500;
     }
@@ -229,11 +233,15 @@
         font-size: 24px;
         font-weight: 700;
     }
-    .container-search .list-results-search .count-results div:first-child p {
+    .container-search .list-results-search .count-results div#content_pagination p {
         font-size: 14px;
         font-weight: 500;
     }
-    .container-search .list-results-search .count-results div:last-child {
+    .container-search .list-results-search .count-results div#btn_prev {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .container-search .list-results-search .count-results div#btn_next {
         font-size: 15px;
         font-weight: 500;
     }
@@ -323,11 +331,15 @@
         font-size: 30px;
         font-weight: 700;
     }
-    .container-search .list-results-search .count-results div:first-child p {
+    .container-search .list-results-search .count-results div#content_pagination p {
         font-size: 15px;
         font-weight: 500;
     }
-    .container-search .list-results-search .count-results div:last-child {
+    .container-search .list-results-search .count-results div#btn_prev {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .container-search .list-results-search .count-results div#btn_next {
         font-size: 16px;
         font-weight: 500;
     }

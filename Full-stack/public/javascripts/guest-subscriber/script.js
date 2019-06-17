@@ -198,7 +198,9 @@ $('#searchBar__btn').click(function (e) {
     var keySearch;
     if ($('#searchBar__content').val().trim().length > 0) {
         keySearch = $('#searchBar__content').val();
-        console.log(keySearch);
+        typeSearch = "all";
+
+        window.location = `/search?${typeSearch}=${keySearch}&page=1`;
         document.getElementById('searchBar__content').value = '';
     } else {
         $(this).attr('data-toggle', 'modal');
@@ -223,12 +225,16 @@ $('#searchPage__btn').click(function (e) {
     handleSearchEvent();
 });
 
-$('#searchPage__content').keypress(function(event){
-    if(event.which == 13) {
+$('#searchPage__content').keypress(function (event) {
+    if (event.which == 13) {
         handleSearchEvent();
     }
 });
 
+// $('#searchPage__type').change(function (e) {
+//     e.preventDefault();
+//     handleSearchEvent();
+// })
 const handleSearchEvent = () => {
     var keySearch = $('#searchPage__content').val().trim();
     if (keySearch.length > 0) {
@@ -236,7 +242,6 @@ const handleSearchEvent = () => {
         typeSearch = $('#searchPage__type').val();
 
         window.location = `/search?${typeSearch}=${keySearch}&page=1`;
-
         // console.log(keySearch, typeSearch);
         // document.getElementById('searchBar__content').value = '';
     } else {
@@ -435,7 +440,7 @@ $('#detail__print').click(function () {
     // )
     var title = $('.title-detail-news h2').html();
     var abstract = $('.astract-detail-news p').html();
-    var nameAuthor =$('.author a').html();
+    var nameAuthor = $('.author a').html();
     var nicknameAuthor = $('.nickname a').html();
     var datePosted = $('.date-posted').html();
     $("#main-content-detail").printThis({
@@ -448,7 +453,7 @@ $('#detail__print').click(function () {
         removeInline: false,        // remove inline styles from print elements
         removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
         printDelay: 333,            // variable print delay
-        header: '<p class="m-0 title">'+title+'</p><p class="m-0 abstract">'+abstract+'</p><div class="description-detail-news row m-0"><div class="author">By <span>'+nameAuthor+'</span></div><div class="nickname"><span>'+ nicknameAuthor +'</span></div><div class="date-posted"><span>'+ datePosted +'</span></div></div><br>',               // prefix to html
+        header: '<p class="m-0 title">' + title + '</p><p class="m-0 abstract">' + abstract + '</p><div class="description-detail-news row m-0"><div class="author">By <span>' + nameAuthor + '</span></div><div class="nickname"><span>' + nicknameAuthor + '</span></div><div class="date-posted"><span>' + datePosted + '</span></div></div><br>',               // prefix to html
         footer: '<p class="text-center m-0">&copy; 2019 <strong>The Big Wind</strong>, All Rights Reserved</p><div class="contact-fb text-center"><a href="https://www.facebook.com/leooonguyen" target="_blank">Leo Nguyen</a><a href="https://www.facebook.com/vinh.phat69" target="_blank">Phat Dang</a><a href="https://www.facebook.com/phongkenvil" target="_blank">Phong Kenvil</a></div>',  // postfix to html
         base: false,                // preserve the BASE tag or accept a string for the URL
         formValues: true,           // preserve input/form values
