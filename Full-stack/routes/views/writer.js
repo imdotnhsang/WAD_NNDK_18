@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var path = require('path')
-var fs = require('fs')
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+
+const Article = mongoose.model('Article');
 
 const { getTagList } = require('../../utils');
 
@@ -69,33 +70,48 @@ router.get('/posts-denied', function (req, res, next) {
 });
 router.get('/posts-published', function (req, res, next) {
     const writerAccount = req.user;
+
     if (writerAccount && writerAccount.userType === 'writer') {
-        res.render(
-            'writer',
-            {
-                title: 'Posts Published',
-                layout: 'layouts/postsPublished',
-                srcScript: '',
-                writerAccount
-            }
-        );
+        Article
+            .find({
+                publishedAt: { $lte: Date.now() },
+                writer: writerAccount._id
+            })
+            .populate('categories')
+            .select('title abstract coverImage publishedAt categories slug')
+            .sort({ publishedAt: 'desc' })
+            .then(articleList => {
+                res.render(
+                    'writer',
+                    {
+                        title: 'Posts Published',
+                        layout: 'layouts/postsPublished',
+                        srcScript: '',
+                        writerAccount,
+                        articleList
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/writer/profile');
+            })
     } else {
-        res.redirect('/writer');
+        res.redirect('/writer/profile');
     }
 });
 
-router.get('/posts-unapproved', function (req, res, next) {
+router.get('/waiting-for-approval', function (req, res, next) {
     const writerAccount = req.user;
 
     if (writerAccount && writerAccount.userType === 'writer') {
         res.render(
             'writer',
             {
-                title: 'Posts Unapproved',
-                layout: 'layouts/postsUnapproved',
+                title: 'Waiting For Approval',
+                layout: 'layouts/waitingApproval',
                 srcScript: '',
                 writerAccount
-               
             }
         );
     } else {

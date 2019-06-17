@@ -408,7 +408,7 @@ router.get('/information', function (req, res, next) {
             {
                 title: 'Information',
                 layout: 'layouts/information',
-                srcScript: '/javascripts/guest-subscriber/script.js',
+                srcScript: '/javascripts/guest-subscriber/information.js',
                 hrefCss: '/stylesheets/guest-subscriber/information.css',
                 account
             }

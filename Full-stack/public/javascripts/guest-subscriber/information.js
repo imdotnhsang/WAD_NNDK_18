@@ -29,7 +29,7 @@ $('#renew__subscriber-btn').click(function (e) {
             if (res.status === 200) {
                 window.location = '/information';
             } else if (res.status === 500) {
-                showInformationErrorsModal('Server Error. Please try again!');
+                showInformationErrorsModal($(this), 'Server Error. Please try again!');
             } else {
                 res.json().then(err => showInformationErrorsModal($(this), err.email))
             }
@@ -136,7 +136,7 @@ $('#updatePwd__btn').click(function (e) {
                     document.getElementById('updatePwd__pwdNew').value = '';
                     document.getElementById('updatePwd__pwdNewRe').value = '';
                 } else if (res.status === 500) {
-                    showInformationErrorsModal('Server Error. Please try again!');
+                    showInformationErrorsModal($(this), 'Server Error. Please try again!');
                 } else {
                     res.json().then(err => {
                         const errMsg = err.email || err.currentPassword || 'Anything error.';
@@ -220,7 +220,7 @@ $('#updateInf__btn').click(function (e) {
                         $('#bod_acccount').html(formatDateTypeBOD($('#bod_acccount').html()));
                     })
                 } else if (res.status === 500) {
-                    showInformationErrorsModal('Server Error. Please try again!');
+                    showInformationErrorsModal($(this), 'Server Error. Please try again!');
                 } else {
                     res.json().then(err => {
                         const errMsg = err.email || err.fullname || err.gender || err.birthday || 'Anything error.';
