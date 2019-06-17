@@ -86,43 +86,9 @@ $('#signup__btn').click(function (e) {
         recaptcha = $('#g-recaptcha-response').val();
     console.log(recaptcha);
 
-    const secret = '6LdA8agUAAAAAGFAwN4_nIbLlermd1t4nqVedlpQ';
+    const secret = '6LcwGakUAAAAAOPfrjhsZkUJU4yoQM_30-lb4zg7';
 
-    // $.ajax({
-    //     type: "POST",
-    //     url: 'https://www.google.com/recaptcha/api/siteverify',
-    //     data: {"secret" : "6LfDCakUAAAAAAL77TRp_jD_0MsP_SsHzMA9V7sT", "response" : recaptcha, "remoteip":"localhost"},
-    //     contentType: 'application/x-www-form-urlencoded',
-    //     success: function(data) { console.log(data); }
-    // });
-
-    fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`, (err, response, body) => {
-        body = JSON.parse(body);
-        console.log(body);
-        if (body.success === true) {
-            alert('success')
-        } else {
-            alert('failed');
-        }
-    })
-
-    // fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`, {
-    //     method: "POST",
-    //     mode: "no-cors",
-    //     body: {
-    //         secret, reponse: recaptcha
-    //     }
-    // })
-    //     .then(res => {
-    //         console.log(res);
-    //         return res.json()
-    //     })
-    //     .then(data => {
-    //         console.log(data);
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`; // site that doesn’t send Access-Control-*
 
     if (fullname.length < 6 && fullname.length <= 23) {
         errors.fullname = 'Fullname must be between 6 and 23 characters long.'
@@ -151,43 +117,64 @@ $('#signup__btn').click(function (e) {
     errors = {
         ...errors,
         ...validateIsEmpty(
-            { fullname, username, email, password },
-            ['fullname', 'username', 'email', 'password']
+            { fullname, username, email, password, recaptcha },
+            ['fullname', 'username', 'email', 'password', 'recaptcha']
         )
     };
+
+
 
     const isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword || errors.recaptcha;
     if (isInvalid) {
         updateSignUpErrors(errors);
     } else {
-        const payload = { fullname, username, email, password, userType: 'subscriber' };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: {
+                "accept": "application/json",
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*",
+                "mode": "no-cors"
+            },
 
-        postData(`/api/user/register`, payload)
-            .then(res => {
-                clearSignUpErrors();
+            success: function (data) {
+                console.log(data.success);
+                if (data.success === true) {
+                    const payload = { fullname, username, email, password, userType: 'subscriber' };
 
-                if (res.status === 200) {
-                    $('.activation').css('display', 'block')
-                    emailActivation = $('#signup__email').val();
-                    $('.codeActivation').fadeIn(500);
-                    $('.sign-up_sign-in').css('display', 'none');
-                    $('#emailActivation__text').text(emailActivation);
-                    $('#title-page-sign').text('activation');
-                }
-                else if (res.status === 500) {
-                    showAuthErrorsModal('Server Error. Please try again!');
-                } else {
-                    res.json()
-                        .then(err => {
-                            let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
-                            updateSignUpErrors({ ...errors, ...err });
+                    postData(`/api/user/register`, payload)
+                        .then(res => {
+                            clearSignUpErrors();
+
+                            if (res.status === 200) {
+                                $('.activation').css('display', 'block')
+                                emailActivation = $('#signup__email').val();
+                                $('.codeActivation').fadeIn(500);
+                                $('.sign-up_sign-in').css('display', 'none');
+                                $('#emailActivation__text').text(emailActivation);
+                                $('#title-page-sign').text('activation');
+                            }
+                            else if (res.status === 500) {
+                                showAuthErrorsModal('Server Error. Please try again!');
+                            } else {
+                                res.json()
+                                    .then(err => {
+                                        let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+                                        updateSignUpErrors({ ...errors, ...err });
+                                    });
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            showAuthErrorsModal($(this), 'Register has failed.');
                         });
+                }else{
+                    showAuthErrorsModal($(this), 'Captcha has failed.');
                 }
-            })
-            .catch(err => {
-                console.log(err);
-                showAuthErrorsModal($(this), 'Register has failed.');
-            });
+            }
+        });
+
     }
 });
 

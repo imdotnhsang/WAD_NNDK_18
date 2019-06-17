@@ -69,7 +69,7 @@ router.post('/register', (req, res) => {
     } = req.body;
 
     User
-        .findOne({  
+        .findOne({
             $or: [{
                 username
             }, {
@@ -171,8 +171,8 @@ router.post('/update', (req, res) => {
     }
 
     User.findOne({
-            email
-        })
+        email
+    })
         .then(user => {
             if (!user) {
                 errors.email = 'authorization has failed.';
@@ -218,8 +218,8 @@ router.post('/change-password', (req, res) => {
     }
 
     User.findOne({
-            email
-        })
+        email
+    })
         .then(user => {
             if (!user) {
                 errors.email = 'Authorization has failed.';
@@ -252,8 +252,8 @@ router.post('/send-OTP', (req, res) => {
     } = req.body;
 
     User.findOne({
-            email
-        })
+        email
+    })
         .then(user => {
             if (!user) {
                 errors.email = 'Email does not exist.'
@@ -267,7 +267,7 @@ router.post('/send-OTP', (req, res) => {
                 .then(userUpdated => {
                     const payload = pickUser(userUpdated, userUpdated.userType);
                     sendOTPCode(userUpdated.email, userUpdated.OTP.code, actionType);
-                    
+
                     return res.json(payload);
                 })
         })
@@ -284,8 +284,8 @@ router.post('/validate-OTP', (req, res) => {
     } = req.body;
 
     User.findOne({
-            email
-        })
+        email
+    })
         .then(user => {
             if (!user) {
                 errors.email = 'Email does not exist.'
@@ -400,7 +400,7 @@ router.post('/renew-premium', (req, res) => {
         })
         .then(user => {
             if (!user) {
-                errors.email = 'Authorization has failed.';                
+                errors.email = 'Authorization has failed.';
                 return res.status(400).json(errors);
             }
 
@@ -433,7 +433,7 @@ router.post('/upload-avatar', upload.single('avatar'), (req, res) => {
     const {
         email
     } = req.body;
-    
+
     if (!req.user || email !== req.user.email) {
         errors.email = 'Authorization has failed.';
         fs.unlinkSync(destAvatar + filename);
@@ -446,11 +446,11 @@ router.post('/upload-avatar', upload.single('avatar'), (req, res) => {
             email,
             isActive: true
         })
-        .then(user => {            
+        .then(user => {
             if (!user) {
                 errors.email = 'Authorization has failed.';
                 fs.unlinkSync(destAvatar + filename);
-                
+
                 return res.status(400).json(errors);
             }
 
