@@ -1,69 +1,57 @@
-<div class="col-lg-3 col-md-6 col-sm-12 mb-4 post">
-    <div class="card card-small card-post card-post--1">
-        <div class="card-post__image" style="background-image: url('/images/writer/6.jpeg');">
-            <a href="#" class="card-post__category badge badge-pill badge-dark">Business</a>
-
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">
-                <a class="text-fiord-blue" href="#">Conduct at an replied removal an amongst</a>
-            </h5>
-            <p class="card-text d-inline-block mb-3">However venture pursuit he am mr cordial. Forming musical am
-                hearing studied be luckily. But in for determine what would see ...</p>
-            <span class="text-muted">28 February 2019</span>
-
-            <div class="post-actions mx-auto d-flex mt-3">
-                <button class="btn btn-primary w-50 mx-2">Edit</button>
-                <button class="btn btn-info mx-2" data-toggle="modal" data-target="#myModal1">View reason</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<% articleList.forEach((article, index) => { %>
 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
     <div class="card card-small card-post card-post--1">
-        <div class="card-post__image" style="background-image: url('/images/writer/4.jpeg');">
-            <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
-
+        <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
+            <%
+                var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
+                %><a href=""
+                class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></a><%
+              %>
         </div>
+
         <div class="card-body">
             <h5 class="card-title">
-                <a class="text-fiord-blue" href="#">Off tears are day blind smile alone had ready</a>
+                <a class="text-fiord-blue" href="/article/<%= article.slug %>"><%= article.title %></a>
             </h5>
-            <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had
-                woody downs power. To denoting admitted speaking...</p>
-            <span class="text-muted">29 February 2019</span>
+            <p class="card-text mb-3"><%= article.abstract %></p>
+            <span class="text-muted">
+                <script>
+                    document.writeln(moment(parseInt("<%= article.createdAt %>", 10)).format('LLLL'))
+                </script>
+            </span>
 
             <div class="post-actions mx-auto d-flex mt-3">
                 <button class="btn btn-primary w-50 mx-2">Edit</button>
-                <button class="btn btn-info mx-2" data-toggle="modal" data-target="#myModal1">View reason</button>
+                <button id="view-reason__btn" class="btn btn-info mx-2" reasonDenied="<%= article.reasonDenied %>"
+                    data-toggle="modal" data-target="#modal__reasonDenied">
+                    View reason
+                </button>
             </div>
         </div>
     </div>
 </div>
+<% }) %>
 
-<!-- <div class="container">
-                    <button type="button" class="btn btn-sm btn-accent ml-auto btnControl btnDenied" data-toggle="modal"
-                        data-target="#myModal1">
-                        Denied
-                    </button>
-                    <div class="modal fade " id="myModal1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
+<div class="container">
+    <div class="modal fade " id="modal__reasonDenied">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Denied!!!</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Reason Denied</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
 
-                                <div class="modal-body">
-                                    Căn lề không chính xác
-                                </div>
+                <div class="modal-body">
+                    <script>
+                        document.writeln(document.getElementById('view-reason__btn').getAttribute('reasonDenied'));
+                    </script>
+                </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

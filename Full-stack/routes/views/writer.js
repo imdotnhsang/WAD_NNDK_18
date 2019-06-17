@@ -37,33 +37,34 @@ router.get('/add-new-post', async function (req, res, next) {
 
 router.get('/posts-approved', function (req, res, next) {
     const writerAccount = req.user;
-    
+
     if (writerAccount && writerAccount.userType === 'writer') {
         Article
-        .find({
-            publishedAt: null,
-            process: 'administrator',
-            reasonDenied: null
-        })
-        .populate('categories')
-        .select('title abstract coverImage createdAt categories slug')
-        .sort({ createdAt: 'desc' })
-        .then(articleList => {
-            res.render(
-                'writer',
-                {
-                    title: 'Posts Approved',
-                    layout: 'layouts/postsApproved',
-                    srcScript: '',
-                    writerAccount,
-                    articleList
-                }
-            );
-        })
-        .catch(err => {
-            console.log(err);
-            res.redirect('/writer/profile');
-        })
+            .find({
+                publishedAt: null,
+                process: 'administrator',
+                reasonDenied: null,
+                writer: writerAccount._id
+            })
+            .populate('categories tags')
+            .select('title abstract coverImage createdAt categories tags slug')
+            .sort({ createdAt: 'desc' })
+            .then(articleList => {
+                res.render(
+                    'writer',
+                    {
+                        title: 'Posts Approved',
+                        layout: 'layouts/postsApproved',
+                        srcScript: '',
+                        writerAccount,
+                        articleList
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/writer/profile');
+            })
     } else {
         res.redirect('/writer/profile');
     }
@@ -72,15 +73,32 @@ router.get('/posts-approved', function (req, res, next) {
 router.get('/posts-denied', function (req, res, next) {
     const writerAccount = req.user;
     if (writerAccount && writerAccount.userType === 'writer') {
-        res.render(
-            'writer',
-            {
-                title: 'Posts Denied',
-                layout: 'layouts/postsDenied',
-                srcScript: '',
-                writerAccount
-            }
-        );
+        Article
+            .find({
+                publishedAt: null,
+                process: 'editor',
+                reasonDenied: { $ne: null },
+                writer: writerAccount._id
+            })
+            .populate('categories tags')
+            .select('title abstract coverImage createdAt categories tags slug reasonDenied')
+            .sort({ createdAt: 'desc' })
+            .then(articleList => {
+                res.render(
+                    'writer',
+                    {
+                        title: 'Posts Denied',
+                        layout: 'layouts/postsDenied',
+                        srcScript: '',
+                        writerAccount,
+                        articleList
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/writer/profile');
+            })
     } else {
         res.redirect('/writer/profile');
     }
@@ -94,8 +112,8 @@ router.get('/posts-published', function (req, res, next) {
                 publishedAt: { $lte: Date.now() },
                 writer: writerAccount._id
             })
-            .populate('categories')
-            .select('title abstract coverImage publishedAt categories slug')
+            .populate('categories tags')
+            .select('title abstract coverImage publishedAt categories tags slug')
             .sort({ publishedAt: 'desc' })
             .then(articleList => {
                 res.render(
@@ -126,10 +144,11 @@ router.get('/waiting-for-approval', function (req, res, next) {
             .find({
                 publishedAt: null,
                 process: 'editor',
-                reasonDenied: null
+                reasonDenied: null,
+                writer: writerAccount._id
             })
-            .populate('categories')
-            .select('title abstract coverImage createdAt categories slug')
+            .populate('categories tags')
+            .select('title abstract coverImage createdAt categories tags slug')
             .sort({ createdAt: 'desc' })
             .then(articleList => {
                 res.render(
@@ -151,6 +170,7 @@ router.get('/waiting-for-approval', function (req, res, next) {
         res.redirect('/writer/profile');
     }
 });
+
 router.get('/profile', function (req, res) {
     const writerAccount = req.user;
 

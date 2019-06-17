@@ -1,8 +1,11 @@
-<% articleList.forEach(article => { %>
+<% articleList.forEach((article, index) => { %>
   <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
       <div class="card card-small card-post card-post--1">
           <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
-              <a href="" class="card-post__category badge badge-pill badge-dark"><%= article.categories[0].title %></a>
+              <%
+                var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
+                %><a href="" class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></a><%
+              %>  
           </div>
 
           <div class="card-body">
