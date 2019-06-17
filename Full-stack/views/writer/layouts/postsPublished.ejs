@@ -12,7 +12,7 @@
                 <p class="card-text mb-3"><%= article.abstract %></p>
                 <span class="text-muted">
                    <script>
-                        document.writeln(moment(parseInt("<%= article.publishedAt %>", 10)).format('LL'))
+                        document.writeln(moment(parseInt("<%= article.publishedAt %>", 10)).format('LLLL'))
                     </script>
                 </span>
             </div>

@@ -37,18 +37,35 @@ router.get('/add-new-post', async function (req, res, next) {
 
 router.get('/posts-approved', function (req, res, next) {
     const writerAccount = req.user;
+    
     if (writerAccount && writerAccount.userType === 'writer') {
-        res.render(
-            'writer',
-            {
-                title: 'Posts Approved',
-                layout: 'layouts/postsApproved',
-                srcScript: '',
-                writerAccount
-            }
-        );
+        Article
+        .find({
+            publishedAt: null,
+            process: 'administrator',
+            reasonDenied: null
+        })
+        .populate('categories')
+        .select('title abstract coverImage createdAt categories slug')
+        .sort({ createdAt: 'desc' })
+        .then(articleList => {
+            res.render(
+                'writer',
+                {
+                    title: 'Posts Approved',
+                    layout: 'layouts/postsApproved',
+                    srcScript: '',
+                    writerAccount,
+                    articleList
+                }
+            );
+        })
+        .catch(err => {
+            console.log(err);
+            res.redirect('/writer/profile');
+        })
     } else {
-        res.redirect('/writer');
+        res.redirect('/writer/profile');
     }
 });
 
@@ -65,7 +82,7 @@ router.get('/posts-denied', function (req, res, next) {
             }
         );
     } else {
-        res.redirect('/writer');
+        res.redirect('/writer/profile');
     }
 });
 router.get('/posts-published', function (req, res, next) {
@@ -105,17 +122,33 @@ router.get('/waiting-for-approval', function (req, res, next) {
     const writerAccount = req.user;
 
     if (writerAccount && writerAccount.userType === 'writer') {
-        res.render(
-            'writer',
-            {
-                title: 'Waiting For Approval',
-                layout: 'layouts/waitingApproval',
-                srcScript: '',
-                writerAccount
-            }
-        );
+        Article
+            .find({
+                publishedAt: null,
+                process: 'editor',
+                reasonDenied: null
+            })
+            .populate('categories')
+            .select('title abstract coverImage createdAt categories slug')
+            .sort({ createdAt: 'desc' })
+            .then(articleList => {
+                res.render(
+                    'writer',
+                    {
+                        title: 'Waiting For Approval',
+                        layout: 'layouts/waitingApproval',
+                        srcScript: '',
+                        writerAccount,
+                        articleList
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/writer/profile');
+            })
     } else {
-        res.redirect('/writer');
+        res.redirect('/writer/profile');
     }
 });
 router.get('/profile', function (req, res) {
