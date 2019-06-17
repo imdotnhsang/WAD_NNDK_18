@@ -56,7 +56,7 @@ const getArticleCategories = () => {
   for (let categoryElm of categoryListElm) {
     result.push(categoryElm.id);
   }
-  
+
   return result;
 }
 
@@ -68,7 +68,7 @@ const getArticleCoverImage = (content) => {
 }
 
 $('#saveArticle-btn').click(function () {
-  const content =  CKEDITOR.instances.editor.getData();
+  const content = CKEDITOR.instances.editor.getData();
   const title = $('#article__title-input').val().trim();
   const abstract = $('#article__abstract-input').val().trim();
   const categories = getArticleCategories();
@@ -79,10 +79,10 @@ $('#saveArticle-btn').click(function () {
   let tagListNew = [];
   let idSelect;
   for (let tag of tagListInput) {
-    idSelect = $('#tagList').find('option').filter(function() {
+    idSelect = $('#tagList').find('option').filter(function () {
       return $(this).html() === tag
     }).val();
-    
+
     if (idSelect) {
       tagListOld.push(idSelect)
     } else {
@@ -132,3 +132,11 @@ $('#saveArticle-btn').click(function () {
       console.log(err);
     })
 });
+
+$('#clearArticle-btn').click(function () {
+  document.getElementById('article__title-input').value = "";
+  document.getElementById('article__abstract-input').value = "";
+  $('ul.flexdatalist-multiple li.value').remove();
+  CKEDITOR.instances.editor.setData(null);
+  $('input:checked').prop('checked', false)
+})
