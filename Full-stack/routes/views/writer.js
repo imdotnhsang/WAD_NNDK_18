@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     const account = req.user;
     console.log(account);
     if (account && account.userType === 'writer') {
-        res.redirect('/writer/add-new-post')
+        res.redirect('/writer/profile')
     } else {
         res.redirect('/auth/member-company')
     }

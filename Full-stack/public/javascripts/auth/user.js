@@ -86,7 +86,7 @@ $('#signup__btn').click(function (e) {
         recaptcha = $('#g-recaptcha-response').val();
     console.log(recaptcha);
 
-    const secret = '6LfDCakUAAAAAAL77TRp_jD_0MsP_SsHzMA9V7sT';
+    const secret = '6LdA8agUAAAAAGFAwN4_nIbLlermd1t4nqVedlpQ';
 
     // $.ajax({
     //     type: "POST",

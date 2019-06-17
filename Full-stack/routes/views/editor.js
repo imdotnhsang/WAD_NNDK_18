@@ -1,90 +1,90 @@
 var express = require('express');
 var router = express.Router();
-// var path = require('path');
-// var fs = require('fs');
+const mongoose = require('mongoose');
 
-// router.get('/files', function (req, res) {
-//     const pathImages = path.join(__dirname, '../../public/images/writer');
-//     console.log(pathImages);
+const Article = mongoose.model('Article');
+const { getTagList } = require('../../utils');
 
-//     const images = fs.readdirSync(pathImages);
-//     var sorted = []
-//     for (let item of images) {
-//         if (item.split('.').pop() === 'png'
-//             || item.split('.').pop() === 'jpg'
-//             || item.split('.').pop() === 'jpeg'
-//             || item.split('.').pop() === 'svg') {
-//             var abc = {
-//                 "image": "/images/writer/" + item,
-//                 "folder": '/'
-//             }
-//             sorted.push(abc)
-//         }
-//     }
-//     res.send(sorted);
-// });
-
-// router.post('/delete_file', function (req, res, next) {
-//     var url_del = 'public' + req.body.url_del
-//     console.log(url_del)
-//     if (fs.existsSync(url_del)) {
-//         fs.unlinkSync(url_del)
-//     }
-//     res.redirect('back')
-// });
+router.get('/', (req, res) => {
+    const account = req.user;
+    console.log(account);
+    if (account && account.userType === 'editor') {
+        res.redirect('/editor/posts-approved')
+    } else {
+        res.redirect('/auth/member-company')
+    }
+});
 
 router.get('/edit-post', async function (req, res, next) {
+    const account = req.user;
+    console.log(account);
     res.render(
         'editor',
         {
             title: 'Edit Post',
             layout: 'layouts/addnewpost',
-            srcScript: '/javascripts/writer/addnewpost.js'
+            srcScript: '/javascripts/writer/addnewpost.js',
+            account
         }
     );
 });
 
 router.get('/posts-approved', function (req, res, next) {
+    const account = req.user;
     res.render(
         'editor',
         {
             title: 'Posts Approved',
             layout: 'layouts/postsApproved',
-            srcScript: ''
+            srcScript: '',
+            account
         }
     );
 });
 
 router.get('/posts-denied', function (req, res, next) {
+    const account = req.user;
     res.render(
         'editor',
         {
             title: 'Posts Denied',
             layout: 'layouts/postsDenied',
-            srcScript: ''
+            srcScript: '',
+            account
         }
     );
 });
 router.get('/posts-published', function (req, res, next) {
+    const account = req.user;
     res.render(
         'editor',
         {
             title: 'Posts Published',
             layout: 'layouts/postsPublished',
-            srcScript: ''
+            srcScript: '',
+            account
         }
     );
 });
 
 router.get('/posts-unapproved', function (req, res, next) {
+    const account = req.user;
     res.render(
         'editor',
         {
             title: 'Posts Unapproved',
             layout: 'layouts/postsUnapproved',
-            srcScript: ''
+            srcScript: '',
+            account
         }
     );
 });
+router.get('/logout', function (req, res) {
+    req.logOut();
+    res.redirect('/auth/member-company');
+});
 
+router.get('/:other', function (req, res) {
+    res.redirect('/editor');
+});
 module.exports = router;

@@ -721,6 +721,10 @@ footer .contact-fb a:hover {
     background-color: #ffc107;
 }
 
+/* .img-categories-news img{
+ height: 180px;
+} */
+
 @media screen and (max-width: 993px) {
     ::-webkit-scrollbar {
         width: 0px;
