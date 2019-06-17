@@ -258,7 +258,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
                 new Promise((resolve, reject) => {
                     Article
                     .find(articlesCateCondition)
-                    .select('title slug publishedAt coverImage isPremium')
+                    .select('title categories slug publishedAt coverImage isPremium')
+                    .populate('categories')
                     .limit(2)
                     .sort({ publishedAt: -1 })
                     .then(twoArticlesNewest => resolve(twoArticlesNewest))
