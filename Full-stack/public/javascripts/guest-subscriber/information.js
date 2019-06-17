@@ -218,6 +218,7 @@ $('#updateInf__btn').click(function (e) {
                         $('#gend_acccount').html(account.gender ? 'Female' : 'Male');
                         $('#bod_acccount').html(account.birthday);
                         $('#bod_acccount').html(formatDateTypeBOD($('#bod_acccount').html()));
+                        $('#sign_fullname').html(account.fullname);
                     })
                 } else if (res.status === 500) {
                     showInformationErrorsModal($(this), 'Server Error. Please try again!');

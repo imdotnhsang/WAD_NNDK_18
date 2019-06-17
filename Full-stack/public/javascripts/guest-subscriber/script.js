@@ -97,7 +97,8 @@ $('#btn-open-searchBox').click(function () {
         $('.search-bar').css('transform', 'translate(0,0)');
         $(this).children('.line-x').fadeIn(500);
         $(this).attr('checkOpen', 'true');
-
+        document.getElementById("searchBar__content").focus();
+        setTimeout(function() { $('#searchBar__content').focus() }, 100)
     } else {
         $('.search-bar').css('transform', 'translate(0,-50%)');
         $('.search-bar').css('visibility', 'hidden');

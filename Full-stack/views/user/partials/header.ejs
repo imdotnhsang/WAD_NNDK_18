@@ -141,9 +141,13 @@
       <% } else { %>
       <div class="information-user">
          <div class="control-information-user m-0 row">
-            <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" alt=""></div>
+            <% if(account.avatar == undefined){ %>
+               <div class="avatar-user img-avatar"><img src="/images/avatars/none.jpg" alt="" id="sign_avatar"></div>
+               <% }else{ %>
+               <div class="avatar-user img-avatar"><img src="<%= account.avatar %>" id="sign_avatar" alt=""></div>
+               <%}%>
             <div class="status-user">
-               <p class="full-name font-weight-bold m-0"><%= account.fullname %></p>
+               <p class="full-name font-weight-bold m-0" id="sign_fullname"><%= account.fullname %></p>
                <span class="badge badge-custom-free">Free</span>
             </div>
 
