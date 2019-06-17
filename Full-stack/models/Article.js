@@ -74,10 +74,10 @@ const ArticleSchema = mongoose.Schema({
     }
 });
 
-ArticleSchema.index( { title: "text" } )
-ArticleSchema.index( { abstract: "text" } )
-ArticleSchema.index( { content: "text" } )
-
+ArticleSchema.index(
+    { title: "text", abstract: "text", content: "text"  },
+    { weights: { title: 3, abstract: 2, content: 1 }}
+);
 
 const Article = mongoose.model('Article', ArticleSchema);
 

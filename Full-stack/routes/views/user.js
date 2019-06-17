@@ -15,7 +15,7 @@ router.get('/home', function (req, res, next) {
             //fiveArticlesHot
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $ne: null } })
+                    .find({ publishedAt: { $lte: Date.now() } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ views: 'desc' })
@@ -27,7 +27,7 @@ router.get('/home', function (req, res, next) {
             // tenArticlesMostRead
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $ne: null } })
+                    .find({ publishedAt: { $lte: Date.now() } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ views: 'desc' })
@@ -40,7 +40,7 @@ router.get('/home', function (req, res, next) {
             // tenArticlesLastest
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $ne: null } })
+                    .find({ publishedAt: { $lte: Date.now() } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ publishedAt: 'desc' })
@@ -110,7 +110,7 @@ router.get('/article/:slug', function (req, res, next) {
             // getTop6ArticlesMostRead
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $ne: null } })
+                    .find({ publishedAt: { $lte: Date.now() } })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ views: -1 })
@@ -122,7 +122,7 @@ router.get('/article/:slug', function (req, res, next) {
             // details Article + fiveArticlesNextUp
             new Promise((resolve, reject) => {
                 Article
-                    .findOneAndUpdate({ slug, publishedAt: { $ne: null } }, { $inc: { views: 1 } })
+                    .findOneAndUpdate({ slug, publishedAt: { $lte: Date.now() } }, { $inc: { views: 1 } })
                     .populate('tags')
                     .populate('categories')
                     .populate('comments.user', 'avatar fullname')
@@ -137,7 +137,7 @@ router.get('/article/:slug', function (req, res, next) {
                         const targetCategory = articleDetail.categories[articleDetail.categories.length - 1];
 
                         return Article
-                            .find({ categories: targetCategory._id, publishedAt: { $ne: null }, _id: { $ne: articleDetail._id } })
+                            .find({ categories: targetCategory._id, publishedAt: { $lte: Date.now() }, _id: { $ne: articleDetail._id } })
                             .populate('categories')
                             .limit(5)
                             .select('title slug')
@@ -210,15 +210,15 @@ router.get('/category/:slug/:page', function (req, res, next) {
             // query
             let articlesCateCondition = {
                 categories: categoryId,
-                publishedAt: { $ne: null },
+                publishedAt: { $lte: Date.now() },
             }
             let articlesCateSort = {};
 
             if (isAccPremium) {
-                articlesCateSort =  { isPremium: 'desc', publishedAt: 'desc'};
+                articlesCateSort = { isPremium: 'desc', publishedAt: 'desc' };
             } else {
                 articlesCateCondition = { ...articlesCateCondition, isPremium: false };
-                articlesCateSort = { publishedAt: 'desc'};
+                articlesCateSort = { publishedAt: 'desc' };
             }
 
             const waitting = Promise.all([
@@ -253,17 +253,17 @@ router.get('/category/:slug/:page', function (req, res, next) {
                         .then(sixArticlesMostRead => resolve(sixArticlesMostRead))
                         .catch(err => reject(err));
                 }),
-     
+
                 // twoArticlesNewest
                 new Promise((resolve, reject) => {
                     Article
-                    .find(articlesCateCondition)
-                    .select('title categories slug publishedAt coverImage isPremium')
-                    .populate('categories')
-                    .limit(2)
-                    .sort({ publishedAt: -1 })
-                    .then(twoArticlesNewest => resolve(twoArticlesNewest))
-                    .catch(err => reject(err));
+                        .find(articlesCateCondition)
+                        .select('title categories slug publishedAt coverImage isPremium')
+                        .populate('categories')
+                        .limit(2)
+                        .sort({ publishedAt: -1 })
+                        .then(twoArticlesNewest => resolve(twoArticlesNewest))
+                        .catch(err => reject(err));
                 }),
             ])
 
@@ -338,15 +338,15 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             // query
             let articlesTagCondition = {
                 tags: tagId,
-                publishedAt: { $ne: null },
+                publishedAt: { $lte: Date.now() },
             }
             let articlesTagSort = {};
 
             if (isAccPremium) {
-                articlesTagSort =  { isPremium: 'desc', publishedAt: 'desc'};
+                articlesTagSort = { isPremium: 'desc', publishedAt: 'desc' };
             } else {
                 articlesTagCondition = { ...articlesTagCondition, isPremium: false };
-                articlesTagSort = { publishedAt: 'desc'} ;
+                articlesTagSort = { publishedAt: 'desc' };
             }
 
             const waitting = Promise.all([
@@ -423,13 +423,15 @@ router.get('/search', function (req, res, next) {
 
     const { all, title, abstract, content, page } = req.query;
 
+    console.log(req.query);
+
     let keySearch = all || title || abstract || content || '';
     keySearch.trim();
 
     let typeSearch;
 
     let pageNumber = parseInt(page, 10);
-    if (keySearch.length > 0 &&  isNaN(pageNumber)) {
+    if (keySearch.length > 0 && isNaN(pageNumber)) {
         return res.redirect('/home');
     }
 
@@ -447,8 +449,8 @@ router.get('/search', function (req, res, next) {
             typeSearch = 'all';
 
             searchArticlesCondition = {
-                $text: { $search: keySearch },
-                publishedAt: { $ne: null }
+                $text: { $search: keySearch, $diacriticSensitive: true },
+                publishedAt: { $lte: Date.now() }
             }
             break;
         case title:
@@ -456,7 +458,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 title: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $ne: null }
+                publishedAt: { $lte: Date.now() }
             }
             break;
 
@@ -465,7 +467,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 abstract: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $ne: null }
+                publishedAt: { $lte: Date.now() }
             }
             break;
         case content:
@@ -473,7 +475,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 content: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $ne: null }
+                publishedAt: { $lte: Date.now() }
             }
             break;
         default:
@@ -482,9 +484,9 @@ router.get('/search', function (req, res, next) {
 
     let articlesSearchSort = {};
     if (isAccPremium) {
-        articlesSearchSort =  { isPremium: 'desc', publishedAt: 'desc'};
+        articlesSearchSort = { isPremium: 'desc', publishedAt: 'desc' };
     } else {
-        searchArticlesCondition = { ...searchArticlesCondition, isPremium: false};
+        searchArticlesCondition = { ...searchArticlesCondition, isPremium: false };
         articlesSearchSort = { publishedAt: 'desc' };
     }
 
@@ -523,7 +525,7 @@ router.get('/search', function (req, res, next) {
                         layout: 'layouts/search',
                         srcScript: '/javascripts/guest-subscriber/script.js',
                         hrefCss: '/stylesheets/guest-subscriber/search.css',
-                        account, 
+                        account,
                         keySearch,
                         typeSearch,
                         countArticlesSearch,
@@ -541,7 +543,7 @@ router.get('/search', function (req, res, next) {
                 layout: 'layouts/search',
                 srcScript: '/javascripts/guest-subscriber/script.js',
                 hrefCss: '/stylesheets/guest-subscriber/search.css',
-                account, 
+                account,
                 keySearch
             }
         );

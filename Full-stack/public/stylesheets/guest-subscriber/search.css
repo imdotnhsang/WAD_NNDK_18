@@ -139,9 +139,24 @@
     border-bottom-left-radius: 5px;
 }
 
+.container-search .list-results-search .count-results div#btn_next a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.container-search .list-results-search .count-results div#btn_prev a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
 .container-search .list-results-search .count-results div#btn_next:hover {
     background: #b60e63;
 }
+.container-search .list-results-search .count-results div#btn_prev:hover {
+    background: #b60e63;
+}
+
 
 .container-search .select-type-search select {
     outline: 0;
