@@ -1,3 +1,5 @@
+
+
 console.log($('#captcha').val())
 // auth
 $('#login-tab').click(function () {
@@ -83,6 +85,44 @@ $('#signup__btn').click(function (e) {
         fullname = $('#signup__fullname').val().trim(),
         recaptcha = $('#g-recaptcha-response').val();
     console.log(recaptcha);
+
+    const secret = '6LfDCakUAAAAAAL77TRp_jD_0MsP_SsHzMA9V7sT';
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: 'https://www.google.com/recaptcha/api/siteverify',
+    //     data: {"secret" : "6LfDCakUAAAAAAL77TRp_jD_0MsP_SsHzMA9V7sT", "response" : recaptcha, "remoteip":"localhost"},
+    //     contentType: 'application/x-www-form-urlencoded',
+    //     success: function(data) { console.log(data); }
+    // });
+
+    fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`, (err, response, body) => {
+        body = JSON.parse(body);
+        console.log(body);
+        if (body.success === true) {
+            alert('success')
+        } else {
+            alert('failed');
+        }
+    })
+
+    // fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`, {
+    //     method: "POST",
+    //     mode: "no-cors",
+    //     body: {
+    //         secret, reponse: recaptcha
+    //     }
+    // })
+    //     .then(res => {
+    //         console.log(res);
+    //         return res.json()
+    //     })
+    //     .then(data => {
+    //         console.log(data);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
 
     if (fullname.length < 6 && fullname.length <= 23) {
         errors.fullname = 'Fullname must be between 6 and 23 characters long.'
