@@ -428,7 +428,7 @@ router.get('/search', function (req, res, next) {
     let keySearch = all || title || abstract || content || '';
     keySearch.trim();
 
-    let typeSearch;
+    let typeSearch = "all";
 
     let pageNumber = parseInt(page, 10);
     if (keySearch.length > 0 && isNaN(pageNumber)) {
@@ -446,7 +446,7 @@ router.get('/search', function (req, res, next) {
         case '':
             break;
         case all:
-            typeSearch = 'all';
+            // typeSearch = 'all';
 
             searchArticlesCondition = {
                 $text: { $search: keySearch, $diacriticSensitive: true },
@@ -544,7 +544,8 @@ router.get('/search', function (req, res, next) {
                 srcScript: '/javascripts/guest-subscriber/script.js',
                 hrefCss: '/stylesheets/guest-subscriber/search.css',
                 account,
-                keySearch
+                keySearch,
+                typeSearch
             }
         );
     }

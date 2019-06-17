@@ -58,3 +58,7 @@ const getArticleCategories = () => {
 
   return result;
 }
+
+// $(window).bind("load", function() {
+//   CKEDITOR.instances.editor.setData($('#articleContent').text())
+// });

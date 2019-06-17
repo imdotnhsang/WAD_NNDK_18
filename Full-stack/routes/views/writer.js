@@ -53,6 +53,15 @@ router.get('/edit-post', async function (req, res, next) {
             .then(article => {
                 console.log(article);
 
+                let tagListValue = "";
+
+                article.tags.forEach(tag => {
+                    tagListValue += `${tag.title},`;
+                })
+
+                tagListValue = tagListValue.slice(0, -1);
+
+                console.log(tagListValue);
                 res.render(
                     'writer',
                     {
@@ -61,7 +70,8 @@ router.get('/edit-post', async function (req, res, next) {
                         srcScript: '/javascripts/writer/editPost.js',
                         tagList,
                         writerAccount,
-                        article
+                        article,
+                        tagListValue
                     }
                 );
             })
