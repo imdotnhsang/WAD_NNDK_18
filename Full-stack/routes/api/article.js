@@ -124,7 +124,7 @@ router.post('/update', (req, res) => {
         return res.status(400).json(errors)
     }
 
-    const payload = _.pick(req.body, ['title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id'])
+    const payload = _.pick(req.body, ['title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id', 'reasonDenied'])
     
     title = _.trim(title);
     let slug = createSlug(title);
@@ -177,7 +177,7 @@ router.post('/publish', (req, res) => {
     }
 
     Article
-        .findByIdAndUpdate(id, { publishedAt })
+        .findByIdAndUpdate(id, { process: 'published', publishedAt })
         .then(result => res.json(result))
         .catch(err => res.status(400).json(err));
 });
