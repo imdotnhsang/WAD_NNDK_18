@@ -186,6 +186,10 @@ router.post('/update', (req, res) => {
                 payload.reasonDenied = undefined;
             }
 
+            console.log('tagDocs: ', tagDocs);
+            console.log('tagListOld: ', payload.tagListOld);
+            console.log('tags: ', tags);
+
             const articleId = payload.id;
 
             // Article
@@ -211,6 +215,7 @@ router.post('/update', (req, res) => {
                     const keys = Object.keys(payload);
 
                     for (let key of keys) {
+                        // console.log(object);
                         article[key] = payload[key];
                     }
 
