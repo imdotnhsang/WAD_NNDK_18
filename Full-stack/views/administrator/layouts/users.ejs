@@ -89,9 +89,9 @@
                             <label for="categorymanage">Category Management</label>
                             <select name="right" class="custom-select" id="js-categoryManage-addUser-select">
                                 <% categoryList.forEach(function(eachCategory){ %>
-
                                 <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
                                 <%}) %>
+
                             </select>
                             <span class="field-validation-error" id="js-right-addUser-errmsg"></span>
                         </div>
@@ -217,7 +217,13 @@
                                 <select name="right" class="custom-select w-100 js-category-management-select"
                                     id="<%= eachUser._id %>">
                                     <% categoryList.forEach(function(eachCategory){ %>
-                                    <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
+                                        <% var temp1=eachUser.categoriesManagement %>
+                                        <% var temp2=eachCategory._id %>
+                                        <% if(temp1===temp2){ %>
+                                    <option value="<%= eachCategory._id %>" selected=""><%= eachUser.categoriesManagement %></option>
+                                    <%}else{%>
+                                        <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
+                                        <%}%>
                                     <%})%>
                                 </select>
                             </td>

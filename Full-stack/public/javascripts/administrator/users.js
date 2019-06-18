@@ -142,7 +142,8 @@ $("#btn_addUser_success").click(function (e) {
     const retypePassword = $('#js-retypePassword-addUser-input').val()
     const pseudonym = $('#js-pseudonym-addUser-input').val()
     const typeUser = $('#js-right-addUser-select').find(":selected").val();
-    console.log(email, fullname, username, password, retypePassword, pseudonym, typeUser);
+    const categoryManage = $('#js-categoryManage-addUser-select').find(":selected").val();
+    console.log(email, fullname, username, password, retypePassword, pseudonym, typeUser, categoryManage);
 
     if (fullname.length < 6 && fullname.length <= 23) {
         errors.fullname = 'Fullname must be between 6 and 23 characters long.'
@@ -188,7 +189,7 @@ $("#btn_addUser_success").click(function (e) {
     if (isInvalid) {
         addUserErrors(errors);
     } else {
-        const payload = { fullname, username, email, password, userType: typeUser, pseudonym };
+        const payload = { fullname, username, email, password, userType: typeUser, pseudonym, categoriesManagement:categoryManage };
 
         postData(`/api/user/register`, payload)
             .then(res => {
