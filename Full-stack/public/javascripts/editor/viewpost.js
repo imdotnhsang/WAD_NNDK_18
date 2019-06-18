@@ -40,30 +40,6 @@ $(document).ready(function () {
     $("#js-datePublish-input").datepicker({});
 });
 
-const showSuccessModal = (curElm, successMsg) => {
-    curElm.attr('data-toggle', 'modal');
-    curElm.attr('data-target', '#success__modal');
-    $('#success__modal').modal('show');
-    $('#success__modalContent').html(successMsg);
-
-    $('.success__modal button').click(function () {
-        curElm.removeAttr('data-toggle');
-        curElm.removeAttr('data-target');
-        location.reload();
-    });
-
-    $(document).mouseup(function (e) {
-        var container = $(".success__modal");
-
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-            curElm.removeAttr('data-toggle');
-            curElm.removeAttr('data-target');
-        }
-
-        location.reload();
-    });
-};
-
 var quill = new Quill('#editor', {
     theme: 'snow'
 });
