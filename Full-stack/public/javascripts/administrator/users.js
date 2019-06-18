@@ -225,16 +225,16 @@ $("#btn_addUser_success").click(function (e) {
 // $(document).ready(function () {
 //     $("#js-birthday-input").datepicker({});
 // });
-function formatDateTypeAbstract(msDate) {
-    var temp = new Date(Number(msDate));
-    return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
+// function formatDateTypeAbstract(msDate) {
+//     var temp = new Date(Number(msDate));
+//     return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
 
-}
-var formatDateBod = document.querySelectorAll('.date_bod');
-for (j = 0; j < formatDateBod.length; j++) {
-    formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
-};
-var formatDateBod = document.querySelectorAll('.date_expired');
-for (j = 0; j < formatDateBod.length; j++) {
-    formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
-};
+// }
+// var formatDateBod = document.querySelectorAll('.date_bod');
+// for (j = 0; j < formatDateBod.length; j++) {
+//     formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
+// };
+// var formatDateBod = document.querySelectorAll('.date_expired');
+// for (j = 0; j < formatDateBod.length; j++) {
+//     formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
+// };

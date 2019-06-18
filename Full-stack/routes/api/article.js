@@ -25,12 +25,12 @@ router.post('/upload-image', upload.array('flFileUpload', 12), (req, res) => {
     res.redirect('back');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', (req, res) => {
     let accountWriter = req.user;
     const errors = {};
 
     if (!accountWriter || accountWriter.userType !== 'writer'){
-        errors.writer = 'Authorization fail.';
+        errors.account = 'Authorization fail.';
         return res.status(400).json(errors)
     }
 
@@ -115,4 +115,70 @@ router.post('/create', async (req, res) => {
         })
 });
 
+router.post('/update', (req, res) => {
+    let account = req.user;
+    const errors = {};
+
+    if (!account || account.userType === 'subscriber'){
+        errors.account = 'Authorization fail.';
+        return res.status(400).json(errors)
+    }
+
+    const payload = _.pick(req.body, ['title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id'])
+    
+    title = _.trim(title);
+    let slug = createSlug(title);
+
+    if (_.isEmpty(title) || _.isEmpty(slug)) {
+        errors.title = 'Title article does not exist.'
+        return res.status(400).json(errors);
+    }
+
+    let tagDocs = [];
+    for (let tag of tagListNew) {
+        let title =  _.trim(tag);
+        let slug = createSlug(title);
+        tagDocs.push({ 
+            title, slug
+        })
+    }
+
+    Tag
+        .insertMany(tagDocs,  { ordered: false }, (err, tagListCreated) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).json(err);
+            }
+
+            let tags = [...tagListOld, ...tagListCreated.map(tag => tag._id.toString())];
+
+            payload.tags = tags;
+            Article
+                .findByIdAndUpdate(id, payload)
+                .then(result => res.json(result))
+                .catch(err => res.status(400).json(err));
+        })
+});
+
+router.post('/publish', (req, res) => {
+    const errors = {};
+    let account = req.user;
+
+    if (!account || account.userType === 'subscriber' || account.userType === 'writer'){
+        errors.account = 'Authorization fail.';
+        return res.status(400).json(errors)
+    }
+
+    const { id, publishedAt } = req.body;
+
+    if(_.isNaN(publishedAt)) {
+        errors.publishedAt = 'Invalid date time publish.';
+        return res.status(400).json(errors)
+    }
+
+    Article
+        .findByIdAndUpdate(id, { publishedAt })
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json(err));
+});
 module.exports = router;

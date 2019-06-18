@@ -12,17 +12,17 @@
                     <div class="input-group border-bottom w-50 ml-auto">
                         <select class="custom-select" id="js-user-type-select">
                             <% if (right==="subscriber"){ %>
-                            <option value="subscriber" selected>Subscriber</option>
-                            <option value="writer">Writer</option>
-                            <option value="editor">Editor</option>
+                                <option value="subscriber" selected>Subscriber</option>
+                                <option value="writer">Writer</option>
+                                <option value="editor">Editor</option>
                             <% } else if(right==="writer"){ %>
-                            <option value="subscriber">Subscriber</option>
-                            <option value="writer" selected>Writer</option>
-                            <option value="editor">Editor</option>
-                            <% } else{ %>
-                            <option value="subscriber">Subscriber</option>
-                            <option value="writer">Writer</option>
-                            <option value="editor" selected>Editor</option>
+                                <option value="subscriber">Subscriber</option>
+                                <option value="writer" selected>Writer</option>
+                                <option value="editor">Editor</option>
+                            <% } else if (right === "editor") { %>
+                                <option value="subscriber">Subscriber</option>
+                                <option value="writer">Writer</option>
+                                <option value="editor" selected>Editor</option>
                             <% } %>
                         </select>
                     </div>
@@ -68,15 +68,6 @@
                                 id="js-retypePassword-addUser-input" placeholder="Enter your retype password">
                             <span class="field-validation-error" id="js-retypePassword-addUser-errmsg"></span>
                         </div>
-                        <!-- <div class="form-group">
-                        <label for="email">Gender</label>
-                        <select class="custom-select" id="js-gender-addUser-select">
-                            <option value="">Choose your gender</option>
-                            <option value="false">Male</option>
-                            <option value="true">Female</option>
-                        </select>
-                        <span class="field-validation-error" id="js-gender-addUser-errmsg"></span>
-                    </div> -->
 
                         <div class="form-group">
                             <label for="right">Right</label>
@@ -103,7 +94,7 @@
             </div>
 
             <div class="card-body p-0 pb-0 text-center">
-                <% if (right==="subscriber"){ %>
+                <% if (right === "subscriber"){ %>
                 <table class="table mb-0" id="js-subscriber-table">
                     <thead class="bg-light">
                         <tr>
@@ -122,8 +113,16 @@
                             <td><%= index++ %></td>
                             <td><%= eachUser.fullname %></td>
                             <td><%= eachUser.email %></td>
-                            <td class="date_bod"><%= eachUser.birthday %></td>
-                            <td class="date_expired"><%= eachUser.expiredAt %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <script>
+                                        document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                </script>
+                            </td>
                             <td>
                                 <button class="btn btn-md btn-accent ml-auto">
                                     <i class="material-icons">file_copy</i> Renew
@@ -154,7 +153,11 @@
                             <td><%= eachUser.fullname %></td>
                             <td><%= eachUser.email %></td>
                             <td><%= eachUser.pseudonym %></td>
-                            <td class="date_bod"><%= eachUser.birthday %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
+                                </script>
+                            </td>
                             <td>
                                 <button class="btn btn-md btn-accent ml-auto">
                                     <i class="material-icons">file_copy</i> Renew
@@ -164,7 +167,7 @@
                         <%})%>
                     </tbody>
                 </table>
-                <% } else{ %>
+                <% } else if (right==="editor") { %>
                 <table class="table mb-0" id="js-editor-table">
                     <thead class="bg-light">
                         <tr>
@@ -181,7 +184,11 @@
                             <td><%= index++ %></td>
                             <td><%= eachUser.fullname %></td>
                             <td><%= eachUser.email %></td>
-                            <td class="date_bod"><%= eachUser.birthday %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
+                                </script>
+                            </td>
                         </tr>
                         <%})%>
                     </tbody>
