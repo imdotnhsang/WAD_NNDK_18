@@ -1,4 +1,4 @@
-const showSuccessModalAddNewPost = (curElm, successMsg) => {
+const showSuccessModal = (curElm, successMsg) => {
   curElm.attr('data-toggle', 'modal');
   curElm.attr('data-target', '#success__modal');
   $('#success__modal').modal('show');
@@ -48,16 +48,16 @@ $('.container_input').click(function () {
   }
 });
 
-const getArticleCategories = () => {
-  let result = [];
-  const categoryListElm = $("#edit_article__categories-input input:checked").parent();
+// const getArticleCategories = () => {
+//   let result = [];
+//   const categoryListElm = $("#edit_article__categories-input input:checked").parent();
 
-  for (let categoryElm of categoryListElm) {
-    result.push(categoryElm.id);
-  }
+//   for (let categoryElm of categoryListElm) {
+//     result.push(categoryElm.id);
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
 // $(window).bind("load", function() {
 //   CKEDITOR.instances.editor.setData($('#articleContent').text())

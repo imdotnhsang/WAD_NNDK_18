@@ -21,15 +21,21 @@ router.get('/edit-post', async function (req, res, next) {
     console.log(account);
 
     if (account && account.userType === 'editor') {
-        res.render(
-            'editor',
-            {
-                title: 'Edit Post',
-                layout: 'layouts/addnewpost',
-                srcScript: '/javascripts/writer/addnewpost.js',
-                account
-            }
-        );
+        Article.findOne()
+            .then(article => {
+                res.render(
+                    'editor',
+                    {
+                        title: 'Edit Post',
+                        layout: 'layouts/editpost',
+                        srcScript: '/javascripts/editor/editpost.js',
+                        account,
+                        article
+                    }
+                );
+            })
+
+
 
     } else {
         res.redirect('/editor');
