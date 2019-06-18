@@ -47,11 +47,11 @@ $("#btn_deny_success").click(function (e) {
     console.log('tagListNew: ', tagListNew);
     console.log('tagListInput: ', tagListInput);
 
-    postData('/api/article/update', { 
-        tagListOld, 
-        tagListNew, 
-        categories, 
-        id, 
+    postData('/api/article/update', {
+        tagListOld,
+        tagListNew,
+        categories,
+        id,
         reasonDenied: reason,
         editor
     })
@@ -132,7 +132,7 @@ $("#btn_publish_success").click(function (e) {
 
     const id = $(this).attr('articleid').trim();
     const editor = $(this).attr('editorId').trim();
-
+    const isPremium = $('#js-type-select').find(":selected").val();
     var publishedAt = 0;
 
     if ($('#js-publish-date-select').find(":selected").val() === 'datenow') {
@@ -173,14 +173,15 @@ $("#btn_publish_success").click(function (e) {
     console.log('tagListNew: ', tagListNew);
     console.log('tagListInput: ', tagListInput);
 
-    postData('/api/article/update', { 
-        tagListOld, 
-        tagListNew, 
-        categories, 
-        id, 
-        publishedAt, 
-        process: "published" ,
-        editor
+    postData('/api/article/update', {
+        tagListOld,
+        tagListNew,
+        categories,
+        id,
+        publishedAt,
+        process: "published",
+        editor,
+        isPremium
     })
         .then(res => {
             const statusCode = res.status;
