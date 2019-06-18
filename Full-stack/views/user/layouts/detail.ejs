@@ -62,8 +62,10 @@
 
                 <div class="list-tags">
                     <% articleDetail.tags.forEach(function(eachTag){ %>
+                        <% if (eachTag.isActive) { %>
                     <a href="/hashtag/<%= eachTag.slug %>/1">
                         <span class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
+                        <% } %>
                     <% }) %>
                 </div>
 
