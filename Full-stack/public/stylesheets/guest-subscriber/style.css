@@ -805,7 +805,7 @@ footer .contact-fb a:hover {
     nav div.navbar-collapse-custom ul li a {
         border-bottom: 1px solid #443d3d;
     }
-    nav div.navbar-collapse-custom ul li:last-child a {
+    nav div.navbar-collapse-custom ul li li:last-child a {
         border-bottom: 0;
     }
     nav div.navbar-collapse-custom ul li ul {
