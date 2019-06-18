@@ -37,7 +37,7 @@ router.get('/add-new-post', async function (req, res, next) {
 router.get('/edit-post', async function (req, res, next) {
     const tagList = await getTagList();
     const { id } = req.query;
-    console.log(req.query);
+    // console.log(req.query);
     const writerAccount = req.user;
 
     if (writerAccount && writerAccount.userType === 'writer') {

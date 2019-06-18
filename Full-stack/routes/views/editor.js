@@ -16,29 +16,52 @@ router.get('/', (req, res) => {
     }
 });
 
-router.get('/edit-post', async function (req, res, next) {
+router.get('/view-post', async function (req, res) {
+    const tagList = await getTagList();
     const account = req.user;
-    console.log(account);
+
+    const { id } = req.query;
 
     if (account && account.userType === 'editor') {
-        Article.findOne()
+        Article
+            .findOne({
+                _id: id,
+                process: 'draft',
+                reasonDenied: null,
+                // categoriesManagement
+            })
+            .populate('categories tags')
             .then(article => {
+                console.log(article);
+
+                let tagListValue = "";
+
+                article.tags.forEach(tag => {
+                    tagListValue += `${tag.title},`;
+                })
+
+                tagListValue = tagListValue.slice(0, -1);
+
                 res.render(
                     'editor',
                     {
-                        title: 'Edit Post',
-                        layout: 'layouts/editpost',
-                        srcScript: '/javascripts/editor/editpost.js',
+                        title: 'View Post',
+                        layout: 'layouts/viewpost',
+                        srcScript: '/javascripts/editor/viewpost.js',
+                        tagList,
                         account,
-                        article
+                        article,
+                        tagListValue
                     }
                 );
             })
-
-
+            .catch(err => {
+                console.log(err);
+                res.redirect('/editor/profile');
+            });
 
     } else {
-        res.redirect('/editor');
+        res.redirect('/editor/profile');
     }
 });
 

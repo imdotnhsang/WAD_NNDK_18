@@ -5,28 +5,35 @@
                 <div class="article__title mb-3">
                     <h5>Title</h5>
                     <input class="form-control form-control-lg" id="article__title-input"
-                        placeholder="Enter Post Title..." disabled>
+                        placeholder="Enter Post Title..." value="<%= article.title %>" disabled>
                 </div>
 
                 <div class="article__abstract mb-3">
                     <h5>Abstract</h5>
                     <textarea id="article__abstract-input" class="form-control form-control-lg " rows="3" cols="110"
-                        placeholder="Summary of your article here" disabled></textarea>
+                    placeholder="Summary of your article here" disabled ><%= article.abstract %></textarea>
                 </div>
-
+                
                 <div class="article__tags mb-3">
                     <h5>Tags</h5>
-                    <input class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple='multiple'
-                        list='tagList' id="article__tag-input">
+                    <input id="edit_article__tag-input" value="<%= tagListValue %>" class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple='multiple' list='edit_tagList' disabled>
 
-                    <datalist id="tagList">
-                        <option value=""> </option>
+                    <datalist id="edit_tagList">
+                        <% tagList.forEach(eachTag => { %>
+                            <option value="<%= eachTag._id %>"><%= eachTag.title %></option>
+                        <% }) %>
                     </datalist>
                 </div>
-
                 <div class="article__content mb-3">
                     <h5>Content</h5>
-                    <textarea id="editor" rows="3" cols=106 disabled></textarea>
+                    <textarea id="editor" rows="3" cols="106" ></textarea>
+
+                    <p id="articleContent" style="display: none;"><%= article.content %></p>
+                    <script type="text/javascript">
+                        window.onload = function() {
+                            CKEDITOR.instances.editor.setData($('#articleContent').text())
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -38,19 +45,27 @@
                 <h6 class="m-0">Categories</h6>
             </div>
             <div class='card-body p-0'>
-                <div class="px-4 mt-3" id="article__categories-input">
+                <div class="px-4 mt-3" id="edit_article__categories-input">
                     <% categoryList.forEach(function(eachCategory){ %>
                     <label class="container_input" id="<%= eachCategory._id %>"><%= eachCategory.title %>
-                        <input type="checkbox" name="radio">
+                        <% if (eachCategory._id.toString() === article.categories[0]._id.toString()) { %>
+                            <input type="checkbox" name="radio" checked>
+                        <% } else { %>
+                            <input type="checkbox" name="radio">
+                        <% } %>
+
                         <span class="custom-checkbox"></span>
                     </label>
 
                     <% if(eachCategory.subCategories.length !== 0){ %>
                     <div class="ml-4">
                         <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
-                        <label class="container_input" id="<%= eachSubCategory._id %>"
-                            parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
-                            <input type="radio" name="radio">
+                        <label class="container_input" id="<%= eachSubCategory._id %>" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
+                            <% if (article.categories.length > 1 && eachSubCategory._id.toString() === article.categories[1]._id.toString()) { %>
+                                <input type="radio" name="radio" checked>
+                            <% } else { %>
+                                <input type="radio" name="radio">
+                            <% } %>
                             <span class="custom-radio"></span>
                         </label>
                         <% }) %>
@@ -96,6 +111,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal" id="publish__modal-background">
     <div class="publish__modal" id="publish__modal">
         <div class="changeAvatar__modal_header d-flex justify-content-end">
