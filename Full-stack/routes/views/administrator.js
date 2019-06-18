@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 
-const User = mongoose.model('User'); 
-const Article = mongoose.model('Article'); 
+const User = mongoose.model('User');
+const Article = mongoose.model('Article');
 
 router.get('/', (req, res) => {
     const account = req.user;
@@ -88,6 +88,7 @@ router.get('/posts-published', function (req, res) {
                 process: 'published',
                 publishedAt: { $lte: Date.now() }
             })
+            .populate('categories')
             .then(articleList => {
                 res.render(
                     'administrator',
@@ -190,7 +191,7 @@ router.get('/users', function (req, res) {
                 selectFields = 'username fullname categoriesManagement email userType expiredAt gender birthday';
 
                 break;
-            default:            
+            default:
                 return res.redirect('/administrator/users?right=subscriber');
         }
 
