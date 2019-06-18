@@ -47,7 +47,7 @@ const ArticleSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    process: { // subcriber, editor, administrator
+    process: { // draft, published
         type: String,
         required: true
     },

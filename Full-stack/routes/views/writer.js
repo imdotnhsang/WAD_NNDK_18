@@ -89,7 +89,7 @@ router.get('/posts-approved', function (req, res, next) {
     if (writerAccount && writerAccount.userType === 'writer') {
         Article
             .find({
-                publishedAt: null,
+                publishedAt: { $gt: Date.now() },
                 process: 'draft',
                 reasonDenied: null,
                 writer: writerAccount._id

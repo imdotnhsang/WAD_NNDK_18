@@ -15,7 +15,7 @@ router.get('/home', function (req, res, next) {
             //fiveArticlesHot
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $lte: Date.now() } })
+                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ views: 'desc' })
@@ -27,7 +27,7 @@ router.get('/home', function (req, res, next) {
             // tenArticlesMostRead
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $lte: Date.now() } })
+                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ views: 'desc' })
@@ -40,7 +40,7 @@ router.get('/home', function (req, res, next) {
             // tenArticlesLastest
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $lte: Date.now() } })
+                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ publishedAt: 'desc' })
@@ -110,7 +110,7 @@ router.get('/article/:slug', function (req, res, next) {
             // getTop6ArticlesMostRead
             new Promise((resolve, reject) => {
                 Article
-                    .find({ publishedAt: { $lte: Date.now() } })
+                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
                     .select('title slug categories publishedAt coverImage')
                     .populate('categories')
                     .sort({ views: -1 })
@@ -122,7 +122,7 @@ router.get('/article/:slug', function (req, res, next) {
             // details Article + fiveArticlesNextUp
             new Promise((resolve, reject) => {
                 Article
-                    .findOneAndUpdate({ slug, publishedAt: { $lte: Date.now() } }, { $inc: { views: 1 } })
+                    .findOneAndUpdate({ slug, publishedAt: { $lte: Date.now() }, process: 'published' }, { $inc: { views: 1 } })
                     .populate('tags')
                     .populate('categories')
                     .populate('comments.user', 'avatar fullname')
@@ -137,7 +137,7 @@ router.get('/article/:slug', function (req, res, next) {
                         const targetCategory = articleDetail.categories[articleDetail.categories.length - 1];
 
                         return Article
-                            .find({ categories: targetCategory._id, publishedAt: { $lte: Date.now() }, _id: { $ne: articleDetail._id } })
+                            .find({ categories: targetCategory._id, publishedAt: { $lte: Date.now() }, process: 'published', _id: { $ne: articleDetail._id } })
                             .populate('categories')
                             .limit(5)
                             .select('title slug')
@@ -210,7 +210,8 @@ router.get('/category/:slug/:page', function (req, res, next) {
             // query
             let articlesCateCondition = {
                 categories: categoryId,
-                publishedAt: { $lte: Date.now() },
+                publishedAt: { $lte: Date.now() }, 
+                process: 'published'
             }
             let articlesCateSort = {};
 
@@ -338,7 +339,8 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             // query
             let articlesTagCondition = {
                 tags: tagId,
-                publishedAt: { $lte: Date.now() },
+                publishedAt: { $lte: Date.now() }, 
+                process: 'published'
             }
             let articlesTagSort = {};
 
@@ -450,7 +452,8 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 $text: { $search: keySearch, $diacriticSensitive: true },
-                publishedAt: { $lte: Date.now() }
+                publishedAt: { $lte: Date.now() }, 
+                process: 'published'
             }
             break;
         case title:
@@ -458,7 +461,8 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 title: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $lte: Date.now() }
+                publishedAt: { $lte: Date.now() }, 
+                process: 'published'
             }
             break;
 
@@ -467,7 +471,8 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 abstract: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $lte: Date.now() }
+                publishedAt: { $lte: Date.now() }, 
+                process: 'published'
             }
             break;
         case content:
@@ -475,7 +480,8 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 content: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $lte: Date.now() }
+                publishedAt: { $lte: Date.now() }, 
+                process: 'published'
             }
             break;
         default:
