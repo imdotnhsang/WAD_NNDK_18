@@ -14,6 +14,7 @@ $("#btn_deny_success").click(function (e) {
     console.log(reason);
 
     const id = $(this).attr('articleid').trim();
+    const editor = $(this).attr('editorId').trim();
 
     const categories = getArticleCategories();
     const tagListInput = $('.flexdatalist').flexdatalist('value');
@@ -46,7 +47,14 @@ $("#btn_deny_success").click(function (e) {
     console.log('tagListNew: ', tagListNew);
     console.log('tagListInput: ', tagListInput);
 
-    postData('/api/article/update', { tagListOld, tagListNew, categories, id, reasonDenied: reason })
+    postData('/api/article/update', { 
+        tagListOld, 
+        tagListNew, 
+        categories, 
+        id, 
+        reasonDenied: reason,
+        editor
+    })
         .then(res => {
             const statusCode = res.status;
 
@@ -123,6 +131,8 @@ $("#btn_publish_success").click(function (e) {
     let errors = { id: '', date: '', time: '' };
 
     const id = $(this).attr('articleid').trim();
+    const editor = $(this).attr('editorId').trim();
+
     var publishedAt = 0;
 
     if ($('#js-publish-date-select').find(":selected").val() === 'datenow') {
@@ -163,7 +173,15 @@ $("#btn_publish_success").click(function (e) {
     console.log('tagListNew: ', tagListNew);
     console.log('tagListInput: ', tagListInput);
 
-    postData('/api/article/update', { tagListOld, tagListNew, categories, id, publishedAt, process: "published" })
+    postData('/api/article/update', { 
+        tagListOld, 
+        tagListNew, 
+        categories, 
+        id, 
+        publishedAt, 
+        process: "published" ,
+        editor
+    })
         .then(res => {
             const statusCode = res.status;
 

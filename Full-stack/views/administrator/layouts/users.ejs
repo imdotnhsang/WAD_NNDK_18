@@ -86,7 +86,7 @@
                             <span class="field-validation-error" id="js-pseudonym-addUser-errmsg"></span>
                         </div>
                         <div class="form-group" id="js-categoryManage-form" style="display: none;">
-                            <label for="categorymanage">Category Manage</label>
+                            <label for="categorymanage">Category Management</label>
                             <select name="right" class="custom-select" id="js-categoryManage-addUser-select">
                                 <% categoryList.forEach(function(eachCategory){ %>
 
@@ -134,9 +134,11 @@
                                 </script>
                             </td>
                             <td>
+                                <% if (eachUser.expiredAt < Date.now()) { %>
                                 <button class="btn btn-md btn-accent ml-auto">
                                     <i class="material-icons">file_copy</i> Renew
                                 </button>
+                                <% } %>
                             </td>
                         </tr>
 
@@ -150,8 +152,9 @@
                             <th scope="col" class="border-0">#</th>
                             <th scope="col" class="border-0">Fullname</th>
                             <th scope="col" class="border-0">Email</th>
-                            <th scope="col" class="border-0">Pseudonym</th>
                             <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0">Pseudonym</th>
+                            <th scope="col" class="border-0">Expiration date</th>
                             <th scope="col" class="border-0">Action</th>
                         </tr>
                     </thead>
@@ -162,16 +165,23 @@
                             <td><%= index++ %></td>
                             <td><%= eachUser.fullname %></td>
                             <td><%= eachUser.email %></td>
-                            <td><%= eachUser.pseudonym %></td>
                             <td>
                                 <script>
                                     document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
                                 </script>
                             </td>
+                            <td><%= eachUser.pseudonym %></td>
                             <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <% if (eachUser.expiredAt < Date.now()) { %>
                                 <button class="btn btn-md btn-accent ml-auto">
                                     <i class="material-icons">file_copy</i> Renew
                                 </button>
+                                <% } %>
                             </td>
                         </tr>
                         <%})%>
@@ -186,6 +196,9 @@
                             <th scope="col" class="border-0">Email</th>
                             <th scope="col" class="border-0">Birthday</th>
                             <th scope="col" class="border-0"> Category </th>
+                            <th scope="col" class="border-0">Expiration date</th>
+                            <th scope="col" class="border-0">Action</th>
+
                         </tr>
                     </thead>
                     <% var index = 1 %>
@@ -204,13 +217,21 @@
                                 <select name="right" class="custom-select w-100 js-category-management-select"
                                     id="<%= eachUser._id %>">
                                     <% categoryList.forEach(function(eachCategory){ %>
-                                    <!-- <% if(eachCategory._id===eachUser.categoriesManagement[0]){ %> -->
-                                    <!-- <option value="<%= eachCategory._id %>" selected><%= eachCategory.title %></option>
-                                    <% }else{ %> -->
                                     <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
-                                    <!-- <% } %> -->
                                     <%})%>
                                 </select>
+                            </td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <% if (eachUser.expiredAt < Date.now()) { %>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                                <% } %>
                             </td>
                         </tr>
                         <%})%>

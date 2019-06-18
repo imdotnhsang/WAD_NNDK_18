@@ -61,7 +61,7 @@ const UserSchema = mongoose.Schema({
         required: false
     },
     categoriesManagement: { // editor
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         required: false
     },
     OTP: {

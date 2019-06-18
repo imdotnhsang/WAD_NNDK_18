@@ -152,7 +152,7 @@ router.get('/posts-unapproved', function (req, res, next) {
             .find({
                 process: 'draft',
                 reasonDenied: null,
-                // categoriesManagement
+                categories: account.categoriesManagement
             })
             .populate('categories tags')
             .select('title abstract coverImage createdAt categories tags slug')

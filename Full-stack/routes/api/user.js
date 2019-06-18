@@ -65,7 +65,8 @@ router.post('/register', (req, res) => {
         email,
         password,
         userType,
-        pseudonym
+        pseudonym,
+        categoriesManagement
     } = req.body;
 
     User
@@ -99,25 +100,29 @@ router.post('/register', (req, res) => {
             });
 
             newUser.confirmed = true;
+            newUser.expiredAt = Date.now() + 7 * 24 * 3600 * 1000;
 
             switch (userType) {
                 case 'subscriber':
-                    newUser.expiredAt = new Date().getTime() + 7 * 24 * 3600 * 1000;
                     newUser.confirmed = false;
                     break;
                 case 'editor':
-                    newUser.categoriesManagement = [];
+                    if (_.isEmpty(categoriesManagement)) {
+                        errors.categoriesManagement = 'categoriesManagement is required.'
+                        return res.status(400).json(errors);
+                    }
+
+                    newUser.categoriesManagement = categoriesManagement;
                     break;
                 case 'writer':
                     if (_.isEmpty(pseudonym)) {
                         errors.pseudonym = 'Pseudonym is required.'
                         return res.status(400).json(errors);
                     }
-
                     newUser.pseudonym = pseudonym;
                     break;
                 case 'administrator':
-                    newUser.expiredAt = new Date().getTime() + 100 * 365 * 24 * 3600 * 1000;
+                    newUser.expiredAt = Date.now() + 100 * 365 * 24 * 3600 * 1000;
                     break;
                 default:
                     errors.userType = 'Usertype does not exist.'
@@ -206,6 +211,36 @@ router.post('/update', (req, res) => {
         })
         .catch(err => res.status(400).json(err));
 });
+
+router.post('/assignment', (req, res) => {
+    const { categoriesManagement, editorId } = req.body;
+
+    if (_.isEmpty(categoriesManagement)) {
+        return res.status(404).json({ categoriesManagement: "categoriesManagement is requied. " });
+    }
+
+    User
+        .findOne({
+            _id: editorId,
+            isActive: true
+        })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ user: "User not found. " });
+            }
+
+            user.categoriesManagement = categoriesManagement;
+
+            return user.save()
+                .then(userUpdated => {
+                    const payload = pickUser(userUpdated, userUpdated.userType);
+                    req.session.passport.user = payload;
+
+                    return res.json(payload);
+                });
+        })
+        .catch(err => res.status(400).json(err));
+})
 
 router.post('/change-password', (req, res) => {
     const errors = {};
