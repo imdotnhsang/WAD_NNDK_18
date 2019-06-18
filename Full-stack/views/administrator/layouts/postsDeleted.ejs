@@ -4,14 +4,14 @@
         <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
             <%
                         var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
-                        %><a href=""
-                class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></a><%
+                        %><p
+                class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></p><%
                       %>
         </div>
 
         <div class="card-body">
             <h5 class="card-title">
-                <a class="text-fiord-blue" href="/article/<%= article.slug %>"><%= article.title %></a>
+                <p class="text-fiord-blue mb-2"><%= article.title %></p>
             </h5>
             <p class="card-text mb-3"><%= article.abstract %></p>
             <span class="text-muted">

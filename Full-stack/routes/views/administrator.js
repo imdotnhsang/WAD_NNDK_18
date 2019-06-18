@@ -40,6 +40,7 @@ router.get('/posts-deleted', function (req, res) {
     if (adminAccount && adminAccount.userType === 'administrator') {
         Article
             .find({ process: 'deleted' })
+            .populate('categories')
             .then(articleList => {
                 res.render(
                     'administrator',
@@ -67,6 +68,7 @@ router.get('/posts-approved', function (req, res) {
                 publishedAt: { $gt: Date.now() },
                 // administrator: adminAccount._id
             })
+            .populate('categories')
             .then(articleList => {
                 res.render(
                     'administrator',
@@ -120,6 +122,7 @@ router.get('/posts-unapproved', function (req, res) {
                 process: 'draft',
                 reasonDenied: null
             })
+            .populate('categories')
             .then(articleList => {
                 res.render(
                     'administrator',

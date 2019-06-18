@@ -216,15 +216,12 @@
                             <td>
                                 <select name="right" class="custom-select w-100 js-category-management-select"
                                     id="<%= eachUser._id %>">
-                                    <% categoryList.forEach(function(eachCategory){ %>
-                                        <% var temp1=eachUser.categoriesManagement %>
-                                        <% var temp2=eachCategory._id %>
-                                        <% if(temp1===temp2){ %>
-                                    <option value="<%= eachCategory._id %>" selected=""><%= eachUser.categoriesManagement %></option>
-                                    <%}else{%>
-                                        <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
-                                        <%}%>
-                                    <%})%>
+                                    <% categoryList.forEach(function(eachCategory){ 
+                                            var selected = (eachUser.categoriesManagement.toString() === eachCategory._id.toString() ? "selected" : "");
+                                    %>
+                                    <option value="<%= eachCategory._id %>" <%=selected %> >
+                                        <%= eachCategory.title %></option>
+                                   <%})%>
                                 </select>
                             </td>
                             <td>
