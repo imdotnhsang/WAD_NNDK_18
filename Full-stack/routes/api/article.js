@@ -136,7 +136,9 @@ router.post('/update', (req, res) => {
         }
     }
 
+
     if (payload.process === "published") {
+        payload.publishedAt = parseInt(payload.publishedAt, 10);
         if (account.userType === 'writer') {
             errors.account = 'Authorization fail.';
             return res.status(400).json(errors)
@@ -155,6 +157,8 @@ router.post('/update', (req, res) => {
         })
     }
 
+    console.log('tagDocs: ', tagDocs);
+
     Tag
         .insertMany(tagDocs,  { ordered: false }, (err, tagListCreated) => {
             if (err) {
@@ -165,8 +169,10 @@ router.post('/update', (req, res) => {
             let tags = [...payload.tagListOld, ...tagListCreated.map(tag => tag._id.toString())];
 
             payload.tags = tags;
+
+            console.log(payload);
             Article
-                .findByIdAndUpdate(id, payload)
+                .findByIdAndUpdate(payload.id, {...payload})
                 .then(result => res.json(result))
                 .catch(err => res.status(400).json(err));
         })
