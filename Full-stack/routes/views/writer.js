@@ -51,7 +51,7 @@ router.get('/edit-post', async function (req, res, next) {
             })
             .populate('categories tags')
             .then(article => {
-                console.log(article);
+                // console.log(article);
 
                 let tagListValue = "";
 
@@ -61,7 +61,7 @@ router.get('/edit-post', async function (req, res, next) {
 
                 tagListValue = tagListValue.slice(0, -1);
 
-                console.log(tagListValue);
+                // console.log(tagListValue);
                 res.render(
                     'writer',
                     {

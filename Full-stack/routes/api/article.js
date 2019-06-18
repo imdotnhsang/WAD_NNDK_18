@@ -124,7 +124,21 @@ router.post('/update', (req, res) => {
         return res.status(400).json(errors)
     }
 
-    const payload = _.pick(req.body, ['publishedAt', 'title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id', 'reasonDenied', 'process'])
+    const payload = _.pick(req.body, [
+        'publishedAt', 
+        'title', 
+        'tagListOld', 
+        'tagListNew', 
+        'categories', 
+        'coverImage', 
+        'content', 
+        'abstract', 
+        'id', 
+        'reasonDenied', 
+        'process']
+    );
+
+    const { typeUpdate } = req.body;
     
     if (payload.title) {
         payload.title = _.trim(payload.title);
@@ -157,8 +171,6 @@ router.post('/update', (req, res) => {
         })
     }
 
-    console.log('tagDocs: ', tagDocs);
-
     Tag
         .insertMany(tagDocs,  { ordered: false }, (err, tagListCreated) => {
             if (err) {
@@ -170,35 +182,50 @@ router.post('/update', (req, res) => {
 
             payload.tags = tags;
 
-            console.log(payload);
+            if (typeUpdate === 'editPost') {
+                payload.reasonDenied = undefined;
+            }
+
+            const articleId = payload.id;
+
+            // Article
+            //     .findByIdAndUpdate(articleId, { $set: {...payload } }, { new: true })
+            //     .then(result => {
+            //         console.log(result._doc);
+
+            //         return res.json(result)
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //         res.status(400).json(err)
+            //     });
+
             Article
-                .findByIdAndUpdate(payload.id, {...payload})
-                .then(result => res.json(result))
-                .catch(err => res.status(400).json(err));
+                .findById(articleId)
+                .then(article => {
+                    if (!article) {
+                        errors.article = "Article not found.";
+                        return res.status(404).json(errors);
+                    }
+
+                    const keys = Object.keys(payload);
+
+                    for (let key of keys) {
+                        article[key] = payload[key];
+                    }
+
+                    return article.save()
+                        .then(result => {
+                            console.log(result);
+                            return res.json(result)
+                        })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json(err)
+                });
         })
 });
-
-// router.post('/publish', (req, res) => {
-//     const errors = {};
-//     let account = req.user;
-
-//     if (!account || account.userType === 'subscriber' || account.userType === 'writer'){
-//         errors.account = 'Authorization fail.';
-//         return res.status(400).json(errors)
-//     }
-
-//     const { id, publishedAt } = req.body;
-
-//     if(_.isNaN(publishedAt)) {
-//         errors.publishedAt = 'Invalid date time publish.';
-//         return res.status(400).json(errors)
-//     }
-
-//     Article
-//         .findByIdAndUpdate(id, { process: 'published', publishedAt })
-//         .then(result => res.json(result))
-//         .catch(err => res.status(400).json(err));
-// });
 
 router.post('/delete', (req, res) => {
     const errors = {};

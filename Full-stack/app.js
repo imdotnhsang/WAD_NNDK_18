@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 const NODE_ENV = process.env.NODE_ENV;
 console.log('NODE_ENV', NODE_ENV);
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

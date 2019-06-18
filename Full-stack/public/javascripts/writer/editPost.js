@@ -67,6 +67,8 @@ $('#save_Edit_Article-btn').click(function (e) {
     }
   }
 
+  const articleId = $(this).attr('articleId');
+  console.log(`id: ${articleId}`)
   console.log(`title: ${title}.`);
   console.log(`abstract: ${abstract}.`);
   console.log(`tagListOld: ${tagListOld}.`);
@@ -82,7 +84,7 @@ $('#save_Edit_Article-btn').click(function (e) {
     return;
   }
 
-  postData('/api/article/update', { title, abstract, tagListOld, tagListNew, categories, coverImage, content, reasondenied: reason })
+  postData('/api/article/update', { id: articleId, title, abstract, tagListOld, tagListNew, categories, coverImage, content, reasondenied: reason, typeUpdate: 'editPost' })
     .then(res => {
       const statusCode = res.status;
 

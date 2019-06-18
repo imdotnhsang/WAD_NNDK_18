@@ -108,7 +108,7 @@ router.get('/posts-denied', function (req, res, next) {
                     {
                         title: 'Posts Denied',
                         layout: 'layouts/postsDenied',
-                        srcScript: '',
+                        srcScript: '/javascripts/editor/postsDenied.js',
                         account,
                         articleList
                     }

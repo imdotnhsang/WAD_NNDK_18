@@ -100,7 +100,7 @@ router.get('/posts-published', function (req, res) {
                     {
                         title: 'Posts Published',
                         layout: 'layouts/postsPublished',
-                        srcScript: '',
+                        srcScript: '/javascripts/administrator/postsPublished.js',
                         adminAccount,
                         articleList
                     }
