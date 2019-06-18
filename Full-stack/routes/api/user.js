@@ -419,13 +419,6 @@ router.post('/renew-premium', (req, res) => {
         renewTime
     } = req.body;
 
-    if (!req.user || email !== req.user.email) {
-        errors.email = 'Authorization has failed.';
-        fs.unlinkSync(destAvatar + filename);
-
-        return res.status(400).json(errors);
-    }
-
     if (!_.isNumber(renewTime)) {
         errors.renewTime = 'Renew time is invalid.';
 
@@ -448,7 +441,7 @@ router.post('/renew-premium', (req, res) => {
             return user.save()
                 .then(userUpdated => {
                     const payload = pickUser(userUpdated, userUpdated.userType);
-                    req.session.passport.user = payload;
+                    // req.session.passport.user = payload;
 
                     return res.json(payload);
                 });

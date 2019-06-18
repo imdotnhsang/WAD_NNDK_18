@@ -244,3 +244,22 @@ $("#btn_addUser_success").click(function (e) {
 // for (j = 0; j < formatDateBod.length; j++) {
 //     formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
 // };
+
+$('.btn-renew-mangageuser').click(function(e){
+    e.preventDefault();
+    
+    var emailUser = $(this).attr('email');
+    console.log(emailUser);
+    const payload = { email: emailUser, renewTime: 604800000 };
+    postData(`/api/user/renew-premium`, payload)
+        .then(res => {
+            if (res.status === 200) {
+                // window.location = '/administrator/user';
+                $(this).hide();
+            } else if (res.status === 500) {
+                showAddUserErrorsModal($(this), 'Server Error. Please try again!');
+            } else {
+                res.json().then(err =>  showAddUserErrorsModal($(this), err.email))
+            }
+        })
+})
