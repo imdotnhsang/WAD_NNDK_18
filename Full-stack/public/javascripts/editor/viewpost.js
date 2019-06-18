@@ -12,6 +12,68 @@ $("#btn_deny_success").click(function (e) {
     const reason = $('#js-reason-deny-textarea').val();
 
     console.log(reason);
+
+    const id = $(this).attr('articleid').trim();
+
+    const categories = getArticleCategories();
+    const tagListInput = $('.flexdatalist').flexdatalist('value');
+
+    let tagListOld = [];
+    let tagListNew = [];
+
+    let idSelect;
+
+    for (let tag of tagListInput) {
+        idSelect = $('#edit_tagList').find('option').filter(function () {
+            return $(this).html() === tag
+        }).val();
+
+        if (idSelect) {
+            tagListOld.push(idSelect)
+        } else {
+            tagListNew.push(tag);
+        }
+    }
+
+    const isInvalid = !categories.length || !id || !reason;
+
+    if (isInvalid) {
+        console.log("isInvalid: ", isInvalid);
+        return;
+    }
+
+    console.log('tagListOld: ', tagListOld);
+    console.log('tagListNew: ', tagListNew);
+    console.log('tagListInput: ', tagListInput);
+
+    postData('/api/article/update', { tagListOld, tagListNew, categories, id, reasonDenied: reason })
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    res.json().then(article => {
+                        console.log(article);
+                        showSuccessModalPublishPost($(this), 'Denied post successfully.');
+                        window.location = "/editor/posts-unapproved";
+                    })
+
+                    break;
+                case 500:
+                    showErrorsModal($(this), 'Server Error. Please try again!');
+                    break;
+
+                default:
+                    res.json().then(err => {
+                        console.log(err);
+                    })
+                    break;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
 });
 
 $('#publishArticle-btn').click(function () {
@@ -101,14 +163,6 @@ $("#btn_publish_success").click(function (e) {
     console.log('tagListNew: ', tagListNew);
     console.log('tagListInput: ', tagListInput);
 
-    // if (isNaN(new Date($('#js-datePublish-input').val()))) {
-    //     errors.date = "Please fill in date";
-    // }
-
-    // if ($('#js-timePublish-input').val() === "") {
-    //     errors.date = "Please fill in time";
-    // }
-
     postData('/api/article/update', { tagListOld, tagListNew, categories, id, publishedAt, process: "published" })
         .then(res => {
             const statusCode = res.status;
@@ -118,6 +172,7 @@ $("#btn_publish_success").click(function (e) {
                     res.json().then(article => {
                         console.log(article);
                         showSuccessModalPublishPost($(this), 'Published post successfully.');
+                        window.location = "/editor/posts-unapproved";
                     })
 
                     break;
@@ -135,8 +190,6 @@ $("#btn_publish_success").click(function (e) {
         .catch(err => {
             console.log(err);
         })
-
-
 
 });
 

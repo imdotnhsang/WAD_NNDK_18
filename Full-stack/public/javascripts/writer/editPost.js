@@ -1,27 +1,3 @@
-const showSuccessModal = (curElm, successMsg) => {
-  curElm.attr('data-toggle', 'modal');
-  curElm.attr('data-target', '#success__modal');
-  $('#success__modal').modal('show');
-  $('#success__modalContent').html(successMsg);
-
-  $('.success__modal button').click(function () {
-    curElm.removeAttr('data-toggle');
-    curElm.removeAttr('data-target');
-    location.reload();
-  });
-
-  $(document).mouseup(function (e) {
-    var container = $(".success__modal");
-
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      curElm.removeAttr('data-toggle');
-      curElm.removeAttr('data-target');
-    }
-
-    location.reload();
-  });
-};
-
 var quill = new Quill('#editor', {
   theme: 'snow'
 });
@@ -47,18 +23,91 @@ $('.container_input').click(function () {
     $(`#${parentId}`).children('input').prop('checked', true);
   }
 });
+$('#cancel_Edit_Article-btn').click(function () {
+  window.location = "/writer/posts-denied";
+})
+const getArticleCategories = () => {
+  let result = [];
+  const categoryListElm = $("#edit_article__categories-input input:checked").parent();
 
-// const getArticleCategories = () => {
-//   let result = [];
-//   const categoryListElm = $("#edit_article__categories-input input:checked").parent();
+  for (let categoryElm of categoryListElm) {
+    result.push(categoryElm.id);
+  }
 
-//   for (let categoryElm of categoryListElm) {
-//     result.push(categoryElm.id);
-//   }
+  return result;
+}
+const getArticleCoverImage = (content) => {
+  const contentElms = $(content);
+  const coverImage = $('img:first-child', contentElms).attr('src');
 
-//   return result;
-// }
+  return coverImage;
+}
+$('#save_Edit_Article-btn').click(function (e) {
+  e.preventDefault();
 
-// $(window).bind("load", function() {
-//   CKEDITOR.instances.editor.setData($('#articleContent').text())
-// });
+  const content = CKEDITOR.instances.editor.getData();
+  const title = $('#article__title-input').val().trim();
+  const abstract = $('#article__abstract-input').val().trim();
+  const categories = getArticleCategories();
+  const coverImage = getArticleCoverImage(content);
+  const tagListInput = $('.flexdatalist').flexdatalist('value');
+  const reason = "";
+  let tagListOld = [];
+  let tagListNew = [];
+  let idSelect;
+  for (let tag of tagListInput) {
+    idSelect = $('#edit_tagList').find('option').filter(function () {
+      return $(this).html() === tag
+    }).val();
+
+    if (idSelect) {
+      tagListOld.push(idSelect)
+    } else {
+      tagListNew.push(tag);
+    }
+  }
+
+  console.log(`title: ${title}.`);
+  console.log(`abstract: ${abstract}.`);
+  console.log(`tagListOld: ${tagListOld}.`);
+  console.log(`tagListNew: ${tagListNew}.`);
+  console.log(`categories: ${categories}.`);
+  console.log(`coverImage: ${coverImage}.`);
+  console.log(`content: ${content}.`);
+
+  const isInvalid = !title || !abstract || !categories.length || !coverImage || !content;
+
+  if (isInvalid) {
+    console.log("isInvalid: ", isInvalid);
+    return;
+  }
+
+  postData('/api/article/update', { title, abstract, tagListOld, tagListNew, categories, coverImage, content, reasondenied: reason })
+    .then(res => {
+      const statusCode = res.status;
+
+      switch (statusCode) {
+        case 200:
+          res.json().then(article => {
+            console.log(article);
+            showSuccessModal($(this), 'Edited post successfully.');
+            window.location = "/writer/posts-denied";
+          })
+
+          break;
+        case 500:
+          showErrorsModal($(this), 'Server Error. Please try again!');
+          break;
+
+        default:
+          res.json().then(err => {
+            console.log(err);
+          })
+          break;
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+})
