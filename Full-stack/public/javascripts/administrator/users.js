@@ -263,3 +263,31 @@ $('.btn-renew-mangageuser').click(function(e){
             }
         })
 })
+
+$('.js-category-management-select').change(function() {
+    $(this).prop('disabled', true);
+
+    const editorId = $(this).attr('id');
+    const categoriesManagement = $(this).find(":selected").val();
+
+    postData('/api/user/assignment', {editorId, categoriesManagement})
+        .then(res => {
+            const statusCode = res.status;
+
+            switch (statusCode) {
+                case 200:
+                    $(this).prop('disabled', false);
+                    showSuccessModal($(this), "Assignment category success!");
+                    break;
+            
+                case 500:
+                    showErrorsModal($(this), "Server error. Please try agian!");
+                    $(this).prop('disabled', false);
+                    break;
+                default:
+                    showErrorsModal($(this), "Something error. Please try agian!");
+                    $(this).prop('disabled', false);
+                    break;
+            }
+        })
+})
