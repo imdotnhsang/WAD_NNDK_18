@@ -187,23 +187,7 @@ router.post('/update', (req, res) => {
                 payload.reasonDenied = undefined;
             }
 
-            console.log('tagDocs: ', tagDocs);
-            console.log('tagListOld: ', payload.tagListOld);
-            console.log('tags: ', tags);
-
             const articleId = payload.id;
-
-            // Article
-            //     .findByIdAndUpdate(articleId, { $set: {...payload } }, { new: true })
-            //     .then(result => {
-            //         console.log(result._doc);
-
-            //         return res.json(result)
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //         res.status(400).json(err)
-            //     });
 
             Article
                 .findById(articleId)
@@ -216,7 +200,6 @@ router.post('/update', (req, res) => {
                     const keys = Object.keys(payload);
 
                     for (let key of keys) {
-                        // console.log(object);
                         article[key] = payload[key];
                     }
 

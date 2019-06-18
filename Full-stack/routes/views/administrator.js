@@ -58,6 +58,55 @@ router.get('/posts-deleted', function (req, res) {
     }
 });
 
+// router.get('/view-post', async function (req, res) {
+//     const tagList = await getTagList();
+//     const account = req.user;
+
+//     const { id } = req.query;
+
+//     if (account && account.userType === 'editor') {
+//         Article
+//             .findOne({
+//                 _id: id,
+//                 process: 'draft',
+//                 reasonDenied: null,
+//                 // categoriesManagement
+//             })
+//             .populate('categories tags')
+//             .then(article => {
+//                 console.log(article);
+
+//                 let tagListValue = "";
+
+//                 article.tags.forEach(tag => {
+//                     tagListValue += `${tag.title},`;
+//                 })
+
+//                 tagListValue = tagListValue.slice(0, -1);
+
+//                 res.render(
+//                     'editor',
+//                     {
+//                         title: 'View Post',
+//                         layout: 'layouts/viewpost',
+//                         srcScript: '/javascripts/editor/viewpost.js',
+//                         tagList,
+//                         account,
+//                         article,
+//                         tagListValue
+//                     }
+//                 );
+//             })
+//             .catch(err => {
+//                 console.log(err);
+//                 res.redirect('/editor/profile');
+//             });
+
+//     } else {
+//         res.redirect('/editor/profile');
+//     }
+// });
+
 router.get('/posts-approved', function (req, res) {
     const adminAccount = req.user;
 

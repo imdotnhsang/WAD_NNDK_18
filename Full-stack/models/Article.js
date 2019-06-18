@@ -65,11 +65,11 @@ const ArticleSchema = mongoose.Schema({
         required: false,
         ref: 'User'
     },
-    administrator: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: 'User'
-    },
+    // administrator: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: false,
+    //     ref: 'User'
+    // },
     createdAt: {
         type: Number,
         default: Date.now()
