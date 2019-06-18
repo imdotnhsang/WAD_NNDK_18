@@ -11,7 +11,7 @@
 
         <div class="card-body">
             <h5 class="card-title">
-                <a class="text-fiord-blue" href="/article/<%= article.slug %>"><%= article.title %></a>
+                <a class="text-fiord-blue" href="/administrator/view-post?id=<%= article._id %>"><%= article.title %></a>
             </h5>
             <p class="card-text mb-3"><%= article.abstract %></p>
             <span class="text-muted">
@@ -21,7 +21,7 @@
             </span>
 
             <div class="post-actions w-75 mx-auto mt-3">
-                <button class="btn btn-info w-100">View details</button>
+                <a href="/administrator/view-post?id=<%= article._id %>" class="btn btn-info w-100">View details</a>
             </div>
         </div>
     </div>

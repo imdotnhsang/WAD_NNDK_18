@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Article = mongoose.model('Article');
 
+const { getTagList } = require('../../utils');
+
 router.get('/', (req, res) => {
     const account = req.user;
 
@@ -58,54 +60,51 @@ router.get('/posts-deleted', function (req, res) {
     }
 });
 
-// router.get('/view-post', async function (req, res) {
-//     const tagList = await getTagList();
-//     const account = req.user;
+router.get('/view-post', async function (req, res) {
+    const tagList = await getTagList();
+    const adminAccount = req.user;
 
-//     const { id } = req.query;
+    const { id } = req.query;
 
-//     if (account && account.userType === 'editor') {
-//         Article
-//             .findOne({
-//                 _id: id,
-//                 process: 'draft',
-//                 reasonDenied: null,
-//                 // categoriesManagement
-//             })
-//             .populate('categories tags')
-//             .then(article => {
-//                 console.log(article);
+    if (adminAccount && adminAccount.userType === 'administrator') {
+        Article
+            .findOne({
+                _id: id,
+                process: 'draft',
+                reasonDenied: null,
+            })
+            .populate('categories tags')
+            .then(article => {
+                let tagListValue = "";
 
-//                 let tagListValue = "";
+                article.tags.forEach(tag => {
+                    tagListValue += `${tag.title},`;
+                })
 
-//                 article.tags.forEach(tag => {
-//                     tagListValue += `${tag.title},`;
-//                 })
+                tagListValue = tagListValue.slice(0, -1);
 
-//                 tagListValue = tagListValue.slice(0, -1);
+                res.render(
+                    'administrator',
+                    {
+                        title: 'View Post',
+                        layout: 'layouts/viewPost',
+                        srcScript: '/javascripts/administrator/viewpost.js',
+                        tagList,
+                        adminAccount,
+                        article,
+                        tagListValue
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/administrator/profile');
+            });
 
-//                 res.render(
-//                     'editor',
-//                     {
-//                         title: 'View Post',
-//                         layout: 'layouts/viewpost',
-//                         srcScript: '/javascripts/editor/viewpost.js',
-//                         tagList,
-//                         account,
-//                         article,
-//                         tagListValue
-//                     }
-//                 );
-//             })
-//             .catch(err => {
-//                 console.log(err);
-//                 res.redirect('/editor/profile');
-//             });
-
-//     } else {
-//         res.redirect('/editor/profile');
-//     }
-// });
+    } else {
+        res.redirect('/administrator/profile');
+    }
+});
 
 router.get('/posts-approved', function (req, res) {
     const adminAccount = req.user;
