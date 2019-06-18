@@ -50,7 +50,13 @@ $('#save_Edit_Article-btn').click(function (e) {
   const abstract = $('#article__abstract-input').val().trim();
   const categories = getArticleCategories();
   const coverImage = getArticleCoverImage(content);
-  const tagListInput = $('.flexdatalist').flexdatalist('value');
+  const tagListInput = [];
+  for (i = 0; i < $('.flexdatalist-multiple li').length-1; i++) {
+    var value = (document.getElementsByClassName('flexdatalist-multiple')[0].querySelectorAll('li.value span:first-child')[i].innerHTML)
+    tagListInput.push(value);
+  }
+
+  console.log(tagListInput);
   const reason = "";
   let tagListOld = [];
   let tagListNew = [];

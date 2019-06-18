@@ -9,95 +9,187 @@ const { countArticles } = require('../../utils');
 
 router.get('/home', function (req, res, next) {
     const account = req.user;
+    if (account && account.expiredAt > Date.now()) {
+        const waitting = Promise.all(
 
-    const waitting = Promise.all(
-        [
-            //fiveArticlesHot
-            new Promise((resolve, reject) => {
-                Article
-                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
-                    .select('title slug categories publishedAt coverImage')
-                    .populate('categories')
-                    .sort({ views: 'desc' })
-                    .limit(5)
-                    .then(fiveArticlesHot => resolve(fiveArticlesHot))
-                    .catch(err => reject(err));
-            }),
+            [
+                //fiveArticlesHot
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
+                        .select('title slug categories publishedAt coverImage')
+                        .populate('categories')
+                        .sort({ views: 'desc' })
+                        .limit(5)
+                        .then(fiveArticlesHot => resolve(fiveArticlesHot))
+                        .catch(err => reject(err));
+                }),
 
-            // tenArticlesMostRead
-            new Promise((resolve, reject) => {
-                Article
-                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
-                    .select('title slug categories publishedAt coverImage')
-                    .populate('categories')
-                    .sort({ views: 'desc' })
-                    .skip(5)
-                    .limit(10)
-                    .then(tenArticlesMostRead => resolve(tenArticlesMostRead))
-                    .catch(err => reject(err));
-            }),
+                // tenArticlesMostRead
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
+                        .select('title slug categories publishedAt coverImage')
+                        .populate('categories')
+                        .sort({ views: 'desc' })
+                        .skip(5)
+                        .limit(10)
+                        .then(tenArticlesMostRead => resolve(tenArticlesMostRead))
+                        .catch(err => reject(err));
+                }),
 
-            // tenArticlesLastest
-            new Promise((resolve, reject) => {
-                Article
-                    .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
-                    .select('title slug categories publishedAt coverImage')
-                    .populate('categories')
-                    .sort({ publishedAt: 'desc' })
-                    .limit(10)
-                    .then(tenArticlesLastest => resolve(tenArticlesLastest))
-                    .catch(err => reject(err));
-            }),
+                // tenArticlesLastest
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({ publishedAt: { $lte: Date.now() }, process: 'published' })
+                        .select('title slug categories publishedAt coverImage')
+                        .populate('categories')
+                        .sort({ publishedAt: 'desc' })
+                        .limit(10)
+                        .then(tenArticlesLastest => resolve(tenArticlesLastest))
+                        .catch(err => reject(err));
+                }),
 
-            // twelveArticlesCategory
-            new Promise((resolve, reject) => {
-                Category
-                    .find({ isActive: true })
-                    .limit(12)
-                    .then(categoryList => {
-                        return Promise.all(categoryList.map(category => {
-                            return Article
-                                .findOne({ categories: category._id })
-                                .select('title slug publishedAt coverImage')
-                                .sort({ publishedAt: 'desc' })
-                                .then(article => ({ category, article }))
-                        }))
-                    })
-                    .then(twelveArticlesCategory => resolve(twelveArticlesCategory))
-                    .catch(err => reject(err));
-            }),
-        ]
-    )
+                // twelveArticlesCategory
+                new Promise((resolve, reject) => {
+                    Category
+                        .find({ isActive: true })
+                        .limit(12)
+                        .then(categoryList => {
+                            return Promise.all(categoryList.map(category => {
+                                return Article
+                                    .findOne({ categories: category._id })
+                                    .select('title slug publishedAt coverImage')
+                                    .sort({ publishedAt: 'desc' })
+                                    .then(article => ({ category, article }))
+                            }))
+                        })
+                        .then(twelveArticlesCategory => resolve(twelveArticlesCategory))
+                        .catch(err => reject(err));
+                }),
+            ]
 
-    return waitting
-        .then(values => {
-            console.log(values);
-            let fiveArticlesHot = values[0];
-            let tenArticlesMostRead = values[1];
-            let tenArticlesLastest = values[2];
-            let twelveArticlesCategory = values[3];
+        )
 
-            console.log(twelveArticlesCategory);
-            return res.render(
-                'user',
-                {
-                    title: 'Home',
-                    layout: 'layouts/home',
-                    srcScript: '/javascripts/guest-subscriber/script.js',
-                    hrefCss: '',
-                    account,
-                    fiveArticlesHot,
-                    tenArticlesLastest,
-                    tenArticlesMostRead,
-                    twelveArticlesCategory
-                }
-            );
-        })
-        .catch(err => {
-            console.log(err);
-            return res.redirect('/home');
-        })
+        return waitting
+            .then(values => {
+                console.log(values);
+                let fiveArticlesHot = values[0];
+                let tenArticlesMostRead = values[1];
+                let tenArticlesLastest = values[2];
+                let twelveArticlesCategory = values[3];
 
+                console.log(twelveArticlesCategory);
+                return res.render(
+                    'user',
+                    {
+                        title: 'Home',
+                        layout: 'layouts/home',
+                        srcScript: '/javascripts/guest-subscriber/script.js',
+                        hrefCss: '',
+                        account,
+                        fiveArticlesHot,
+                        tenArticlesLastest,
+                        tenArticlesMostRead,
+                        twelveArticlesCategory
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                return res.redirect('/home');
+            })
+    } else {
+        const waitting = Promise.all(
+
+            [
+                //fiveArticlesHot
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({ publishedAt: { $lte: Date.now() }, process: 'published', isPremium: false })
+                        .select('title slug categories publishedAt coverImage')
+                        .populate('categories')
+                        .sort({ views: 'desc' })
+                        .limit(5)
+                        .then(fiveArticlesHot => resolve(fiveArticlesHot))
+                        .catch(err => reject(err));
+                }),
+
+                // tenArticlesMostRead
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({ publishedAt: { $lte: Date.now() }, process: 'published', isPremium: false })
+                        .select('title slug categories publishedAt coverImage')
+                        .populate('categories')
+                        .sort({ views: 'desc' })
+                        .skip(5)
+                        .limit(10)
+                        .then(tenArticlesMostRead => resolve(tenArticlesMostRead))
+                        .catch(err => reject(err));
+                }),
+
+                // tenArticlesLastest
+                new Promise((resolve, reject) => {
+                    Article
+                        .find({ publishedAt: { $lte: Date.now() }, process: 'published', isPremium: false })
+                        .select('title slug categories publishedAt coverImage')
+                        .populate('categories')
+                        .sort({ publishedAt: 'desc' })
+                        .limit(10)
+                        .then(tenArticlesLastest => resolve(tenArticlesLastest))
+                        .catch(err => reject(err));
+                }),
+
+                // twelveArticlesCategory
+                new Promise((resolve, reject) => {
+                    Category
+                        .find({ isActive: true })
+                        .limit(12)
+                        .then(categoryList => {
+                            return Promise.all(categoryList.map(category => {
+                                return Article
+                                    .findOne({ categories: category._id })
+                                    .select('title slug publishedAt coverImage')
+                                    .sort({ publishedAt: 'desc' })
+                                    .then(article => ({ category, article }))
+                            }))
+                        })
+                        .then(twelveArticlesCategory => resolve(twelveArticlesCategory))
+                        .catch(err => reject(err));
+                }),
+            ]
+
+        )
+
+        return waitting
+            .then(values => {
+                console.log(values);
+                let fiveArticlesHot = values[0];
+                let tenArticlesMostRead = values[1];
+                let tenArticlesLastest = values[2];
+                let twelveArticlesCategory = values[3];
+
+                console.log(twelveArticlesCategory);
+                return res.render(
+                    'user',
+                    {
+                        title: 'Home',
+                        layout: 'layouts/home',
+                        srcScript: '/javascripts/guest-subscriber/script.js',
+                        hrefCss: '',
+                        account,
+                        fiveArticlesHot,
+                        tenArticlesLastest,
+                        tenArticlesMostRead,
+                        twelveArticlesCategory
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                return res.redirect('/home');
+            })
+    }
 });
 
 router.get('/article/:slug', function (req, res, next) {
@@ -210,7 +302,7 @@ router.get('/category/:slug/:page', function (req, res, next) {
             // query
             let articlesCateCondition = {
                 categories: categoryId,
-                publishedAt: { $lte: Date.now() }, 
+                publishedAt: { $lte: Date.now() },
                 process: 'published'
             }
             let articlesCateSort = {};
@@ -339,7 +431,7 @@ router.get('/hashtag/:slug/:page', function (req, res, next) {
             // query
             let articlesTagCondition = {
                 tags: tagId,
-                publishedAt: { $lte: Date.now() }, 
+                publishedAt: { $lte: Date.now() },
                 process: 'published'
             }
             let articlesTagSort = {};
@@ -452,7 +544,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 $text: { $search: keySearch, $diacriticSensitive: true },
-                publishedAt: { $lte: Date.now() }, 
+                publishedAt: { $lte: Date.now() },
                 process: 'published'
             }
             break;
@@ -461,7 +553,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 title: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $lte: Date.now() }, 
+                publishedAt: { $lte: Date.now() },
                 process: 'published'
             }
             break;
@@ -471,7 +563,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 abstract: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $lte: Date.now() }, 
+                publishedAt: { $lte: Date.now() },
                 process: 'published'
             }
             break;
@@ -480,7 +572,7 @@ router.get('/search', function (req, res, next) {
 
             searchArticlesCondition = {
                 content: { $regex: keySearch, $options: 'i' },
-                publishedAt: { $lte: Date.now() }, 
+                publishedAt: { $lte: Date.now() },
                 process: 'published'
             }
             break;
