@@ -11,26 +11,28 @@
                 <div class="article__abstract mb-3">
                     <h5>Abstract</h5>
                     <textarea id="article__abstract-input" class="form-control form-control-lg " rows="3" cols="110"
-                    placeholder="Summary of your article here" disabled ><%= article.abstract %></textarea>
+                        placeholder="Summary of your article here" disabled><%= article.abstract %></textarea>
                 </div>
-                
+
                 <div class="article__tags mb-3">
                     <h5>Tags</h5>
-                    <input id="edit_article__tag-input" value="<%= tagListValue %>" class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple='multiple' list='edit_tagList'>
+                    <input id="edit_article__tag-input" value="<%= tagListValue %>"
+                        class='form-control flexdatalist flexdatalist-set' data-min-length='1' multiple='multiple'
+                        list='edit_tagList'>
 
                     <datalist id="edit_tagList">
                         <% tagList.forEach(eachTag => { %>
-                            <option value="<%= eachTag._id %>"><%= eachTag.title %></option>
+                        <option value="<%= eachTag._id %>"><%= eachTag.title %></option>
                         <% }) %>
                     </datalist>
                 </div>
                 <div class="article__content mb-3">
                     <h5>Content</h5>
-                    <textarea id="editor" rows="3" cols="106" ></textarea>
+                    <textarea id="editor" rows="3" cols="106"></textarea>
 
                     <p id="articleContent" style="display: none;"><%= article.content %></p>
                     <script type="text/javascript">
-                        window.onload = function() {
+                        window.onload = function () {
                             CKEDITOR.instances.editor.setData($('#articleContent').text())
                         }
                     </script>
@@ -49,9 +51,9 @@
                     <% categoryList.forEach(function(eachCategory){ %>
                     <label class="container_input" id="<%= eachCategory._id %>"><%= eachCategory.title %>
                         <% if (eachCategory._id.toString() === article.categories[0]._id.toString()) { %>
-                            <input type="checkbox" name="radio" checked>
+                        <input type="checkbox" name="radio" checked>
                         <% } else { %>
-                            <input type="checkbox" name="radio">
+                        <input type="checkbox" name="radio">
                         <% } %>
 
                         <span class="custom-checkbox"></span>
@@ -60,11 +62,12 @@
                     <% if(eachCategory.subCategories.length !== 0){ %>
                     <div class="ml-4">
                         <% eachCategory.subCategories.forEach(function(eachSubCategory){ %>
-                        <label class="container_input" id="<%= eachSubCategory._id %>" parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
+                        <label class="container_input" id="<%= eachSubCategory._id %>"
+                            parentId="<%= eachCategory._id %>"><%= eachSubCategory.title %>
                             <% if (article.categories.length > 1 && eachSubCategory._id.toString() === article.categories[1]._id.toString()) { %>
-                                <input type="radio" name="radio" checked>
+                            <input type="radio" name="radio" checked>
                             <% } else { %>
-                                <input type="radio" name="radio">
+                            <input type="radio" name="radio">
                             <% } %>
                             <span class="custom-radio"></span>
                         </label>
@@ -93,25 +96,26 @@
 
 </div>
 <div class="modal" id="deny__modal-background">
-        <div class="deny__modal" id="deny__modal">
-            <div class="changeAvatar__modal_header d-flex justify-content-end">
-                <div class="btn text-dark" id="btn_deny_fail"><i class="fas fa-window-close fa-2x"></i></div>
+    <div class="deny__modal" id="deny__modal">
+        <div class="changeAvatar__modal_header d-flex justify-content-end">
+            <div class="btn text-dark" id="btn_deny_fail"><i class="fas fa-window-close fa-2x"></i></div>
+        </div>
+        <div class="p-3">
+            <div class="form-group">
+                <label for="reason">Reason</label>
+                <textarea name="reason" type="text" class="form-control" id="js-reason-deny-textarea"
+                    placeholder="Enter your reason"></textarea>
+                <span class="field-validation-error" id="js-reason-deny-errmsg"></span>
             </div>
-            <div class="p-3">
-                <div class="form-group">
-                    <label for="reason">Reason</label>
-                    <textarea name="reason" type="text" class="form-control" id="js-reason-deny-textarea"
-                        placeholder="Enter your reason"></textarea>
-                    <span class="field-validation-error" id="js-reason-deny-errmsg"></span>
-                </div>
-            </div>
+        </div>
 
-            <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
-                <div editorId="<%= account._id %>" class="btn btn btn-success d-flex justify-content-center" id="btn_deny_success" articleId="<%= article._id %>">Save
-                </div>
+        <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+            <div editorId="<%= account._id %>" class="btn btn btn-success d-flex justify-content-center"
+                id="btn_deny_success" articleId="<%= article._id %>">Save
             </div>
         </div>
     </div>
+</div>
 <div class="modal" id="publish__modal-background">
     <div class="publish__modal" id="publish__modal">
         <div class="changeAvatar__modal_header d-flex justify-content-end">
@@ -141,13 +145,23 @@
                     <span class="field-validation-error" id="js-datePublish-errmsg"></span>
                 </div>
             </div>
-        </div>
-
-        <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
-            <div editorId="<%= account._id %>" class="btn btn btn-success d-flex justify-content-center" id="btn_publish_success" articleId="<%= article._id %>">Save
+            <div class="form-group">
+                <label for="type">Type Article</label>
+                <select name="right" class="custom-select" id="js-type-select">
+                    <option value="0">Normal</option>
+                    <option value="1">Premium</option>
+                </select>
             </div>
         </div>
     </div>
+
+    <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+        <div editorId="<%= account._id %>" class="btn btn btn-success d-flex justify-content-center"
+            id="btn_publish_success" articleId="<%= article._id %>">Save
+        </div>
+    </div>
+</div>
+
 </div>
 <div class="modal fade success__modal" id="success__modal" tabindex="-1" role="dialog"
     aria-labelledby="success__modalLabel" aria-hidden="true" style="z-index: 10000;">
