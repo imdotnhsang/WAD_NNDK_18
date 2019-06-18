@@ -45,7 +45,7 @@ router.get('/edit-post', async function (req, res, next) {
             .findOne({
                 _id: id,
                 publishedAt: null,
-                process: 'editor',
+                process: 'draft',
                 reasonDenied: { $ne: null },
                 writer: writerAccount._id
             })
@@ -90,7 +90,7 @@ router.get('/posts-approved', function (req, res, next) {
         Article
             .find({
                 publishedAt: null,
-                process: 'administrator',
+                process: 'draft',
                 reasonDenied: null,
                 writer: writerAccount._id
             })
@@ -124,7 +124,7 @@ router.get('/posts-denied', function (req, res, next) {
         Article
             .find({
                 publishedAt: null,
-                process: 'editor',
+                process: 'draft',
                 reasonDenied: { $ne: null },
                 writer: writerAccount._id
             })
@@ -158,6 +158,7 @@ router.get('/posts-published', function (req, res, next) {
         Article
             .find({
                 publishedAt: { $lte: Date.now() },
+                process: 'published',
                 writer: writerAccount._id
             })
             .populate('categories tags')
@@ -191,7 +192,7 @@ router.get('/waiting-for-approval', function (req, res, next) {
         Article
             .find({
                 publishedAt: null,
-                process: 'editor',
+                process: 'draft',
                 reasonDenied: null,
                 writer: writerAccount._id
             })

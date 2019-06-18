@@ -36,7 +36,7 @@ router.post('/create', async (req, res) => {
 
 
     let { title, tagListOld, tagListNew, categories, coverImage, content, abstract } = req.body;
-    let process = 'editor';
+    let process = 'draft';
     let writer = accountWriter._id;
 
     title = _.trim(title);
