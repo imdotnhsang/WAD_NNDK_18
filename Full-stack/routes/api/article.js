@@ -127,10 +127,10 @@ router.post('/update', (req, res) => {
     const payload = _.pick(req.body, ['publishedAt', 'title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id', 'reasonDenied', 'process'])
     
     if (payload.title) {
-        title = _.trim(title);
-        let slug = createSlug(title);
+        payload.title = _.trim(payload.title);
+        payload.slug = createSlug(payload.title);
     
-        if (_.isEmpty(title) || _.isEmpty(slug)) {
+        if (_.isEmpty(payload.title) || _.isEmpty(payload.slug)) {
             errors.title = 'Title article does not exist.'
             return res.status(400).json(errors);
         }
@@ -147,7 +147,7 @@ router.post('/update', (req, res) => {
     }
 
     let tagDocs = [];
-    for (let tag of tagListNew) {
+    for (let tag of payload.tagListNew) {
         let title =  _.trim(tag);
         let slug = createSlug(title);
         tagDocs.push({ 
@@ -162,7 +162,7 @@ router.post('/update', (req, res) => {
                 return res.status(400).json(err);
             }
 
-            let tags = [...tagListOld, ...tagListCreated.map(tag => tag._id.toString())];
+            let tags = [...payload.tagListOld, ...tagListCreated.map(tag => tag._id.toString())];
 
             payload.tags = tags;
             Article
