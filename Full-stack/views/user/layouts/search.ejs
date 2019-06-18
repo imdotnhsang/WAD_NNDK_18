@@ -1,0 +1,123 @@
+<div class="container-search row m-0">
+    <div class="title-search col-12">
+        <% if (keySearch.length > 0) { %>
+            <% if (countArticlesSearch > 0) { %>
+                <p class="text-center m-0">
+                    Results for "<span class="word-search"><%= keySearch %></span>"
+                </p>
+            <% } else { %>
+                <p class="text-center m-0">
+                    No results matching for "<span class="word-search"><%= keySearch %></span>"
+                </p>
+            <% } %>
+        <% } %>
+    </div>
+    <div class="col-xl-2 col-0 p-0 m-0 blank-col-container">
+    </div>
+    <div class="main-container-search col-xl-8 col-12 m-0 pt-4 pt-sm-5 pr-2 pl-2 pl-xl-0 pr-xl-0">
+        <form action="" class="search-bar-in-page d-flex m-auto">
+            <input type="text" placeholder="<%= keySearch.length > 0 ? keySearch : 'Search' %>" id="searchPage__content">
+            <button type="submit" class="fa fa-search" id="searchPage__btn"></button>
+        </form>
+        <div class="select-type-search d-flex justify-content-end pt-3 pr-0 pb-0">
+                
+            <select id="searchPage__type">
+                <%
+                    var optionsValue = [ "all", "title", "abstract", "content" ];
+                    for ( let optionValue of optionsValue )
+                    {
+                        var selected = (typeSearch === optionValue ? "selected" : ""); %>
+                        <option value="<%= optionValue %>" <%=selected %>>
+                            <%= optionValue.charAt(0).toUpperCase() + optionValue.slice(1) %>
+                        </option>
+                <% } %>
+            </select>
+        </div>
+
+        <% if (keySearch.length > 0 && countArticlesSearch > 0) { %>
+            <div class="results-for-search pt-1 pl-3 pr-3">
+                <div class="list-results-search m-0">
+                    <%  resultArticlesSearch.forEach(function(eachArticleSearch){ %>
+                        <div class="result-search pb-1 pl-0 pr-0 pt-2 row">
+                                <div class="img-result-search col-4 col-sm-5 col-md-4 p-0"> <a
+                                    href="/article/<%= eachArticleSearch.slug %>"> <img class="w-100"
+                                        src="<%= eachArticleSearch.coverImage %>" alt=""></a>
+                                <% if(eachArticleSearch.isPremium === true){ %>
+                                <span class="badge badge-warning" id="badge-premium"> <i class="fa fa-star"></i> </span>
+                                <% } %>
+                            </div>
+                            <div
+                                class="description-result-search col-8 col-sm-7 col-md-8 pt-0 pt-sm-1 pl-2 pl-sm-3 pr-1 pb-0 pt-md-1">
+                                <a href="/article/<%= eachArticleSearch.slug %>"
+                                    class="title-result-search m-0 font-weight-bold"><%= eachArticleSearch.title %>
+                                </a>
+                                <span class="author m-0 pt-1 pt-sm-1 row "><a class=""
+                                        href="/category/<%= eachArticleSearch.categories[eachArticleSearch.categories.length - 1].slug %>/1"><%= eachArticleSearch.categories[eachArticleSearch.categories.length - 1].title %></a>&nbsp;&nbsp;
+                                    <p class="date-posted m-0"><i class="fa fa-clock-o"></i> <span
+                                            id="date-posted"><%= eachArticleSearch.publishedAt %></span></p>
+                                    &nbsp;&nbsp;
+                                </span>
+                                <p class="abstract-result-search pt-0 pt-sm-1 m-0">
+                                    <%= eachArticleSearch.abstract %></p>
+                                <div class="list-tags">
+                                    <% eachArticleSearch.tags.forEach(function(eachTag){ %>
+                                        <% if (eachTag.isActive) { %>
+                                            <a href="/hashtag/<%= eachTag.slug %>/1">
+                                                <span class="badge badge-pill">#<%= eachTag.title %></span></a>&nbsp;
+                                                <% } %>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+
+                    <div class="count-results row m-0 pt-3 pb-3 pb-lg-4">
+                            <% if(Math.round(countArticlesSearch/10 + 0.4)!==1){ %>
+                            <% if(pageCurrent === 1){ %>
+                            <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                                id="content_pagination">
+                                <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                        class="count-pages"><%= Math.round(countArticlesSearch/10 + 0.4) %></span>
+                                </p>
+                            </div>
+                            <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                                    href="/search?<%= typeSearch %>=<%= keySearch %>&page=<%= pageCurrent + 1 %>">next</a></div>
+                            <% }else if(pageCurrent === Math.round(countArticlesSearch/10 + 0.4)){ %>
+                            <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                                    href="/search?<%= typeSearch %>=<%= keySearch %>&page=<%= pageCurrent - 1 %>">prev</a></div>
+                            <div class="col-9 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                                id="content_pagination">
+                                <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                        class="count-pages"><%= Math.round(countArticlesSearch/10 + 0.4) %></span>
+                                </p>
+                            </div>
+                            <% }else{ %>
+                            <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_prev"><a
+                                    href="/search?<%= typeSearch %>=<%= keySearch %>&page=<%= pageCurrent - 1 %>">prev</a></div>
+                            <div class="col-6 col-sm-8 col-xl-10 m-0 d-flex justify-content-center align-items-center"
+                                id="content_pagination">
+                                <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                        class="count-pages"><%= Math.round(countArticlesSearch/10 + 0.4) %></span>
+                                </p>
+                            </div>
+                            <div class="col-3 col-sm-2 col-xl-1 m-0 btn text-uppercase" id="btn_next"><a
+                                    href="/search?<%= typeSearch %>=<%= keySearch %>&page=<%= pageCurrent + 1 %>">next</a></div>
+                            <% } %>
+                            <% }else{ %>
+                            <div class="col-12 col-sm-10 col-xl-11 m-0 d-flex justify-content-center align-items-center"
+                                id="content_pagination">
+                                <p class="m-0">Page <span class="page-current"><%= pageCurrent %></span> of <span
+                                        class="count-pages"><%= Math.round(countArticlesSearch/10 + 0.4) %></span>
+                                </p>
+                            </div>
+                            <% } %>
+                        </div>
+                </div>
+            </div>
+
+            
+        <% } %>
+
+    </div>
+    <div class="col-xl-2 col-0 p-0 m-0 blank-col-container"></div>
+</div>

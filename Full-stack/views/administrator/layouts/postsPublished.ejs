@@ -1,0 +1,31 @@
+<% articleList.forEach((article, index) => { %>
+<div id="js-article__<%= article._id %>" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+    <div class="card card-small card-post card-post--1">
+        <a class="text-fiord-blue" href="/article/<%= article.slug %>" target="_blank">
+            <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
+                    <%
+                    var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
+                    %><p class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></p>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title mb-2">
+                    <a class="text-fiord-blue" href="/article/<%= article.slug %>"
+                        target="_blank"><%= article.title %></a>
+                </h5>
+                <p class="card-text mb-3"><%= article.abstract %></p>
+                <span class="text-muted">
+                    <script>
+                        document.writeln(moment(parseInt("<%= article.publishedAt %>", 10)).format('LLLL'))
+                    </script>
+                </span>
+
+                <div class="post-actions w-75 mx-auto mt-3">
+                    <button articleId="<%= article._id %>" class="btn btn-danger w-100 js-delete__postPublished--btn">Delete</button>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+<% }) %>

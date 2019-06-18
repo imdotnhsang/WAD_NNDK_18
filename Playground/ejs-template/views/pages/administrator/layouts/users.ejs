@@ -1,0 +1,177 @@
+<div class="col">
+    <div class="card card-small mb-4">
+        <div class="card-header border-bottom pb-0">
+            <div class="row pb-3 border-bottom">
+                <div class="col my-auto">
+                    <h6 class="m-0">List of Users</h6>
+                </div>
+                <div class="col">
+                    <div class="input-group border-bottom w-50 ml-auto">
+                        <select class="custom-select" id="js-user-type-select">
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer">Writer</option>
+                            <option value="editor">Editor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-0 pb-0 text-center">
+                <table class="table mb-0" id="js-subscriber-table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0">#</th>
+                            <th scope="col" class="border-0">Fullname</th>
+                            <th scope="col" class="border-0">Email</th>
+                            <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0">Registration Date</th>
+                            <th scope="col" class="border-0">Expiration date</th>
+                            <th scope="col" class="border-0">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Subscriber 1</td>
+                            <td>subscriber1@gmail.com</td>
+                            <td>01/01/1998</td>
+                            <td>01/04/2019</td>
+                            <td>22/04/2019</td>
+                            <td>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Subscriber 2</td>
+                            <td>subscriber2@gmail.com</td>
+                            <td>01/01/1998</td>
+                            <td>01/04/2019</td>
+                            <td>22/04/2019</td>
+                            <td>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Subscriber 3</td>
+                            <td>subscriber3@gmail.com</td>
+                            <td>01/01/1998</td>
+                            <td>01/04/2019</td>
+                            <td>22/04/2019</td>
+                            <td>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table mb-0" id="js-writer-table" style="display: none;">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0">#</th>
+                            <th scope="col" class="border-0">Fullname</th>
+                            <th scope="col" class="border-0">Email</th>
+                            <th scope="col" class="border-0">Pseudonym</th>
+                            <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Writer 1</td>
+                            <td>writer1@gmail.com</td>
+                            <td>Pseudonym 1</td>
+                            <td>01/01/1998</td>
+                            <td>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Writer 2</td>
+                            <td>writer2@gmail.com</td>
+                            <td>Pseudonym 2</td>
+                            <td>01/01/1998</td>
+                            <td>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Writer 3</td>
+                            <td>writer3@gmail.com</td>
+                            <td>Pseudonym 3</td>
+                            <td>01/01/1998</td>
+                            <td>
+                                <button class="btn btn-md btn-accent ml-auto">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table mb-0" id="js-editor-table" style="display: none;">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0">#</th>
+                            <th scope="col" class="border-0">Fullname</th>
+                            <th scope="col" class="border-0">Email</th>
+                            <th scope="col" class="border-0">Birthday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Editor 1</td>
+                            <td>editor1@gmail.com</td>
+                            <td>01/01/1998</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Editor 2</td>
+                            <td>editor2@gmail.com</td>
+                            <td>01/01/1998</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Editor 3</td>
+                            <td>editor3@gmail.com</td>
+                            <td>01/01/1998</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="border-top">
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item mr-1">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item mr-1 active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item mr-1"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item mr-1"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

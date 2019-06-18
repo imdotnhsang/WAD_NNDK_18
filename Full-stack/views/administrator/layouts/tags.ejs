@@ -1,0 +1,51 @@
+<div class="col-lg-10 mx-auto">
+    <div class="card card-small mb-4">
+        <div class="card-header border-bottom pb-0">
+            <div class="row pb-3 border-bottom">
+                <div class="col-7">
+                    <h6 class="m-0">List of Tags</h6>
+                </div>
+                <div class="col-2">
+                    <div class="input-group border-bottom ml-auto">
+                        <select class="custom-select" id="js-tags-type-select">
+                            <option value="-1">All tags</option>
+                            <option value="0">Not activated</option>
+                            <option value="1">Activated</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3 ml-auto">
+                    <div class="input-group border-bottom ml-auto">
+                        <input id="js-addNewTag-input" type="text" class="form-control" placeholder="Add New Tag" aria-label="Add new tag"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button id="js-addNewTag-btn" class="btn btn-white px-2" type="button">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body py-0">
+                <table class="table mb-0 js-tags-table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0 text-center">#</th>
+                            <th scope="col" class="border-0 text-center">Tag</th>
+                            <th scope="col" class="border-0 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="border-top">
+                <ul class="pagination justify-content-center mt-3" id="js-tag__pagination">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

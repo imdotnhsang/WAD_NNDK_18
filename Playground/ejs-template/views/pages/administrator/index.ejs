@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="no-js h-100" lang="en">
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body class="h-100">
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+                <% include partials/sidebar %>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+                <div class="main-navbar sticky-top bg-white">
+                    <% include partials/navbar %>
+                </div>
+
+                <div class="main-content-container container-fluid px-4">
+                    <!-- Page Header -->
+                    <div class="page-header row no-gutters py-4">
+                        <% include partials/header %>
+                    </div>
+
+                    <!-- Page Content -->
+                    <div class="row">
+                        <%- include(layout) %>
+                    </div>
+                </div>
+
+                <!-- Page Footer -->
+                <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+                    <% include partials/footer %>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <%- include('partials/scripts') %>
+</body>
+
+</html>

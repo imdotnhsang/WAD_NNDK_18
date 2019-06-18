@@ -1,0 +1,28 @@
+<% articleList.forEach((article, index) => { %>
+<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+    <div class="card card-small card-post card-post--1">
+        <a href="/article/<%= article.slug %>" target="_blank">
+            <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
+
+                <%
+                    var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
+                    %><p class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>">
+                    <%= article.categories[article.categories.length - 1].title %></p><%
+                  %>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a class="text-fiord-blue" href="/article/<%= article.slug %>" target="_blank"><%= article.title %></a>
+                </h5>
+                <p class="card-text mb-3"><%= article.abstract %></p>
+                <span class="text-muted">
+                    <script>
+                        document.writeln(moment(parseInt("<%= article.publishedAt %>", 10)).format('LLLL'))
+                    </script>
+                </span>
+            </div>
+        </a>
+    </div>
+</div>
+<% }) %>

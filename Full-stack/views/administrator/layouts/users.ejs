@@ -1,0 +1,302 @@
+<div class="col">
+    <div class="card card-small mb-4">
+        <div class="card-header border-bottom pb-0">
+            <div class="row pb-3 border-bottom">
+                <div class="col my-auto">
+                    <h6 class="m-0">List of Users</h6>
+                </div>
+                <div class="row m-0 pr-3">
+                    <button class="btn btn-white px-2 mr-1" id="js-add-user" type="button">
+                        <i class="material-icons">add</i>
+                    </button>
+                    <div class="input-group border-bottom w-50 ml-auto">
+                        <select class="custom-select" id="js-user-type-select">
+                            <% if (right==="subscriber"){ %>
+                            <option value="subscriber" selected>Subscriber</option>
+                            <option value="writer">Writer</option>
+                            <option value="editor">Editor</option>
+                            <% } else if(right==="writer"){ %>
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer" selected>Writer</option>
+                            <option value="editor">Editor</option>
+                            <% } else if (right === "editor") { %>
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer">Writer</option>
+                            <option value="editor" selected>Editor</option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="addUser__modal-background">
+                <div class="addUser__modal" id="addUser__modal">
+                    <div class="changeAvatar__modal_header d-flex justify-content-end">
+                        <div class="btn text-dark" id="btn_addUser_fail"><i class="fas fa-window-close fa-2x"></i></div>
+                    </div>
+                    <div class="p-3">
+                        <div class="form-group">
+                            <label for="fullname">Fullname</label>
+                            <input name="fullname" type="text" class="form-control" id="js-fullname-addUser-input"
+                                placeholder="Enter your fullname">
+                            <span class="field-validation-error" id="js-fullname-addUser-errmsg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input name="username" type="text" class="form-control" id="js-username-addUser-input"
+                                placeholder="Enter your username">
+                            <span class="field-validation-error" id="js-username-addUser-errmsg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input name="email" type="text" class="form-control" id="js-email-addUser-input"
+                                placeholder="Enter your email">
+                            <span class="field-validation-error" id="js-email-addUser-errmsg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input name="password" type="password" class="form-control" id="js-password-addUser-input"
+                                placeholder="Enter your password">
+                            <span class="field-validation-error" id="js-password-addUser-errmsg"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="retypePassword">Retype password</label>
+                            <input name="retypePassword" type="password" class="form-control"
+                                id="js-retypePassword-addUser-input" placeholder="Enter your retype password">
+                            <span class="field-validation-error" id="js-retypePassword-addUser-errmsg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="right">Right</label>
+                            <select name="right" class="custom-select" id="js-right-addUser-select">
+                                <option value="">Choose your right</option>
+                                <option value="editor">Editor</option>
+                                <option value="writer">Writer</option>
+                            </select>
+                            <span class="field-validation-error" id="js-right-addUser-errmsg"></span>
+                        </div>
+
+                        <div class="form-group" id="js-pseudonym-form" style="display: none;">
+                            <label for="pseudonym">Pseudonym</label>
+                            <input name="pseudonym" type="text" class="form-control" id="js-pseudonym-addUser-input"
+                                placeholder="Enter your pseudonym">
+                            <span class="field-validation-error" id="js-pseudonym-addUser-errmsg"></span>
+                        </div>
+                        <div class="form-group" id="js-categoryManage-form" style="display: none;">
+                            <label for="categorymanage">Category Management</label>
+                            <select name="right" class="custom-select" id="js-categoryManage-addUser-select">
+                                <% categoryList.forEach(function(eachCategory){ %>
+                                <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
+                                <%}) %>
+
+                            </select>
+                            <span class="field-validation-error" id="js-right-addUser-errmsg"></span>
+                        </div>
+                    </div>
+                    <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+                        <div class="btn btn btn-success d-flex justify-content-center" id="btn_addUser_success">Save
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-0 pb-0 text-center">
+                <% if (right === "subscriber"){ %>
+                <table class="table mb-0" id="js-subscriber-table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0">#</th>
+                            <th scope="col" class="border-0">Fullname</th>
+                            <th scope="col" class="border-0">Email</th>
+                            <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0">Expiration date</th>
+                            <th scope="col" class="border-0">Action</th>
+                        </tr>
+                    </thead>
+                    <% var index = 1 %>
+                    <tbody>
+                        <% userList.forEach(function(eachUser){ %>
+                        <tr>
+                            <td><%= index++ %></td>
+                            <td><%= eachUser.fullname %></td>
+                            <td><%= eachUser.email %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <% if (eachUser.expiredAt < Date.now()) { %>
+                                <button class="btn btn-md btn-accent ml-auto btn-renew-mangageuser" email="<%= eachUser.email %>">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                                <% } %>
+                            </td>
+                        </tr>
+
+                        <%})%>
+                    </tbody>
+                </table>
+                <% } else if(right==="writer"){ %>
+                <table class="table mb-0" id="js-writer-table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0">#</th>
+                            <th scope="col" class="border-0">Fullname</th>
+                            <th scope="col" class="border-0">Email</th>
+                            <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0">Pseudonym</th>
+                            <th scope="col" class="border-0">Expiration date</th>
+                            <th scope="col" class="border-0">Action</th>
+                        </tr>
+                    </thead>
+                    <% var index = 1 %>
+                    <tbody>
+                        <% userList.forEach(function(eachUser){ %>
+                        <tr>
+                            <td><%= index++ %></td>
+                            <td><%= eachUser.fullname %></td>
+                            <td><%= eachUser.email %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td><%= eachUser.pseudonym %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <% if (eachUser.expiredAt < Date.now()) { %>
+                                <button class="btn btn-md btn-accent ml-auto btn-renew-mangageuser" email="<%= eachUser.email %>" >
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <%})%>
+                    </tbody>
+                </table>
+                <% } else if (right==="editor") { %>
+                <table class="table mb-0" id="js-editor-table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="border-0">#</th>
+                            <th scope="col" class="border-0">Fullname</th>
+                            <th scope="col" class="border-0">Email</th>
+                            <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0"> Category </th>
+                            <th scope="col" class="border-0">Expiration date</th>
+                            <th scope="col" class="border-0">Action</th>
+
+                        </tr>
+                    </thead>
+                    <% var index = 1 %>
+                    <tbody>
+                        <% userList.forEach(function(eachUser){ %>
+                        <tr>
+                            <td><%= index++ %></td>
+                            <td><%= eachUser.fullname %></td>
+                            <td><%= eachUser.email %></td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <select name="right" class="custom-select w-100 js-category-management-select"
+                                    id="<%= eachUser._id %>">
+                                    <% categoryList.forEach(function(eachCategory){ 
+                                            var selected = (eachUser.categoriesManagement.toString() === eachCategory._id.toString() ? "selected" : "");
+                                    %>
+                                    <option value="<%= eachCategory._id %>" <%=selected %> >
+                                        <%= eachCategory.title %></option>
+                                   <%})%>
+                                </select>
+                            </td>
+                            <td>
+                                <script>
+                                    document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                </script>
+                            </td>
+                            <td>
+                                <% if (eachUser.expiredAt < Date.now()) { %>
+                                <button class="btn btn-md btn-accent ml-auto btn-renew-mangageuser" email="<%= eachUser.email %>">
+                                    <i class="material-icons">file_copy</i> Renew
+                                </button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <%})%>
+                    </tbody>
+                </table>
+                <% } %>
+            </div>
+
+            <div class="border-top mb-5">
+                <!-- <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item mr-1">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item mr-1 active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item mr-1"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item mr-1"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade adduser-success__modal" id="adduser-success__modal" tabindex="-1" role="dialog"
+    aria-labelledby="adduser-success__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="adduser-success__modalLabel">Congratulations</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3" id="adduser-success__modalContent">
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OKAY</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade adduser-errors__modal" id="adduser-errors__modal" tabindex="-1" role="dialog"
+    aria-labelledby="adduser-errors__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="adduser-errors__modalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3" id="adduser-errors__modalContent">
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

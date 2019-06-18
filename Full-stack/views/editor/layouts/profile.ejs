@@ -1,0 +1,129 @@
+<div class="col">
+    <div class="card card-small mb-4">
+        <div class="card-header border-bottom pb-0">
+            <div class="row pb-3 border-bottom">
+                <div class="img-avatar d-flex m-auto">
+                    <img src="<%= account.avatar ? account.avatar : '/images/avatars/none.jpg' %>" alt="" width="110" height="110">
+                    <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
+                    <input type="file" id="pic-avatar" name="pic" accept="image/*">
+                </div>
+            </div>
+
+            <div class="card-body my-2">
+                <form class="w-75 m-auto" style="font-size: 15px;">
+                    <div class="form-group">
+                        <label for="fullname">Fullname</label>
+                        <input type="text" class="form-control" id="js-fullname-input" placeholder="Enter your fullname"
+                            value="<%= account.fullname %>">
+                        <span class="field-validation-error" id="js-fullname-errmsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="js-email-input" placeholder="Enter your email"
+                            value="<%= account.email %>" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Gender</label>
+                        <select class="custom-select" id="js-gender-select">
+                            <option value="">Choose your gender</option>
+                            <option value="false">Male</option>
+                            <option value="true">Female</option>
+                        </select>
+                        <span class="field-validation-error" id="js-gender-errmsg"></span>
+
+                        <script>
+                            const genderVal = '<%= account.gender %>';
+                            if (genderVal.length > 0) {
+                                document.getElementById('js-gender-select').value = genderVal;
+                            }
+                        </script>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthday">Birthday</label>
+
+                        <div class="d-flex">
+                            <input id="js-birthday-input" type="text" class="input-sm form-control" name="birthday"
+                                placeholder="Enter your birthday">
+                            <span class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i> </span>
+                            </span>
+                            <span class="field-validation-error" id="js-birthday-errmsg"></span>
+
+                            <script>
+                                const birthdayMS = parseInt('<%= account.birthday %>', 10);
+
+                                if (!isNaN(birthdayMS)) {
+                                    const date = new Date(birthdayMS),
+                                        month = ("0" + (date.getMonth() + 1)).slice(-2),
+                                        day = ("0" + date.getDate()).slice(-2),
+                                        year = date.getFullYear();
+
+                                    document.getElementById('js-birthday-input').value = `${month}/${day}/${year}`;
+                                }
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="border">
+                        <div class="d-flex ml-2 p-2">
+                            <i class="fas fa-key my-auto"></i>
+                            <span class="my-auto ml-3">Change password</span>
+                            <button id="js-button-change-password" class="btn btn-white ml-auto" type="button">
+                                <i class="far fa-edit"></i>
+                            </button>
+                        </div>
+
+                        <div id="js-form-change-password" style="display: none;">
+                            <div class="border-bottom mt-2"></div>
+                            <div class="form-group w-75 mx-auto my-4">
+                                <div class="form-group">
+                                    <div class="d-flex">
+                                        <label class="w-25" for="currentPassword">Current</label>
+                                        <input type="password" class="input-sm form-control"
+                                            id="js-currentPassword-input">
+                                    </div>
+                                    <span class="field-validation-error" id="js-currentPassword-errmsg"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="d-flex">
+                                        <label class="w-25" for="newPassword">New</label>
+                                        <input type="password" class="input-sm form-control" id="js-newPassword-input">
+                                    </div>
+                                    <span class="field-validation-error" id="js-newPassword-errmsg"></span>
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <div class="d-flex">
+                                        <label class="w-25" for="retypeNewPassword">Retype new</label>
+                                        <input type="password" class="input-sm form-control"
+                                            id="js-retypeNewPassword-input">
+                                    </div>
+                                    <span class="field-validation-error" id="js-retypeNewPassword-errmsg"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-accent mt-3" id="js-update-account-btn">Update Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="changeAvatar__modal-background">
+    <div class="changeAvatar__modal" id="changeAvatar__modal">
+        <div class="changeAvatar__modal_header d-flex justify-content-end">
+            <div class="btn text-dark" id="btn_changeAvatar_fail"><i class="fas fa-window-close fa-2x"></i></div>
+        </div>
+        <div class="img_change pl-4 pr-4 pt-4 pb-4 d-flex align-items-center">
+            <img class="w-100 h-100" id="avatar-change" src="<%= account.avatar %>" alt="">
+        </div>
+        <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+            <div class="btn btn btn-success d-flex justify-content-center" id="btn_changeAvatar_success">Set new profile picture</div>
+        </div>
+    </div>
+</div>

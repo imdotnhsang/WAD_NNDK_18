@@ -1,0 +1,53 @@
+<% articleList.forEach((article, index) => { %>
+<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+  <div class="card card-small card-post card-post--1">
+    <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
+      <%
+                    var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
+                    %><a href=""
+        class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></a><%
+                  %>
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title">
+        <a class="text-fiord-blue" href="/article/<%= article.slug %>"><%= article.title %></a>
+      </h5>
+      <p class="card-text mb-3"><%= article.abstract %></p>
+      <span class="text-muted">
+        <script>
+          document.writeln(moment(parseInt("<%= article.createdAt %>", 10)).format('LLLL'))
+        </script>
+      </span>
+
+      <div class="post-actions mx-auto d-flex mt-3">
+        <button indexBtn='<%= index++ %>' id="view-reason__btn" class="btn btn-info mx-2 view-reason__btn" reasonDenied="<%= article.reasonDenied %>"
+          data-toggle="modal" data-target="#modal__reasonDenied">
+          View reason
+      </button>
+      </div>
+    </div>
+  </div>
+</div>
+<% }) %>
+
+<div class="container">
+  <div class="modal fade " id="modal__reasonDenied">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header p-3">
+          <h5 class="modal-title">Reason Denied</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div id="contentReason" class="modal-body pt-2 pb-2 pl-3 pr-3">
+                  
+        </div>
+
+        <div class="modal-footer pt-2 pb-2 pr-3">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

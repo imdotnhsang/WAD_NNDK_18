@@ -1,0 +1,366 @@
+.container-hashtag .title-hashtag {
+    border-bottom: 5px solid #efeff0;
+    color: #424242;
+}
+
+.container-hashtag .title-hashtag span {
+    font-weight: 400!important;
+    background: #e5127d;
+    color: #fff;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .img-result-hashtag {
+    overflow: hidden;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .img-result-hashtag img {
+    transition: transform .5s;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .img-result-hashtag:hover img {
+    transform: scale(1.2) translate(0, -10px);
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag {
+    border-top: 1px solid #c1c1c1;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+    color: #424242;
+    font-size: 18px;
+    font-weight: 700;
+    transition: color .3s;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag:hover {
+    text-decoration: none;
+    color: #b60e63;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a {
+    color: #e5127d;
+    font-weight: 500;
+    transition: color .3s;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a:hover {
+    text-decoration: none;
+    color: #b60e63;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author .date-posted {
+    color: #6a6a6a;
+    font-weight: 500;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .abstract-result-hashtag {
+    color: #888888;
+    font-weight: 400;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .list-tags span {
+    font-weight: 400!important;
+    background: #ebebeb;
+    color: #555;
+    transition: all .75s;
+}
+
+.container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .list-tags span:hover {
+    cursor: pointer;
+    font-weight: 400!important;
+    background: #555;
+    color: #fff;
+}
+
+.container-hashtag .list-results-hashtag .count-results div#content_pagination {
+    font-size: 14px;
+    padding: 10px 0px;
+    background: #efeff0;
+    color: #626262;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    font-weight: 500;
+}
+
+.container-hashtag .list-results-hashtag .count-results div#btn_next {
+    padding: 10px 0px;
+    background: #e5127d;
+    color: #fff;
+    transition: background .3s;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.container-hashtag .list-results-hashtag .count-results div#btn_prev {
+    padding: 10px 0px;
+    background: #e5127d;
+    color: #fff;
+    transition: background .3s;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.container-hashtag .list-results-hashtag .count-results div#btn_next a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.container-hashtag .list-results-hashtag .count-results div#btn_prev a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.container-hashtag .list-results-hashtag .count-results div#btn_next:hover {
+    background: #b60e63;
+}
+.container-hashtag .list-results-hashtag .count-results div#btn_prev:hover {
+    background: #b60e63;
+}
+
+.container-hashtag .select-category-hashtag select {
+    outline: 0;
+    background: #eee;
+    color: #000;
+    font-size: 14px;
+    border: 0;
+    padding: 7px 25px 7px 15px;
+    border-radius: 3px;
+}
+
+.container-hashtag .select-category-hashtag select option {
+    font-size: 14px;
+}
+
+.container-hashtag .list-results-hashtag .count-results div.disabled:hover {
+    cursor: default;
+    background: #e5127d;
+    opacity: .65;
+}
+
+#badge-premium {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(0, 0);
+    padding: 7px 14px;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    font-size: 19px;
+}
+
+@media screen and (max-width: 993px) {
+    .container-hashtag .title-hashtag span {
+        font-size: 25px;
+        padding: 15px 40px;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#content_pagination p {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_next {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_prev {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    #badge-premium {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0, 0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 767px) {}
+
+@media screen and (max-width: 575px) {
+    .container-hashtag .description-hashtag .abstract-hashtag p {
+        font-size: 13px;
+    }
+    .container-hashtag .description-hashtag .title-hashtag h3 {
+        font-size: 20px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+        font-size: 13px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a {
+        font-size: 12px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author .date-posted {
+        font-size: 12px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .abstract-result-hashtag {
+        font-size: 12px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag {
+        line-height: 1.2;
+    }
+    .container-hashtag .title-hashtag span {
+        font-size: 22px;
+        padding: 12px 40px;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#content_pagination p {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_next {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_prev {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    #badge-premium {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0, 0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 413px) {
+    #badge-premium {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(0, 0);
+        padding: 6px 12px;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .container-hashtag .description-hashtag .abstract-hashtag p {
+        font-size: 16px;
+    }
+    .container-hashtag .description-hashtag .title-hashtag h3 {
+        font-size: 24px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+        font-size: 16px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a {
+        font-size: 15px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author .date-posted {
+        font-size: 15px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .abstract-result-hashtag {
+        font-size: 14px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag {
+        line-height: 1.3;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container-hashtag .description-hashtag .abstract-hashtag p {
+        font-size: 17px;
+    }
+    .container-hashtag .description-hashtag .title-hashtag h3 {
+        font-size: 28px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+        font-size: 17px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+        font-size: 18px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a {
+        font-size: 16px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author .date-posted {
+        font-size: 16px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .abstract-result-hashtag {
+        font-size: 15px;
+    }
+    .container-hashtag .description-hashtag .abstract-hashtag p {
+        font-size: 18px;
+    }
+    .container-hashtag .description-hashtag .title-hashtag h3 {
+        font-size: 30px;
+    }
+    .container-hashtag .title-hashtag span {
+        font-size: 28px;
+        padding: 20px 50px;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#content_pagination p {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_next {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .container-hashtag .list-results-hashtag .count-results div#btn_prev {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+        font-size: 18px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a {
+        font-size: 15px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author .date-posted {
+        font-size: 15px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .abstract-result-hashtag {
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .container-hashtag .description-hashtag .abstract-hashtag p {
+        font-size: 20px;
+    }
+    .container-hashtag .description-hashtag .title-hashtag h3 {
+        font-size: 35px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .title-result-hashtag {
+        font-size: 20px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author a {
+        font-size: 16px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .author .date-posted {
+        font-size: 16px;
+    }
+    .container-hashtag .list-results-hashtag .result-hashtag .description-result-hashtag .abstract-result-hashtag {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 1600px) {}
+
+@media screen and (min-width: 1800px) {}

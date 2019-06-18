@@ -1,0 +1,52 @@
+<script src="/assets/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="/assets/jquery/popper.min.js" type="text/javascript"></script>
+<script src="/assets/owlcarousel/owl.carousel.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/javascripts/utils/index.js" type="text/javascript"></script>
+<script src="/javascripts/guest-subscriber/script.js" type="text/javascript"></script>
+<!-- <script src="/javascripts/guest-subscriber/jspdf.min.js" type="text/javascript"></script> -->
+<script type="text/javascript" src='/javascripts/guest-subscriber/jspdf.min.js'></script>
+<script type="text/javascript" src='/javascripts/guest-subscriber/printThis.js'></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="<%= srcScript %>"></script>
+
+<script>
+    $('#date-posted-main').html(formatDateTypeFull($('#date-posted-main').html()));
+
+    var formatDateArticlesMini = document.querySelectorAll('#date-posted');
+    for (j = 0; j < formatDateArticlesMini.length; j++) {
+        formatDateArticlesMini[j].innerHTML = formatDateTypeAbstract(formatDateArticlesMini[j].innerHTML);
+    };
+    var formatDateComments = document.querySelectorAll('#date-commented');
+    for (i = 0; i < formatDateComments.length; i++) {
+        formatDateComments[i].innerHTML = formatDateTypeFull(formatDateComments[i].innerHTML);
+    };
+</script>
+
+<% if(account){ %>
+<script>
+    $('#bod_acccount').html(formatDateTypeBOD($('#bod_acccount').html()));
+    $('#expiry-date').html(formatDateTypeBOD($('#expiry-date').html()));
+    document.getElementById('updateInf__bod').value = formatDateTypeBOD(document.getElementById('updateInf__bod').value);
+</script>
+<% if(account.expiredAd > Date.now()){ %>
+<script>
+    $(document).ready(function () {
+        $("#updateInf__bod").datepicker({});
+    });
+
+
+    var oldFname = document.getElementById('updateInf__fullname').value;
+    var oldGend = document.getElementById('updateInf__gender').value;
+    var oldBod = document.getElementById('updateInf__bod').value;
+    $('#updateInf__btnCancel').click(function (e) {
+        document.getElementById('updateInf__fullname').value = oldFname;
+        document.getElementById('updateInf__gender').value = oldGend;
+        document.getElementById('updateInf__bod').value = oldBod;
+        document.getElementById('updateInf__email').value = document.getElementById('updateInf__email').value;
+        clearEditProfileErrors();
+    });
+
+</script>
+<% } %>
+<% } %>

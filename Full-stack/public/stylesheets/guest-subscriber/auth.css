@@ -1,0 +1,136 @@
+.container-sign .title-page-sign {
+    color: #424242;
+    font-weight: 700;
+}
+
+.container-sign .sign-up_sign-in .nav-tabs {
+    transform: translate(0, 2px);
+}
+
+.container-sign .sign-up_sign-in .nav-item a {
+    font-weight: 400;
+    font-size: 20px;
+    color: #e2127d;
+    transition: color .3s;
+}
+
+.container-sign .sign-up_sign-in .nav-item a:hover {
+    color: #b60e63;
+}
+
+.container-sign .tab-content .sign-social {
+    list-style: none;
+}
+
+.container-sign .tab-content .sign-social li {
+    padding: 2px;
+}
+
+.container-sign .tab-content .sign-social li i {
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.5em;
+    opacity: .8;
+    transition: opacity .3s;
+}
+
+.container-sign .tab-content .sign-social li i:hover {
+    opacity: 1;
+}
+
+.container-sign .tab-content .sign-social li:first-child i {
+    background: #325A97;
+    padding: 20px 25px;
+}
+
+.container-sign .tab-content .sign-social li:last-child i {
+    background: #dd4b39;
+    padding: 20px 16px;
+}
+
+.container-sign .tab-content .btn-custom {
+    background: #e2127d;
+    color: #fff;
+    transition: background .2s;
+}
+
+.container-sign .tab-content .btn-custom:hover {
+    background: #b60e63;
+}
+
+.container-sign .tab-content .forgot a {
+    font-size: 13px;
+    color: #e2127d;
+}
+
+.sign-up_sign-in__modal .modal-title-custom {
+    font-size: 22px;
+}
+
+.sign-up_sign-in__modal .modal-body-custom, .sign-up_sign-in__modal .modal-footer-custom {
+    font-size: 16px;
+}
+
+.container-sign #forgotPwd,.container-sign #emailForgotPwd,
+.container-sign #codeActivation, .container-sign #emailActivation,.container-sign #resetPwd {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.container-sign #forgotPwd .content .title, .container-sign #emailForgotPwd .content .title,
+.container-sign #codeActivation .content .title, .container-sign #emailActivation .content .title,.container-sign #resetPwd .content .title {
+    padding-bottom: 5px;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+}
+.container-sign #forgotPwd .content .warning, .container-sign #forgotPwd .content .notice,.container-sign #emailForgotPwd .content .warning,.container-sign #emailForgotPwd .content .notice,
+.container-sign #codeActivation .content .warning, .container-sign #codeActivation .content .notice,.container-sign #emailActivation .content .warning,.container-sign #emailActivation .content .notice,.container-sign #resetPwd .content .warning {
+    font-size: 13px;
+}
+
+.container-sign #forgotPwd .control,.container-sign #emailForgotPwd .control, 
+.container-sign #codeActivation .control,.container-sign #emailActivation .control,.container-sign #resetPwd .control {
+    border-top: 1px solid #ccc;
+    padding-top: 9px;
+
+}
+.container-sign #forgotPwd .error_noCode a,.container-sign #emailForgotPwd .error_noCode a,
+.container-sign #codeActivation .error_noCode a,.container-sign #emailActivation .error_noCode a {
+font-size: 13px;
+color: #e2127d;
+}
+
+.container-sign #forgotPwd .btns-done-reset button,.container-sign #emailForgotPwd .btns-done-reset button,
+.container-sign #codeActivation .btns-done-reset button,.container-sign #emailActivation .btns-done-reset button,.container-sign #resetPwd .btns-done-reset button {
+    font-weight: 500;
+    border-radius: 35px;
+    font-size: 13px;
+}
+
+.container-sign #forgotPwd .btns-done-reset .btn-cancel,.container-sign #emailForgotPwd .btns-done-reset .btn-cancel,
+.container-sign #codeActivation .btns-done-reset .btn-cancel,.container-sign #emailActivation .btns-done-reset .btn-cancel {
+    background: transparent;
+}
+.container-sign .forgotPwd{
+    display: none;
+}
+
+span.field-validation-error {
+    color: #b94a48;
+    font-size: 10pt;
+    clear: both;
+}
+
+@media screen and (min-width: 576px) {
+    .container-sign .title-page-sign p {
+        font-family: 'Titan One', cursive;
+        font-size: 48px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .container-sign .title-page-sign p {
+        font-family: 'Titan One', cursive;
+        font-size: 40px;
+    }
+}

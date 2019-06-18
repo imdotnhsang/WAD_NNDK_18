@@ -1,0 +1,130 @@
+<form class="add-new-post row m-0">
+    <div class="col-lg-9 col-md-12">
+        <!-- Add New Post Form -->
+        <div class="card card-small mb-3">
+            <div class="card-body">
+                <!-- <form class="add-new-post"> -->
+                <input class="form-control form-control-lg mb-3" id="title" type="text" placeholder="Your Post Title">
+                <div class="comsume_content">
+                    <textarea id="sumarry" class="form-control form-control-lg mb-3" rows="3" cols="106"
+                        placeholder="Summary of your article here"></textarea>
+                </div>
+                <div class="post_editor_content">
+                    <textarea id="editor" name="editor" rows="3" cols=106></textarea>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+        <!-- / Add New Post Form -->
+    </div>
+    <div class="col-lg-3 col-md-12 m-0">
+        <!-- Post Overview -->
+        <div class='card card-small mb-3'>
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Tags</h6>
+            </div>
+            <div class='card-body p-0'>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item d-flex px-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Add tag">
+                            <div class="input-group-append">
+                                <button class="btn btn-white px-2" type="button">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- / Post Overview -->
+        <!-- Post Overview -->
+        <div class='card card-small mb-3'>
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Categories</h6>
+            </div>
+            <% var valP = 1 %>
+            <% var valC = 1 %>
+            <div class='card-body p-0'>
+                <div class="form-check radiobutton">
+                    <label class="form-check-label" for="radioParent">
+                        <input type="radio" class="form-check-input" id="radioP1" name="optradio" value="optionParent">
+                        Phone
+                    </label>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" nameParent="radioP1" id="radioP1_C1" name="optradio1"
+                                value="optionChild">Apple
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C2" name="optradio"
+                                value="optionChild">Samsung
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C1" name="optradio"
+                                value="optionChild">Xiaomi
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C2" name="optradio"
+                                value="optionChild">Nokia
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C1" name="optradio"
+                                value="optionChild">Oppo
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C2" name="optradio"
+                                value="optionChild">Huawei
+                        </label>
+                    </div>
+                </div>
+                <div class="form-check radiobutton">
+                    <label class="form-check-label" for="radio2">
+                        <input type="radio" class="form-check-input" id="radioP2" name="optradio1" value="option1">Laptop
+                    </label>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C2" name="optradio"
+                                value="optionChild">Macbook
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C1" name="optradio"
+                                value="optionChild">Dell
+                        </label>
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioP1_C2" name="optradio"
+                                value="optionChild">HP
+                        </label>
+                    </div>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex px-3">
+                        <button class="btn btn-sm btn-outline-accent">
+                            <i class="material-icons">save</i>Save Draft</button>
+                        <button type="submit" id="btn_publish" class="btn btn-sm btn-accent ml-auto">
+                            <i class="material-icons">file_copy</i>Publish</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- / Post Overview -->
+    </div>
+</form>

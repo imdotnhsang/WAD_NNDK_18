@@ -1,0 +1,306 @@
+<div class="container-information row m-0 p-2 p-xl-0">
+    <div class="col-xl-2 col-0 p-0 m-0 blank-col-container">
+    </div>
+    <div class="main-container-information row m-0 col-xl-8 col-12 p-0">
+        <ul id="clothing-nav" class="nav nav-tabs col-md-3 p-0" role="tablist">
+            <% if(account.avatar == undefined){ %>
+            <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
+                    src="/images/avatars/none.jpg" alt=""></div>
+            <% }else{ %>
+                <div class="img-avatar col-12 d-flex justify-content-center align-items-center pt-4 pb-4"><img class=""
+                    src="<%= account.avatar %>" alt=""></div>
+            <% } %>
+            <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
+                <a class="nav-link active d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#home" id="home-tab"
+                    role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i
+                        class="fa fa-user"></i><span>Account overview</span></a>
+            </li>
+            <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
+                <a class="nav-link d-flex align-items-center pt-3 pb-3 pl-3 pr-1 m-0" href="#edit_profile" role="tab"
+                    id="edit_profile-tab" data-toggle="tab" aria-controls="edit_profile"><i
+                        class="fa fa-pencil"></i><span>Edit profile</span></a>
+            </li>
+            <li class="nav-item col-4 col-md-12 pl-0 pr-0 m-0">
+                <a class="nav-link d-flex align-items-center pt-3 pb-3 pl-3 pr-1 m-0" href="#change_password" role="tab"
+                    id="change_password-tab" data-toggle="tab" aria-controls="change_password"><i
+                        class="fa fa-lock"></i><span>Change password</span></a>
+            </li>
+            <!-- <li class="nav-item col-3 col-md-12 pl-0 pr-0 m-0">
+                <a class="nav-link d-flex align-items-center pt-3 pb-3 pl-3 pr-1" href="#receipts" role="tab"
+                    id="receipts-tab" data-toggle="tab" aria-controls="receipts"><i
+                        class="fa fa-clock-o"></i><span>Receipts</span></a>
+            </li> -->
+            <li class="nav-item col-md-12 pl-0 pr-0 m-0">
+
+            </li>
+        </ul>
+        <div id="clothing-nav-content" class="tab-content col-md-9 p-4">
+            <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
+                <div class="title-tab">
+                    <p class="m-0">Account overview</p>
+                </div>
+                <br>
+                <div class="row m-0">
+                    <div class="p-0 pr-md-2 col-md-7 ">
+                        <div class="profile p-4">
+                            <div class="title-profile">
+                                <p class="m-0 pb-2">Profile</p>
+                            </div>
+                            <div class="content-profile">
+                                <div class="full-name">
+                                    <label class="m-0">Name</label>
+                                    <p id="fullname_account" class="content-name"><%= account.fullname %></p>
+                                </div>
+                                <div class="email">
+                                    <label class="m-0">Email</label>
+                                    <p class="content-email" id="renew__subscriber-email"><%= account.email %></p>
+                                </div>
+                                <div class="gender">
+                                    <label class="m-0">Gender</label>
+                                    <% if(isNaN(account.gender)){ %>
+                                    <p class="content-gender">&nbsp; </p>
+                                    <% } else { %>
+                                    <p id="gend_acccount" class="content-gender">
+                                        <%- account.gender ? 'Female' : 'Male' %></p>
+                                    <% } %>
+                                </div>
+
+                                <div class="birthday-temp">
+                                    <label class="m-0">Date of birth</label>
+                                    <% if(isNaN(account.birthday)){ %>
+                                    <p class="content-dob"> &nbsp;</p>
+                                    <% } else { %>
+                                    <p id="bod_acccount" class="content-dob"><%= account.birthday %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <div class="btn text-uppercase btn-edit-profile" id="btn_updateInfTab">Edit profile
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blank-row"></div>
+                    <div class="pl-md-2 p-0 col-md-5">
+                        <% if(account){ %>
+                        <% if(account.expiredAt > Date.now()){ %>
+                        <div class="status-account p-4">
+                            <div class="title-stt-account pt-2 pb-2">
+                                <p class="m-0 text-center"><i class="fa fa-check"></i>&nbsp;TBW Premium</p>
+                            </div>
+                            <div class="content-stt-account pt-2">
+                                <p class="m-0 text-center pt-3 pb-3">Your pre-paid TBD Premium will end on <span
+                                        class="expiry-date font-weight-bold"
+                                        id="expiry-date"><%= account.expiredAt %></span>.</p>
+                            </div>
+                            <br>
+                        </div>
+                        <% } else { %>
+                        <div class="status-account p-4">
+                            <div class="title-stt-account pt-2 pb-2">
+                                <p class="m-0 text-center">TBW Free</p>
+                            </div>
+                            <div class="content-stt-account pt-2">
+                                <p class="m-0 text-center pt-3 pb-3">You're currently TBW Free. We have an even better
+                                    service called TBW Premium. It lets you listen ad-free, on-demand and offline.</p>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <div class="btn text-uppercase btn-subscribe-premium" id="renew__subscriber-btn">
+                                    subscribe</div>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="edit_profile" aria-labelledby="hats-tab">
+                <div class="title-tab">
+                    <p class="m-0">Edit profile</p>
+                </div>
+                <br>
+                <form class="p-4">
+                    <div class="form-group">
+                        <div class="img-avatar d-flex justify-content-center">
+                                <% if(account.avatar == undefined){ %>
+                            <img id="profile-avatar" src="/images/avatars/none.jpg" alt="">
+                            <% }else{ %>
+                                <img id="profile-avatar" src="<%= account.avatar %>" alt="">
+                            <% } %>
+                            <label class="btn btn-change-avatar" for="pic-avatar"><i class="fa fa-camera"></i></label>
+                            <input type="file" id="pic-avatar" name="pic" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname" class="m-0">Full name</label>
+                        <input type="text" class="form-control" id="updateInf__fullname" placeholder="Leo Nguyen"
+                            value="<%= account.fullname %>" name="fullname">
+                        <span class="field-validation-error" id="editprofile__fullname-errmsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender" class="m-0">Gender</label>
+                        <select class="custom-select select-gender" id="updateInf__gender" name="gender">
+                            <% if(isNaN(account.gender)){ %>
+                            <option selected value="2">Choose your gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                            <% }else{ %>
+                            <% if(account.gender == false){ %>
+                            <option selected value="0">Male</option>
+                            <option value="1">Female</option>
+                            <% }else{ %>
+                            <option value="0">Male</option>
+                            <option selected value="1">Female</option>
+                            <% } %>
+                            <% } %>
+                        </select>
+                        <span class="field-validation-error" id="editprofile__gender-errmsg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthday" class="m-0">Date of birth</label>
+                        <div class="d-flex select-birthday">
+                            <input id="updateInf__bod" type="text" class="input-sm form-control" name="birthday"
+                                placeholder="8/16/98" value="<%= account.birthday %>">
+                            <span class="">
+                                <span class="">
+                                    <i class="fa fa-calendar"></i> </span>
+                            </span>
+                        </div>
+                        <span class="field-validation-error" id="editprofile__bod-errmsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="m-0">Email</label>
+                        <input disabled type="email" class="form-control" id="updateInf__email" placeholder=""
+                            value="<%= account.email %>">
+                    </div>
+                    <div class="row m-0 btns-done-edit justify-content-end align-items-center">
+                        <div class="pr-2">
+                            <button type="button" class="btn btn-cancel" id="updateInf__btnCancel">CANCEL</button>
+                        </div>
+                        <div class="pl-2">
+                            <button type="submit" class="btn btn-success" id="updateInf__btn">SAVE PROFILE</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal" id="changeAvatar__modal-background">
+                    <div class="changeAvatar__modal" id="changeAvatar__modal">
+                        <div class="changeAvatar__modal_header d-flex justify-content-end">
+                            <div class="btn text-dark" id="btn_changeAvatar_fail"><i class="fa fa-close"></i></div>
+                        </div>
+                        <div class="img_change pl-4 pr-4 pt-4 pb-4 d-flex align-items-center">
+                            <img class="w-100 h-100" id="avatar-change" src="<%= account.avatar %>" alt="">
+                        </div>
+                        <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
+                            <div class="btn btn btn-success d-flex justify-content-center"
+                                id="btn_changeAvatar_success">Set
+                                new profile picture
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="change_password" aria-labelledby="hats-tab">
+                <div class="title-tab">
+                    <p class="m-0">Change Password</p>
+                </div>
+                <br>
+                <form class="p-4">
+                    <div class="form-group">
+                        <label for='#update__pwdOld' class="m-0 pb-1">Password</label>
+                        <input type="password" class="form-control" id="updatePwd__pwdOld" placeholder="Old password">
+                        <span class="field-validation-error" id="changePassword__oldPwd-errmsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="updatePwd__pwdNew" placeholder="New password">
+                        <span class="field-validation-error" id="changePassword__newPwd-errmsg"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="updatePwd__pwdNewRe"
+                            placeholder="Retype new password">
+                        <span class="field-validation-error" id="changePassword__rePwd-errmsg"></span>
+                    </div>
+                    <div class="row m-0 btns-done-edit justify-content-end align-items-center">
+                        <div class="pr-2">
+                            <button type="button" class="btn btn-cancel" id="updatePwd__btnCancel">CANCEL</button>
+                        </div>
+                        <div class="pl-2">
+                            <button type="submit" class="btn btn-success" id="updatePwd__btn">SAVE PASSWORD</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- <div role="tabpanel" class="tab-pane fade" id="receipts" aria-labelledby="hats-tab">
+                <div class="title-tab">
+                    <p class="m-0">Receipts</p>
+                </div>
+                <br>
+                <div class="content-receipts pl-3 pr-3 pt-3 pb-5">
+                    <table class="list-receipts">
+                        <thead>
+                            <tr>
+                                <th>DATE</th>
+                                <th>EXP DATE</th>
+                                <th>REFERENCE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>4/29/19</td>
+                                <td>6/5/19</td>
+                                <td>1071957394562105-1</td>
+                            </tr>
+                            <tr>
+                                <td>11/19/18</td>
+                                <td>11/26/18</td>
+                                <td>998686695562108-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-xl-2 col-0 p-0 m-0 blank-col-container"></div>
+</div>
+<br>
+
+<div class="modal fade information-success__modal" id="information-success__modal" tabindex="-1" role="dialog"
+    aria-labelledby="information-success__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="information-success__modalLabel">Congratulations</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3" id="information-success__modalContent">
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OKAY</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade information-errors__modal" id="information-errors__modal" tabindex="-1" role="dialog"
+    aria-labelledby="information-errors__modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2 pl-3 pr-3">
+                <h4 class="modal-title modal-title-custom" id="information-errors__modalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom pt-2 pb-2 pl-3 pr-3" id="information-errors__modalContent">
+            </div>
+            <div class="modal-footer modal-footer-custom p-2">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
