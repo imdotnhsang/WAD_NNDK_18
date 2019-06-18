@@ -135,7 +135,8 @@ router.post('/update', (req, res) => {
         'id', 
         'reasonDenied', 
         'process',
-        "editor"
+        "editor",
+        "isPremium"
     ]);
 
     const { typeUpdate } = req.body;
