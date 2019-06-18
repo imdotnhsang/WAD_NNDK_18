@@ -104,7 +104,6 @@ router.post('/create', (req, res) => {
                                 'process',
                                 'reasonDenied',
                                 'writer',
-                                'editorId',
                                 'administratorId'
                             ])
 
@@ -135,8 +134,9 @@ router.post('/update', (req, res) => {
         'abstract', 
         'id', 
         'reasonDenied', 
-        'process']
-    );
+        'process',
+        "editor"
+    ]);
 
     const { typeUpdate } = req.body;
     
