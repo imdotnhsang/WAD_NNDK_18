@@ -12,17 +12,17 @@
                     <div class="input-group border-bottom w-50 ml-auto">
                         <select class="custom-select" id="js-user-type-select">
                             <% if (right==="subscriber"){ %>
-                                <option value="subscriber" selected>Subscriber</option>
-                                <option value="writer">Writer</option>
-                                <option value="editor">Editor</option>
+                            <option value="subscriber" selected>Subscriber</option>
+                            <option value="writer">Writer</option>
+                            <option value="editor">Editor</option>
                             <% } else if(right==="writer"){ %>
-                                <option value="subscriber">Subscriber</option>
-                                <option value="writer" selected>Writer</option>
-                                <option value="editor">Editor</option>
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer" selected>Writer</option>
+                            <option value="editor">Editor</option>
                             <% } else if (right === "editor") { %>
-                                <option value="subscriber">Subscriber</option>
-                                <option value="writer">Writer</option>
-                                <option value="editor" selected>Editor</option>
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer">Writer</option>
+                            <option value="editor" selected>Editor</option>
                             <% } %>
                         </select>
                     </div>
@@ -85,6 +85,16 @@
                                 placeholder="Enter your pseudonym">
                             <span class="field-validation-error" id="js-pseudonym-addUser-errmsg"></span>
                         </div>
+                        <div class="form-group" id="js-categoryManage-form" style="display: none;">
+                            <label for="categorymanage">Category Manage</label>
+                            <select name="right" class="custom-select" id="js-categoryManage-addUser-select">
+                                <% categoryList.forEach(function(eachCategory){ %>
+
+                                <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
+                                <%}) %>
+                            </select>
+                            <span class="field-validation-error" id="js-right-addUser-errmsg"></span>
+                        </div>
                     </div>
                     <div class="changeAvatar__modal_footer pl-2 pr-2 pb-3 pt-0">
                         <div class="btn btn btn-success d-flex justify-content-center" id="btn_addUser_success">Save
@@ -120,7 +130,7 @@
                             </td>
                             <td>
                                 <script>
-                                        document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
+                                    document.writeln(moment(parseInt("<%= eachUser.expiredAt %>", 10)).format('LL'));
                                 </script>
                             </td>
                             <td>
@@ -175,6 +185,7 @@
                             <th scope="col" class="border-0">Fullname</th>
                             <th scope="col" class="border-0">Email</th>
                             <th scope="col" class="border-0">Birthday</th>
+                            <th scope="col" class="border-0"> Category </th>
                         </tr>
                     </thead>
                     <% var index = 1 %>
@@ -188,6 +199,18 @@
                                 <script>
                                     document.writeln(moment(parseInt("<%= eachUser.birthday %>", 10)).format('LL'));
                                 </script>
+                            </td>
+                            <td>
+                                <select name="right" class="custom-select w-100 js-category-management-select"
+                                    id="<%= eachUser._id %>">
+                                    <% categoryList.forEach(function(eachCategory){ %>
+                                    <!-- <% if(eachCategory._id===eachUser.categoriesManagement[0]){ %> -->
+                                    <!-- <option value="<%= eachCategory._id %>" selected><%= eachCategory.title %></option>
+                                    <% }else{ %> -->
+                                    <option value="<%= eachCategory._id %>"><%= eachCategory.title %></option>
+                                    <!-- <% } %> -->
+                                    <%})%>
+                                </select>
                             </td>
                         </tr>
                         <%})%>

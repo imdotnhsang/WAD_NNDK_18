@@ -113,8 +113,13 @@ $('#js-right-addUser-select').change(function () {
 
     if ($(this).val() === "writer") {
         $('#js-pseudonym-form').show();
-    } else {
+        $('#js-categoryManage-form').removeAttr("style").hide();
+    } else if($(this).val() === "editor"){
         $('#js-pseudonym-form').removeAttr("style").hide();
+        $('#js-categoryManage-form').show()
+    }else{
+        $('#js-pseudonym-form').removeAttr("style").hide();
+        $('#js-categoryManage-form').removeAttr("style").hide();    
     }
 
 });
