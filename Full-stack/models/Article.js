@@ -60,13 +60,15 @@ const ArticleSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    editorId: {
+    editor: {
         type: mongoose.Schema.Types.ObjectId,
-        required: false
+        required: true,
+        ref: 'User'
     },
-    administratorId: {
+    administrator: {
         type: mongoose.Schema.Types.ObjectId,
-        required: false
+        required: true,
+        ref: 'User'
     },
     createdAt: {
         type: Number,

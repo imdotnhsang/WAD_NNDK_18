@@ -89,7 +89,7 @@ router.get('/profile', function (req, res) {
             {
                 title: 'Profile',
                 layout: 'layouts/profile',
-                srcScript: '/javascripts/writer/profile.js',
+                srcScript: '/javascripts/editor/profile.js',
                 account
             }
         );
