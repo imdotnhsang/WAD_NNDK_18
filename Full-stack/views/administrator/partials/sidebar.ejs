@@ -28,6 +28,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <%- title === 'Posts Unapproved' ? 'active' : '' %>" href="posts-unapproved">
+                <i class="material-icons">table_chart</i>
+                <span>Unpproved</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <%- title === 'Posts Approved' ? 'active' : '' %>" href="posts-approved">
                 <i class="material-icons">flag</i>
                 <span>Approved</span>
@@ -39,6 +45,7 @@
                 <span>Published</span>
             </a>
         </li>
+       
         <li class="nav-item">
             <a class="nav-link <%- title === 'News' ? 'active' : '' %>" href="news">
                 <i class="material-icons">edit</i>

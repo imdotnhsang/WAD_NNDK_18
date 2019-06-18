@@ -60,7 +60,7 @@ router.get('/posts-approved', function (req, res) {
             .find({
                 process: 'published',
                 publishedAt: { $gt: Date.now() },
-                administrator: adminAccount._id
+                // administrator: adminAccount._id
             })
             .then(articleList => {
                 res.render(
@@ -94,6 +94,32 @@ router.get('/posts-published', function (req, res) {
                     {
                         title: 'Posts Published',
                         layout: 'layouts/postsPublished',
+                        srcScript: '',
+                        adminAccount,
+                        articleList
+                    }
+                );
+            })
+    } else {
+        res.redirect('/administrator/profile');
+    }
+});
+
+router.get('/posts-unapproved', function (req, res) {
+    const adminAccount = req.user;
+
+    if (adminAccount && adminAccount.userType === 'administrator') {
+        Article
+            .find({
+                process: 'draft',
+                reasonDenied: null
+            })
+            .then(articleList => {
+                res.render(
+                    'administrator',
+                    {
+                        title: 'Posts Unapproved',
+                        layout: 'layouts/postsUnapproved',
                         srcScript: '',
                         adminAccount,
                         articleList

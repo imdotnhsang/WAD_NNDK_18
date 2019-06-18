@@ -191,7 +191,6 @@ router.get('/waiting-for-approval', function (req, res, next) {
     if (writerAccount && writerAccount.userType === 'writer') {
         Article
             .find({
-                publishedAt: null,
                 process: 'draft',
                 reasonDenied: null,
                 writer: writerAccount._id
