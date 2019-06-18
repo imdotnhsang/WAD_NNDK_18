@@ -98,9 +98,12 @@ router.post('/register', (req, res) => {
                 OTP
             });
 
+            newUser.confirmed = true;
+
             switch (userType) {
                 case 'subscriber':
                     newUser.expiredAt = new Date().getTime() + 7 * 24 * 3600 * 1000;
+                    newUser.confirmed = false;
                     break;
                 case 'editor':
                     newUser.categoriesManagement = [];
@@ -127,9 +130,10 @@ router.post('/register', (req, res) => {
                 .save()
                 .then(userCreated => {
                     const payload = pickUser(userCreated, userCreated.userType);
-                    //console.log(payload);
-
-                    sendOTPCode(userCreated.email, userCreated.OTP.code, 'activation');
+                    
+                    if (!payload.confirmed) {
+                        sendOTPCode(userCreated.email, userCreated.OTP.code, 'activation');
+                    }
 
                     return res.json(payload);
                 })
