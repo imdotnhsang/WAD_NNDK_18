@@ -7,8 +7,6 @@ const { getTagList } = require('../../utils');
 
 router.get('/', (req, res) => {
     const account = req.user;
-    // console.log(account);
-
     if (account && account.userType === 'editor') {
         res.redirect('/editor/profile')
     } else {
@@ -69,15 +67,25 @@ router.get('/posts-approved', function (req, res, next) {
     const account = req.user;
 
     if (account && account.userType === 'editor') {
-        res.render(
-            'editor',
-            {
-                title: 'Posts Approved',
-                layout: 'layouts/postsApproved',
-                srcScript: '',
-                account
-            }
-        );
+        Article
+            .find({
+                process: 'published',
+                publishedAt: { $gt: Date.now() },
+                editor: account._id
+            })
+            .populate('categories tags')
+            .then(articleList => {
+                res.render(
+                    'editor',
+                    {
+                        title: 'Posts Approved',
+                        layout: 'layouts/postsApproved',
+                        srcScript: '',
+                        account,
+                        articleList
+                    }
+                );
+            })
     } else {
         res.redirect('/editor');
     }
@@ -87,32 +95,51 @@ router.get('/posts-denied', function (req, res, next) {
     const account = req.user;
 
     if (account && account.userType === 'editor') {
-        res.render(
-            'editor',
-            {
-                title: 'Posts Denied',
-                layout: 'layouts/postsDenied',
-                srcScript: '',
-                account
-            }
-        );
+        Article
+            .find({
+                process: 'draft',
+                reasonDenied: { $ne: null },
+                editor: account._id
+            })
+            .populate('categories tags')
+            .then(articleList => {
+                res.render(
+                    'editor',
+                    {
+                        title: 'Posts Denied',
+                        layout: 'layouts/postsDenied',
+                        srcScript: '',
+                        account,
+                        articleList
+                    }
+                );
+            })
     } else {
         res.redirect('/editor');
     }
-
 });
 router.get('/posts-published', function (req, res, next) {
     const account = req.user;
     if (account && account.userType === 'editor') {
-        res.render(
-            'editor',
-            {
-                title: 'Posts Published',
-                layout: 'layouts/postsPublished',
-                srcScript: '',
-                account
-            }
-        );
+        Article
+            .find({
+                process: 'published',
+                publishedAt: { $lte: Date.now() },
+                editor: account._id
+            })
+            .populate('categories tags')
+            .then(articleList => {
+                res.render(
+                    'editor',
+                    {
+                        title: 'Posts Published',
+                        layout: 'layouts/postsPublished',
+                        srcScript: '',
+                        account,
+                        articleList
+                    }
+                );
+            })
     } else {
         res.redirect('/editor');
     }
@@ -121,15 +148,32 @@ router.get('/posts-published', function (req, res, next) {
 router.get('/posts-unapproved', function (req, res, next) {
     const account = req.user;
     if (account && account.userType === 'editor') {
-        res.render(
-            'editor',
-            {
-                title: 'Posts Unapproved',
-                layout: 'layouts/postsUnapproved',
-                srcScript: '',
-                account
-            }
-        );
+        Article
+            .find({
+                process: 'draft',
+                reasonDenied: null,
+                // categoriesManagement
+            })
+            .populate('categories tags')
+            .select('title abstract coverImage createdAt categories tags slug')
+            .sort({ createdAt: 'desc' })
+            .then(articleList => {
+                res.render(
+                    'editor',
+                    {
+                        title: 'Posts Unapproved',
+                        layout: 'layouts/postsUnapproved',
+                        srcScript: '',
+                        account,
+                        articleList
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/editor/profile');
+            })
+
     } else {
         res.redirect('/editor');
     }

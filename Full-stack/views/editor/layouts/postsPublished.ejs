@@ -1,32 +1,25 @@
+<% articleList.forEach((article, index) => { %>
 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
     <div class="card card-small card-post card-post--1">
-        <div class="card-post__image" style="background-image: url('/images/writer/1.jpeg');">
-            <a href="#" class="card-post__category badge badge-pill badge-dark">Business</a>
-
+        <div class="card-post__image" style="background-image: url('<%= article.coverImage %>');">
+            <%
+                        var badgesClass = ["badge-dark", "badge-info", "badge-primary", "badge-warning"]
+                        %><a href=""
+                class="card-post__category badge badge-pill <%= badgesClass[index % 4] %>"><%= article.categories[article.categories.length - 1].title %></a><%
+                      %>
         </div>
+
         <div class="card-body">
             <h5 class="card-title">
-                <a class="text-fiord-blue" href="#">Conduct at an replied removal an amongst</a>
+                <a class="text-fiord-blue" href="/article/<%= article.slug %>"><%= article.title %></a>
             </h5>
-            <p class="card-text d-inline-block mb-3">However venture pursuit he am mr cordial. Forming musical am
-                hearing studied be luckily. But in for determine what would see...</p>
-            <span class="text-muted">28 February 2019</span>
+            <p class="card-text mb-3"><%= article.abstract %></p>
+            <span class="text-muted">
+                <script>
+                    document.writeln(moment(parseInt("<%= article.publishedAt %>", 10)).format('LLLL'))
+                </script>
+            </span>
         </div>
     </div>
 </div>
-<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-    <div class="card card-small card-post card-post--1">
-        <div class="card-post__image" style="background-image: url('/images/writer/2.jpeg');">
-            <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
-
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">
-                <a class="text-fiord-blue" href="#">Off tears are day blind smile alone had ready</a>
-            </h5>
-            <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had
-                woody downs power. To denoting admitted speaking learning my...</p>
-            <span class="text-muted">29 February 2019</span>
-        </div>
-    </div>
-</div>
+<% }) %>
