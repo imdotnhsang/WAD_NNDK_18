@@ -208,7 +208,8 @@ router.get('/users', function (req, res) {
                         layout: 'layouts/users',
                         srcScript: '/javascripts/administrator/users.js',
                         adminAccount,
-                        userList
+                        userList,
+                        right
                     }
                 );
             })

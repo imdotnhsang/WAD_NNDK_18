@@ -11,10 +11,19 @@
                     </button>
                     <div class="input-group border-bottom w-50 ml-auto">
                         <select class="custom-select" id="js-user-type-select">
-                                <option value="alluser">All Rights</option>
-                            <option value="subscriber">Subscriber</option>
+                            <% if (right==="subscriber"){ %>
+                            <option value="subscriber" selected>Subscriber</option>
                             <option value="writer">Writer</option>
                             <option value="editor">Editor</option>
+                            <% } else if(right==="writer"){ %>
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer" selected>Writer</option>
+                            <option value="editor">Editor</option>
+                            <% } else{ %>
+                            <option value="subscriber">Subscriber</option>
+                            <option value="writer">Writer</option>
+                            <option value="editor" selected>Editor</option>
+                            <% } %>
                         </select>
                     </div>
                 </div>
@@ -95,6 +104,7 @@
             </div>
 
             <div class="card-body p-0 pb-0 text-center">
+                <% if (right==="subscriber"){ %>
                 <table class="table mb-0" id="js-subscriber-table">
                     <thead class="bg-light">
                         <tr>
@@ -102,55 +112,31 @@
                             <th scope="col" class="border-0">Fullname</th>
                             <th scope="col" class="border-0">Email</th>
                             <th scope="col" class="border-0">Birthday</th>
-                            <th scope="col" class="border-0">Registration Date</th>
                             <th scope="col" class="border-0">Expiration date</th>
                             <th scope="col" class="border-0">Action</th>
                         </tr>
                     </thead>
+                    <% var index = 1 %>
                     <tbody>
+                        <% userList.forEach(function(eachUser){ %>
                         <tr>
-                            <td>1</td>
-                            <td>Subscriber 1</td>
-                            <td>subscriber1@gmail.com</td>
-                            <td>01/01/1998</td>
-                            <td>01/04/2019</td>
-                            <td>22/04/2019</td>
+                            <td><%= index++ %></td>
+                            <td><%= eachUser.fullname %></td>
+                            <td><%= eachUser.email %></td>
+                            <td class="date_bod"><%= eachUser.birthday %></td>
+                            <td class="date_expired"><%= eachUser.expiredAt %></td>
                             <td>
                                 <button class="btn btn-md btn-accent ml-auto">
                                     <i class="material-icons">file_copy</i> Renew
                                 </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Subscriber 2</td>
-                            <td>subscriber2@gmail.com</td>
-                            <td>01/01/1998</td>
-                            <td>01/04/2019</td>
-                            <td>22/04/2019</td>
-                            <td>
-                                <button class="btn btn-md btn-accent ml-auto">
-                                    <i class="material-icons">file_copy</i> Renew
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Subscriber 3</td>
-                            <td>subscriber3@gmail.com</td>
-                            <td>01/01/1998</td>
-                            <td>01/04/2019</td>
-                            <td>22/04/2019</td>
-                            <td>
-                                <button class="btn btn-md btn-accent ml-auto">
-                                    <i class="material-icons">file_copy</i> Renew
-                                </button>
-                            </td>
-                        </tr>
+
+                        <%})%>
                     </tbody>
                 </table>
-
-                <table class="table mb-0" id="js-writer-table" style="display: none;">
+                <% } else if(right==="writer"){ %>
+                <table class="table mb-0" id="js-writer-table">
                     <thead class="bg-light">
                         <tr>
                             <th scope="col" class="border-0">#</th>
@@ -161,47 +147,26 @@
                             <th scope="col" class="border-0">Action</th>
                         </tr>
                     </thead>
+                    <% var index = 1 %>
                     <tbody>
+                        <% userList.forEach(function(eachUser){ %>
                         <tr>
-                            <td>1</td>
-                            <td>Writer 1</td>
-                            <td>writer1@gmail.com</td>
-                            <td>Pseudonym 1</td>
-                            <td>01/01/1998</td>
+                            <td><%= index++ %></td>
+                            <td><%= eachUser.fullname %></td>
+                            <td><%= eachUser.email %></td>
+                            <td><%= eachUser.pseudonym %></td>
+                            <td class="date_bod"><%= eachUser.birthday %></td>
                             <td>
                                 <button class="btn btn-md btn-accent ml-auto">
                                     <i class="material-icons">file_copy</i> Renew
                                 </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Writer 2</td>
-                            <td>writer2@gmail.com</td>
-                            <td>Pseudonym 2</td>
-                            <td>01/01/1998</td>
-                            <td>
-                                <button class="btn btn-md btn-accent ml-auto">
-                                    <i class="material-icons">file_copy</i> Renew
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Writer 3</td>
-                            <td>writer3@gmail.com</td>
-                            <td>Pseudonym 3</td>
-                            <td>01/01/1998</td>
-                            <td>
-                                <button class="btn btn-md btn-accent ml-auto">
-                                    <i class="material-icons">file_copy</i> Renew
-                                </button>
-                            </td>
-                        </tr>
+                        <%})%>
                     </tbody>
                 </table>
-
-                <table class="table mb-0" id="js-editor-table" style="display: none;">
+                <% } else{ %>
+                <table class="table mb-0" id="js-editor-table">
                     <thead class="bg-light">
                         <tr>
                             <th scope="col" class="border-0">#</th>
@@ -210,27 +175,19 @@
                             <th scope="col" class="border-0">Birthday</th>
                         </tr>
                     </thead>
+                    <% var index = 1 %>
                     <tbody>
+                        <% userList.forEach(function(eachUser){ %>
                         <tr>
-                            <td>1</td>
-                            <td>Editor 1</td>
-                            <td>editor1@gmail.com</td>
-                            <td>01/01/1998</td>
+                            <td><%= index++ %></td>
+                            <td><%= eachUser.fullname %></td>
+                            <td><%= eachUser.email %></td>
+                            <td class="date_bod"><%= eachUser.birthday %></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Editor 2</td>
-                            <td>editor2@gmail.com</td>
-                            <td>01/01/1998</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Editor 3</td>
-                            <td>editor3@gmail.com</td>
-                            <td>01/01/1998</td>
-                        </tr>
+                        <%})%>
                     </tbody>
                 </table>
+                <% } %>
             </div>
 
             <div class="border-top">

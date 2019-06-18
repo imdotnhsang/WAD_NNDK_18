@@ -90,16 +90,20 @@ $('#js-user-type-select').change(function () {
             $('#js-writer-table').removeAttr("style").hide();
             $('#js-editor-table').removeAttr("style").hide();
             $('#js-subscriber-table').show();
+            window.location="/administrator/users?right=subscriber"
+        
             break;
         case "writer":
             $('#js-subscriber-table').removeAttr("style").hide();
             $('#js-editor-table').removeAttr("style").hide();
             $('#js-writer-table').show();
+            window.location="/administrator/users?right=writer"
             break;
         case "editor":
             $('#js-subscriber-table').removeAttr("style").hide();
             $('#js-writer-table').removeAttr("style").hide();
             $('#js-editor-table').show();
+            window.location="/administrator/users?right=editor"
             break;
     }
 });
@@ -112,6 +116,7 @@ $('#js-right-addUser-select').change(function () {
     } else {
         $('#js-pseudonym-form').removeAttr("style").hide();
     }
+
 });
 
 $('#js-add-user').click(function () {
@@ -220,3 +225,16 @@ $("#btn_addUser_success").click(function (e) {
 // $(document).ready(function () {
 //     $("#js-birthday-input").datepicker({});
 // });
+function formatDateTypeAbstract(msDate) {
+    var temp = new Date(Number(msDate));
+    return ((temp.getMonth() + 1) + '/' + temp.getDate() + '/' + (temp.getFullYear()));
+
+}
+var formatDateBod = document.querySelectorAll('.date_bod');
+for (j = 0; j < formatDateBod.length; j++) {
+    formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
+};
+var formatDateBod = document.querySelectorAll('.date_expired');
+for (j = 0; j < formatDateBod.length; j++) {
+    formatDateBod[j].innerHTML = formatDateTypeAbstract(formatDateBod[j].innerHTML);
+};
