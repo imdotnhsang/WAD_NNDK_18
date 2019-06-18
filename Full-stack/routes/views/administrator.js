@@ -161,6 +161,33 @@ router.get('/posts-published', function (req, res) {
     }
 });
 
+router.get('/posts-denied', function (req, res, next) {
+    const adminAccount = req.user;
+
+    if (adminAccount && adminAccount.userType === 'administrator') {
+        Article
+            .find({
+                process: 'draft',
+                reasonDenied: { $ne: null },
+            })
+            .populate('categories tags')
+            .then(articleList => {
+                res.render(
+                    'administrator',
+                    {
+                        title: 'Posts Denied',
+                        layout: 'layouts/postsDenied',
+                        srcScript: '/javascripts/administrator/postsDenied.js',
+                        adminAccount,
+                        articleList
+                    }
+                );
+            })
+    } else {
+        res.redirect('/editor');
+    }
+});
+
 router.get('/posts-unapproved', function (req, res) {
     const adminAccount = req.user;
 

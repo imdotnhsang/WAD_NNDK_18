@@ -118,6 +118,7 @@ router.get('/posts-denied', function (req, res, next) {
         res.redirect('/editor');
     }
 });
+
 router.get('/posts-published', function (req, res, next) {
     const account = req.user;
     if (account && account.userType === 'editor') {
