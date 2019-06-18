@@ -126,12 +126,14 @@ router.post('/update', (req, res) => {
 
     const payload = _.pick(req.body, ['publishedAt', 'title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id', 'reasonDenied', 'process'])
     
-    title = _.trim(title);
-    let slug = createSlug(title);
-
-    if (_.isEmpty(title) || _.isEmpty(slug)) {
-        errors.title = 'Title article does not exist.'
-        return res.status(400).json(errors);
+    if (payload.title) {
+        title = _.trim(title);
+        let slug = createSlug(title);
+    
+        if (_.isEmpty(title) || _.isEmpty(slug)) {
+            errors.title = 'Title article does not exist.'
+            return res.status(400).json(errors);
+        }
     }
 
     if (payload.process === "published") {

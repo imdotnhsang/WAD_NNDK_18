@@ -34,21 +34,26 @@ router.get('/profile', function (req, res) {
     }
 });
 
-router.get('/news', function (req, res) {
+router.get('/posts-deleted', function (req, res) {
     const adminAccount = req.user;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
-        res.render(
-            'administrator',
-            {
-                title: 'News',
-                layout: 'layouts/news',
-                srcScript: '/javascripts/administrator/news.js',
-                adminAccount
-            }
-        );
+        Article
+            .find({ process: 'deleted' })
+            .then(articleList => {
+                res.render(
+                    'administrator',
+                    {
+                        title: 'Posts Deleted',
+                        layout: 'layouts/postsDeleted',
+                        srcScript: '',
+                        adminAccount,
+                        articleList
+                    }
+                );
+        })
     } else {
-        res.redirect('/administrator');
+        res.redirect('/administrator/profile');
     }
 });
 
