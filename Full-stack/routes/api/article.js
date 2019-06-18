@@ -124,7 +124,7 @@ router.post('/update', (req, res) => {
         return res.status(400).json(errors)
     }
 
-    const payload = _.pick(req.body, ['title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id', 'reasonDenied'])
+    const payload = _.pick(req.body, ['publishedAt', 'title', 'tagListOld', 'tagListNew', 'categories', 'coverImage', 'content', 'abstract', 'id', 'reasonDenied', 'process'])
     
     title = _.trim(title);
     let slug = createSlug(title);
@@ -132,6 +132,16 @@ router.post('/update', (req, res) => {
     if (_.isEmpty(title) || _.isEmpty(slug)) {
         errors.title = 'Title article does not exist.'
         return res.status(400).json(errors);
+    }
+
+    if (payload.process === "published") {
+        if (account.userType === 'writer') {
+            errors.account = 'Authorization fail.';
+            return res.status(400).json(errors)
+        } else if (_.isNaN(payload.publishedAt)) {
+            errors.publishedAt = 'Invalid date time publish.';
+            return res.status(400).json(errors)
+        }
     }
 
     let tagDocs = [];
@@ -160,27 +170,27 @@ router.post('/update', (req, res) => {
         })
 });
 
-router.post('/publish', (req, res) => {
-    const errors = {};
-    let account = req.user;
+// router.post('/publish', (req, res) => {
+//     const errors = {};
+//     let account = req.user;
 
-    if (!account || account.userType === 'subscriber' || account.userType === 'writer'){
-        errors.account = 'Authorization fail.';
-        return res.status(400).json(errors)
-    }
+//     if (!account || account.userType === 'subscriber' || account.userType === 'writer'){
+//         errors.account = 'Authorization fail.';
+//         return res.status(400).json(errors)
+//     }
 
-    const { id, publishedAt } = req.body;
+//     const { id, publishedAt } = req.body;
 
-    if(_.isNaN(publishedAt)) {
-        errors.publishedAt = 'Invalid date time publish.';
-        return res.status(400).json(errors)
-    }
+//     if(_.isNaN(publishedAt)) {
+//         errors.publishedAt = 'Invalid date time publish.';
+//         return res.status(400).json(errors)
+//     }
 
-    Article
-        .findByIdAndUpdate(id, { process: 'published', publishedAt })
-        .then(result => res.json(result))
-        .catch(err => res.status(400).json(err));
-});
+//     Article
+//         .findByIdAndUpdate(id, { process: 'published', publishedAt })
+//         .then(result => res.json(result))
+//         .catch(err => res.status(400).json(err));
+// });
 
 router.post('/delete', (req, res) => {
     const errors = {};
