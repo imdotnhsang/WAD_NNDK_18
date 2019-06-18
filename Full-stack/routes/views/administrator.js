@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require('mongoose');
+
+const User = mongoose.model('User'); 
 
 router.get('/', (req, res) => {
     const account = req.user;
@@ -86,17 +89,48 @@ router.get('/tags', function (req, res) {
 
 router.get('/users', function (req, res) {
     const adminAccount = req.user;
+    const { right } = req.query;
 
     if (adminAccount && adminAccount.userType === 'administrator') {
-        res.render(
-            'administrator',
-            {
-                title: 'Users',
-                layout: 'layouts/users',
-                srcScript: '/javascripts/administrator/users.js',
-                adminAccount
-            }
-        );
+        const userListCondition = { isActive: true, confirmed: true };
+        let selectFields = '';
+
+        switch (right) {
+            case "subscriber":
+                userListCondition.userType = "subscriber";
+                selectFields = 'username fullname email userType expiredAt gender birthday';
+
+                break;
+            case "writer":
+                userListCondition.userType = "writer";
+                selectFields = 'username fullname email userType pseudonym expiredAt gender birthday';
+                break;
+            case "editor":
+                userListCondition.userType = "editor";
+                selectFields = 'username fullname categoriesManagement email userType expiredAt gender birthday';
+
+                break;
+            default:            
+                return res.redirect('/administrator/users?right=subscriber');
+        }
+
+        User
+            .find(userListCondition)
+            .select(selectFields)
+            .then(userList => {
+                console.log(userList);
+
+                res.render(
+                    'administrator',
+                    {
+                        title: 'Users',
+                        layout: 'layouts/users',
+                        srcScript: '/javascripts/administrator/users.js',
+                        adminAccount,
+                        userList
+                    }
+                );
+            })
     } else {
         res.redirect('/administrator');
     }
