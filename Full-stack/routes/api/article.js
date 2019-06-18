@@ -181,4 +181,22 @@ router.post('/publish', (req, res) => {
         .then(result => res.json(result))
         .catch(err => res.status(400).json(err));
 });
+
+router.post('/delete', (req, res) => {
+    const errors = {};
+    let account = req.user;
+
+    if (!account || account.userType !== 'administrator'){
+        errors.account = 'Authorization fail.';
+        return res.status(400).json(errors)
+    }
+
+    const { id } = req.body;
+
+    Article
+        .findByIdAndUpdate(id, { process: 'deleted' })
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json(err));
+});
+
 module.exports = router;
