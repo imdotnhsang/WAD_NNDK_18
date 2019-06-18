@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 
 const User = mongoose.model('User'); 
+const Article = mongoose.model('Article'); 
 
 router.get('/', (req, res) => {
     const account = req.user;
@@ -48,6 +49,59 @@ router.get('/news', function (req, res) {
         );
     } else {
         res.redirect('/administrator');
+    }
+});
+
+router.get('/posts-approved', function (req, res) {
+    const adminAccount = req.user;
+
+    if (adminAccount && adminAccount.userType === 'administrator') {
+        Article
+            .find({
+                process: 'published',
+                publishedAt: { $gt: Date.now() },
+                administrator: adminAccount._id
+            })
+            .then(articleList => {
+                res.render(
+                    'administrator',
+                    {
+                        title: 'Posts Approved',
+                        layout: 'layouts/postsApproved',
+                        srcScript: '',
+                        adminAccount,
+                        articleList
+                    }
+                );
+            })
+    } else {
+        res.redirect('/administrator/profile');
+    }
+});
+
+router.get('/posts-published', function (req, res) {
+    const adminAccount = req.user;
+
+    if (adminAccount && adminAccount.userType === 'administrator') {
+        Article
+            .find({
+                process: 'published',
+                publishedAt: { $lte: Date.now() }
+            })
+            .then(articleList => {
+                res.render(
+                    'administrator',
+                    {
+                        title: 'Posts Published',
+                        layout: 'layouts/postsPublished',
+                        srcScript: '',
+                        adminAccount,
+                        articleList
+                    }
+                );
+            })
+    } else {
+        res.redirect('/administrator/profile');
     }
 });
 

@@ -62,12 +62,12 @@ const ArticleSchema = mongoose.Schema({
     },
     editor: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
         ref: 'User'
     },
     administrator: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
         ref: 'User'
     },
     createdAt: {

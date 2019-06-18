@@ -90,7 +90,7 @@ router.get('/posts-approved', function (req, res, next) {
         Article
             .find({
                 publishedAt: { $gt: Date.now() },
-                process: 'draft',
+                process: 'published',
                 reasonDenied: null,
                 writer: writerAccount._id
             })
