@@ -74,6 +74,17 @@ $('#signin__btn').click(function (e) {
     }
 });
 
+// const verifyRecaptcha = (url, data) => {
+//     return fetch(url, {
+//         method: 'POST',
+//         mode: 'cors', 
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: data, 
+//     })
+// }
+
 $('#signup__btn').click(function (e) {
     e.preventDefault();
     let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '', recaptcha: '' };
@@ -84,11 +95,12 @@ $('#signup__btn').click(function (e) {
         email = $('#signup__email').val().trim(),
         fullname = $('#signup__fullname').val().trim(),
         recaptcha = $('#g-recaptcha-response').val();
-    console.log(recaptcha);
 
     const secret = '6LcwGakUAAAAAOPfrjhsZkUJU4yoQM_30-lb4zg7';
 
-    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`; // site that doesn’t send Access-Control-*
+    //const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptcha}`; // site that doesn’t send Access-Control-*
+    // const url = "https://www.google.com/recaptcha/api/siteverify";
+    // const recaptchaPayload =  { secret, response: recaptcha };
 
     if (fullname.length < 6 && fullname.length <= 23) {
         errors.fullname = 'Fullname must be between 6 and 23 characters long.'
@@ -122,59 +134,85 @@ $('#signup__btn').click(function (e) {
         )
     };
 
-
-
     const isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword || errors.recaptcha;
     if (isInvalid) {
         updateSignUpErrors(errors);
     } else {
-        $.ajax({
-            url: url,
-            type: "POST",
-            headers: {
-                "accept": "application/json",
-                "content-type": "application/x-www-form-urlencoded",
-                "Access-Control-Allow-Origin": "*",
-                "mode": "no-cors"
-            },
+        // $.ajax({
+        //     url: url,
+        //     type: "GET",
+        //     headers: {
+        //         "accept": "application/json",
+        //         "content-type": "application/x-www-form-urlencoded",
+        //         "Access-Control-Allow-Origin": "*",
+        //         "mode": "no-cors"
+        //     },
 
-            success: function (data) {
-                console.log(data.success);
-                if (data.success === true) {
-                    const payload = { fullname, username, email, password, userType: 'subscriber' };
+        //     success: function (data) {
+        //         console.log(data.success);
+        //         if (data.success === true) {
+        //             const payload = { fullname, username, email, password, userType: 'subscriber' };
 
-                    postData(`/api/user/register`, payload)
-                        .then(res => {
-                            clearSignUpErrors();
+        //             postData(`/api/user/register`, payload)
+        //                 .then(res => {
+        //                     clearSignUpErrors();
 
-                            if (res.status === 200) {
-                                $('.activation').css('display', 'block')
-                                emailActivation = $('#signup__email').val();
-                                $('.codeActivation').fadeIn(500);
-                                $('.sign-up_sign-in').css('display', 'none');
-                                $('#emailActivation__text').text(emailActivation);
-                                $('#title-page-sign').text('activation');
-                            }
-                            else if (res.status === 500) {
-                                showAuthErrorsModal('Server Error. Please try again!');
-                            } else {
-                                res.json()
-                                    .then(err => {
-                                        let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
-                                        updateSignUpErrors({ ...errors, ...err });
-                                    });
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                            showAuthErrorsModal($(this), 'Register has failed.');
-                        });
-                }else{
-                    showAuthErrorsModal($(this), 'Captcha has failed.');
+        //                     if (res.status === 200) {
+        //                         $('.activation').css('display', 'block')
+        //                         emailActivation = $('#signup__email').val();
+        //                         $('.codeActivation').fadeIn(500);
+        //                         $('.sign-up_sign-in').css('display', 'none');
+        //                         $('#emailActivation__text').text(emailActivation);
+        //                         $('#title-page-sign').text('activation');
+        //                     }
+        //                     else if (res.status === 500) {
+        //                         showAuthErrorsModal('Server Error. Please try again!');
+        //                     } else {
+        //                         res.json()
+        //                             .then(err => {
+        //                                 let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+        //                                 updateSignUpErrors({ ...errors, ...err });
+        //                             });
+        //                     }
+        //                 })
+        //                 .catch(err => {
+        //                     console.log(err);
+        //                     showAuthErrorsModal($(this), 'Register has failed.');
+        //                 });
+        //         }else{
+        //             showAuthErrorsModal($(this), 'Captcha has failed.');
+        //         }
+        //});
+
+
+        const payload = { fullname, username, email, password, userType: 'subscriber' };
+
+        postData(`/api/user/register`, payload)
+            .then(res => {
+                clearSignUpErrors();
+
+                if (res.status === 200) {
+                    $('.activation').css('display', 'block')
+                    emailActivation = $('#signup__email').val();
+                    $('.codeActivation').fadeIn(500);
+                    $('.sign-up_sign-in').css('display', 'none');
+                    $('#emailActivation__text').text(emailActivation);
+                    $('#title-page-sign').text('activation');
                 }
-            }
-        });
-
+                else if (res.status === 500) {
+                    showAuthErrorsModal('Server Error. Please try again!');
+                } else {
+                    res.json()
+                        .then(err => {
+                            let errors = { fullname: '', username: '', email: '', password: '', retypePassword: '' };
+                            updateSignUpErrors({ ...errors, ...err });
+                        });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                showAuthErrorsModal($(this), 'Register has failed.');
+            });
     }
 });
 
