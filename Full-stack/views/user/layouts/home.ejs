@@ -106,6 +106,7 @@
                     <div class="top-12-categories-news pr-md-4 pr-lg-0">
                         <div class="list-top-12-categories-news pr-sm-2 pr-2 pr-lg-0 row">
                             <% twelveArticlesCategory.forEach(function(eachArticleCategory){ %>
+                             <% if(eachArticleCategory.category && eachArticleCategory.article) { %>
                             <div class="categories-news pb-2 pt-2 pr-2 pl-3 col-6 col-sm-4 ">
                                 <div class="title-categories pb-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
                                         class="text-uppercase "
@@ -126,6 +127,8 @@
                                     </span>
                                 </div>
                             </div>
+                            <% } %>
+
                             <% }) %>
                         </div>
                     </div>
