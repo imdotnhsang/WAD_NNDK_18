@@ -19,7 +19,7 @@
                 <div class="description-hot-news background-hot-news">
                     <a href="/article/<%= eachArticleNewest.slug %>" class="title-hot-news m-0 font-weight-bold"><%= eachArticleNewest.title %></a>
                     <span class="author m-0 pt-2 row">
-                        <a class="text-uppercase" href="/category/<%=  eachArticleNewest.categories[eachArticleNewest.categories.length - 1].slu %>/1">
+                        <a class="text-uppercase" href="/category/<%= eachArticleNewest.categories[eachArticleNewest.categories.length - 1].slug %>/1">
                             <%= eachArticleNewest.categories[eachArticleNewest.categories.length - 1].title %>
                         </a>
                         &nbsp;&nbsp;
