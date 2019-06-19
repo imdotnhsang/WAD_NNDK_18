@@ -442,7 +442,7 @@ router.post('/renew-premium', (req, res) => {
                 .then(userUpdated => {
                     const payload = pickUser(userUpdated, userUpdated.userType);
 
-                    if (req.user && req.user.userType === 'administrator') {
+                    if (req.user && req.user.userType !== 'administrator') {
                         req.session.passport.user = payload;
                     }
 
