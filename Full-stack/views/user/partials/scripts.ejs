@@ -11,36 +11,39 @@
 <script src="<%= srcScript %>"></script>
 
 <script>
-    $('#date-posted-main').html(formatDateTypeFull($('#date-posted-main').html()));
+    $('#date-posted-main').html(moment(parseInt($('#date-posted-main').html(), 10)).format('LL'));
 
     var formatDateArticlesMini = document.querySelectorAll('#date-posted');
     for (j = 0; j < formatDateArticlesMini.length; j++) {
-        formatDateArticlesMini[j].innerHTML = formatDateTypeAbstract(formatDateArticlesMini[j].innerHTML);
+        formatDateArticlesMini[j].innerHTML =  moment(parseInt(formatDateArticlesMini[j].innerHTML, 10)).format('LL');
     };
+
     var formatDateComments = document.querySelectorAll('#date-commented');
     for (i = 0; i < formatDateComments.length; i++) {
-        formatDateComments[i].innerHTML = formatDateTypeFull(formatDateComments[i].innerHTML);
+        formatDateComments[i].innerHTML = moment(parseInt(formatDateComments[i].innerHTML, 10)).format('LL');
     };
+
 </script>
 
 <% if(account){ %>
 <script>
-    $('#bod_acccount').html(formatDateTypeBOD($('#bod_acccount').html()));
-    $('#expiry-date').html(formatDateTypeBOD($('#expiry-date').html()));
+    $('#bod_acccount').html(moment(parseInt($('#bod_acccount').html(), 10)).format('LL'));
+   
+    $('#expiry-date').html(moment(parseInt($('#expiry-date').html(), 10)).format('LL'));
     document.getElementById('updateInf__bod').value = formatDateTypeBOD(document.getElementById('updateInf__bod').value);
 </script>
 <% if(account.expiredAd > Date.now()){ %>
 <script>
     $(document).ready(function () {
-        $("#updateInf__bod").datepicker({});
-    });
-
-
-    var oldFname = document.getElementById('updateInf__fullname').value;
-    var oldGend = document.getElementById('updateInf__gender').value;
-    var oldBod = document.getElementById('updateInf__bod').value;
+            $("#updateInf__bod").datepicker({});
+        });
+    
+    
+        var oldFname = document.getElementById('updateInf__fullname').value;
+        var oldGend = document.getElementById('updateInf__gender').value;
+        var oldBod = document.getElementById('updateInf__bod').value;
     $('#updateInf__btnCancel').click(function (e) {
-        document.getElementById('updateInf__fullname').value = oldFname;
+            document.getElementById('updateInf__fullname').value = oldFname;
         document.getElementById('updateInf__gender').value = oldGend;
         document.getElementById('updateInf__bod').value = oldBod;
         document.getElementById('updateInf__email').value = document.getElementById('updateInf__email').value;

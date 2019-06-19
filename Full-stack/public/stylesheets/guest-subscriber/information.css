@@ -103,7 +103,7 @@
     border-radius: 50%;
 }
 
-.container-information .status-account .content-stt-account p {
+.container-information .status-account .content-stt-account {
     font-size: 14px;
     border-top: 1px solid #efeff0;
     border-bottom: 1px solid #efeff0;
