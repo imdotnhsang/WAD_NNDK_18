@@ -143,6 +143,7 @@ $("#btn_addUser_success").click(function (e) {
     const pseudonym = $('#js-pseudonym-addUser-input').val()
     const typeUser = $('#js-right-addUser-select').find(":selected").val();
     const categoryManage = $('#js-categoryManage-addUser-select').find(":selected").val();
+
     console.log(email, fullname, username, password, retypePassword, pseudonym, typeUser, categoryManage);
 
     if (fullname.length < 6 && fullname.length <= 23) {
@@ -183,9 +184,7 @@ $("#btn_addUser_success").click(function (e) {
         )
     };
     const isInvalid=errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword || errors.typeUser;
-    if (typeUser === "writer") {
-        isInvalid = errors.fullname || errors.username || errors.email || errors.password || errors.retypePassword || errors.typeUser || errors.pseudonym;
-    }
+
     if (isInvalid) {
         addUserErrors(errors);
     } else {
